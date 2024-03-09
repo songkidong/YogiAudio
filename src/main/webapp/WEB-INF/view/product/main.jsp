@@ -20,16 +20,15 @@
 			<!-- container -->
 			<div class="container">
 				<!-- responsive-nav -->
-				<div id="responsive-nav">
+				<div id="responsive-nav" style="display: flex; justify-content: center;">
 					<!-- NAV -->
-					<ul class="main-nav nav navbar-nav">
-						<li class="active"><a href="#">Home</a></li>
-						<li><a href="#">Hot Deals</a></li>
-						<li><a href="#">Categories</a></li>
-						<li><a href="#">Laptops</a></li>
-						<li><a href="#">Smartphones</a></li>
-						<li><a href="#">Cameras</a></li>
-						<li><a href="#">Accessories</a></li>
+					<ul class="main-nav nav navbar-nav" style="display: flex; justify-content: center;">
+						<li><a href="#">국내</a></li>
+						<li><a href="#">국외</a></li>
+						<li><a href="#">최신음악</a></li>
+						<li><a href="#">인기음악</a></li>
+						<li><a href="#">뮤비</a></li>
+						<li><a href="#">게시판</a></li>
 					</ul>
 					<!-- /NAV -->
 				</div>
@@ -495,7 +494,7 @@
 				<div class="row">
 					<div class="col-md-4 col-xs-6">
 						<div class="section-title">
-							<h4 class="title">Top selling</h4>
+							<h4 class="title">국내인기순위</h4>
 							<div class="section-nav">
 								<div id="slick-nav-3" class="products-slick-nav"></div>
 							</div>
@@ -588,7 +587,7 @@
 
 					<div class="col-md-4 col-xs-6">
 						<div class="section-title">
-							<h4 class="title">Top selling</h4>
+							<h4 class="title">국외인기순위</h4>
 							<div class="section-nav">
 								<div id="slick-nav-4" class="products-slick-nav"></div>
 							</div>
@@ -683,7 +682,7 @@
 
 					<div class="col-md-4 col-xs-6">
 						<div class="section-title">
-							<h4 class="title">Top selling</h4>
+							<h4 class="title">종합인기순위</h4>
 							<div class="section-nav">
 								<div id="slick-nav-5" class="products-slick-nav"></div>
 							</div>
@@ -783,6 +782,7 @@
 
 		
 	
+	
 	<script>
 	$(document).ready(function(){
 	    var currentIndex = 0,
@@ -800,6 +800,8 @@
 	    }, 3000); // Change image every 3 seconds
 	});
 	</script>
+	
+	
 	
 	<script>
 	    function playAudio() {
