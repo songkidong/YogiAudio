@@ -4,6 +4,16 @@
 <%@include file="/WEB-INF/view/layout/header.jsp" %>    
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <jsp:include page="popup.jsp"/>
+
+
+<style>
+.banner-image {
+	transition: opacity 1s ease-in-out;
+
+}
+
+</style>
+
     
 	<!-- NAVIGATION -->
 		<nav id="navigation">
@@ -283,9 +293,10 @@
 
 		<!-- HOT DEAL SECTION -->
 		<div id="banner-section">
-			 <div class="row" style="display: flex; justify-content: center; align-items: center;">
-				<img src="/main/banner/banner1.png" style="width:1150px; height: 300px;">
-			 </div>	
+		    <div class="row" style="display: flex; justify-content: center; align-items: center; position: relative; height: 300px; overflow: hidden;">
+		        <img src="/main/banner/banner1.png" class="banner-image" style="width:1150px; height: 300px; opacity: 1; position: absolute; left: 50%; top: 0; transform: translateX(-50%);">
+        		<img src="/main/banner/banner2.png" class="banner-image" style="width:1150px; height: 300px; opacity: 0; position: absolute; left: 50%; top: 0; transform: translateX(-50%);">
+			</div>    
 		</div>
 		<!-- /HOT DEAL SECTION -->
 
@@ -771,13 +782,30 @@
 		<!-- /SECTION -->
 
 		
-
-
+	
 	<script>
-	        function playAudio() {
-	            var audio = document.getElementById("audioPlayer");
-	            audio.play();
-	        }
+	$(document).ready(function(){
+	    var currentIndex = 0,
+	        images = $('.banner-image');
+
+	    setInterval(function() {
+	        var currentImage = images.eq(currentIndex);
+	        var nextIndex = (currentIndex + 1) % images.length;
+	        var nextImage = images.eq(nextIndex);
+
+	        currentImage.animate({opacity: 0}, 1000);
+	        nextImage.css('opacity', 0).css('display', 'block').animate({opacity: 1}, 1000);
+
+	        currentIndex = nextIndex;
+	    }, 3000); // Change image every 3 seconds
+	});
+	</script>
+	
+	<script>
+	    function playAudio() {
+	      var audio = document.getElementById("audioPlayer");
+	      audio.play();
+	      }
 	</script>		
 		
 		
