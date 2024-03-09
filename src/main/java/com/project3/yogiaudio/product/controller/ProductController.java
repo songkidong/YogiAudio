@@ -12,11 +12,15 @@ import lombok.extern.slf4j.Slf4j;
 public class ProductController {
 	
 	// http://localhost:80/product/main
-	
+	//메인페이지 호출하기
 	@GetMapping("/main")
 	public String productMainGET() {
 		log.debug("메인페이지호출테스트");
 		return"product/main";
 	}
+	
+	
+	
+	
 	
 }

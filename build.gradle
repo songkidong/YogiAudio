@@ -25,7 +25,7 @@ dependencies {
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
     implementation group: 'org.glassfish.web', name: 'jakarta.servlet.jsp.jstl', version: '2.0.0'
 	implementation group: 'javax.mail', name: 'mail', version: '1.4.7'
-	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.0'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
