@@ -74,22 +74,38 @@
 						</div>
 						<!-- /LOGO -->
 
-						<!-- SEARCH BAR -->
-						<div class="col-md-6" style="margin-left: 200px;">
-							<div class="header-search">
-								<form>
-									<select class="input-select">
-										<option value="0">All Categories</option>
-										<option value="1">Category 01</option>
-										<option value="1">Category 02</option>
-									</select>
-									<input class="input" placeholder="Search here">
-									<button class="search-btn">검색</button>
-								</form>
-							</div>
-						</div>
-						<!-- /SEARCH BAR -->
-
+					<div class="row" style="display: flex; align-items: center;">
+					    <!-- 검색 바 -->
+					    <div class="col-md-12">
+					        <div class="header-search">
+					            <form>
+					                <select class="input-select">
+					                    <option value="0">모든 카테고리</option>
+					                    <option value="1">카테고리 01</option>
+					                    <option value="1">카테고리 02</option>
+					                </select>
+					                <input class="input" placeholder="여기에 검색">
+					                <button class="search-btn">검색</button>
+					            </form>
+					        </div>
+					    </div>
+					    <!-- 로그인 -->
+					    <div class="col-md-6">
+					        <div class="login-container" style="display: flex; align-items: center; margin-top: 10px;">
+					        	<a href="#">
+					              <p>로그인</p>
+					            </a>
+					            <a href="#">
+					              <p style="margin-left: 10px;">회원가입</p>
+					            </a>
+					        </div>
+					    </div>
+					    
+					</div>
+						
+						
+						
+						
 					
 							</div>
 						</div>
