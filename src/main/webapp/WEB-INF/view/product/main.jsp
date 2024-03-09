@@ -32,6 +32,8 @@
 		<div class="section">
 			<!-- container -->
 			<div class="container">
+					<h3 class="title">💘에디터 추천MV</h3>
+				
 				<!-- row -->
 				<div class="row">
 				
@@ -99,7 +101,7 @@
 					<!-- section title -->
 					<div class="col-md-12">
 						<div class="section-title">
-							<h3 class="title">최신곡</h3>
+							<h3 class="title">🔥최신곡</h3>
 							<div class="section-nav">
 								<ul class="section-tab-nav tab-nav">
 									<li class="active"><a data-toggle="tab" href="#tab1">국내</a></li>
