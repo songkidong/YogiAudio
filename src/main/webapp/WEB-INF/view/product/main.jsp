@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="/WEB-INF/view/layout/header.jsp" %>    
-    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
 	<!-- NAVIGATION -->
 		<nav id="navigation">
@@ -33,15 +34,18 @@
 			<div class="container">
 				<!-- row -->
 				<div class="row">
+				
 					<!-- shop -->
 					<div class="col-md-4 col-xs-6">
 						<div class="shop">
+						  <a href="https://www.youtube.com/watch?v=kHW-UVXOcLU/">
 							<div class="shop-img">
-								<img src="/main/img/shop01.png" alt="">
+								<img src="/main/img/IU1.jpg" style="width:360px; height: 240px;">
 							</div>
+						  </a>	
 							<div class="shop-body">
-								<h3>Laptop<br>Collection</h3>
-								<a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+								<h3>아이유<br>Shoppers</h3>
+								<a href="https://www.youtube.com/watch?v=kHW-UVXOcLU/" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
 							</div>
 						</div>
 					</div>
@@ -50,12 +54,14 @@
 					<!-- shop -->
 					<div class="col-md-4 col-xs-6">
 						<div class="shop">
+						  <a href="https://www.youtube.com/watch?v=gdZLi9oWNZg/">
 							<div class="shop-img">
-								<img src="/main/img/shop03.png" alt="">
+								<img src="/main/img/bts1.jpg" style="width:360px; height: 240px;">
 							</div>
+						  </a>	
 							<div class="shop-body">
-								<h3>Accessories<br>Collection</h3>
-								<a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+								<h3>BTS(방탄소년단)<br>Dynamite</h3>
+								<a href="https://www.youtube.com/watch?v=gdZLi9oWNZg/" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
 							</div>
 						</div>
 					</div>
@@ -64,12 +70,14 @@
 					<!-- shop -->
 					<div class="col-md-4 col-xs-6">
 						<div class="shop">
+						  <a href="https://www.youtube.com/watch?v=smdmEhkIRVc/"">
 							<div class="shop-img">
-								<img src="/main/img/shop02.png" alt="">
+								<img src="/main/img/bibi1.jpg" style="width:360px; height: 240px;">
 							</div>
+						   </a>	
 							<div class="shop-body">
-								<h3>Cameras<br>Collection</h3>
-								<a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+								<h3>비비<br>밤양갱</h3>
+								<a href="https://www.youtube.com/watch?v=smdmEhkIRVc/" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
 							</div>
 						</div>
 					</div>
@@ -91,13 +99,11 @@
 					<!-- section title -->
 					<div class="col-md-12">
 						<div class="section-title">
-							<h3 class="title">New Products</h3>
+							<h3 class="title">최신곡</h3>
 							<div class="section-nav">
 								<ul class="section-tab-nav tab-nav">
-									<li class="active"><a data-toggle="tab" href="#tab1">Laptops</a></li>
-									<li><a data-toggle="tab" href="#tab1">Smartphones</a></li>
-									<li><a data-toggle="tab" href="#tab1">Cameras</a></li>
-									<li><a data-toggle="tab" href="#tab1">Accessories</a></li>
+									<li class="active"><a data-toggle="tab" href="#tab1">국내</a></li>
+									<li><a data-toggle="tab" href="#tab2">국외</a></li>
 								</ul>
 							</div>
 						</div>
@@ -114,7 +120,7 @@
 										<!-- product -->
 										<div class="product">
 											<div class="product-img">
-												<img src="/main/img/product01.png" alt="">
+												<img src="/main/img/new1.jpg" alt="">
 												<div class="product-label">
 													<span class="sale">-30%</span>
 													<span class="new">NEW</span>
@@ -146,7 +152,7 @@
 										<!-- product -->
 										<div class="product">
 											<div class="product-img">
-												<img src="/main/img/product02.png" alt="">
+												<img src="/main/img/new2.jpg" alt="">
 												<div class="product-label">
 													<span class="new">NEW</span>
 												</div>
@@ -177,7 +183,7 @@
 										<!-- product -->
 										<div class="product">
 											<div class="product-img">
-												<img src="/main/img/product03.png" alt="">
+												<img src="/main/img/new3.jpg">
 												<div class="product-label">
 													<span class="sale">-30%</span>
 												</div>
@@ -203,7 +209,7 @@
 										<!-- product -->
 										<div class="product">
 											<div class="product-img">
-												<img src="/main/img/product04.png" alt="">
+												<img src="/main/img/new4.jpg" alt="">
 											</div>
 											<div class="product-body">
 												<p class="product-category">Category</p>
@@ -231,7 +237,7 @@
 										<!-- product -->
 										<div class="product">
 											<div class="product-img">
-												<img src="/main/img/product05.png" alt="">
+												<img src="/main/img/new5.jpg" alt="">
 											</div>
 											<div class="product-body">
 												<p class="product-category">Category</p>
@@ -255,10 +261,12 @@
 											</div>
 										</div>
 										<!-- /product -->
+												
 									</div>
 									<div id="slick-nav-1" class="products-slick-nav"></div>
 								</div>
 								<!-- /tab -->
+								
 							</div>
 						</div>
 					</div>
