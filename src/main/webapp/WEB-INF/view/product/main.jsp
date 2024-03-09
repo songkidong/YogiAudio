@@ -3,6 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="/WEB-INF/view/layout/header.jsp" %>    
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<jsp:include page="popup.jsp"/>
     
 	<!-- NAVIGATION -->
 		<nav id="navigation">
@@ -339,7 +340,7 @@
 					<!-- section title -->
 					<div class="col-md-12">
 						<div class="section-title">
-							<h3 class="title">Top selling</h3>
+							<h3 class="title">👍인기곡</h3>
 							<div class="section-nav">
 								<ul class="section-tab-nav tab-nav">
 									<li class="active"><a data-toggle="tab" href="#tab2">Laptops</a></li>

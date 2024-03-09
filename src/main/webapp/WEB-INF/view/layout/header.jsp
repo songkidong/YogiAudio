@@ -10,7 +10,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-		<title>Electro - HTML Ecommerce Template</title>
+		<title>YogiAudio</title>
 
 		<!-- Google font -->
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -67,7 +67,7 @@
 						<!-- LOGO -->
 						<div class="col-md-3">
 							<div class="header-logo">
-								<a href="#" class="logo">
+								<a href="/product/main" class="logo">
 									<img src="/logo/logo.png" style="width: 90%; height: 90%; margin-top: 10px;">
 								</a>
 							</div>
