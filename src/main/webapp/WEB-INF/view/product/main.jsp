@@ -282,51 +282,10 @@
 		<!-- /SECTION -->
 
 		<!-- HOT DEAL SECTION -->
-		<div id="hot-deal" class="section">
-			<!-- container -->
-			<div class="container">
-				<!-- row -->
-				<div class="row">
-					<div class="col-md-12">
-						<div class="hot-deal">
-							<ul class="hot-deal-countdown">
-								<li>
-									<div>
-										<h3>02</h3>
-										<span>Days</span>
-									</div>
-								</li>
-								<li>
-									<div>
-										<h3>10</h3>
-										<span>Hours</span>
-									</div>
-								</li>
-								<li>
-									<div>
-										<h3>34</h3>
-										<span>Mins</span>
-									</div>
-								</li>
-								<li>
-									<div>
-										<h3>60</h3>
-										<span>Secs</span>
-									</div>
-								</li>
-							</ul>
-							<h2 class="text-uppercase">hot deal this week</h2>
-							<p>New Collection Up to 50% OFF</p>
-								<button onclick="playAudio()">Play</button>
-								 <audio id="audioPlayer" controls>
-							        <source src="/music/classic.wav" type="audio/wav">
-						    	</audio>
-						</div>
-					</div>
-				</div>
-				<!-- /row -->
-			</div>
-			<!-- /container -->
+		<div id="banner-section">
+			 <div class="row" style="display: flex; justify-content: center; align-items: center;">
+				<img src="/main/banner/banner1.png" style="width:1150px; height: 300px;">
+			 </div>	
 		</div>
 		<!-- /HOT DEAL SECTION -->
 
@@ -343,10 +302,8 @@
 							<h3 class="title">👍인기곡</h3>
 							<div class="section-nav">
 								<ul class="section-tab-nav tab-nav">
-									<li class="active"><a data-toggle="tab" href="#tab2">Laptops</a></li>
-									<li><a data-toggle="tab" href="#tab2">Smartphones</a></li>
-									<li><a data-toggle="tab" href="#tab2">Cameras</a></li>
-									<li><a data-toggle="tab" href="#tab2">Accessories</a></li>
+									<li class="active"><a data-toggle="tab" href="#tab2">국내</a></li>
+									<li><a data-toggle="tab" href="#tab2">국외</a></li>
 								</ul>
 							</div>
 						</div>
@@ -363,7 +320,7 @@
 										<!-- product -->
 										<div class="product">
 											<div class="product-img">
-												<img src="/main/img/product06.png" alt="">
+												<img src="/main/img/new2.jpg" alt="">
 												<div class="product-label">
 													<span class="sale">-30%</span>
 													<span class="new">NEW</span>
@@ -395,7 +352,7 @@
 										<!-- product -->
 										<div class="product">
 											<div class="product-img">
-												<img src="/main/img/product07.png" alt="">
+												<img src="/main/img/bibi1.jpg" alt="">
 												<div class="product-label">
 													<span class="new">NEW</span>
 												</div>
@@ -426,7 +383,7 @@
 										<!-- product -->
 										<div class="product">
 											<div class="product-img">
-												<img src="/main/img/product08.png" alt="">
+												<img src="/main/img/new1.jpg" alt="">
 												<div class="product-label">
 													<span class="sale">-30%</span>
 												</div>
@@ -452,7 +409,7 @@
 										<!-- product -->
 										<div class="product">
 											<div class="product-img">
-												<img src="/main/img/product09.png" alt="">
+												<img src="/main/img/new4.jpg" alt="">
 											</div>
 											<div class="product-body">
 												<p class="product-category">Category</p>
@@ -480,7 +437,7 @@
 										<!-- product -->
 										<div class="product">
 											<div class="product-img">
-												<img src="/main/img/product01.png" alt="">
+												<img src="/main/img/new6.jpg" alt="">
 											</div>
 											<div class="product-body">
 												<p class="product-category">Category</p>
@@ -538,7 +495,7 @@
 								<!-- product widget -->
 								<div class="product-widget">
 									<div class="product-img">
-										<img src="/main/img/product07.png" alt="">
+										<img src="/main/img/new1.jpg" >
 									</div>
 									<div class="product-body">
 										<p class="product-category">Category</p>
@@ -551,7 +508,7 @@
 								<!-- product widget -->
 								<div class="product-widget">
 									<div class="product-img">
-										<img src="/main/img/product08.png" alt="">
+										<img src="/main/img/new2.jpg" >
 									</div>
 									<div class="product-body">
 										<p class="product-category">Category</p>
@@ -564,7 +521,7 @@
 								<!-- product widget -->
 								<div class="product-widget">
 									<div class="product-img">
-										<img src="/main/img/product09.png" alt="">
+										<img src="/main/img/new3.jpg" >
 									</div>
 									<div class="product-body">
 										<p class="product-category">Category</p>
@@ -579,7 +536,7 @@
 								<!-- product widget -->
 								<div class="product-widget">
 									<div class="product-img">
-										<img src="/main/img/product01.png" alt="">
+										<img src="/main/img/new3.jpg" >
 									</div>
 									<div class="product-body">
 										<p class="product-category">Category</p>
@@ -592,7 +549,7 @@
 								<!-- product widget -->
 								<div class="product-widget">
 									<div class="product-img">
-										<img src="/main/img/product02.png" alt="">
+										<img src="/main/img/new3.jpg" >
 									</div>
 									<div class="product-body">
 										<p class="product-category">Category</p>
@@ -605,7 +562,7 @@
 								<!-- product widget -->
 								<div class="product-widget">
 									<div class="product-img">
-										<img src="/main/img/product03.png" alt="">
+										<img src="/main/img/new3.jpg" >
 									</div>
 									<div class="product-body">
 										<p class="product-category">Category</p>
@@ -631,7 +588,7 @@
 								<!-- product widget -->
 								<div class="product-widget">
 									<div class="product-img">
-										<img src="/main/img/product04.png" alt="">
+										<img src="/main/img/new3.jpg" >
 									</div>
 									<div class="product-body">
 										<p class="product-category">Category</p>
@@ -644,7 +601,7 @@
 								<!-- product widget -->
 								<div class="product-widget">
 									<div class="product-img">
-										<img src="/main/img/product05.png" alt="">
+										<img src="/main/img/new3.jpg" >
 									</div>
 									<div class="product-body">
 										<p class="product-category">Category</p>
@@ -657,7 +614,7 @@
 								<!-- product widget -->
 								<div class="product-widget">
 									<div class="product-img">
-										<img src="/main/img/product06.png" alt="">
+										<img src="/main/img/new3.jpg" >
 									</div>
 									<div class="product-body">
 										<p class="product-category">Category</p>
@@ -672,7 +629,7 @@
 								<!-- product widget -->
 								<div class="product-widget">
 									<div class="product-img">
-										<img src="/main/img/product07.png" alt="">
+										<img src="/main/img/new3.jpg" >
 									</div>
 									<div class="product-body">
 										<p class="product-category">Category</p>
@@ -685,7 +642,7 @@
 								<!-- product widget -->
 								<div class="product-widget">
 									<div class="product-img">
-										<img src="/main/img/product08.png" alt="">
+										<img src="/main/img/new3.jpg" >
 									</div>
 									<div class="product-body">
 										<p class="product-category">Category</p>
@@ -698,7 +655,7 @@
 								<!-- product widget -->
 								<div class="product-widget">
 									<div class="product-img">
-										<img src="/main/img/product09.png" alt="">
+										<img src="/main/img/new3.jpg">
 									</div>
 									<div class="product-body">
 										<p class="product-category">Category</p>
@@ -726,7 +683,7 @@
 								<!-- product widget -->
 								<div class="product-widget">
 									<div class="product-img">
-										<img src="/main/img/product01.png" alt="">
+										<img src="/main/img/new3.jpg">
 									</div>
 									<div class="product-body">
 										<p class="product-category">Category</p>
@@ -739,7 +696,7 @@
 								<!-- product widget -->
 								<div class="product-widget">
 									<div class="product-img">
-										<img src="/main/img/product02.png" alt="">
+										<img src="/main/img/new3.jpg" alt="">
 									</div>
 									<div class="product-body">
 										<p class="product-category">Category</p>
@@ -752,7 +709,7 @@
 								<!-- product widget -->
 								<div class="product-widget">
 									<div class="product-img">
-										<img src="/main/img/product03.png" alt="">
+										<img src="/main/img/new3.jpg" alt="">
 									</div>
 									<div class="product-body">
 										<p class="product-category">Category</p>
@@ -767,7 +724,7 @@
 								<!-- product widget -->
 								<div class="product-widget">
 									<div class="product-img">
-										<img src="/main/img/product04.png" alt="">
+										<img src="/main/img/new3.jpg" alt="">
 									</div>
 									<div class="product-body">
 										<p class="product-category">Category</p>
@@ -780,7 +737,7 @@
 								<!-- product widget -->
 								<div class="product-widget">
 									<div class="product-img">
-										<img src="/main/img/product05.png" alt="">
+										<img src="/main/img/new3.jpg" alt="">
 									</div>
 									<div class="product-body">
 										<p class="product-category">Category</p>
@@ -793,7 +750,7 @@
 								<!-- product widget -->
 								<div class="product-widget">
 									<div class="product-img">
-										<img src="/main/img/product06.png" alt="">
+										<img src="/main/img/new3.jpg" alt="">
 									</div>
 									<div class="product-body">
 										<p class="product-category">Category</p>
@@ -813,41 +770,7 @@
 		</div>
 		<!-- /SECTION -->
 
-		<!-- NEWSLETTER -->
-		<div id="newsletter" class="section">
-			<!-- container -->
-			<div class="container">
-				<!-- row -->
-				<div class="row">
-					<div class="col-md-12">
-						<div class="newsletter">
-							<p>Sign Up for the <strong>NEWSLETTER</strong></p>
-							<form>
-								<input class="input" type="email" placeholder="Enter Your Email">
-								<button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-							</form>
-							<ul class="newsletter-follow">
-								<li>
-									<a href="#"><i class="fa fa-facebook"></i></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-twitter"></i></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-instagram"></i></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-pinterest"></i></a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<!-- /row -->
-			</div>
-			<!-- /container -->
-		</div>
-		<!-- /NEWSLETTER -->
+		
 
 
 	<script>
