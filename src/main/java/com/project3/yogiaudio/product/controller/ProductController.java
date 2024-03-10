@@ -75,6 +75,21 @@ public class ProductController {
 	
 	
 	
+	@GetMapping("/domestic-detail")
+	public String domesticDetailGET() {
+		
+		return"product/domesticdetail";
+	}
+	
+	
+	
+	@GetMapping("/aboard-detail")
+	public String aboardDetailGET() {
+		
+		return"product/aboarddetail";
+	}
+	
+	
 	
 	
 	

@@ -34,7 +34,11 @@
 									</div>
 									<div class="product-body">
 										<p class="product-category">${domesticlist.musicmajor}</p>
-										<h3 class="product-name"><a href="#">${domesticlist.musictitle}</a></h3>
+										<h3 class="product-name">
+											<a href="/product/domestic-detail">
+												${domesticlist.musictitle}
+											</a>
+										</h3>
 										<h4 class="product-price">$980.00 <del class="product-old-price">${domesticlist.musicprice}</del></h4>
 										<div class="product-rating">
 											<i class="fa fa-star"></i>
