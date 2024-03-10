@@ -10,7 +10,7 @@
 		<div class="section" style="margin-left: 200px;">
 			<!-- container -->
 			<div class="container">
-					<h3 class="title">✈국외음악</h3>
+					<h3 class="title">🛫국외음악</h3>
 				
 				<!-- row -->
 				<div class="row">
