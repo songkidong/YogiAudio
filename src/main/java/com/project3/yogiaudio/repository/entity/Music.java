@@ -7,15 +7,13 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Builder
-public class Product {
+public class Music {
 
-	private Integer productNo;
-	
-	
+	private Integer musicNo;
 	
 	
 }

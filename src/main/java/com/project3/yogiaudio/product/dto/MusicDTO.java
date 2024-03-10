@@ -1,7 +1,5 @@
 package com.project3.yogiaudio.product.dto;
 
-import com.project3.yogiaudio.repository.entity.Product;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,13 +7,13 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Builder
-public class ProductDTO {
+public class MusicDTO {
 
-	private Integer productNo;
+	private Integer musicno;
 	
 	
 	
