@@ -76,6 +76,7 @@ public class ProductController {
 	
 	
 	//국내음악상세페이지
+	// http://localhost:80/product/domestic-detail?musicno=&musicmajor=
 	@GetMapping("/domestic-detail")
 	public String domesticDetailGET() {
 		
@@ -87,6 +88,7 @@ public class ProductController {
 	
 	
 	//국외음악상세페이지
+	// http://localhost:80/product/aboard-detail?musicno=&musicmajor=
 	@GetMapping("/aboard-detail")
 	public String aboardDetailGET() {
 		
