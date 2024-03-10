@@ -80,7 +80,7 @@ public class ProductController {
 	// http://localhost:80/product/domestic-detail?musicno=&musicmajor=
 	@GetMapping("/domestic-detail")
 	public String domesticDetailGET(@RequestParam(value = "musicno") int musicno, @RequestParam(value = "musicmajor") String musicmajor,Model model) {
-	    System.out.println("musicno: " + musicno); // 이 줄을 추가합니다.
+	    System.out.println("musicno: " + musicno); 
 	    System.out.println("musicmajor: " + musicmajor);
 		return"product/domesticdetail";
 	}
@@ -92,11 +92,9 @@ public class ProductController {
 	//국외음악상세페이지
 	// http://localhost:80/product/aboard-detail?musicno=&musicmajor=
 	@GetMapping("/aboard-detail")
-	public String aboardDetailGET() {
-		
-		
-		
-		
+	public String aboardDetailGET(@RequestParam(value = "musicno") int musicno, @RequestParam(value = "musicmajor") String musicmajor,Model model) {
+		 System.out.println("musicno: " + musicno); 
+		 System.out.println("musicmajor: " + musicmajor);
 		return"product/aboarddetail";
 	}
 	
