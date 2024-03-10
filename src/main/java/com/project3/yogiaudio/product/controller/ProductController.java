@@ -36,6 +36,7 @@ public class ProductController {
 	
 	
 	// http://localhost:80/product/domestic-music
+	//국내음악리스트 호출하기
 	@GetMapping("/domestic-music")
 	public String productDomesticGET(Model model, Criteria cri,MusicDTO dto) throws Exception {
 		
@@ -54,7 +55,7 @@ public class ProductController {
 		
 	}
 	
-	
+	//국외음악리스트 호출하기
 	@GetMapping("/aboard-music")
 	public String productAboardGET(Model model, Criteria cri, MusicDTO dto) throws Exception {
 		
@@ -74,7 +75,7 @@ public class ProductController {
 	}
 	
 	
-	
+	//국내음악상세페이지
 	@GetMapping("/domestic-detail")
 	public String domesticDetailGET() {
 		
@@ -83,6 +84,9 @@ public class ProductController {
 	
 	
 	
+	
+	
+	//국외음악상세페이지
 	@GetMapping("/aboard-detail")
 	public String aboardDetailGET() {
 		
