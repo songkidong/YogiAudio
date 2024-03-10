@@ -20,6 +20,15 @@ public class ProductController {
 	}
 	
 	
+	// http://localhost:80/product/domestic-music
+	@GetMapping("/domestic-music")
+	public String productDomesticGET() {
+		log.debug("국내음악페이지출력");
+		return "product/domestic";
+		
+	}
+	
+	
 	
 	
 	

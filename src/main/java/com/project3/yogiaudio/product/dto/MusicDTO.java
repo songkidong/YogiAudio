@@ -1,5 +1,7 @@
 package com.project3.yogiaudio.product.dto;
 
+import java.sql.Timestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +16,15 @@ import lombok.ToString;
 public class MusicDTO {
 
 	private Integer musicno;
+	private String musictitle;
+	private String musicsinger;
+	private String musiccontent;
+	private String startdate;
+	private Timestamp regdate;
+	private String filepath;
+	private Integer musicmajor;
+	private Integer musicminor;
+	private Integer musicprice;
 	
 	
 	
