@@ -3,14 +3,14 @@
 <%@include file="/WEB-INF/view/layout/header.jsp" %>
 
     
-<title>국내음악리스트</title>
+<title>국외음악리스트</title>
 	
 
 	   <!-- SECTION -->
 		<div class="section" style="margin-left: 200px;">
 			<!-- container -->
 			<div class="container">
-					<h3 class="title">🌏국내음악</h3>
+					<h3 class="title">✈국외음악</h3>
 				
 				<!-- row -->
 				<div class="row">
@@ -22,7 +22,7 @@
 						 
 						 
 							<!-- product -->
-						  <c:forEach var="domesticlist" items="${domesticlist}">
+						  <c:forEach var="aboardlist" items="${aboardlist}">
 							 <div class="col-md-4 col-xs-6">
 								<div class="product">
 									<div class="product-img">
@@ -33,9 +33,9 @@
 										</div>
 									</div>
 									<div class="product-body">
-										<p class="product-category">${domesticlist.musicmajor}</p>
-										<h3 class="product-name"><a href="#">${domesticlist.musictitle}</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">${domesticlist.musicprice}</del></h4>
+										<p class="product-category">${aboardlist.musicmajor}</p>
+										<h3 class="product-name"><a href="#">${aboardlist.musictitle}</a></h3>
+										<h4 class="product-price">$980.00 <del class="product-old-price">${aboardlist.musicprice}</del></h4>
 										<div class="product-rating">
 											<i class="fa fa-star"></i>
 											<i class="fa fa-star"></i>
@@ -69,7 +69,7 @@
 							
 								<c:forEach var="i" begin="${pageVO.startPage }" end="${pageVO.endPage }" step="1">
 									<li class="page-item ${isActive ? 'active' : ''}">
-										<a class="page-link" href="/product/domestic-music?page=${i}">
+										<a class="page-link" href="/product/aboard-music?page=${i}">
 										   ${i}
 										</a>
 									</li>
@@ -77,7 +77,7 @@
 								
 							<c:if test="${pageVO.next}">	
 								<li class="page-item">
-									<a href="/product/domestic-music?page=${pageVO.endPage + 1}">
+									<a href="/product/aboard-music?page=${pageVO.endPage + 1}">
 										<i class="fa fa-angle-right"></i>
 									</a>
 								</li>

@@ -55,6 +55,26 @@ public class ProductController {
 	}
 	
 	
+	@GetMapping("/aboard-music")
+	public String productAboardGET(Model model, Criteria cri, MusicDTO dto) throws Exception {
+		
+		PageVO pageVO = new PageVO();
+		pageVO.setCri(cri);
+		pageVO.setTotalCount(musicService.countaboardListAll());
+		
+		model.addAttribute("pageVO", pageVO);
+		
+		List<MusicDTO> result = musicService.aboardListAll(cri);
+		
+		model.addAttribute("aboardlist", result);
+		
+		
+		log.debug("국외음악페이지출력");
+		return "product/aboard";
+	}
+	
+	
+	
 	
 	
 	

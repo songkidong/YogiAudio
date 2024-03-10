@@ -24,7 +24,7 @@
 					<!-- NAV -->
 					<ul class="main-nav nav navbar-nav" style="display: flex; justify-content: center;">
 						<li><a href="/product/domestic-music">국내</a></li>
-						<li><a href="#">국외</a></li>
+						<li><a href="/product/aboard-music">국외</a></li>
 						<li><a href="#">최신음악</a></li>
 						<li><a href="#">인기음악</a></li>
 						<li><a href="#">뮤비</a></li>

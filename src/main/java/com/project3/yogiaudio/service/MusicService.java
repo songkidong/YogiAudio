@@ -29,7 +29,17 @@ public class MusicService {
 	}
 
 	
+	//국외음악리스트 출력하기
+	public List<MusicDTO> aboardListAll(Criteria cri) throws Exception{
+		List<MusicDTO> result = musicRepository.aboardListAll(cri);
+		return result;
+	}
 	
+	
+	//국외음악리스트 카운팅하기
+	public int countaboardListAll() throws Exception{
+		return musicRepository.countaboardListAll();		
+	}
 	
 
 	
