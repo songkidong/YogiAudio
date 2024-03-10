@@ -15,7 +15,7 @@ import lombok.ToString;
 @Builder
 public class MusicDTO {
 
-	private Integer musicno;
+	private int musicno;
 	private String musictitle;
 	private String musicsinger;
 	private String musiccontent;
@@ -24,7 +24,7 @@ public class MusicDTO {
 	private String filepath;
 	private String musicmajor;
 	private String musicminor;
-	private Integer musicprice;
+	private int musicprice;
 	
 	
 	

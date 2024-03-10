@@ -41,8 +41,17 @@ public class MusicService {
 		return musicRepository.countaboardListAll();		
 	}
 	
+	
+	//국내음악 디테일
+	public MusicDTO domesticDetail(int musicno, String musicmajor) {
+		return musicRepository.domesticDetail(musicno, musicmajor);
+	}
 
 	
+	//국외음악 디테일
+	public MusicDTO aboardDetail(int musicno, String musicmajor) {
+		return musicRepository.aboardDetail(musicno, musicmajor);
+	}
 	
 	
 	

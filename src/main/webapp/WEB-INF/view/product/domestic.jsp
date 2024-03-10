@@ -33,9 +33,10 @@
 										</div>
 									</div>
 									<div class="product-body">
+										<p class="product-category">${domesticlist.musicno}</p>
 										<p class="product-category">${domesticlist.musicmajor}</p>
 										<h3 class="product-name">
-											<a href="/product/domestic-detail">
+											<a href="/product/domestic-detail?musicno=${domesticlist.musicno}&musicmajor=${domesticlist.musicmajor}">
 												${domesticlist.musictitle}
 											</a>
 										</h3>

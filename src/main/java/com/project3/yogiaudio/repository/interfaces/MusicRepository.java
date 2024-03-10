@@ -22,8 +22,12 @@ public interface MusicRepository {
 	//국외음악리스트 카운팅하기
 	public int countaboardListAll() throws Exception;
 	
+	//국내음악디테일 
+	public MusicDTO domesticDetail(int musicno, String musicmajor);
 	
-	
+	//국외음악디테일
+	public MusicDTO aboardDetail(int musicno, String musicmajor);
+
 	
 	
 	
