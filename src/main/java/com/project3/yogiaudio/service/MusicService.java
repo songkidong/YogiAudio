@@ -16,10 +16,19 @@ public class MusicService {
 	private MusicRepository musicRepository;
 	
 	//국내음악리스트 출력하기
-	public List<MusicDTO> domesticListAll() throws Exception{
-		List<MusicDTO> result = musicRepository.domesticListAll();
+	public List<MusicDTO> domesticListAll(Criteria cri) throws Exception{
+		List<MusicDTO> result = musicRepository.domesticListAll(cri);
 		return result;
 	}
+	
+	
+	//국내음악리스트 카운팅하기
+	public int countdomesticListAll() throws Exception{
+		return musicRepository.countdomesticListAll();
+
+	}
+
+	
 	
 	
 

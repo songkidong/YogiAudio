@@ -63,16 +63,31 @@
 
 						<!-- store bottom filter -->
 						<div class="store-filter clearfix">
-							<span class="store-qty">Showing 20-100 products</span>
 							<ul class="store-pagination">
-								<li class="active">1</li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-							</ul>
+							
+								<c:forEach var="i" begin="${pageVO.startPage }" end="${pageVO.endPage }" step="1">
+									<li class="page-item ${isActive ? 'active' : ''}">
+										<a class="page-link" href="/product/domestic-music?page=${i}">
+										   ${i}
+										</a>
+									</li>
+								</c:forEach>			
+								
+							<c:if test="${pageVO.next}">	
+								<li class="page-item">
+									<a href="/product/domestic-music?page=${pageVO.endPage + 1}">
+										<i class="fa fa-angle-right"></i>
+									</a>
+								</li>
+							</c:if>
+								
+								
+						  </ul>
 						</div>
 						<!-- /store bottom filter -->
+						
+						
+						
 					</div>
 					<!-- /STORE -->
 				</div>

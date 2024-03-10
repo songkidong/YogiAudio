@@ -39,7 +39,13 @@ public class ProductController {
 	@GetMapping("/domestic-music")
 	public String productDomesticGET(Model model, Criteria cri,MusicDTO dto) throws Exception {
 		
-		List<MusicDTO> result = musicService.domesticListAll();
+		PageVO pageVO = new PageVO();
+		pageVO.setCri(cri);
+		pageVO.setTotalCount(musicService.countdomesticListAll());		
+		
+		model.addAttribute("pageVO", pageVO);
+		
+		List<MusicDTO> result = musicService.domesticListAll(cri);
 		
 		model.addAttribute("domesticlist", result);
 		

@@ -7,11 +7,15 @@
 	
 	<!-- 국내음악 리스트끌고오기 -->
 	<select id ="domesticListAll" resultType="com.project3.yogiaudio.product.dto.MusicDTO">
-		select * from music
+		select * from music 
+		where music_major = "국내"
+		limit #{startPage},#{pageSize}
 	</select>
 	
-
-	
+	<!-- 국내음악 리스트카운팅하기 -->
+	<select id="countdomesticListAll" resultType="int">
+		<![CDATA[ select count(*) from music where music_no > 0 and music_major="국내"]]>
+	</select>
 	
 	
 	
