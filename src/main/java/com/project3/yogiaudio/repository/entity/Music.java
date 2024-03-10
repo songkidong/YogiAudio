@@ -22,8 +22,8 @@ public class Music {
 	private String startdate;
 	private Timestamp regdate;
 	private String filePath;
-	private Integer musicMajor;
-	private Integer musicMinor;
+	private String musicMajor;
+	private String musicMinor;
 	private Integer musicPrice;
 	
 	

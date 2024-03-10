@@ -22,8 +22,8 @@ public class MusicDTO {
 	private String startdate;
 	private Timestamp regdate;
 	private String filepath;
-	private Integer musicmajor;
-	private Integer musicminor;
+	private String musicmajor;
+	private String musicminor;
 	private Integer musicprice;
 	
 	

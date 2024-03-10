@@ -74,4 +74,4 @@ mybatis:
 logging:
   level:
     org.mybatis: DEBUG
-    com.project3.placestation: DEBUG
+    com.project3.yogiaudio: DEBUG
