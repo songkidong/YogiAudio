@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+/*document.addEventListener("DOMContentLoaded", function() {
     let signup = document.querySelector(".links li #signup");
     let signin = document.querySelector(".links li #signin");
     let reset = document.querySelector(".links li #reset");
@@ -56,3 +56,4 @@ document.addEventListener("DOMContentLoaded", function() {
     // 페이지 로드 시 signIn 상태로 설정
     setSignInState();
 });
+*/

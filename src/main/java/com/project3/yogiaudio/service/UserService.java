@@ -11,6 +11,14 @@ import com.project3.yogiaudio.repository.interfaces.UserRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+  * @FileName : UserService.java
+  * @Project : yogiaudio
+  * @Date : 2024. 3. 11. 
+  * @작성자 : 송기동
+  * @변경이력 :
+  * @프로그램 설명 : 유저 서비스
+  */
 @Service
 @Slf4j
 public class UserService {
@@ -21,6 +29,13 @@ public class UserService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	/**
+	  * @Method Name : createUser
+	  * @작성일 : 2024. 3. 11.
+	  * @작성자 : 송기동
+	  * @변경이력 : 
+	  * @Method 설명 : 회원가입
+	  */
 	@Transactional
 	public void createUser(SignUpFormDTO dto) {
 		User userEntity = User.builder()
@@ -35,5 +50,17 @@ public class UserService {
 		if (result != 1) {
 			log.error("에러");;
 		}
+	}
+	
+	/**
+	  * @Method Name : signIn
+	  * @작성일 : 2024. 3. 11.
+	  * @작성자 : 송기동
+	  * @변경이력 : 
+	  * @Method 설명 : 로그인
+	  */
+	public User signIn(SignUpFormDTO dto) {
+		User userEntity = userRepository.selectByEmail(dto.getEmail());
+		return passwordEncoder.matches(dto.getPassword(), userEntity.getPassword()) ? userEntity : null;
 	}
 }

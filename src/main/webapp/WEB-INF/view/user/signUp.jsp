@@ -2,20 +2,29 @@
 <link rel="stylesheet" href="css/user/signIn.css" />
 <%@include file="/WEB-INF/view/layout/header.jsp"%>
 <div class="container sign--in--container">
-    <h1>SIGN IN</h1>
+    <h1>SIGN UP</h1>
     <ul class="links">
-        <li><a href="#" id="signin">SIGN IN</a></li>
-        <li><a href="/signUp" id="signup">SIGN UP</a></li>
+        <li><a href="/signIn" id="signin">SIGN IN</a></li>
+        <li><a href="#" id="signup">SIGN UP</a></li>
         <li><a href="#" id="reset">RESET</a></li>
     </ul>
-    <form action="/signIn" method="post">
+    <form action="/signUp" method="post">
         <div class="first-input input__block first-input__block">
             <input type="email" placeholder="Email" class="input" id="email" name="email"/>
         </div>
         <div class="input__block">
             <input type="password" placeholder="Password" class="input" id="password" name="password"/>
         </div>
-        <button class="signin__btn">Sign in</button>
+        <div class="input__block">
+            <input type="password" placeholder="Repeat password" class="input repeat__password" id="repeat__password" />
+        </div>
+        <div class="input__block">
+            <input type="text" placeholder="name" class="input name" id="name" name="name"/>
+        </div>
+        <div class="input__block">
+            <input type="text" placeholder="nickname" class="input nickname" id="nickname" name="nickname"/>
+        </div>
+        <button type="submit" class="signin__btn">Sign up</button>
     </form>
     <div class="separator">
         <p>OR</p>

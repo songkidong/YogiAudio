@@ -9,4 +9,9 @@ public interface UserRepository {
 
 	// 회원 가입
 	public int insert(User user);
+
+	// 이메일 조회
+	public User selectByEmail(String email);
+	
+	
 }
