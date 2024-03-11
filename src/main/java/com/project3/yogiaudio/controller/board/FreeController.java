@@ -1,4 +1,4 @@
-package com.project3.yogiaudio.controller.cs;
+package com.project3.yogiaudio.controller.board;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping("/product")
-public class ProductController {
+public class FreeController {
 	
 	@Autowired
 	private MusicService musicService;
