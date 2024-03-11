@@ -46,15 +46,13 @@
 	<!-- separator -->
 	<div class="separator">
 		<p>OR</p>
+			<!-- sns login button -->
+		<div>
+			<a href="#" class="kakaoLogin"> <img src="/img/kakao/kakao_login.png" alt="Kakao" id="loginBtn">
+			<a href="#" class="naverLogin"> <img src="/img/naver/naver_login.png" alt="Naver" id="loginBtn">
+			<a href="#" class="googleLogin"> <img src="/img/google/google_login.png" alt="Google" id="loginBtn">
+		</div>
 	</div>
-	<!-- google button -->
-	<button class="google__btn">
-		<i class="fa fa-google"></i> Sign in with Google
-	</button>
-	<!-- google button -->
-	<button class="github__btn">
-		<i class="fa fa-github"></i> Sign in with GitHub
-	</button>
 </div>
 <!-- footer -->
 <script src="js/user/signIn.js"></script>
