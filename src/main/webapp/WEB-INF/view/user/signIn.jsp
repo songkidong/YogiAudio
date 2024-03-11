@@ -15,15 +15,15 @@
 	</ul>
 
 	<!-- Form -->
-	<form action="" method="post">
+	<form action="/signIn" method="post">
 		<!-- email input -->
 		<div class="first-input input__block first-input__block">
-			<input type="email" placeholder="Email" class="input" id="email" />
+			<input type="email" placeholder="Email" class="input" id="email" name="email"/>
 		</div>
 		<!-- password input -->
 		<div class="input__block">
 			<input type="password" placeholder="Password" class="input"
-				id="password" />
+				id="password" name="password"/>
 		</div>
 		<!-- repeat password input -->
 		<div class="input__block">
@@ -33,12 +33,12 @@
 		<!-- name input -->
 		<div class="input__block">
 			<input type="text" placeholder="name" class="input name"
-				id="name" />
+				id="name" name="name"/>
 		</div>
 		<!-- nickname input -->
 		<div class="input__block">
 			<input type="text" placeholder="nickname" class="input nickname"
-				id="nickname" />
+				id="nickname" name="nickname"/>
 		</div>
 		<!-- sign in button -->
 		<button class="signin__btn">Sign in</button>
@@ -46,15 +46,13 @@
 	<!-- separator -->
 	<div class="separator">
 		<p>OR</p>
+			<!-- sns login button -->
+		<div>
+			<a href="#" class="kakaoLogin"> <img src="/img/kakao/kakao_login.png" alt="Kakao" id="loginBtn">
+			<a href="#" class="naverLogin"> <img src="/img/naver/naver_login.png" alt="Naver" id="loginBtn">
+			<a href="#" class="googleLogin"> <img src="/img/google/google_login.png" alt="Google" id="loginBtn">
+		</div>
 	</div>
-	<!-- google button -->
-	<button class="google__btn">
-		<i class="fa fa-google"></i> Sign in with Google
-	</button>
-	<!-- google button -->
-	<button class="github__btn">
-		<i class="fa fa-github"></i> Sign in with GitHub
-	</button>
 </div>
 <!-- footer -->
 <script src="js/user/signIn.js"></script>

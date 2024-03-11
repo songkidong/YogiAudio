@@ -10,6 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class FreeController {
 
+	public String boardFree() {
+		
+		return"";
+	}
 	
 	
 	

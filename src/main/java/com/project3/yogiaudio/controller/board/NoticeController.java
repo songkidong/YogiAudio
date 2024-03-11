@@ -10,6 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class NoticeController {
 
+	public String boardNotice() {
+		
+		return"";
+	}
 	
 	
 	
