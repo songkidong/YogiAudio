@@ -22,10 +22,10 @@ spring:
       max-request-size: 20MB   
          
   datasource:    
-    url: jdbc:mysql://localhost:3306/yogiaudio?serverTimeZone=Asia/Seoul
+    url: jdbc:mysql://192.168.0.101/yogi_audio?serverTimeZone=Asia/Seoul
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: 1234
+    username: develop
+    password: 1111
     
   #h2:
   #  console:
