@@ -15,15 +15,15 @@
 	</ul>
 
 	<!-- Form -->
-	<form action="" method="post">
+	<form action="/signIn" method="post">
 		<!-- email input -->
 		<div class="first-input input__block first-input__block">
-			<input type="email" placeholder="Email" class="input" id="email" />
+			<input type="email" placeholder="Email" class="input" id="email" name="email"/>
 		</div>
 		<!-- password input -->
 		<div class="input__block">
 			<input type="password" placeholder="Password" class="input"
-				id="password" />
+				id="password" name="password"/>
 		</div>
 		<!-- repeat password input -->
 		<div class="input__block">
@@ -33,12 +33,12 @@
 		<!-- name input -->
 		<div class="input__block">
 			<input type="text" placeholder="name" class="input name"
-				id="name" />
+				id="name" name="name"/>
 		</div>
 		<!-- nickname input -->
 		<div class="input__block">
 			<input type="text" placeholder="nickname" class="input nickname"
-				id="nickname" />
+				id="nickname" name="nickname"/>
 		</div>
 		<!-- sign in button -->
 		<button class="signin__btn">Sign in</button>
