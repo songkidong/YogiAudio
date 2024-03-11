@@ -70,6 +70,20 @@ public class MusicService {
 	}
 
 	
+	//음원등록하기
+	@Transactional
+	public void musicUpdate(MusicDTO dto,String fileMusic) {
+		
+		MusicDTO music = MusicDTO.builder()
+				.musicno(dto.getMusicno())
+				.filemusic(fileMusic)
+				.build();
+		
+		Integer result = musicRepository.musicUpdate(music);
+		
+	}
+	
+	
 	
 	
 }

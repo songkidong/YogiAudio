@@ -32,7 +32,8 @@ public interface MusicRepository {
 	//앨범자켓바꾸기
 	public Integer albumUpdate(MusicDTO dto);
 	
-	
+	//음원등록하기
+	public Integer musicUpdate(MusicDTO dto);
 	
 	
 }

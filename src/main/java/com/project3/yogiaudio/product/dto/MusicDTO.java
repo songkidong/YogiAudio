@@ -22,9 +22,12 @@ public class MusicDTO {
 	private String musictitle;
 	private String musicsinger;
 	private String musiccontent;
+	private String musiccompany;
+	private String lyrics;
 	private String startdate;
 	private Timestamp regdate;
 	private String filepath;
+	private String filemusic;
 	private String musicmajor;
 	private String musicminor;
 	private int musicprice;

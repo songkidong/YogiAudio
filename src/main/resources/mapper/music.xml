@@ -52,6 +52,13 @@
 	</update>
 	
 	
+	<!-- 음원파일등록하기 -->
+	<update id="musicUpdate">
+		update music set file_music=#{filemusic}
+		where music_no=#{musicno}
+	</update>
+	
+	
 	
 
 </mapper>

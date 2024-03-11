@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/view/layout/header.jsp" %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
+
+
 
 
 
@@ -29,9 +35,14 @@
 
 					<!-- Product thumb imgs -->
 					<div class="col-md-2 col-md-pull-5">
-					   <a href="/product/dalbum-update" data-toggle="modal" data-target="#photoModal">
+					   <a href="/product/dalbum-update" data-toggle="modal" data-target="#photoModal" >
 						<div id="product-imgs">
 							<p>사진변경</p>
+						</div>
+					   </a><br>
+					   <a href="/product/dmusic-update" data-toggle="modal" data-target="#musicModal" >
+						<div id="product-imgs">
+							<p>음원등록</p>
 						</div>
 					   </a>
 					</div>
@@ -41,70 +52,30 @@
 					<div class="col-md-5">
 						<div class="product-details">
 							<h2 class="product-name">${detail.musictitle}</h2>
+							
 							<div>
-								<div class="product-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o"></i>
-								</div>
-								<a class="review-link" href="#">10 Review(s) | Add your review</a>
-							</div>
-							<div>
-								<h3 class="product-price">${detail.musicprice}<del class="product-old-price"></del></h3>
-								<span class="product-available">In Stock</span>
+								<h3 class="product-price">${detail.musicprice} ￦<del class="product-old-price"></del></h3>
 							</div>
 							<p>
-							   ${detail.musiccontent}
-							</p>
-
-							<div class="product-options">
-								<label>
-									Size
-									<select class="input-select">
-										<option value="0">X</option>
-									</select>
-								</label>
-								<label>
-									Color
-									<select class="input-select">
-										<option value="0">Red</option>
-									</select>
-								</label>
-							</div>
-
-							<div class="add-to-cart">
-								<div class="qty-label">
-									Qty
-									<div class="input-number">
-										<input type="number">
-										<span class="qty-up">+</span>
-										<span class="qty-down">-</span>
-									</div>
-								</div>
-								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-							</div>
-
-							<ul class="product-btns">
-								<li><a href="#"><i class="fa fa-heart-o"></i> add to wishlist</a></li>
-								<li><a href="#"><i class="fa fa-exchange"></i> add to compare</a></li>
-							</ul>
-
-							<ul class="product-links">
-								<li>Category:</li>
-								<li><a href="#">Headphones</a></li>
-								<li><a href="#">Accessories</a></li>
-							</ul>
-
-							<ul class="product-links">
-								<li>Share:</li>
-								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-								<li><a href="#"><i class="fa fa-envelope"></i></a></li>
-							</ul>
-
+							   아티스트 : ${detail.musicsinger}
+							</p><br>
+							<p>
+							   장르 / 스타일 : ${detail.musicminor}
+							</p><br>
+							<p>
+							   발매사 / 기획사 : ${detail.musiccompany}
+							</p><br>
+							<p>
+							   발매일 : ${detail.startdate}
+							</p><br>
+							<p>샘플듣기</p>
+						    <audio id="audioPlayer" controls>
+						        <source src="/music/classic.wav" type="audio/wav">
+						    </audio><br>
+						    <p>
+						        <button id="downloadButton">파일 다운로드</button>
+						    </p>
+						    
 						</div>
 					</div>
 					<!-- /Product details -->
@@ -114,9 +85,9 @@
 						<div id="product-tab">
 							<!-- product tab nav -->
 							<ul class="tab-nav">
-								<li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
-								<li><a data-toggle="tab" href="#tab2">Details</a></li>
-								<li><a data-toggle="tab" href="#tab3">Reviews (3)</a></li>
+								<li class="active"><a data-toggle="tab" href="#tab1">곡 소개</a></li>
+								<li><a data-toggle="tab" href="#tab2">가사</a></li>
+								<li><a data-toggle="tab" href="#tab3">뮤직비디오</a></li>
 							</ul>
 							<!-- /product tab nav -->
 
@@ -126,7 +97,9 @@
 								<div id="tab1" class="tab-pane fade in active">
 									<div class="row">
 										<div class="col-md-12">
-											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+											<p>
+											  ${detail.musiccontent}
+											</p>
 										</div>
 									</div>
 								</div>
@@ -136,7 +109,9 @@
 								<div id="tab2" class="tab-pane fade in">
 									<div class="row">
 										<div class="col-md-12">
-											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+										    <p id ="lyrics">
+										      ${detail.lyrics}
+										    </p>
 										</div>
 									</div>
 								</div>
@@ -332,21 +307,74 @@
 
 		
 
-	<!-- Modal -->
-	<div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<!-- Modal 사진 -->
+	<div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	    <div class="modal-dialog" role="document">
-	        <div class="modal-content"></div>
+	        <div class="modal-content">
+	        </div>
 	    </div>
 	</div>
+	
+	<!-- Modal 음원 -->
+	<div class="modal fade" id="musicModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	        </div>
+	    </div>
+	</div>
+	
+	
+	
 
+	<!-- 가사줄바꿈 JS -->
+	<script>
+		function splitTextIntoLines(text, maxLength) {
+		    var lines = [];
+		    var currentLine = '';
+	
+		    for (var i = 0; i < text.length; i++) {
+		        currentLine += text[i];
+		        if ((i + 1) % maxLength === 0 || i === text.length - 1) {
+		            lines.push(currentLine);
+		            currentLine = '';
+		        }
+		    }
+	
+		    return lines.join('<br>');
+		}
+	
+		var lyrics = "${detail.lyrics}";
+		var maxLength = 20;
+		var formattedLyrics = splitTextIntoLines(lyrics, maxLength);
+		document.getElementById('lyrics').innerHTML = formattedLyrics;
+	</script>
 
+	
+	
+	<!-- 음원재생 JS -->
+	<script>
+        function playAudio() {
+            var audio = document.getElementById("audioPlayer");
+            audio.play();
+        }
+    </script>
 
-
-
-
-
-
-
+	<!-- 음원다운로드 JS -->
+	<script>
+        document.getElementById("downloadButton").addEventListener("click", function(event) {
+            event.preventDefault(); // 기본 동작(버튼 이벤트)을 막음
+            
+            var url = "${detail.filemusic}"; // 다운로드할 파일의 URL
+            var filename = "file.wav"; // 다운로드할 파일의 이름
+            
+            var anchor = document.createElement("a");
+            anchor.href = url;
+            anchor.download = filename;
+            document.body.appendChild(anchor);
+            anchor.click();
+            document.body.removeChild(anchor);
+        });
+    </script>
 
 
 

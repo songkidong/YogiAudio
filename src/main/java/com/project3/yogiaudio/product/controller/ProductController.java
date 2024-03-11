@@ -128,5 +128,25 @@ public class ProductController {
 	
 	
 	
+	//음원등록하기 GET
+	@GetMapping("/dmusic-update")
+	public String musicUpdateGET() {
+		log.debug("음원등록페이지modal 실행");
+		return "product/dmusicupdate";
+	}
+	
+	
+	//음원등록하기 POST
+	@PostMapping("/dmusic-update")
+	public String musicUpdatePOST(MusicDTO dto) {
+		
+		String fileMusic = filedbService.saveFiles(dto.getFiles());
+		musicService.musicUpdate(dto, fileMusic);
+		
+		return "redirect:/product/domestic-music";
+		
+	}
+	
+	
 	
 }

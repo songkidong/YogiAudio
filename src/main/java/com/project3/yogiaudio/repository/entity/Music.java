@@ -19,9 +19,12 @@ public class Music {
 	private String musicTitle;
 	private String musicSinger;
 	private String musicContent;
+	private String musicCompany;
+	private String lyrics;
 	private String startdate;
 	private Timestamp regdate;
 	private String filePath;
+	private String fileMusic;
 	private String musicMajor;
 	private String musicMinor;
 	private int musicPrice;
