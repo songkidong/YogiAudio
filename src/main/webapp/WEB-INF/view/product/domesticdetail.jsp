@@ -5,7 +5,7 @@
 
 
 <style>
-.modal {
+.modalmv{
   display: none;
   position: fixed;
   z-index: 1;
@@ -18,7 +18,7 @@
   background-color: rgba(0,0,0,0.4);
 }
 
-.modal-content {
+#mvmodal{
   background-color: #fefefe;
   margin: 0 auto; /* 가운데 정렬 */
   padding: 20px;
@@ -259,8 +259,8 @@
 	</div>
 	
 	<!-- 추가한 모달 창 -->
-	<div id="myModal" class="modal">
-	  <div class="modal-content">
+	<div id="myModal" class="modalmv">
+	  <div class="modal-content" id="mvmodal">
 	    <span class="close">&times;</span>
 	    <iframe id="videoFrame" width="800" height="400" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	  </div>
