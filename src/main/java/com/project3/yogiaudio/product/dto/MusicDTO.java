@@ -1,6 +1,9 @@
 package com.project3.yogiaudio.product.dto;
 
 import java.sql.Timestamp;
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,7 +28,8 @@ public class MusicDTO {
 	private String musicmajor;
 	private String musicminor;
 	private int musicprice;
-	
+	private List<MultipartFile> files; // 파일 url
+
 	
 	
 	

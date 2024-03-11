@@ -26,7 +26,7 @@
 							 <div class="col-md-4 col-xs-6">
 								<div class="product">
 									<div class="product-img">
-										<img src="./img/product01.png" alt="">
+										<img src="/album/default.png" alt="">
 										<div class="product-label">
 											<span class="sale">-30%</span>
 											<span class="new">NEW</span>
@@ -35,11 +35,11 @@
 									<div class="product-body">
 										<p class="product-category">${aboardlist.musicmajor}</p>
 										<h3 class="product-name">
-											<a href="/product/aboard-detail">
+											<a href="/product/aboard-detail?musicno=${aboardlist.musicno}&musicmajor=${aboardlist.musicmajor}">
 											  ${aboardlist.musictitle}
 											</a>
 										</h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">${aboardlist.musicprice}</del></h4>
+										<h4 class="product-price">${aboardlist.musicprice}<del class="product-old-price"></del></h4>
 										<div class="product-rating">
 											<i class="fa fa-star"></i>
 											<i class="fa fa-star"></i>

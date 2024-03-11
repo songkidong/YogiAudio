@@ -26,7 +26,14 @@
 							 <div class="col-md-4 col-xs-6">
 								<div class="product">
 									<div class="product-img">
-										<img src="./img/product01.png" alt="">
+										<c:choose>
+										    <c:when test="${not empty domesticlist.filepath}">
+										      <img src=" ${domesticlist.filepath}">
+										    </c:when>
+										  <c:otherwise>
+											  <img src="/album/default.png" >
+										  </c:otherwise>
+										 </c:choose>
 										<div class="product-label">
 											<span class="sale">-30%</span>
 											<span class="new">NEW</span>
@@ -40,7 +47,7 @@
 												${domesticlist.musictitle}
 											</a>
 										</h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">${domesticlist.musicprice}</del></h4>
+										<h4 class="product-price">${domesticlist.musicprice}<del class="product-old-price"></del></h4>
 										<div class="product-rating">
 											<i class="fa fa-star"></i>
 											<i class="fa fa-star"></i>

@@ -2,8 +2,10 @@ package com.project3.yogiaudio.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.project3.yogiaudio.product.dto.Criteria;
 import com.project3.yogiaudio.product.dto.MusicDTO;
@@ -43,8 +45,8 @@ public class MusicService {
 	
 	
 	//국내음악 디테일
-	public MusicDTO domesticDetail(int musicno, String musicmajor) {
-		return musicRepository.domesticDetail(musicno, musicmajor);
+	public MusicDTO domesticDetail(@Param(value = "musicno") int musicno, @Param(value = "musicmajor") String musicmajor) {
+		return musicRepository.domesticDetail(musicno,musicmajor);
 	}
 
 	
@@ -52,6 +54,21 @@ public class MusicService {
 	public MusicDTO aboardDetail(int musicno, String musicmajor) {
 		return musicRepository.aboardDetail(musicno, musicmajor);
 	}
+	
+	
+	//앨범자켓바꾸기
+	@Transactional
+	public void albumUpdate(MusicDTO dto,String filePath) {
+		
+		MusicDTO music = MusicDTO.builder()
+				.musicno(dto.getMusicno())
+				.filepath(filePath)
+				.build();
+		
+		Integer result = musicRepository.albumUpdate(music);
+		
+	}
+
 	
 	
 	
