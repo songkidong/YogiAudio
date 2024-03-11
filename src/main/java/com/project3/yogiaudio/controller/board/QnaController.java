@@ -8,14 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("/board")
+
 public class QnaController {
 
-	@GetMapping
-	public String boardQna() {
-		
-		return"";
-	}
 	
 	
 	

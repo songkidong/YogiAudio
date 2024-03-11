@@ -8,14 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("/board")
 public class FreeController {
 
-	@GetMapping
-	public String boardFree() {
-		
-		return"";
-	}
 	
 	
 	
