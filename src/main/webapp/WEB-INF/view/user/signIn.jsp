@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!-- header -->
-<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
-<div class="container">
+<link rel="stylesheet" href="css/user/signIn.css" />
+<%@include file="/WEB-INF/view/layout/header.jsp"%>
+<div class="container sign--in--container">
 	<!-- Heading -->
 	<h1>SIGN IN</h1>
 
@@ -29,6 +30,16 @@
 			<input type="password" placeholder="Repeat password"
 				class="input repeat__password" id="repeat__password" />
 		</div>
+		<!-- name input -->
+		<div class="input__block">
+			<input type="text" placeholder="name" class="input name"
+				id="name" />
+		</div>
+		<!-- nickname input -->
+		<div class="input__block">
+			<input type="text" placeholder="nickname" class="input nickname"
+				id="nickname" />
+		</div>
 		<!-- sign in button -->
 		<button class="signin__btn">Sign in</button>
 	</form>
@@ -46,4 +57,5 @@
 	</button>
 </div>
 <!-- footer -->
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="js/user/signIn.js"></script>
+<%@include file="/WEB-INF/view/layout/footer.jsp"%>
