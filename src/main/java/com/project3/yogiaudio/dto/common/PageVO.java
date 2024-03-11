@@ -1,4 +1,4 @@
-package com.project3.yogiaudio.product.dto;
+package com.project3.yogiaudio.dto.common;
 
 public class PageVO {
 

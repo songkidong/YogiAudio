@@ -1,4 +1,4 @@
-package com.project3.yogiaudio.product.controller;
+package com.project3.yogiaudio.controller;
 
 import java.util.List;
 
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.project3.yogiaudio.product.dto.Criteria;
-import com.project3.yogiaudio.product.dto.MusicDTO;
-import com.project3.yogiaudio.product.dto.PageVO;
+import com.project3.yogiaudio.dto.MusicDTO;
+import com.project3.yogiaudio.dto.common.Criteria;
+import com.project3.yogiaudio.dto.common.PageVO;
 import com.project3.yogiaudio.service.MusicService;
 
 import lombok.extern.slf4j.Slf4j;
