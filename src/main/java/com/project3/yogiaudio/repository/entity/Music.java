@@ -25,6 +25,7 @@ public class Music {
 	private Timestamp regdate;
 	private String filePath;
 	private String fileMusic;
+	private String musicSample;
 	private String musicMajor;
 	private String musicMinor;
 	private int musicPrice;

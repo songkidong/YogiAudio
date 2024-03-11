@@ -68,7 +68,7 @@
 							</p><br>
 							<p>샘플듣기</p>
 						    <audio id="audioPlayer" controls>
-						        <source src="/music/classic.wav" type="audio/wav">
+						        <source src="/music/${detail.musicsample}" type="audio/wav">
 						    </audio><br>
 						    
 						    <p>
