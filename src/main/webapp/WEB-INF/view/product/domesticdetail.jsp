@@ -35,16 +35,14 @@
 
 					<!-- Product thumb imgs -->
 					<div class="col-md-2 col-md-pull-5">
-					   <a href="/product/dalbum-update" data-toggle="modal" data-target="#photoModal" >
-						<div id="product-imgs">
-							<p>사진변경</p>
-						</div>
-					   </a><br>
-					   <a href="/product/dmusic-update" data-toggle="modal" data-target="#musicModal" >
-						<div id="product-imgs">
-							<p>음원등록</p>
-						</div>
-					   </a>
+					  <div id="product-imgs">
+						   <a href="/product/dalbum-update" data-toggle="modal" data-target="#photoModal" >
+								<p>사진변경</p>
+						   </a>
+						   <a href="/product/dmusic-update" data-toggle="modal" data-target="#musicModal" >
+								<p>음원등록</p>
+						   </a>
+					 </div>
 					</div>
 					<!-- /Product thumb imgs -->
 
