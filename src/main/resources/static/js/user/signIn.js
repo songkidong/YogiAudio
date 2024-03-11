@@ -2,45 +2,57 @@ document.addEventListener("DOMContentLoaded", function() {
     let signup = document.querySelector(".links li #signup");
     let signin = document.querySelector(".links li #signin");
     let reset = document.querySelector(".links li #reset");
-    let first_input = document.querySelector("form .first-input");
-    let hidden_input = document.querySelector("form .input__block #repeat__password");
-    let signin_btn = document.querySelector("form .signin__btn");
+    let form = document.querySelector("form");
+    let hiddenInput = document.querySelector("form .input__block #repeat__password");
+    let nameInput = document.getElementById("name");
+    let nicknameInput = document.getElementById("nickname");
+    let signinBtn = document.querySelector("form .signin__btn");
+    let h1 = document.querySelector(".sign--in--container h1");
 
-    //----------- sign up ---------------------
-    signup.addEventListener("click", function(e) {
-        e.preventDefault();
-        this.parentElement.parentElement.previousElementSibling.innerText = "SIGN UP";
-        this.parentElement.style.opacity = "1";
-        Array.from(this.parentElement.parentElement.children).forEach(function(item) {
-            item.style.opacity = ".6";
+    // 초기화: signIn 상태로 설정
+    function setSignInState() {
+        h1.innerText = "SIGN IN";
+        signin.style.opacity = "1";
+        Array.from(signin.parentElement.parentElement.children).forEach(function(item) {
+            item.style.opacity = (item === signin.parentElement) ? "1" : ".6";
         });
-        first_input.classList.remove("first-input__block");
-        first_input.classList.add("signup-input__block");
-        hidden_input.style.opacity = "1";
-        hidden_input.style.display = "block";
-        signin_btn.innerText = "Sign up";
-    });
+        form.reset(); // Form 초기화
+        hiddenInput.style.opacity = "0";
+        hiddenInput.style.display = "none";
+        nameInput.style.display = "none"; // name 입력 폼 숨기기
+        nicknameInput.style.display = "none"; // nickname 입력 폼 숨기기
+        signinBtn.innerText = "Sign in";
+    }
 
-    //----------- sign in ---------------------
+    // signIn 버튼 클릭 시 동작
     signin.addEventListener("click", function(e) {
         e.preventDefault();
-        this.parentElement.parentElement.previousElementSibling.innerText = "SIGN IN";
-        this.parentElement.style.opacity = "1";
-        Array.from(this.parentElement.parentElement.children).forEach(function(item) {
-            item.style.opacity = ".6";
-        });
-        first_input.classList.add("first-input__block");
-        first_input.classList.remove("signup-input__block");
-        hidden_input.style.opacity = "0";
-        hidden_input.style.display = "none";
-        signin_btn.innerText = "Sign in";
+        setSignInState();
     });
 
-    //----------- reset ---------------------
+    // signUp 버튼 클릭 시 동작
+    signup.addEventListener("click", function(e) {
+        e.preventDefault();
+        h1.innerText = "SIGN UP";
+        signin.style.opacity = "1";
+        Array.from(signin.parentElement.parentElement.children).forEach(function(item) {
+            item.style.opacity = ".6";
+        });
+        form.reset(); // Form 초기화
+        hiddenInput.style.opacity = "1";
+        hiddenInput.style.display = "block";
+        nameInput.style.display = "block"; // name 입력 폼 보이게 설정
+        nicknameInput.style.display = "block"; // nickname 입력 폼 보이게 설정
+        signinBtn.innerText = "Sign up";
+    });
+
+    // reset 버튼 클릭 시 동작
     reset.addEventListener("click", function(e) {
         e.preventDefault();
-        Array.from(this.parentElement.parentElement.nextElementSibling.querySelectorAll(".input__block .input")).forEach(function(item) {
-            item.value = "";
-        });
+        form.reset(); // Form 초기화
+        setSignInState(); // signIn 상태로 설정
     });
+
+    // 페이지 로드 시 signIn 상태로 설정
+    setSignInState();
 });
