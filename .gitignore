@@ -161,3 +161,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse,windows,dbeaver,java
+
+# 추가
+*.yml
