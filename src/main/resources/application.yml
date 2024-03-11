@@ -1,0 +1,77 @@
+server:
+  servlet:
+    encoding:
+      charset: utf-8
+      force: true
+    session:
+      timeout: 30m
+  port: 80
+
+# JSP, mustache 원하는거 사용
+spring:
+  devtools:
+    restart:
+      enabled: false
+  mvc:
+    view:
+      prefix: /WEB-INF/view/
+      suffix: .jsp
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB   
+         
+  datasource:    
+    url: jdbc:mysql://localhost:3306/yogiaudio?serverTimeZone=Asia/Seoul
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 1234
+    
+  #h2:
+  #  console:
+  #    enabled: true
+  #sql:
+  #  init:
+  #    data-locations:
+  #      - classpath:db/table.sql
+  #      - classpath:db/data.sql
+  
+
+#  datasource:    
+#    url: jdbc:h2:mem:testdb;MODE=MySQL
+#    driver-class-name: org.h2.Driver
+#    username: user # 유저 이름
+#    password: # 비밀번호 (비워두면 비밀번호 X)
+#  h2:
+#    console:
+#      enabled: true
+#  sql:
+#    init:
+#      data-locations:
+#        - classpath:db/table.sql
+#        - classpath:db/data.sql
+
+
+
+#  jpa:
+#    hibernate:
+#      ddl-auto: create
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+#    defer-datasource-initialization: true
+
+
+mybatis:
+  mapper-locations:
+  - classpath:mapper/**.xml 
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+   
+   
+logging:
+  level:
+    org.mybatis: DEBUG
+    com.project3.yogiaudio: DEBUG
