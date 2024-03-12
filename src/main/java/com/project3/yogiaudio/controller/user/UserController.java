@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.project3.yogiaudio.dto.user.NaverProfile;
 import com.project3.yogiaudio.dto.user.OAuthToken;
 import com.project3.yogiaudio.dto.user.SignUpFormDTO;
 import com.project3.yogiaudio.repository.entity.User;
@@ -116,7 +117,7 @@ public class UserController {
 
 	@GetMapping("/naver/login")
 	@ResponseBody
-	public String naverProc(@RequestParam String code, @RequestParam String state) {
+	public String naverProc(@RequestParam("code") String code, @RequestParam("state") String state) {
 
 		String url = "https://nid.naver.com/oauth2.0/token?" + "grant_type=authorization_code"
 				+ "&client_id=cLVvs14822OOyYydIWA1" + "&client_secret=dV0yEpBLcq" + "&code=" + code + "&state=" + state;
@@ -126,7 +127,6 @@ public class UserController {
 
         // HTTP 요청 헤더 설정
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
         // HTTP 요청 생성
         HttpEntity<String> requestEntity = new HttpEntity<>(headers);
@@ -134,8 +134,35 @@ public class UserController {
         // HTTP 요청 실행
         ResponseEntity<OAuthToken> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, OAuthToken.class);
 
-        // 응답 결과 반환
-        return responseEntity.getBody().toString();
+        // RestTemplate 객체 생성
+        RestTemplate restTemplate2 = new RestTemplate();
+        
+     // HTTP 요청 헤더 설정
+        HttpHeaders headers2 = new HttpHeaders();
+        headers2.add("Authorization", "Bearer " + responseEntity.getBody().getAccessToken());
+        
+        // HTTP 요청 생성
+        HttpEntity<String> requestEntity2 = new HttpEntity<>(headers2);
+        
+		// 사용자 정보 요청
+		ResponseEntity<NaverProfile> response2 = restTemplate2.exchange("https://openapi.naver.com/v1/nid/me",
+				HttpMethod.POST, requestEntity2, NaverProfile.class);
+		
+		NaverProfile naverProfile = response2.getBody();
+		
+		SignUpFormDTO signUpFormDTO = SignUpFormDTO.builder()
+				.name(naverProfile.getResponse().getName())
+				.nickname(naverProfile.getResponse().getNickname())
+				.email(naverProfile.getResponse().getEmail())
+				.password("naverpassword")
+				.build();
+		
+		userService.createUser(signUpFormDTO);
+
+        httpsession.setAttribute(Define.PRINCIPAL, signUpFormDTO);
+        
+        return "redirect:/product/main";
+        
 	}
 
 }
