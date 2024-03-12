@@ -150,7 +150,11 @@
 											</div>
 											<div class="product-body">
 												<p class="product-category">${dnewlist.musicminor}</p>
-												<h3 class="product-name"><a href="#">${dnewlist.musictitle}</a></h3>
+												<h3 class="product-name">
+													<a href="/product/domestic-detail?musicno=${dnewlist.musicno}&musicmajor=${dnewlist.musicmajor}">
+														${dnewlist.musictitle}
+													</a>
+												</h3>
 												<h4 class="product-price">${dnewlist.musicprice}</h4>
 											</div>
 										</div>
@@ -214,7 +218,7 @@
 									<div class="products-slick" data-nav="#slick-nav-2">
 									
 										<!-- product -->
-									  <c:forEach var="dlikelist" items="${dlikelist}">	
+									 <c:forEach var="dlikelist" items="${dlikelist}">
 										<div class="product">
 											<div class="product-img">
 												<c:choose>
@@ -230,11 +234,15 @@
 											</div>
 											<div class="product-body">
 												<p class="product-category">${dlikelist.musicminor}</p>
-												<h3 class="product-name"><a href="#">${dlikelist.musictitle}</a></h3>
+												<h3 class="product-name">
+													<a href="/product/domestic-detail?musicno=${dlikelist.musicno}&musicmajor=${dlikelist.musicmajor}">
+													  ${dlikelist.musictitle}
+													</a>
+												</h3>
 												<h4 class="product-price">${dlikelist.musicprice}</h4>
 										   </div>
 										  </div>
-										 </c:forEach> 
+										 </c:forEach>
 										<!-- /product -->
 
 										
