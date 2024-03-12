@@ -3,8 +3,8 @@
 <%@include file="/WEB-INF/view/layout/header.jsp"%>
 <link href="/css/board/list.css" rel="stylesheet">
 
-<section id="boardNotice">
-	<div class="containerNotice">
+<section id="board">
+	<div class="board-container">
 		<h2>공지사항</h2>
 
 		<div>

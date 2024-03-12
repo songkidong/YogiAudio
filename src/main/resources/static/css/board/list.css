@@ -1,4 +1,4 @@
-#boardNotice {
+#board {
 	display: flex;
 	flex-direction: column;
 	padding-top: 5%;
@@ -7,7 +7,7 @@
 	padding-right: 10%;
 }
 
-.containerNotice {
+.board-container {
 	display: flex;
 	flex-direction: column;
 }
@@ -23,16 +23,16 @@ h2 {
 	padding-right: 10px;
 }
 
-#boardNotice>div>table>thead>tr>th {
+#board>div>table>thead>tr>th {
 	font-weight: bold;
 	text-align: center;
 }
 
-#boardNotice>div>nav {
+#board>div>nav {
 	margin-top: 40px;
 }
 
-#boardNotice>div>div>div {
+#board>div>div>div {
 	float: right;
 	display: flex;
 	padding-bottom: 20px;
@@ -45,7 +45,7 @@ nav {
 }
 
 /* Container styles */
-.containerNotice {
+.board-container {
 	margin-top: 20px;
 }
 

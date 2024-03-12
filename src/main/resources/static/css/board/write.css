@@ -1,0 +1,13 @@
+#board {
+	display: flex;
+	flex-direction: column;
+	padding-top: 5%;
+	padding-bottom: 5%;
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+.board-container {
+	display: flex;
+	flex-direction: column;
+}
