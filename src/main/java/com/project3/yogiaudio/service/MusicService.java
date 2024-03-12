@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.project3.yogiaudio.dto.MusicDTO;
 import com.project3.yogiaudio.dto.common.Criteria;
+import com.project3.yogiaudio.dto.music.MusicDTO;
 import com.project3.yogiaudio.repository.interfaces.MusicRepository;
 
 @Service
@@ -86,8 +86,8 @@ public class MusicService {
 	
 	//상태변경하기
 	@Transactional
-	public Integer statusUpdate(@Param(value = "musicno") int musicno) {
-		return musicRepository.statusUpdate(musicno);
+	public Integer statusUpdate(@Param(value = "id") int id) {
+		return musicRepository.statusUpdate(id);
 	}
 	
 	

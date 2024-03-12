@@ -7,9 +7,6 @@
 
 
 
-<%
-    session.setAttribute("userId", 15);
- %>
 
 
 
@@ -116,6 +113,7 @@
 							</p><br>
 							<p>
 							   발매일 : ${detail.startdate}
+							   유저상태 : ${principal.status}
 							</p><br>
 							<p>샘플듣기</p>
 						    <audio id="audioPlayer" controls>
@@ -125,9 +123,9 @@
 						    <p>
 						        <button id="downloadButton" type="button" class="btn btn-primary">파일 다운로드</button>
 						         <c:choose>
-							        <c:when test="${detail.status eq 'Y'}">
-							            <button id="paymentcheck" type="button" class="btn btn-success">다운로드가능</button>
-							        </c:when>
+							         	<c:when test="${principal.status eq 'Y'}">
+									        <button id="paymentcheck" type="button" class="btn btn-success">다운로드 가능</button>
+									    </c:when>
 							        <c:otherwise>
 							            <button id="paymentcheck" type="button" class="btn btn-danger" >다운로드불가능</button>
 							        </c:otherwise>
@@ -374,7 +372,7 @@
 						    const button = document.getElementById("payment-button");
 						    const coupon = document.getElementById("coupon-box");
 						    const no = ${detail.musicno};
-						    const userId = <%= (int) session.getAttribute("userId") %>;
+						    const userId = ${principal.id};
 						    const generateRandomString = () => window.btoa(Math.random()).slice(0, 20);
 						    var amount = ${detail.musicprice};
 						  	

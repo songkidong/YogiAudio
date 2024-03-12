@@ -23,4 +23,6 @@ public class User {
 	private String role;
 	private String deleteYn;
 	private Timestamp deleteAt;
+	private String status;
+
 }

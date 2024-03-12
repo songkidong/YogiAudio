@@ -1,4 +1,4 @@
-package com.project3.yogiaudio.controller;
+package com.project3.yogiaudio.controller.product;
 
 import java.util.List;
 
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project3.yogiaudio.filedb.service.FiledbService;
-import com.project3.yogiaudio.dto.MusicDTO;
 import com.project3.yogiaudio.dto.common.PageVO;
+import com.project3.yogiaudio.dto.music.MusicDTO;
 import com.project3.yogiaudio.dto.common.Criteria;
 import com.project3.yogiaudio.service.MusicService;
 
@@ -151,9 +151,9 @@ public class ProductController {
 	
 	//성공 후 상태변경
 	@GetMapping("/success")
-	public String paymentSuccessGET(@RequestParam(value = "musicno") int musicno) {
+	public String paymentSuccessGET(@RequestParam(value = "id") int id) {
 	   
-	    musicService.statusUpdate(musicno);
+	    musicService.statusUpdate(id);
 	    return "product/success"; // 성공 페이지를 반환합니다.
 	}
 	

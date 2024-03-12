@@ -5,8 +5,10 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.project3.yogiaudio.dto.MusicDTO;
 import com.project3.yogiaudio.dto.common.Criteria;
+import com.project3.yogiaudio.dto.music.MusicDTO;
+
+
 
 @Mapper
 public interface MusicRepository {
@@ -37,7 +39,7 @@ public interface MusicRepository {
 	
 	
 	//결제상태변경하기
-	public Integer statusUpdate(@Param(value = "musicno") int musicno);
+	public Integer statusUpdate(@Param(value = "id") int id);
 	
 	
 	

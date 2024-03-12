@@ -1,12 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-<<<<<<< HEAD
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
-=======
-	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
->>>>>>> 520347dc6bb83b1c02fe208c9ea14ba37aa0f0f6
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,24 +17,16 @@
 	href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700"
 	rel="stylesheet">
 
-<<<<<<< HEAD
 		<!-- Bootstrap -->
 		<link type="text/css" rel="stylesheet" href="/main/css/bootstrap.min.css"/>
 		
 		
 		
-		<!-- Slick -->
 		<link type="text/css" rel="stylesheet" href="/main/css/slick.css"/>
 		<link type="text/css" rel="stylesheet" href="/main/css/slick-theme.css"/>
-=======
-<!-- Bootstrap -->
-<link type="text/css" rel="stylesheet"
-	href="/main/css/bootstrap.min.css" />
 
-<!-- Slick -->
-<link type="text/css" rel="stylesheet" href="/main/css/slick.css" />
-<link type="text/css" rel="stylesheet" href="/main/css/slick-theme.css" />
->>>>>>> 520347dc6bb83b1c02fe208c9ea14ba37aa0f0f6
+
+
 
 <!-- nouislider -->
 <link type="text/css" rel="stylesheet"
@@ -58,37 +45,7 @@
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
-<<<<<<< HEAD
-    </head>
-	<body>
-		<!-- HEADER -->
-		<header>
-			<!-- TOP HEADER -->
-			<div id="top-header">
-				<div class="container">
-					<ul class="header-links pull-left">
-						<li><a href="#"><i class="fa fa-phone"></i> +021-95-51-84</a></li>
-						<li><a href="#"><i class="fa fa-envelope-o"></i> email@email.com</a></li>
-						<li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
-					</ul>
-					<ul class="header-links pull-right">
-						<li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
-						<li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>	
-					</ul>
-					
-				
-					
-					
-					
-					
-					
-				</div>
-			</div>
-			
-	
-			
-			<!-- /TOP HEADER -->
-=======
+
 </head>
 <body>
 	<!-- HEADER -->
@@ -110,7 +67,6 @@
 			</div>
 		</div>
 		<!-- /TOP HEADER -->
->>>>>>> 520347dc6bb83b1c02fe208c9ea14ba37aa0f0f6
 
 		<!-- MAIN HEADER -->
 		<div id="header" style="background-color: white;">
@@ -130,41 +86,6 @@
 					<!-- /LOGO -->
 
 					<div class="row" style="display: flex; align-items: center;">
-<<<<<<< HEAD
-					    <!-- 검색 바 -->
-					    <div class="col-md-12">
-					        <div class="header-search">
-					            <form>
-					                <select class="input-select">
-					                    <option value="0">모든 카테고리</option>
-					                    <option value="1">카테고리 01</option>
-					                    <option value="1">카테고리 02</option>
-					                </select>
-					                <input class="input" placeholder="여기에 검색">
-					                <button class="search-btn">검색</button>
-					            </form>
-					        </div>
-					    </div>
-					    <!-- 로그인 -->
-					    <div class="col-md-6">
-					        <div class="login-container" style="display: flex; align-items: center; margin-top: 10px;">
-					        	<a href="#">
-					              <p>로그인</p>
-					            </a>
-					            <a href="#">
-					              <p style="margin-left: 10px;">회원가입</p>
-					            </a>
-					        </div>
-					    </div>
-					    
-					</div>
-						
-					
-						
-							
-						
-					
-=======
 						<!-- 검색 바 -->
 						<div class="col-md-12">
 							<div class="header-search">
@@ -176,7 +97,6 @@
 									</select> <input class="input" placeholder="여기에 검색">
 									<button class="search-btn">검색</button>
 								</form>
->>>>>>> 520347dc6bb83b1c02fe208c9ea14ba37aa0f0f6
 							</div>
 						</div>
 						<!-- 로그인 -->

@@ -1,6 +1,7 @@
-package com.project3.yogiaudio.dto;
+package com.project3.yogiaudio.dto.music;
 
 import java.sql.Timestamp;
+
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -17,7 +18,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 public class MusicDTO {
-
+	
+	private long id;
 	private int musicno;
 	private String musictitle;
 	private String musicsinger;

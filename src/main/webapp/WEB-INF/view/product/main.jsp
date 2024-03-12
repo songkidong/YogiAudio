@@ -46,7 +46,6 @@
 			<!-- container -->
 			<div class="container">
 					<h3 class="title">💘에디터 추천MV</h3>
-				
 				<!-- row -->
 				<div class="row">
 				
