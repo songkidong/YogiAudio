@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.project3.yogiaudio.repository.interfaces.UserRepository">
+
+	<!-- 회원 가입 -->
+	<insert id="insert">
+		INSERT INTO user (name, nickname, email, password,
+		created_at)
+		VALUES (#{name}, #{nickname}, #{email}, #{password},
+		now());
+	</insert>
+
+	<!-- 회원 수정 -->
+	<update id="updateById">
+		UPDATE user SET
+		nickname = #{nickname},
+		email =
+		#{email},
+		password = #{password},
+		file_path =
+		#{file_path}
+		where id =
+		#{id};
+	</update>
+
+	<!-- 이메일로 유저 조회 -->
+	<select id="findByEmail" resultType="com.project3.yogiaudio.repository.entity.User">
+		SELECT * FROM user WHERE email = #{email};
+	</select>
+
+</mapper>

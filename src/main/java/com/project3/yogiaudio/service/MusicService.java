@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.project3.yogiaudio.product.dto.Criteria;
-import com.project3.yogiaudio.product.dto.MusicDTO;
+import com.project3.yogiaudio.dto.MusicDTO;
+import com.project3.yogiaudio.dto.common.Criteria;
 import com.project3.yogiaudio.repository.interfaces.MusicRepository;
 
 @Service

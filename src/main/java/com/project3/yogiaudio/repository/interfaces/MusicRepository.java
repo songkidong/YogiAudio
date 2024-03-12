@@ -5,8 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.project3.yogiaudio.product.dto.Criteria;
-import com.project3.yogiaudio.product.dto.MusicDTO;
+import com.project3.yogiaudio.dto.MusicDTO;
+import com.project3.yogiaudio.dto.common.Criteria;
 
 @Mapper
 public interface MusicRepository {
