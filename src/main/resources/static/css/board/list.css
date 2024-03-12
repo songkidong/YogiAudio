@@ -1,0 +1,172 @@
+#boardNotice {
+	display: flex;
+	flex-direction: column;
+	padding-top: 5%;
+	padding-bottom: 5%;
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+.containerNotice {
+	display: flex;
+	flex-direction: column;
+}
+
+.title-container {
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+}
+
+h2 {
+	padding-bottom: 55px;
+	padding-right: 10px;
+}
+
+#boardNotice>div>table>thead>tr>th {
+	font-weight: bold;
+	text-align: center;
+}
+
+#boardNotice>div>nav {
+	margin-top: 40px;
+}
+
+#boardNotice>div>div>div {
+	float: right;
+	display: flex;
+	padding-bottom: 20px;
+}
+
+nav {
+	display: flex;
+	justify-content: center;
+	margin-top: 20px; /* Adjust the margin as needed */
+}
+
+/* Container styles */
+.containerNotice {
+	margin-top: 20px;
+}
+
+/* Search input styles */
+.input-group {
+	margin-bottom: 20px;
+}
+
+/* Table styles */
+.table {
+	width: 100%;
+	margin-bottom: 20px;
+	border-collapse: collapse;
+	background-color: #fff;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.table th, .table td {
+	padding: 10px;
+	text-align: center;
+}
+
+/* Table header styles */
+.table tbody tr {
+	height: 50px; /* Adjust the height as needed */
+}
+
+.thead-light th {
+	background-color: #f8f9fa;
+}
+
+/* Megaphone and file icon styles */
+.bi-megaphone-fill, .bi-file-earmark-text-fill {
+	font-size: 1.5em;
+	color: #f0ad4e
+}
+
+/* Pagination styles */
+.pagination {
+	margin-top: 20px;
+}
+
+.page-item.disabled .page-link {
+	color: #6c757d;
+	pointer-events: none;
+	cursor: not-allowed;
+}
+
+.page-item a {
+	text-decoration: none;
+	color: #007bff;
+}
+
+/* Pagination styles */
+.pagination {
+	margin-top: 20px;
+}
+
+.pagination ul {
+	list-style: none;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.pagination li {
+	margin: 0 5px;
+}
+
+.pagination a, .pagination span {
+	display: block;
+	padding: 10px;
+	border: 1px solid #007bff;
+	border-radius: 5px;
+	text-decoration: none;
+	color: #007bff;
+}
+
+.pagination .page-item.disabled a, .pagination .page-item.disabled span
+	{
+	color: #6c757d;
+	pointer-events: none;
+	cursor: not-allowed;
+}
+
+.pagination .page-item.active a, .pagination .page-item.active span {
+	background-color: #007bff;
+	color: #fff;
+}
+
+/* Search container styles */
+.input-group {
+	margin-bottom: 20px;
+}
+
+/* Search input styles */
+.searchType, .searchInput, .searchButton {
+	height: 40px;
+}
+
+.form-outline {
+	flex: 1;
+}
+
+.searchType, .searchInput {
+	border: 1px solid #ced4da;
+	border-radius: 5px;
+	padding: 8px;
+}
+
+/* Search button styles */
+.searchButton {
+	border: 1px solid #f0ad4e;
+	border-radius: 5px;
+	color: white;
+	cursor: pointer;
+}
+
+
+#btnInsert:after {
+    content: "등록"; /* Display "등록" text after the button */
+    margin-left: 5px; /* Adjust spacing as needed */
+}

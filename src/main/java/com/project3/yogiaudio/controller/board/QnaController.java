@@ -8,12 +8,22 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@RequestMapping("/board/qna")
 public class QnaController {
 
-	public String boardQna() {
-		
-		return"";
-	}
+	// http://localhost:80/board/qna/qnaList
+		/**
+		  * @Method Name : qnaList
+		  * @작성일 : 2024. 3. 12.
+		  * @작성자 : 노수현
+		  * @변경이력 : 
+		  * @Method 설명 : 문의하기 목록 화면
+		  */
+		@GetMapping("/qnaList")
+		public String qnaList() {
+			
+			return"board/qna/qnaList";
+		}
 	
 	
 	

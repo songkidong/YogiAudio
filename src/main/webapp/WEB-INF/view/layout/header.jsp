@@ -20,6 +20,15 @@
 <!-- Bootstrap -->
 <link type="text/css" rel="stylesheet"
 	href="/main/css/bootstrap.min.css" />
+<script
+	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+	integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+	crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 
 <!-- Slick -->
 <link type="text/css" rel="stylesheet" href="/main/css/slick.css" />
@@ -98,7 +107,7 @@
 						<!-- 로그인 -->
 						<div class="col-md-6">
 							<div class="login-container"
-								style="display: flex; align-items: center; margin-top: 10px;">
+								style="display: flex; align-items: baseline; margin-top: 10px;">
 								<c:choose>
 									<c:when test="${empty principal}">
 										<a href="/signIn">
@@ -117,7 +126,18 @@
 										</a>
 									</c:otherwise>
 								</c:choose>
+								<div class="dropdown" style="margin-left: 90px;">
+								<button class="btn btn-warning btn-sm dropdown-toggle" type="button"
+									data-bs-toggle="dropdown" aria-expanded="false">
+									게시판</button>
+								<ul class="dropdown-menu">
+									<li><a class="dropdown-item" href="/board/notice/noticeList">공지사항</a></li>
+									<li><a class="dropdown-item" href="/board/qna/qnaList">나의 문의하기</a></li>
+									<li><a class="dropdown-item" href="/board/free/freeList">자유게시판</a></li>
+								</ul>
 							</div>
+							</div>
+							
 						</div>
 
 					</div>
