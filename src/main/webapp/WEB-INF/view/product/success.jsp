@@ -4,14 +4,7 @@
    	
    	
    	<script>
-    // 페이지가 로드될 때 실행되는 함수
-    window.onload = function() {
-        // 결제 완료 alert 표시
         alert("결제 완료되었습니다");
-        
-        // 페이지 리다이렉트
-        window.location.href = "/product/domestic-music";
-	    };
 	</script>
    	
    	

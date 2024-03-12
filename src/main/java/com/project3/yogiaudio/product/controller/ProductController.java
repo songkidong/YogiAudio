@@ -148,12 +148,16 @@ public class ProductController {
 	}
 	
 	
-	//결제성공페이지 호출하기GET
+	//성공 후 상태변경
 	@GetMapping("/success")
-	public String paymentSuccessGET() {
-		
-		return"product/success";
+	public String paymentSuccessGET(@RequestParam(value = "musicno") int musicno) {
+	   
+	    musicService.statusUpdate(musicno);
+	    
+	    return "redirect:/product/domestic-music"; // 성공 페이지를 반환합니다.
 	}
+	
+	
 	
 	
 	

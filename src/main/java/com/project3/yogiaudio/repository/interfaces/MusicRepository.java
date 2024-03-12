@@ -36,4 +36,9 @@ public interface MusicRepository {
 	public Integer musicUpdate(MusicDTO dto);
 	
 	
+	//결제상태변경하기
+	public Integer statusUpdate(@Param(value = "musicno") int musicno);
+	
+	
+	
 }

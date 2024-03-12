@@ -357,6 +357,7 @@
 						<script>
 						    const button = document.getElementById("payment-button");
 						    const coupon = document.getElementById("coupon-box");
+						    const no = ${detail.musicno};
 						    const generateRandomString = () => window.btoa(Math.random()).slice(0, 20);
 						    var amount = ${detail.musicprice};
 						  	
@@ -400,7 +401,7 @@
 						      paymentWidget.requestPayment({
 						        orderId: generateRandomString(),
 						        orderName: "${detail.musictitle}",
-						        successUrl: window.location.origin + "/product/success",
+						        successUrl: window.location.origin + "/product/success?musicno=" + no,
 						        failUrl: window.location.origin + "/fail",
 						        customerTitle: "customer123@gmail.com",
 						        customerName: "${detail.musicsinger}",

@@ -60,5 +60,11 @@
 	
 	
 	
+	<!-- 결제 후 상태업데이트하기 -->
+	<update id="statusUpdate">
+		update music set status= 'Y'
+		where music_no=#{musicno}
+	</update>
+	
 
 </mapper>

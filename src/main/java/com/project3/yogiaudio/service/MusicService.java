@@ -84,6 +84,13 @@ public class MusicService {
 	}
 	
 	
+	//상태변경하기
+	@Transactional
+	public Integer statusUpdate(@Param(value = "musicno") int musicno) {
+		return musicRepository.statusUpdate(musicno);
+	}
+	
+	
 	
 	
 }

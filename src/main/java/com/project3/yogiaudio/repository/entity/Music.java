@@ -29,6 +29,8 @@ public class Music {
 	private String musicMajor;
 	private String musicMinor;
 	private int musicPrice;
+	private String status;
+
 	
 	
 }
