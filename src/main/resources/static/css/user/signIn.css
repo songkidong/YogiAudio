@@ -9,11 +9,6 @@ body {
   width: 80%;
   margin: 120px auto;
 }
-
-.logo > img{
-	width:236.25px !important;
-	height:44.77px !important;
-}
 h1 {
   color: #e91e63;
   font-size: 48px;
