@@ -155,7 +155,7 @@
 														${dnewlist.musictitle}
 													</a>
 												</h3>
-												<h4 class="product-price">${dnewlist.musicprice}</h4>
+												<h4 class="product-price">${dnewlist.musiccompany}</h4>
 											</div>
 										</div>
 										</c:forEach> 
@@ -239,7 +239,7 @@
 													  ${dlikelist.musictitle}
 													</a>
 												</h3>
-												<h4 class="product-price">${dlikelist.musicprice}</h4>
+												<h4 class="product-price">${dlikelist.musiccompany}</h4>
 										   </div>
 										  </div>
 										 </c:forEach>
@@ -299,7 +299,7 @@
 												${dlikelist.musictitle}
 											</a>
 										</h3>
-										<h4 class="product-price">${dlikelist.musicprice}</h4>
+										<h4 class="product-price">${dlikelist.musiccompany}</h4>
 									</div>
 								</div>
 							  </c:forEach>	
@@ -335,7 +335,7 @@
 											   ${dlikelist.musictitle}
 											</a>
 										</h3>
-										<h4 class="product-price">${dlikelist.musicprice}</h4>
+										<h4 class="product-price">${dlikelist.musiccompany}</h4>
 									</div>
 								</div>
 							</c:forEach>
