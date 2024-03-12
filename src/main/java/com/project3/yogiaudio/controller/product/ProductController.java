@@ -18,6 +18,7 @@ import com.project3.yogiaudio.dto.music.MusicDTO;
 import com.project3.yogiaudio.dto.common.Criteria;
 import com.project3.yogiaudio.service.MusicService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -34,7 +35,23 @@ public class ProductController {
 	// http://localhost:80/product/main
 	//메인페이지 호출하기
 	@GetMapping("/main")
-	public String productMainGET() {
+	public String productMainGET(HttpSession session,Model model,Criteria cri) throws Exception {
+		
+		PageVO pageVO = new PageVO();
+		pageVO.setCri(cri);
+		pageVO.setTotalCount(musicService.countdomesticListAll());		
+		
+		model.addAttribute("pageVO", pageVO);
+		
+		
+		List<MusicDTO> dnewresult = musicService.newMusicList(cri);
+		model.addAttribute("dnewlist", dnewresult);
+		
+		List<MusicDTO> dlikeresult = musicService.likeMusicList(cri);
+		model.addAttribute("dlikelist",dlikeresult);
+		
+		
+		
 		log.debug("메인페이지호출테스트");
 		return"product/main";
 	}
@@ -149,13 +166,17 @@ public class ProductController {
 	}
 	
 	
-	//성공 후 상태변경
+	//성공 후 상태변경 --> 보류중
 	@GetMapping("/success")
 	public String paymentSuccessGET(@RequestParam(value = "id") int id) {
 	   
 	    musicService.statusUpdate(id);
 	    return "product/success"; // 성공 페이지를 반환합니다.
 	}
+	
+	
+	
+	
 	
 	
 	

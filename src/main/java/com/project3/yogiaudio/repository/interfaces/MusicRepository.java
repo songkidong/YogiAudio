@@ -42,5 +42,16 @@ public interface MusicRepository {
 	public Integer statusUpdate(@Param(value = "id") int id);
 	
 	
+	//최신순으로출력하기
+	public List<MusicDTO> newMusicList(Criteria cri) throws Exception;
+	
+	
+	//좋아요순으로출력하기
+	public List<MusicDTO> likeMusicList(Criteria cri) throws Exception;
+	
+	
+	
+	
+	
 	
 }

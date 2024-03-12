@@ -35,6 +35,7 @@ public class MusicDTO {
 	private String musicminor;
 	private int musicprice;
 	private String status;
+	private int likeit;
 	private List<MultipartFile> files; // 파일 url
 
 	

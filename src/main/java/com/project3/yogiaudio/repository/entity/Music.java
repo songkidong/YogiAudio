@@ -30,6 +30,8 @@ public class Music {
 	private String musicMinor;
 	private int musicPrice;
 	private String status;
+	private int likeit;
+
 
 	
 	

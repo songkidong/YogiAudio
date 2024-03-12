@@ -91,6 +91,21 @@ public class MusicService {
 	}
 	
 	
+	//최신순으로 출력하기
+	public List<MusicDTO> newMusicList(Criteria cri) throws Exception{
+		List<MusicDTO> result = musicRepository.newMusicList(cri);
+		return result;
+	}
+	
+	
+	
+	//좋아요순으로 출력하기
+	public List<MusicDTO> likeMusicList(Criteria cri) throws Exception{
+		List<MusicDTO> result = musicRepository.likeMusicList(cri);
+		return result;
+	}
+	
+	
 	
 	
 }

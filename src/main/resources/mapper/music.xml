@@ -60,11 +60,26 @@
 	
 	
 	
-	<!-- 결제 후 상태업데이트하기 -->
+	<!-- 결제 후 상태업데이트하기 (추후 이용권구매후 유저상태 -> Y 업뎃으로 바꿔야함!!) -->
 	<update id="statusUpdate">
 		update user set status= 'Y'
 		where id=#{id}
 	</update>
+	
+	
+	
+	
+	<!-- 국내최신순으로 메인페이지리스트출력 -->
+	<select id="newMusicList" resultType="com.project3.yogiaudio.dto.music.MusicDTO">
+		select * from music order by startdate asc
+	</select>
+	
+	
+	<!-- 국내인기순으로 메인페이지리스트출력 -->
+	<select id ="likeMusicList" resultType="com.project3.yogiaudio.dto.music.MusicDTO">
+		select * from music order by likeit desc
+	</select>
+	
 	
 
 </mapper>
