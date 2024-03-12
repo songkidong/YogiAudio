@@ -3,9 +3,13 @@
 
    	
    	
-   	<script>
-        alert("결제 완료되었습니다");
-	</script>
+	  <script>
+		    // 결제 완료 알림을 표시
+		    alert("결제 완료되었습니다");
+		
+		    // 확인 버튼을 누르면 /product/domestic-music로 이동
+		    window.location.href = "/product/domestic-music";
+	  </script>
    	
    	
    	

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/view/layout/header.jsp" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://js.tosspayments.com/v1/payment-widget"></script>
 
@@ -115,7 +116,14 @@
 						    
 						    <p>
 						        <button id="downloadButton" type="button" class="btn btn-primary">파일 다운로드</button>
-						        <button id="paymentcheck" type="button" class="btn btn-success">결제하기</button>
+						         <c:choose>
+							        <c:when test="${detail.status eq 'Y'}">
+							            <button id="paymentcheck" type="button" class="btn btn-success">다운로드가능</button>
+							        </c:when>
+							        <c:otherwise>
+							            <button id="paymentcheck" type="button" class="btn btn-danger" >다운로드불가능</button>
+							        </c:otherwise>
+							    </c:choose>
 						    </p>
 							 
 							    

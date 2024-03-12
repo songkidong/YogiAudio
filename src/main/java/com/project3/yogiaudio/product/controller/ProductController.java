@@ -153,8 +153,7 @@ public class ProductController {
 	public String paymentSuccessGET(@RequestParam(value = "musicno") int musicno) {
 	   
 	    musicService.statusUpdate(musicno);
-	    
-	    return "redirect:/product/domestic-music"; // 성공 페이지를 반환합니다.
+	    return "product/success"; // 성공 페이지를 반환합니다.
 	}
 	
 	
