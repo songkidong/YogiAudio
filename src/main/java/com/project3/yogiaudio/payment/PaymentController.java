@@ -29,12 +29,16 @@ public class PaymentController {
 	    String orderId;
 	    String amount;
 	    String paymentKey;
+	    
+	    
 	    try {
 	      // 클라이언트에서 받은 JSON 요청 바디입니다.
 	      JSONObject requestData = (JSONObject) parser.parse(jsonBody);
 	      paymentKey = (String) requestData.get("paymentKey");
 	      orderId = (String) requestData.get("orderId");
 	      amount = (String) requestData.get("amount");
+	     
+	      
 	    } catch (ParseException e) {
 	      throw new RuntimeException(e);
 	    };
@@ -42,6 +46,7 @@ public class PaymentController {
 	    obj.put("orderId", orderId);
 	    obj.put("amount", amount);
 	    obj.put("paymentKey", paymentKey);
+	  
 	    
 	    // 토스페이먼츠 API는 시크릿 키를 사용자 ID로 사용하고, 비밀번호는 사용하지 않습니다.
 	    // 비밀번호가 없다는 것을 알리기 위해 시크릿 키 뒤에 콜론을 추가합니다.

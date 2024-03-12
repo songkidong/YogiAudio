@@ -1,15 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <meta charset="utf-8" />
-  </head>
-  <body>
-    <h2>결제 성공</h2>
-    <p id="paymentKey"></p>
-    <p id="orderId"></p>
-    <p id="amount"></p>
+
+   	
+   	
+   	<script>
+    // 페이지가 로드될 때 실행되는 함수
+    window.onload = function() {
+        // 결제 완료 alert 표시
+        alert("결제 완료되었습니다");
+        
+        // 페이지 리다이렉트
+        window.location.href = "/product/domestic-music";
+	    };
+	</script>
+   	
+   	
+   	
+   	
+   	
 
     <script>
       // 쿼리 파라미터 값이 결제 요청할 때 보낸 데이터와 동일한지 반드시 확인하세요.
@@ -55,5 +63,3 @@
       amountElement.textContent = "결제 금액: " + amount;
       paymentKeyElement.textContent = "paymentKey: " + paymentKey;
     </script>
-  </body>
-</html>
