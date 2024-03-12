@@ -148,5 +148,14 @@ public class ProductController {
 	}
 	
 	
+	//결제성공페이지 호출하기GET
+	@GetMapping("/success")
+	public String paymentSuccessGET() {
+		
+		return"product/success";
+	}
+	
+	
+	
 	
 }
