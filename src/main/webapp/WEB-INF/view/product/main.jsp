@@ -276,87 +276,79 @@
 						</div>
 
 						<div class="products-widget-slick" data-nav="#slick-nav-3">
+						
 							<div>
-								<!-- product widget -->
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="/main/img/new1.jpg" >
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-									</div>
-								</div>
-								<!-- /product widget -->
 
 								<!-- product widget -->
+							<c:forEach var="dlikelist" items="${dlikelist}" begin="0" end="2">
 								<div class="product-widget">
 									<div class="product-img">
-										<img src="/main/img/new2.jpg" >
+										<c:choose>
+											<c:when test="${not empty dlikelist.filepath}">
+												  <img src=" ${dlikelist.filepath}">
+										    </c:when>
+										    <c:otherwise>
+												   <img src="/album/default.png" >
+											</c:otherwise>
+										 </c:choose>
 									</div>
 									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+										<p class="product-category">${dlikelist.musicminor}</p>
+										<h3 class="product-name">
+											<a href="#">
+												${dlikelist.musictitle}
+											</a>
+										</h3>
+										<h4 class="product-price">${dlikelist.musicprice}</h4>
 									</div>
 								</div>
-								<!-- /product widget -->
-
+							  </c:forEach>	
 								<!-- product widget -->
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="/main/img/new3.jpg" >
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-									</div>
-								</div>
-								<!-- product widget -->
+								
+								
+								
 							</div>
 
+
+
 							<div>
+								
+								
+								
 								<!-- product widget -->
+							<c:forEach var="dlikelist" items="${dlikelist}" begin="3" end="5">
 								<div class="product-widget">
 									<div class="product-img">
-										<img src="/main/img/new3.jpg" >
+										<c:choose>
+											<c:when test="${not empty dlikelist.filepath}">
+												  <img src=" ${dlikelist.filepath}">
+										    </c:when>
+										    <c:otherwise>
+												   <img src="/album/default.png" >
+											</c:otherwise>
+										 </c:choose>
 									</div>
 									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+										<p class="product-category">${dlikelist.musicminor}</p>
+										<h3 class="product-name">
+											<a href="#">
+											   ${dlikelist.musictitle}
+											</a>
+										</h3>
+										<h4 class="product-price">${dlikelist.musicprice}</h4>
 									</div>
 								</div>
-								<!-- /product widget -->
-
+							</c:forEach>
 								<!-- product widget -->
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="/main/img/new3.jpg" >
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-									</div>
-								</div>
-								<!-- /product widget -->
-
-								<!-- product widget -->
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="/main/img/new3.jpg" >
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-									</div>
-								</div>
-								<!-- product widget -->
+								
+								
+								
+								
 							</div>
+							
+							
+							
+							
 						</div>
 					</div>
 

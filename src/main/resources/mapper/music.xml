@@ -81,5 +81,16 @@
 	</select>
 	
 	
+	
+	<!-- 국내인기순으로 푸터순서출력 -->
+	<select id ="likeMusicChart" resultType="com.project3.yogiaudio.dto.music.MusicDTO">
+		select * from music order by likeit asc , music_no asc
+		limit 0,3
+	</select>
+	
+	
+	
+	
+	
 
 </mapper>
