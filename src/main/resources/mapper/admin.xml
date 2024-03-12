@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project3.yogiaudio.repository.interfaces.AdminRepository">
+
+<select id="findAllUser" resultType="com.project3.yogiaudio.repository.entity.User">
+	<!-- offset 속성 Criteria의 getOffset() 메서드로 받을 수 있음 -->
+	select * from user order by id desc limit #{offset}, #{pageSize} 
+</select>
+
+<select id="countAllUser" resultType="int">
+	select count(*) from user
+</select>
+	
+<delete id="deleteUser">
+	delete from user where id=#{id}
+</delete>	
+	
+
+
+</mapper>
