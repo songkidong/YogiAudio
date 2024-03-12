@@ -116,53 +116,46 @@ public class UserController {
 	}
 
 	@GetMapping("/naver/login")
-	@ResponseBody
 	public String naverProc(@RequestParam("code") String code, @RequestParam("state") String state) {
-
-		String url = "https://nid.naver.com/oauth2.0/token?" + "grant_type=authorization_code"
-				+ "&client_id=cLVvs14822OOyYydIWA1" + "&client_secret=dV0yEpBLcq" + "&code=" + code + "&state=" + state;
-
-        // RestTemplate 객체 생성
-        RestTemplate restTemplate = new RestTemplate();
-
-        // HTTP 요청 헤더 설정
-        HttpHeaders headers = new HttpHeaders();
-
-        // HTTP 요청 생성
-        HttpEntity<String> requestEntity = new HttpEntity<>(headers);
-
-        // HTTP 요청 실행
-        ResponseEntity<OAuthToken> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, OAuthToken.class);
-
-        // RestTemplate 객체 생성
-        RestTemplate restTemplate2 = new RestTemplate();
-        
-     // HTTP 요청 헤더 설정
-        HttpHeaders headers2 = new HttpHeaders();
-        headers2.add("Authorization", "Bearer " + responseEntity.getBody().getAccessToken());
-        
-        // HTTP 요청 생성
-        HttpEntity<String> requestEntity2 = new HttpEntity<>(headers2);
-        
-		// 사용자 정보 요청
-		ResponseEntity<NaverProfile> response2 = restTemplate2.exchange("https://openapi.naver.com/v1/nid/me",
-				HttpMethod.POST, requestEntity2, NaverProfile.class);
-		
-		NaverProfile naverProfile = response2.getBody();
-		
-		SignUpFormDTO signUpFormDTO = SignUpFormDTO.builder()
-				.name(naverProfile.getResponse().getName())
-				.nickname(naverProfile.getResponse().getNickname())
-				.email(naverProfile.getResponse().getEmail())
-				.password("naverpassword")
-				.build();
-		
-		userService.createUser(signUpFormDTO);
-
-        httpsession.setAttribute(Define.PRINCIPAL, signUpFormDTO);
-        
-        return "redirect:/product/main";
-        
+	    OAuthToken authToken = getNaverAccessToken(code, state);
+	    NaverProfile naverProfile = getNaverUserProfile(authToken.getAccessToken());
+	    SignUpFormDTO signUpFormDTO = mapNaverProfileToSignUpFormDTO(naverProfile);
+	    userService.createUser(signUpFormDTO);
+	    httpsession.setAttribute(Define.PRINCIPAL, signUpFormDTO);
+	    return "redirect:/product/main";
 	}
+
+	private OAuthToken getNaverAccessToken(String code, String state) {
+	    String url = "https://nid.naver.com/oauth2.0/token?" +
+	            "grant_type=authorization_code" +
+	            "&client_id=cLVvs14822OOyYydIWA1" +
+	            "&client_secret=dV0yEpBLcq" +
+	            "&code=" + code +
+	            "&state=" + state;
+
+	    RestTemplate restTemplate = new RestTemplate();
+	    ResponseEntity<OAuthToken> responseEntity = restTemplate.postForEntity(url, null, OAuthToken.class);
+	    return responseEntity.getBody();
+	}
+
+	private NaverProfile getNaverUserProfile(String accessToken) {
+	    String url = "https://openapi.naver.com/v1/nid/me";
+	    HttpHeaders headers = new HttpHeaders();
+	    headers.add("Authorization", "Bearer " + accessToken);
+	    HttpEntity<String> requestEntity = new HttpEntity<>(headers);
+	    RestTemplate restTemplate = new RestTemplate();
+	    ResponseEntity<NaverProfile> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, NaverProfile.class);
+	    return responseEntity.getBody();
+	}
+
+	private SignUpFormDTO mapNaverProfileToSignUpFormDTO(NaverProfile naverProfile) {
+	    return SignUpFormDTO.builder()
+	            .name(naverProfile.getResponse().getName())
+	            .nickname(naverProfile.getResponse().getNickname())
+	            .email(naverProfile.getResponse().getEmail())
+	            .password("naverpassword")
+	            .build();
+	}
+
 
 }

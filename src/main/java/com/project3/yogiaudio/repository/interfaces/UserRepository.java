@@ -11,7 +11,7 @@ public interface UserRepository {
 	public int insert(User user);
 
 	// 이메일 조회
-	public User selectByEmail(String email);
+	public User findByEmail(String email);
 	
 	
 }
