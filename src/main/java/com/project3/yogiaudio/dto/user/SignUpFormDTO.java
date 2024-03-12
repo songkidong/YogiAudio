@@ -1,4 +1,4 @@
-package com.project3.yogiaudio.dto;
+package com.project3.yogiaudio.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

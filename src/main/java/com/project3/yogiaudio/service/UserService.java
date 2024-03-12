@@ -5,7 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.project3.yogiaudio.dto.SignUpFormDTO;
+import com.project3.yogiaudio.dto.user.SignUpFormDTO;
 import com.project3.yogiaudio.repository.entity.User;
 import com.project3.yogiaudio.repository.interfaces.UserRepository;
 
