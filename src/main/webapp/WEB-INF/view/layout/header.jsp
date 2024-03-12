@@ -16,7 +16,9 @@
 
 		<!-- Bootstrap -->
 		<link type="text/css" rel="stylesheet" href="/main/css/bootstrap.min.css"/>
-
+		
+		
+		
 		<!-- Slick -->
 		<link type="text/css" rel="stylesheet" href="/main/css/slick.css"/>
 		<link type="text/css" rel="stylesheet" href="/main/css/slick-theme.css"/>
@@ -51,10 +53,20 @@
 					</ul>
 					<ul class="header-links pull-right">
 						<li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
-						<li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+						<li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>	
 					</ul>
+					
+				
+					
+					
+					
+					
+					
 				</div>
 			</div>
+			
+	
+			
 			<!-- /TOP HEADER -->
 
 			<!-- MAIN HEADER -->
@@ -102,8 +114,9 @@
 					    
 					</div>
 						
+					
 						
-						
+							
 						
 					
 							</div>
