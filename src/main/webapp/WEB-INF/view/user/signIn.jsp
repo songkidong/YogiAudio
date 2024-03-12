@@ -21,7 +21,7 @@
         <p>OR</p>
         <div>
             <a href="#" class="kakaoLogin"> <img src="/img/kakao/kakao_login.png" alt="Kakao" id="loginBtn">
-            <a href="#" class="naverLogin"> <img src="/img/naver/naver_login.png" alt="Naver" id="loginBtn">
+            <a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=cLVvs14822OOyYydIWA1&state=STATE_STRING&redirect_uri=http://localhost:80/naver/login" class="naverLogin"> <img src="/img/naver/naver_login.png" alt="Naver" id="loginBtn">
             <a href="#" class="googleLogin"> <img src="/img/google/google_login.png" alt="Google" id="loginBtn">
         </div>
     </div>

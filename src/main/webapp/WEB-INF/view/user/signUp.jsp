@@ -4,8 +4,8 @@
 <div class="container sign--in--container">
     <h1>SIGN UP</h1>
     <ul class="links">
-        <li><a href="/signIn" id="signin">SIGN IN</a></li>
         <li><a href="#" id="signup">SIGN UP</a></li>
+        <li><a href="/signIn" id="signin">SIGN IN</a></li>
         <li><a href="#" id="reset">RESET</a></li>
     </ul>
     <form action="/signUp" method="post">
