@@ -1,0 +1,82 @@
+#board {
+	display: flex;
+	flex-direction: column;
+	padding-top: 5%;
+	padding-bottom: 5%;
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+.board-container {
+	display: flex;
+	flex-direction: column;
+}
+
+h2 {
+	padding-bottom: 55px;
+}
+
+#board>div>div:nth-child(2) {
+	display: flex;
+}
+
+.card {
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	margin-bottom: 35px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	width: 100%;
+}
+
+.card-header {
+	background-color: #f8f9fa;
+	padding: 10px;
+	border-bottom: 1px solid #ccc;
+}
+
+.card-body {
+	padding: 10px;
+}
+
+.card-body label {
+	font-weight: bold;
+}
+
+.card-body input[type="text"], .card-body textarea {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-sizing: border-box;
+}
+
+.card-body input[type="text"]:read-only, .card-body textarea:read-only {
+	background-color: #f8f9fa;
+}
+
+.btn {
+	margin-right: 5px;
+}
+
+.button-container {
+	display: flex;
+	justify-content: flex-end; /* 버튼을 오른쪽 끝에 배치합니다. */
+}
+
+.button-container button {
+	margin-left: 5px; /* 버튼들 사이의 간격을 조정합니다. */
+}
+
+#board>div>div:nth-child(2)>form>div:nth-child(1) {
+	border-radius: 5px 5px 0 0;
+}
+#board > div > div.button-container.d-flex.justify-content-end{
+	margin-bottom: 20px;
+}
+#board > div > div:nth-child(3) > form > div:nth-child(1){
+	border-radius: 5px 5px 0 0;
+}
+#board > div > div.card > div{
+	border-radius: 5px 5px 0 0;
+}

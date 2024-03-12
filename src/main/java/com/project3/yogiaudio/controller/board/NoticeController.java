@@ -23,7 +23,21 @@ public class NoticeController {
 	@GetMapping("/noticeList")
 	public String noticeList() {
 		
-		return"board/notice/noticeList";
+		return "board/notice/noticeList";
+	}
+	
+	
+	/**
+	  * @Method Name : noticeView
+	  * @작성일 : 2024. 3. 13.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 공지사항 상세보기 화면
+	  */
+	@GetMapping("/noticeView")
+	public String noticeView() {
+		
+		return "board/notice/noticeView";
 	}
 		
 	
