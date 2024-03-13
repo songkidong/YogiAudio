@@ -25,8 +25,7 @@
 		<link type="text/css" rel="stylesheet" href="/main/css/slick.css"/>
 		<link type="text/css" rel="stylesheet" href="/main/css/slick-theme.css"/>
 
-
-
+				
 
 <!-- nouislider -->
 <link type="text/css" rel="stylesheet"
@@ -55,7 +54,7 @@
 			<div class="container">
 				<ul class="header-links pull-left">
 					<li>
-						<a href="#">
+						<a href="/purchase/main">
 						  <i class="fa fa-envelope-o"></i>
 						  이용권구매
 						</a>
