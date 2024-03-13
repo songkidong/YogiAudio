@@ -151,7 +151,7 @@
 											<div class="product-body">
 												<p class="product-category">${dnewlist.musicminor}</p>
 												<h3 class="product-name">
-													<a href="/product/domestic-detail?musicno=${dnewlist.musicno}&musicmajor=${dnewlist.musicmajor}">
+													<a href="/product/domestic-detail?musicno=${dnewlist.musicno}&musicmajor=${dnewlist.musicmajor}&id=${principal.id}">
 														${dnewlist.musictitle}
 													</a>
 												</h3>
@@ -235,7 +235,7 @@
 											<div class="product-body">
 												<p class="product-category">${dlikelist.musicminor}</p>
 												<h3 class="product-name">
-													<a href="/product/domestic-detail?musicno=${dlikelist.musicno}&musicmajor=${dlikelist.musicmajor}">
+													<a href="/product/domestic-detail?musicno=${dlikelist.musicno}&musicmajor=${dlikelist.musicmajor}&id=${principal.id}">
 													  ${dlikelist.musictitle}
 													</a>
 												</h3>
@@ -295,7 +295,7 @@
 									<div class="product-body">
 										<p class="product-category">${dlikelist.musicminor}</p>
 										<h3 class="product-name">
-											<a href="#">
+											<a href="/product/domestic-detail?musicno=${dlikelist.musicno}&musicmajor=${dlikelist.musicmajor}&id=${principal.id}">
 												${dlikelist.musictitle}
 											</a>
 										</h3>
@@ -331,7 +331,7 @@
 									<div class="product-body">
 										<p class="product-category">${dlikelist.musicminor}</p>
 										<h3 class="product-name">
-											<a href="#">
+											<a href="/product/domestic-detail?musicno=${dlikelist.musicno}&musicmajor=${dlikelist.musicmajor}&id=${principal.id}">
 											   ${dlikelist.musictitle}
 											</a>
 										</h3>
