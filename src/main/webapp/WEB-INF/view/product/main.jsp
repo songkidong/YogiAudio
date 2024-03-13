@@ -168,6 +168,56 @@
 								</div>
 								<!-- /tab -->
 								
+								
+				  <!-- tab -->
+					<div id="tab2" class="tab-pane">
+					    <div class="products-slick" data-nav="#slick-nav-2">
+					        <c:forEach var="dnewlist" items="${dnewlist}">
+					            <div class="product">
+					                <div class="product-img">
+					                   <c:choose>
+										<c:when test="${not empty dnewlist.filepath}">
+											<img src=" ${dnewlist.filepath}">
+										</c:when>
+										  <c:otherwise>
+											<img src="/album/default.png" >
+										  </c:otherwise>
+										</c:choose>
+					                    <div class="product-label">
+					                    </div>
+					                </div>
+					                <div class="product-body">
+					                    <p class="product-category">${dnewlist.musicminor}</p>
+					                    <h3 class="product-name">
+										<a href="/product/domestic-detail?musicno=${dnewlist.musicno}&musicmajor=${dnewlist.musicmajor}&id=${principal.id}">
+					                            ${dnewlist.musictitle}
+					                        </a>
+					                    </h3>
+					                    <h4 class="product-price">${dnewlist.musiccompany}</h4>
+					                </div>
+					            </div>
+					        </c:forEach>
+					    </div>
+					    <div id="slick-nav-2" class="products-slick-nav"></div>
+					</div>
+					<!-- /tab -->
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
 							</div>
 						</div>
 					</div>
@@ -201,8 +251,8 @@
 							<h3 class="title">👍인기곡</h3>
 							<div class="section-nav">
 								<ul class="section-tab-nav tab-nav">
-									<li class="active"><a data-toggle="tab" href="#tab2">국내</a></li>
-									<li><a data-toggle="tab" href="#tab2">국외</a></li>
+									<li class="active"><a data-toggle="tab" href="#tab3">국내</a></li>
+									<li><a data-toggle="tab" href="#tab4">국외</a></li>
 								</ul>
 							</div>
 						</div>
