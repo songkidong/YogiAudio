@@ -5,26 +5,31 @@
 
 <section id="board">
 	<div class="board-container">
-		<h2>공지사항</h2>
-
-		<div>
-		<div class="input-group" >
-			<select name="searchType" class="searchType" >
-				<option value="title">제목</option>
-				<option value="content">내용</option>
-				<option value="rdate">작성일</option>
-			</select>
-			<div class="form-outline">
-				<input type="search" id="form1" class="searchInput" name="keyword"
-					placeholder="Search" style="height: 40px" />
-			</div>
-
-			<button type="button" class="btn btn-warning searchButton">
-				<i class="bi bi-search"></i>
+		<div class="title-container">
+			<h2>공지사항</h2>
+			<button type="button" class="btn btn-warning" id="btnInsert">
+				<i class="bi bi-pencil-square"></i>
 			</button>
 		</div>
+
+		<div>
+			<div class="input-group">
+				<select name="searchType" class="searchType">
+					<option value="title">제목</option>
+					<option value="content">내용</option>
+					<option value="rdate">작성일</option>
+				</select>
+				<div class="form-outline">
+					<input type="search" id="form1" class="searchInput" name="keyword"
+						placeholder="Search" style="height: 40px" />
+				</div>
+
+				<button type="button" class="btn btn-warning searchButton">
+					<i class="bi bi-search"></i>
+				</button>
+			</div>
 		</div>
-	
+
 
 		<table class="table table-hover">
 			<thead class="thead-light text-center">
@@ -113,16 +118,16 @@
 		</table>
 
 		<div>
-		<nav aria-label="Page navigation example">
-			<ul class="pagination justify-content-center">
-				<li class="page-item disabled"><a class="page-link">Previous</a>
-				</li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#">Next</a></li>
-			</ul>
-		</nav>
+			<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center">
+					<li class="page-item disabled"><a class="page-link">Previous</a>
+					</li>
+					<li class="page-item"><a class="page-link" href="#">1</a></li>
+					<li class="page-item"><a class="page-link" href="#">2</a></li>
+					<li class="page-item"><a class="page-link" href="#">3</a></li>
+					<li class="page-item"><a class="page-link" href="#">Next</a></li>
+				</ul>
+			</nav>
 		</div>
 
 	</div>

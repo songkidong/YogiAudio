@@ -67,10 +67,10 @@
 			<form id="formComment" action="#" method="post">
 				<input type="hidden" name="parent" value="${no}" /> <input
 					type="hidden" name="writer" value="${sessUser.uid}" />
-				<textarea name="content" style="width: 80%"></textarea>
-				<div style="float:  right; padding-top: 65px;">
-					<a href="#" class="btn btnCancel"><i class="bi bi-x-circle" style="padding-right: 5px;"></i>취소</a> 
-					<input type="submit" id="btnComment" value="작성완료" class="btn btnComplete" />
+				<textarea name="content"></textarea>
+				<div style="float:  right;">
+					<a href="#" class="btn btnCancel">취소</a> 
+					<input type="submit" id="btnComment" value="작성" class="btn btnComplete" />
 				</div>
 			</form>
 		</div>

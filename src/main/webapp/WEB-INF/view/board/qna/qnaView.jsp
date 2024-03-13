@@ -35,7 +35,7 @@
 						class="form-control" id="title" value="${posts.title}" readonly>
 					<br /> <label for="content">내용</label>
 					<textarea rows="5" class="form-control" id="content" readonly>${posts.content}</textarea>
-				<br /> <label for="file">첨부파일</label> <input type="text"
+					<br /> <label for="file">첨부파일</label> <input type="text"
 						class="form-control" id="file" value="" readonly>
 				</div>
 			</form>
@@ -51,14 +51,26 @@
 				<div class="actions">
 
 					<!-- 관리자만 수정삭제  -->
-					<a href="#" class="remove" data-no="${comment.no}">삭제</a> 
-					<input type="hidden" name="commentParent" value="${comment.parent}" /> 
-					<a href="#" class="modify">수정</a>
+					<a href="#" class="remove" data-no="${comment.no}">삭제</a> <input
+						type="hidden" name="commentParent" value="${comment.parent}" /> <a
+						href="#" class="modify">수정</a>
 
 				</div>
 			</div>
 		</div>
 
+		<div class="commentForm" style="margin-top: 30px;">
+			<h3>답변쓰기</h3>
+			<form id="formComment" action="#" method="post">
+				<input type="hidden" name="parent" value="${no}" /> <input
+					type="hidden" name="writer" value="${sessUser.uid}" />
+				<textarea name="content"></textarea>
+				<div style="float: right;">
+					<a href="#" class="btn btnCancel">취소</a> <input type="submit"
+						id="btnComment" value="작성" class="btn btnComplete" />
+				</div>
+			</form>
+		</div>
 
 	</div>
 </section>

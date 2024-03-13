@@ -12,12 +12,10 @@
 	<div class="board-container">
 		<h2>공지사항 작성하기</h2>
 
-		<form method="post" action="/notice/insert"
-			enctype="multipart/form-data">
+		<form method="post" action="/board/notice/noticeWrite" enctype="multipart/form-data">
 			<div class="mb-3">
-				<label for="title">Title:</label> <input type="text"
-					class="form-control" id="title" name="title"
-					placeholder="Enter Title">
+				<label for="title">Title:</label> 
+				<input type="text"class="form-control" id="title" name="title" placeholder="Enter Title">
 			</div>
 			<div class="mb-3">
 				<label for="content">Content:</label>
@@ -26,30 +24,24 @@
 			<div class="file_list">
 				<div class="mb-3">
 					<div class="file_input" style="display: inline-block;">
-						<label for="formFileMultiple" class="form-label">File: </label> <input
-							class="form-control" type="file" id="formFileMultiple" multiple
-							name="filepath" onchange="selectFile(this);"
+						<label for="formFileMultiple" class="form-label">File: </label> 
+						<input class="form-control" type="file" id="formFileMultiple" multiple name="file" onchange="selectFile(this);"
 							style="background-color: white;" />
 					</div>
-					<button type="button" onclick="removeFile(this);"
-						class="btn btn-danger">
+					<button type="button" onclick="removeFile(this);" class="btn btn-danger">
 						<span>삭제</span>
 					</button>
-					<button type="button" onclick="addFile();"
-						class="btn btn-primary">
+					<button type="button" onclick="addFile();" class="btn btn-primary">
 						<span>파일 추가</span>
 					</button>
 				</div>
 			</div>
-			<button type="submit" class="btn btn-success" id="btn-submit"
-				style="float: right;">작성하기</button>
+			<button type="submit" class="btn btn-success" id="btn-submit" style="float: right;">작성하기</button>
 		</form>
-
-
-
 
 	</div>
 </section>
+
 <script type="text/javascript">
 // 파일 선택
 function selectFile(element) {
@@ -88,7 +80,7 @@ function addFile() {
         	<div class="file_input" style="display: inline-block; ">
 			<label for="formFileMultiple" class="form-label">File: </label> <input
 			class="form-control" type="file" id="formFileMultiple" multiple
-			name="filepath" onchange="selectFile(this);" style="background-color: white;" />
+			name="file" onchange="selectFile(this);" style="background-color: white;" />
 		</div>
         <button type="button" onclick="removeFile(this);" class="btn btn-outline-danger"><span>삭제</span></button>
         `;

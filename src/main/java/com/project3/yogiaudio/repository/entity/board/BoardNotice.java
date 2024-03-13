@@ -1,6 +1,9 @@
 package com.project3.yogiaudio.repository.entity.board;
 
 import java.sql.Timestamp;
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,6 +24,5 @@ public class BoardNotice {
 	private String content;
 	private String filePath;
 	private Timestamp createdAt;
-	
 	
 }
