@@ -40,19 +40,7 @@
 							<div>
 								<h3 class="product-price">${detail.price}<del class="product-old-price"></del></h3>
 							</div>
-							<p>
-							   아티스트 : 1
-							</p><br>
-							<p>
-							   장르 / 스타일 : 1
-							</p><br>
-							<p>
-							   발매사 / 기획사 : 1
-							</p><br>
-							<p>
-							   발매일 : 1
-							   유저상태 : ${principal.status}
-							</p><br>
+						
 							
 						    
 						   
@@ -73,6 +61,11 @@
 						        </div>
 						      </div>
 						    </div>	    
+						    
+						    
+						    
+						    
+						    
 						    
 						</div>
 					</div>

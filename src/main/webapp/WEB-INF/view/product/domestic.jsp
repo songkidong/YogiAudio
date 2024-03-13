@@ -42,11 +42,11 @@
 										<p class="product-category">${domesticlist.musicno}</p>
 										<p class="product-category">${domesticlist.musicmajor}</p>
 										<h3 class="product-name">
-											<a href="/product/domestic-detail?musicno=${domesticlist.musicno}&musicmajor=${domesticlist.musicmajor}">
+											<a href="/product/domestic-detail?musicno=${domesticlist.musicno}&musicmajor=${domesticlist.musicmajor}&id=${principal.id}">
 												${domesticlist.musictitle}
 											</a>
 										</h3>
-										<h4 class="product-price">${domesticlist.musicprice}<del class="product-old-price"></del></h4>
+										<h4 class="product-price">${domesticlist.musiccompany}<del class="product-old-price"></del></h4>
 										
 										<div class="product-btns">
 											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>

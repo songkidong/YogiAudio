@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project3.yogiaudio.filedb.service.FiledbService;
+import com.project3.yogiaudio.repository.entity.User;
 import com.project3.yogiaudio.dto.common.PageVO;
 import com.project3.yogiaudio.dto.music.MusicDTO;
 import com.project3.yogiaudio.dto.common.Criteria;
 import com.project3.yogiaudio.service.MusicService;
+import com.project3.yogiaudio.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +32,8 @@ public class ProductController {
 	private MusicService musicService;
 	@Autowired
 	private FiledbService filedbService;
-	
+	@Autowired
+	private UserService userService;
 	
 	// http://localhost:80/product/main
 	//메인페이지 호출하기
@@ -100,7 +103,12 @@ public class ProductController {
 	//국내음악상세페이지
 	// http://localhost:80/product/domestic-detail?musicno=&musicmajor=
 	@GetMapping("/domestic-detail")
-	public String domesticDetailGET(@RequestParam(value = "musicno") int musicno, @RequestParam(value = "musicmajor") String musicmajor,Model model) {
+	public String domesticDetailGET(@RequestParam(value = "musicno") int musicno, @RequestParam(value = "musicmajor") String musicmajor,@RequestParam(value = "id") long id,Model model) {
+		
+		
+		User udetail = userService.findById(id);
+		model.addAttribute("udetail", udetail);
+		
 		
 		MusicDTO result = musicService.domesticDetail(musicno,musicmajor);
 		model.addAttribute("detail", result);

@@ -30,5 +30,12 @@
 	<select id="findByEmail" resultType="com.project3.yogiaudio.repository.entity.User">
 		SELECT * FROM user WHERE email = #{email};
 	</select>
+	
+	<!-- 아이디로 유저 조회 -->
+	<select id="findById" resultType="com.project3.yogiaudio.repository.entity.User">
+		select * from user where id =#{id}
+	</select>
+	
+	
 
 </mapper>

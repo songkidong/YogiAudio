@@ -1,6 +1,7 @@
 package com.project3.yogiaudio.repository.interfaces;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.project3.yogiaudio.repository.entity.User;
 
@@ -14,4 +15,6 @@ public interface UserRepository {
 	public User findByEmail(String email);
 	
 	
+	//아이디 조회
+	public User findById(@Param(value ="id") long id);
 }

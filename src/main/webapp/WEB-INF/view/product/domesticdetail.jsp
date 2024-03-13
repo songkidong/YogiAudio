@@ -100,8 +100,8 @@
 							<h2 class="product-name">${detail.musictitle}</h2>
 							
 							<div>
-								<h3 class="product-price">${detail.musicprice} ￦<del class="product-old-price"></del></h3>
-							</div>
+								<h3 class="product-price">${detail.musiccompany}<del class="product-old-price"></del></h3>
+							</div><br>
 							<p>
 							   아티스트 : ${detail.musicsinger}
 							</p><br>
@@ -113,7 +113,6 @@
 							</p><br>
 							<p>
 							   발매일 : ${detail.startdate}
-							   유저상태 : ${principal.status}
 							</p><br>
 							<p>샘플듣기</p>
 						    <audio id="audioPlayer" controls>
@@ -121,10 +120,9 @@
 						    </audio><br>
 						    
 						    <p>
-						        <button id="downloadButton" type="button" class="btn btn-primary">파일 다운로드</button>
 						         <c:choose>
-							         	<c:when test="${principal.status eq 'Y'}">
-									        <button id="paymentcheck" type="button" class="btn btn-success">다운로드 가능</button>
+							         	<c:when test="${udetail.status eq 'Y'}">
+						        			<button id="downloadButton" type="button" class="btn btn-primary">파일 다운로드</button>
 									    </c:when>
 							        <c:otherwise>
 							            <button id="paymentcheck" type="button" class="btn btn-danger" >다운로드불가능</button>

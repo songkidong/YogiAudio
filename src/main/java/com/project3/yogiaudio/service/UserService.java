@@ -1,5 +1,6 @@
 package com.project3.yogiaudio.service;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -78,4 +79,16 @@ public class UserService {
 		User userEntity = userRepository.findByEmail(dto.getEmail());
 		return passwordEncoder.matches(dto.getPassword(), userEntity.getPassword()) ? userEntity : null;
 	}
+	
+	
+	
+	//아이디로 유저조회
+	public User findById(@Param(value ="id") long id) {
+		return userRepository.findById(id);
+	}
+	
+	
+	
+	
+	
 }
