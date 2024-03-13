@@ -22,7 +22,7 @@
         // 이미 열려 있는 musicPlayer.jsp 창이 있는지 확인
         if (!playerWindow || playerWindow.closed) {
             // 창이 없거나 닫혀 있으면 새로 열기
-            playerWindow = window.open('/test2', '_blank', 'width=1000,height=700');
+            playerWindow = window.open('/musicPlayer', '_blank', 'width=1000,height=700');
         } else {
             // 이미 열려 있는 창이 있으면 해당 창을 활용
             playerWindow.focus();

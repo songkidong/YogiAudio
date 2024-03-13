@@ -256,9 +256,7 @@ document.addEventListener('DOMContentLoaded', function () {
 						data-file-music="${play.fileMusic}"
 						data-music-title="${play.musicTitle}"
 						data-music-singer="${play.musicSinger}">${play.musicTitle} -
-						${play.musicSinger}
-						<img alt="" src="${play.filePath}">
-						</div>
+						${play.musicSinger}</div>
 				</c:forEach>
 			</div>
 		</div>
