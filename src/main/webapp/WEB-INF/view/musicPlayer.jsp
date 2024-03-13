@@ -144,10 +144,21 @@ main {
 </style>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+	var AudioContext;
+	var audioContext;
+
+	window.onload = function() {
+	    navigator.mediaDevices.getUserMedia({ audio: true }).then(() => {
+	        AudioContext = window.AudioContext || window.webkitAudioContext;
+	        audioContext = new AudioContext();
+	    }).catch(e => {
+	        console.error(`Audio permissions denied: ${e}`);
+	    });
+	}
 	
 	const seekbar = document.querySelector('.ui-slider');
 	const seekbarMax = seekbar.max;
-
+	
 	setInterval(() => {
 		let position = (parseInt(seekbar.value));
 		
@@ -162,6 +173,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	
 	
 	const audioPlayer = new Audio();
+	audioPlayer.autoplay = true;
     const playListItems = document.querySelectorAll('.ui-list-item');
     
     playListItems.forEach(item => {
@@ -179,6 +191,36 @@ document.addEventListener('DOMContentLoaded', function () {
 	        audioPlayer.play();
     	 });
     });
+    
+    const playController = document.querySelector('.ui-controls');
+    playController.addEventListener('click', function(e) {
+        if (e.target.classList.contains('fa-pause')) {
+            console.log("정지됨");
+            e.target.classList.remove('fa-pause');
+            e.target.classList.add('fa-play');
+            audioPlayer.pause();
+        }
+        else if (e.target.classList.contains('fa-play')) {
+            console.log("재생됨");
+            e.target.classList.remove('fa-play');
+            e.target.classList.add('fa-pause');
+            audioPlayer.play();
+        }
+        if (e.target.classList.contains('fa-step-forward')) {
+            console.log("앞으로");
+            audioPlayer.currentTime += 5;
+        }
+    });
+    
+    const firstMusicUrl = playListItems[0].getAttribute('data-file-music');
+    const firstMusicTitle = playListItems[0].getAttribute('data-music-title');
+    const firstMusicSinger = playListItems[0].getAttribute('data-music-singer');
+    const firstAlbumImg = playListItems[0].getAttribute('data-file-img');
+    // 현재 재생 중인 곡 정보 업데이트
+    document.querySelector('.ui-cover-title').innerHTML = "<p>" + firstMusicTitle + "</p>" + "<p>" + firstMusicSinger + "</p>" + "<img alt='' src='" + firstAlbumImg + "'>";
+    // 오디오 소스 변경 및 재생
+    audioPlayer.src = firstMusicUrl;
+    audioPlayer.play();
 });
 </script>
 </head>
@@ -241,8 +283,8 @@ document.addEventListener('DOMContentLoaded', function () {
 			</div>
 
 			<div class="ui-controls">
-				<i class="fas fa-random"></i> <i class="fas fa-step-backward"></i> <i
-					class="fas fa-pause"></i> <i class="fas fa-step-forward"></i> <i
+				<i class="fas fa-random"></i> <i class="fas fa-step-backward"></i> 
+				<i class="fas fa-pause"></i> <i class="fas fa-step-forward"></i> <i
 					class="fas fa-redo"></i>
 			</div>
 		</div>
