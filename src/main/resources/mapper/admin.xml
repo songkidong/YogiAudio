@@ -12,10 +12,37 @@
 <select id="countAllUser" resultType="int">
 	select count(*) from user
 </select>
+
+<select id="findAllMusic" resultType="com.project3.yogiaudio.repository.entity.Music">
+	<!-- pageSize에 고정값 넣으니까 4페이지 11개 인데 5페이지 1개가 표시됨-->
+	select * from music order by music_no desc limit ${offset}, #{pageSize} 
+</select>
+
+<select id="countAllMusic" resultType="int">
+	select count(*) from music
+</select>
+
+<select id="findAllNotice" resultType="com.project3.yogiaudio.repository.entity.board.BoardNotice">
+	select * from board_notice order by id desc limit #{offset}, #{pageSize}
+</select>
+
+<select id="countAllNotice" resultType="int">
+	select count(*) from board_notice
+</select>
 	
 <delete id="deleteUser">
 	delete from user where id=#{id}
+</delete>
+	
+<delete id="deleteMusic">
+	delete from music where music_no = ${musicNo}
+</delete>
+	
+<delete id="deleteNotice">
+	delete from board_notice where id=${id}
 </delete>	
+
+
 	
 
 

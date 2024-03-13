@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.project3.yogiaudio.dto.admin.AdminCriteria;
 import com.project3.yogiaudio.dto.admin.AdminPageVO;
+import com.project3.yogiaudio.repository.entity.Music;
 import com.project3.yogiaudio.repository.entity.User;
+import com.project3.yogiaudio.repository.entity.board.BoardNotice;
 import com.project3.yogiaudio.service.AdminService;
 
 import lombok.extern.log4j.Log4j2;
@@ -32,13 +34,19 @@ public class AdminController {
 	}
 
 	// 유저 목록
-	// Criteria 쿼리문에서 이용하기 위해 매개변수 선언
+	// Criteria는 쿼리문에서 데이터를 가져올 때와 페이징처리를 하기 위함, 2가지 경우를 위해 쓰인다!
 	@GetMapping("/userList")
-	public String userListPage(Model model, AdminCriteria cri) {
+	public String userListPage(AdminCriteria cri, Model model) {
 		
+		// Criteria의 page값을 1로 정해놓는 이유가 있다 -> 처음 목록페이지 들어올 때 1페이지, offset은 0
 		List<User> userList = adminService.findAllUser(cri);
 		log.info("userList" + userList);
-		model.addAttribute("userList", userList);
+		
+		if(userList.isEmpty()) {
+			model.addAttribute("userList", null);
+		}else {
+			model.addAttribute("userList", userList);
+		}
 		
 		// 화면에 출력하기 위한 페이징 로직
 		AdminPageVO pageVO = new AdminPageVO();
@@ -59,5 +67,51 @@ public class AdminController {
 		adminService.deleteUser(id);
 		
 		return "redirect:/admin/userList";
+	}
+	
+	// 음악 목록
+	@GetMapping("/musicList")
+	public String findAllMusic(AdminCriteria cri, Model model) {
+		
+		// 한 페이징 당 게시글 수 변경
+		cri.setPageSize(12);
+		// Criteria의 page값을 1로 정해놓는 이유가 있다 -> 처음 목록페이지 들어올 때 1페이지, offset은 0
+		List<Music> musicList = adminService.findAllMusic(cri);
+		
+		if(musicList.isEmpty()) {
+			model.addAttribute("musicList", null);
+		}else {
+			model.addAttribute("musicList", musicList);
+		}
+		
+		
+		
+		AdminPageVO pageVO = new AdminPageVO();
+		pageVO.setCri(cri);
+		pageVO.setTotalCount(adminService.countAllMusic());
+		model.addAttribute("pageVO", pageVO);
+		
+		
+		return "admin/musicList";
+	}
+	
+	// 공지사항 목록
+	@GetMapping("/noticeList")
+	public String findAllNotice(AdminCriteria cri, Model model) {
+		
+		List<BoardNotice> noticeList = adminService.findAllNotice(cri);
+		
+		if(noticeList.isEmpty()) {
+			model.addAttribute("noticeList", null);
+		}else {
+			model.addAttribute("noticeList", noticeList);
+		}
+		
+		AdminPageVO pageVO = new AdminPageVO();
+		pageVO.setCri(cri);
+		pageVO.setTotalCount(adminService.countAllNotice());
+		model.addAttribute("pageVO", pageVO);
+		
+		return "admin/noticeList";
 	}
 }
