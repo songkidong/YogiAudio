@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,10 +36,11 @@ main {
 	height: 100vh;
 	flex-direction: column; /* 수정된 부분 */
 }
-@media (min-width: 600px) {
-  main {
-    flex-direction: row; /* 가로 방향으로 정렬 */
-  }
+
+@media ( min-width : 600px) {
+	main {
+		flex-direction: row; /* 가로 방향으로 정렬 */
+	}
 }
 
 .ui {
@@ -128,30 +130,56 @@ main {
 .ui-list-item:last-child {
 	border-bottom: none; /* 마지막 아이템의 하단 테두리 제거 */
 }
-.ui-user{
-	 background-color: #ffffff;
-	 height: 10%;
+
+.ui-user {
+	background-color: #ffffff;
+	height: 10%;
 }
-.container{
+
+.container {
 	width: 50%;
 	height: 500px;
 }
 /* 추가된 부분 끝 */
 </style>
 <script>
-const seekbar = document.querySelector('.ui-slider');
-const seekbarMax = seekbar.max;
-
-setInterval(() => {
-	let position = (parseInt(seekbar.value));
+document.addEventListener('DOMContentLoaded', function () {
 	
-	if(position < seekbarMax) {
-		seekbar.value = parseInt(position) + 1;
-	}
-	else {
-		seekbar.value = 0;
-	}
-}, 1000);
+	const seekbar = document.querySelector('.ui-slider');
+	const seekbarMax = seekbar.max;
+
+	setInterval(() => {
+		let position = (parseInt(seekbar.value));
+		
+		if(position < seekbarMax) {
+			seekbar.value = parseInt(position) + 1;
+		}
+		else {
+			seekbar.value = 0;
+		}
+	}, 1000);
+
+	
+	
+	const audioPlayer = new Audio();
+    const playListItems = document.querySelectorAll('.ui-list-item');
+    
+    playListItems.forEach(item => {
+    	 item.addEventListener('click', function() {
+    		 console.log("클릭됨");
+	        const musicUrl = this.getAttribute('data-file-music');
+	        const musicTitle = this.getAttribute('data-music-title');
+	        const musicSinger = this.getAttribute('data-music-singer');
+	        const albumImg = this.getAttribute('data-file-img');
+	
+	        // 현재 재생 중인 곡 정보 업데이트
+	        document.querySelector('.ui-cover-title').innerHTML = "<p>" + musicTitle + "</p>" + "<p>" + musicSinger + "</p>" + "<img alt='' src='" + albumImg + "'>";
+	        // 오디오 소스 변경 및 재생
+	        audioPlayer.src = musicUrl;
+	        audioPlayer.play();
+    	 });
+    });
+});
 </script>
 </head>
 <body>
@@ -223,23 +251,15 @@ setInterval(() => {
 				<p>유저 정보 들어가는 곳</p>
 			</div>
 			<div class="ui-list">
-				<div class="ui-list-item">Song 2</div>
-				<div class="ui-list-item">Song 3</div>
-				<div class="ui-list-item">Song 3</div>
-				<div class="ui-list-item">Song 3</div>
-				<div class="ui-list-item">Song 3</div>
-				<div class="ui-list-item">Song 3</div>
-				<div class="ui-list-item">Song 3</div>
-				<div class="ui-list-item">Song 3</div>
-				<div class="ui-list-item">Song 3</div>
-				<div class="ui-list-item">Song 3</div>
-				<div class="ui-list-item">Song 3</div>
-				<div class="ui-list-item">Song 3</div>
-				<div class="ui-list-item">Song 3</div>
-				<div class="ui-list-item">Song 3</div>
-				<div class="ui-list-item">Song 3</div>
-				<div class="ui-list-item">Song 3</div>
-				<!-- 원하는 만큼 리스트 아이템을 추가하세요 -->
+				<c:forEach var="play" items="${playList}">
+					<div class="ui-list-item" data-file-img="${play.filePath}"
+						data-file-music="${play.fileMusic}"
+						data-music-title="${play.musicTitle}"
+						data-music-singer="${play.musicSinger}">${play.musicTitle} -
+						${play.musicSinger}
+						<img alt="" src="${play.filePath}">
+						</div>
+				</c:forEach>
 			</div>
 		</div>
 	</main>
