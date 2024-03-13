@@ -51,7 +51,7 @@
 							</p><br>
 							<p>
 							   발매일 : 1
-							   유저상태 : 1
+							   유저상태 : ${principal.status}
 							</p><br>
 							
 						    
@@ -67,10 +67,6 @@
 						        <div id="payment-method"></div>
 						        <!-- 이용약관 UI -->
 						        <div id="agreement"></div>
-						        <!-- 쿠폰 체크박스 -->
-						        <div style="padding-left: 25px">
-						          <div class="checkable typography--p"><label for="coupon-box" class="checkable__label typography--regular"><input id="coupon-box" class="checkable__input" type="checkbox" aria-checked="true"><span class="checkable__label-text">5,000원 쿠폰 적용</span></label></div>
-						        </div>
 						        <!-- 결제하기 버튼 -->
 						        <div class="result wrapper">
 						          <button class="button" id="payment-button" style="margin-top:30px; ">결제하기</button>
@@ -186,7 +182,6 @@
 						<!-- TOSS 결제 UI 창 JS -->  	
 						<script>
 						    const button = document.getElementById("payment-button");
-						    const coupon = document.getElementById("coupon-box");
 						    const no = ${detail.pno};
 						    const userId = ${principal.id};
 						    const generateRandomString = () => window.btoa(Math.random()).slice(0, 20);
@@ -216,15 +211,7 @@
 						      { variantKey: "AGREEMENT" }
 						    );
 						
-						    // ------  결제 금액 업데이트 ------
-						    // @docs https://docs.tosspayments.com/reference/widget-sdk#updateamount결제-금액
-						    coupon.addEventListener("change", function () {
-						      if (coupon.checked) {
-						        paymentMethodWidget.updateAmount(amount - 5000);
-						      } else {
-						        paymentMethodWidget.updateAmount(amount);
-						      }
-						    });
+							
 						
 						    // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
 						    // @docs https://docs.tosspayments.com/reference/widget-sdk#requestpayment결제-정보
@@ -232,7 +219,7 @@
 						      paymentWidget.requestPayment({
 						        orderId: generateRandomString(),
 						        orderName: "${detail.purchasename}",
-						        successUrl: window.location.origin + "/product/success?id=" + userId,
+						        successUrl: window.location.origin + "/purchase/success?id=" + userId,
 						        failUrl: window.location.origin + "/fail",
 						        customerTitle: "customer123@gmail.com",
 						        customerName: "${principal.id}",
