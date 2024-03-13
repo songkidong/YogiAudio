@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div style="display: flex; justify-content: center; align-items: center;">
-                    <img src="/banner/purchase.png" style="width: 1200px; height: 300px; margin-bottom: 100px;" alt="Purchase Banner">
+                    <img src="/banner/purchase.png" style="width: 1200px; height: 300px; margin-bottom: 80px;" alt="Purchase Banner">
                 </div>
             </div>
         </div>
@@ -19,57 +19,82 @@
 </div>
 <!-- End of Banner Section -->
 
+
+
 <!-- Card Section -->
 <div class="section">
-    <div class="container">
+    <div class="container" style="margin-bottom: 70px;">
+	<h3 class="title" style="margin-left: 30px; margin-bottom: 30px;">👉이용권 리스트</h3>
+    
         <div class="row">
+         	
             <div class="col-md-3">
                 <!-- Card 1 -->
                 <div class="card">
-                    <img src="card1_image.jpg" class="card-img-top" alt="Card 1 Image">
-                    <div class="card-body">
+                    <img src="/banner/p1.png" class="card-img-top" alt="Card 1 Image" style="width:200px; height: 200px; margin-left: 30px;">
+                    <div class="card-body" style="margin-left: 30px;">
                         <h5 class="card-title">Card 1 Title</h5>
                         <p class="card-text">Card 1 Description</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <a href="#" class="btn btn-primary">
+                        	구매하기
+                        </a>
                     </div>
                 </div>
                 <!-- End of Card 1 -->
             </div>
+            
+            
             <div class="col-md-3">
                 <!-- Card 2 -->
                 <div class="card">
-                    <img src="card2_image.jpg" class="card-img-top" alt="Card 2 Image">
-                    <div class="card-body">
+                    <img src="/banner/p1.png" class="card-img-top" alt="Card 1 Image" style="width:200px; height: 200px; margin-left: 30px;">
+                    <div class="card-body" style="margin-left: 30px;">
                         <h5 class="card-title">Card 2 Title</h5>
                         <p class="card-text">Card 2 Description</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <a href="#" class="btn btn-primary">
+                        	구매하기
+                        </a>
                     </div>
                 </div>
                 <!-- End of Card 2 -->
             </div>
             <div class="col-md-3">
+            
+            
                 <!-- Card 3 -->
                 <div class="card">
-                    <img src="card3_image.jpg" class="card-img-top" alt="Card 3 Image">
-                    <div class="card-body">
+                    <img src="/banner/p1.png" class="card-img-top" alt="Card 1 Image" style="width:200px; height: 200px; margin-left: 30px;">
+                    <div class="card-body" style="margin-left: 30px;">
                         <h5 class="card-title">Card 3 Title</h5>
                         <p class="card-text">Card 3 Description</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <a href="#" class="btn btn-primary">
+                        	구매하기
+                        </a>
                     </div>
                 </div>
                 <!-- End of Card 3 -->
             </div>
             <div class="col-md-3">
+            
+            
                 <!-- Card 4 -->
                 <div class="card">
-                    <img src="card4_image.jpg" class="card-img-top" alt="Card 4 Image">
-                    <div class="card-body">
+                    <img src="/banner/p1.png" class="card-img-top" alt="Card 1 Image" style="width:200px; height: 200px; margin-left: 30px;">
+                    <div class="card-body" style="margin-left: 30px;">
                         <h5 class="card-title">Card 4 Title</h5>
                         <p class="card-text">Card 4 Description</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <a href="#" class="btn btn-primary">
+                        	구매하기
+                        </a>
                     </div>
                 </div>
                 <!-- End of Card 4 -->
+                
+                
+                
+                
+                
+                
             </div>
         </div>
     </div>
@@ -78,6 +103,23 @@
 
 
 
+<!-- Card Section -->
+<div class="section">
+    <div class="container" style="margin-bottom: 70px;">
+	<h3 class="title" style="margin-left: 30px; margin-bottom: 30px;">🔷이용약관</h3>
+    
+        <div class="row">
+        	<div class="col-md-3">
+         		<h3>sasaa</h3>
+      		</div>
+                
+                
+                
+                
+            </div>
+        </div>
+    </div>
+<!-- End of Card Section -->
 
 
 
