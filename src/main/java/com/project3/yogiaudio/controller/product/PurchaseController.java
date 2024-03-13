@@ -54,8 +54,12 @@ public class PurchaseController {
 	}
 	
 	
-	
-	
+	@GetMapping("/detail")
+	public String PurchaseDetailGET() {
+		
+		log.debug("이용권구매상세보기출력");
+		return"product/purchasedetail";
+	}
 	
 	
 	
