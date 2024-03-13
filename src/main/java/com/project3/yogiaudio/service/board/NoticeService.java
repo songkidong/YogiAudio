@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.project3.yogiaudio.dto.board.NoticeDTO;
-import com.project3.yogiaudio.filedb.service.FiledbService;
 import com.project3.yogiaudio.repository.entity.board.BoardNotice;
 import com.project3.yogiaudio.repository.interfaces.board.NoticeRepository;
 
@@ -18,8 +17,6 @@ public class NoticeService {
 	@Autowired
 	private NoticeRepository noticeRepository;
 	
-	@Autowired
-	private FiledbService filedbService;
 
 	/**
 	  * @Method Name : noticeWrite
@@ -31,13 +28,13 @@ public class NoticeService {
 	@Transactional
 	public int saveNotice(NoticeDTO noticeDTO) { 
 		
-		String filePath = filedbService.saveFiles(noticeDTO.getFilePath());
+		//String filePath = filedbService.saveFiles(noticeDTO.getFilePath());
 		
 		BoardNotice boardNotice = BoardNotice.builder()
 				.writerId(noticeDTO.getWriterId())
 				.title(noticeDTO.getTitle())
 				.content(noticeDTO.getContent())
-				.filePath(filePath)
+				//.filePath(filePath)
 				.build();
 		
 		int result = noticeRepository.insertNotice(boardNotice);
