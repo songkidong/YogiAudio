@@ -26,6 +26,7 @@ public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
 	
+
 	// http://localhost:80/board/notice/noticeList
 	/**
 	  * @Method Name : noticeList
@@ -69,7 +70,7 @@ public class NoticeController {
 	
 	/**
 	  * @param MultipartFile 
-	  * @param file 
+      * @param file 
 	  * @Method Name : noticeWrite
 	  * @작성일 : 2024. 3. 13.
 	  * @작성자 : 노수현

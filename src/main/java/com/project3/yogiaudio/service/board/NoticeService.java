@@ -2,6 +2,7 @@ package com.project3.yogiaudio.service.board;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.project3.yogiaudio.dto.board.NoticeDTO;
 import com.project3.yogiaudio.filedb.service.FiledbService;
@@ -27,10 +28,10 @@ public class NoticeService {
 	  * @변경이력 : 
 	  * @Method 설명 : 공지사항 작성하기
 	  */
+	@Transactional
 	public int saveNotice(NoticeDTO noticeDTO) { 
 		
-		log.info("최장호 : " + noticeDTO.getFile().getOriginalFilename());
-		String filePath = filedbService.saveFiles(noticeDTO.getFile());
+		String filePath = filedbService.saveFiles(noticeDTO.getFilePath());
 		
 		BoardNotice boardNotice = BoardNotice.builder()
 				.writerId(noticeDTO.getWriterId())

@@ -25,7 +25,7 @@
 				<div class="mb-3">
 					<div class="file_input" style="display: inline-block;">
 						<label for="formFileMultiple" class="form-label">File: </label> 
-						<input class="form-control" type="file" id="formFileMultiple" multiple name="file" onchange="selectFile(this);"
+						<input class="form-control" type="file" id="formFileMultiple" multiple name="filePath" onchange="selectFile(this);"
 							style="background-color: white;" />
 					</div>
 					<button type="button" onclick="removeFile(this);" class="btn btn-danger">
@@ -80,7 +80,7 @@ function addFile() {
         	<div class="file_input" style="display: inline-block; ">
 			<label for="formFileMultiple" class="form-label">File: </label> <input
 			class="form-control" type="file" id="formFileMultiple" multiple
-			name="file" onchange="selectFile(this);" style="background-color: white;" />
+			name="filePath" onchange="selectFile(this);" style="background-color: white;" />
 		</div>
         <button type="button" onclick="removeFile(this);" class="btn btn-outline-danger"><span>삭제</span></button>
         `;

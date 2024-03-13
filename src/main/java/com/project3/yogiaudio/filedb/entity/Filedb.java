@@ -14,8 +14,9 @@ import lombok.ToString;
 public class Filedb {
 	
 	private String uuid;
-	private byte[] fileData;
 	private String originalFileName;
+	private byte[] fileData;
+
 	
 	
 	

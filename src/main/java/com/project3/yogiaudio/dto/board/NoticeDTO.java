@@ -20,7 +20,7 @@ public class NoticeDTO {
 	private long writerId;
 	private String title;
 	private String content;
-	private MultipartFile file;
+	private List<MultipartFile> filePath;
 	private Timestamp createdAt;
 	
 	

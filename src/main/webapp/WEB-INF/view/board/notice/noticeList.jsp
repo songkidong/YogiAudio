@@ -17,7 +17,7 @@
 				<select name="searchType" class="searchType">
 					<option value="title">제목</option>
 					<option value="content">내용</option>
-					<option value="rdate">작성일</option>
+					<option value="createdAt">작성일</option>
 				</select>
 				<div class="form-outline">
 					<input type="search" id="form1" class="searchInput" name="keyword"
