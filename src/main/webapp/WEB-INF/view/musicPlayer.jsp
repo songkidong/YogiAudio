@@ -144,7 +144,7 @@ main {
 </style>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-	var AudioContext;
+/* 	var AudioContext;
 	var audioContext;
 
 	window.onload = function() {
@@ -154,43 +154,67 @@ document.addEventListener('DOMContentLoaded', function () {
 	    }).catch(e => {
 	        console.error(`Audio permissions denied: ${e}`);
 	    });
-	}
-	
-	const seekbar = document.querySelector('.ui-slider');
-	const seekbarMax = seekbar.max;
-	
-	setInterval(() => {
-		let position = (parseInt(seekbar.value));
-		
-		if(position < seekbarMax) {
-			seekbar.value = parseInt(position) + 1;
-		}
-		else {
-			seekbar.value = 0;
-		}
-	}, 1000);
-
-	
+	} */
 	
 	const audioPlayer = new Audio();
-	audioPlayer.autoplay = true;
+	 // 슬라이더 요소 가져오기
+    const seekbar = document.querySelector('.ui-slider');
+    
+    // 슬라이더의 최대값 설정
+    const seekbarMax = seekbar.max;
+    
+    // 오디오가 로드될 때마다 슬라이더 최대값 설정
+    audioPlayer.onloadedmetadata = function() {
+        seekbar.max = parseInt(audioPlayer.duration); // 노래의 길이를 초 단위로 설정
+    };
+    
+    // 1초마다 슬라이더 위치 변경
+    setInterval(() => {
+        // 현재 슬라이더 위치 가져오기
+        let position = parseInt(audioPlayer.currentTime);
+        
+        if (position <= seekbarMax) {
+            seekbar.value = position;
+        } else {
+            // 최대값에 도달하면 위치를 0으로 초기화
+            seekbar.value = 0;
+        }
+    }, 100);
+	
+	
+	// audioPlayer.autoplay = true;
     const playListItems = document.querySelectorAll('.ui-list-item');
     
-    playListItems.forEach(item => {
-    	 item.addEventListener('click', function() {
-    		 console.log("클릭됨");
-	        const musicUrl = this.getAttribute('data-file-music');
-	        const musicTitle = this.getAttribute('data-music-title');
-	        const musicSinger = this.getAttribute('data-music-singer');
-	        const albumImg = this.getAttribute('data-file-img');
-	
-	        // 현재 재생 중인 곡 정보 업데이트
-	        document.querySelector('.ui-cover-title').innerHTML = "<p>" + musicTitle + "</p>" + "<p>" + musicSinger + "</p>" + "<img alt='' src='" + albumImg + "'>";
-	        // 오디오 소스 변경 및 재생
-	        audioPlayer.src = musicUrl;
-	        audioPlayer.play();
-    	 });
+ // 현재 재생 중인 곡의 인덱스를 저장하는 변수
+    let currentSongIndex = 0;
+
+    // forEach를 사용하여 각 곡 요소에 이벤트 리스너를 추가합니다.
+    playListItems.forEach((item, index) => {
+        item.addEventListener('click', function() {
+            console.log("클릭됨");
+            // 클릭한 곡의 정보 가져오기
+            const musicUrl = this.getAttribute('data-file-music');
+            const musicTitle = this.getAttribute('data-music-title');
+            const musicSinger = this.getAttribute('data-music-singer');
+            const albumImg = this.getAttribute('data-file-img');
+
+            // 현재 재생 중인 곡의 순서를 업데이트
+            currentSongIndex = index;
+            console.log(currentSongIndex);
+
+            // 현재 재생 중인 곡 정보 업데이트
+            document.querySelector('.ui-cover-title').innerHTML = "<p>" + musicTitle + "</p>" + "<p>" + musicSinger + "</p>" + "<img alt='' src='" + albumImg + "'>";
+            // 오디오 소스 변경 및 재생
+            audioPlayer.src = musicUrl;
+            audioPlayer.play();
+            console.log(audioPlayer.duration);
+        });
     });
+
+    // 현재 재생 중인 곡의 인덱스를 반환하는 함수
+    function getCurrentSongIndex() {
+        return currentSongIndex;
+    }
     
     const playController = document.querySelector('.ui-controls');
     playController.addEventListener('click', function(e) {
@@ -208,7 +232,11 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         if (e.target.classList.contains('fa-step-forward')) {
             console.log("앞으로");
-            audioPlayer.currentTime += 5;
+            playNextSong(); // 다음 곡으로 넘어감
+        }
+        if (e.target.classList.contains('fa-step-backward')) {
+            console.log("뒤로");
+            playPreviousSong();
         }
     });
     
@@ -216,11 +244,34 @@ document.addEventListener('DOMContentLoaded', function () {
     const firstMusicTitle = playListItems[0].getAttribute('data-music-title');
     const firstMusicSinger = playListItems[0].getAttribute('data-music-singer');
     const firstAlbumImg = playListItems[0].getAttribute('data-file-img');
-    // 현재 재생 중인 곡 정보 업데이트
     document.querySelector('.ui-cover-title').innerHTML = "<p>" + firstMusicTitle + "</p>" + "<p>" + firstMusicSinger + "</p>" + "<img alt='' src='" + firstAlbumImg + "'>";
-    // 오디오 소스 변경 및 재생
     audioPlayer.src = firstMusicUrl;
     audioPlayer.play();
+    console.log(audioPlayer.duration);
+    
+ // 다음 곡으로 넘어가는 함수
+function playNextSong() {
+    // 현재 재생 중인 곡의 인덱스를 증가시킴
+    currentSongIndex++;
+    // 재생 목록의 끝에 도달하면 처음 곡으로 돌아감
+    if (currentSongIndex >= playListItems.length) {
+        currentSongIndex = 0;
+    }
+    // 현재 곡의 인덱스를 기반으로 해당 곡을 재생
+    playListItems[currentSongIndex].click();
+}
+
+// 이전 곡으로 돌아가는 함수
+function playPreviousSong() {
+    // 현재 재생 중인 곡의 인덱스를 감소시킴
+    currentSongIndex--;
+    // 재생 목록의 처음에 도달하면 마지막 곡으로 이동
+    if (currentSongIndex < 0) {
+        currentSongIndex = playListItems.length - 1;
+    }
+    // 현재 곡의 인덱스를 기반으로 해당 곡을 재생
+    playListItems[currentSongIndex].click();
+}
 });
 </script>
 </head>
