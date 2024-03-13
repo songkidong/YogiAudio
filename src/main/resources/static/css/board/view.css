@@ -71,12 +71,108 @@ h2 {
 #board>div>div:nth-child(2)>form>div:nth-child(1) {
 	border-radius: 5px 5px 0 0;
 }
-#board > div > div.button-container.d-flex.justify-content-end{
+
+#board>div>div.button-container.d-flex.justify-content-end {
 	margin-bottom: 20px;
 }
-#board > div > div:nth-child(3) > form > div:nth-child(1){
+
+#board>div>div:nth-child(3)>form>div:nth-child(1) {
 	border-radius: 5px 5px 0 0;
 }
-#board > div > div.card > div{
+
+#board>div>div.card>div {
 	border-radius: 5px 5px 0 0;
+}
+
+/* 카드 스타일 */
+.commentCard {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+.commentCard .info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.commentCard .nick {
+    font-weight: bold;
+}
+
+.commentCard .date {
+    color: #777;
+    font-size: 0.8em;
+}
+
+.commentCard .content {
+    margin-bottom: 10px;
+}
+
+.commentCard .actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.commentCard .actions a {
+    margin-left: 10px;
+    color: #333;
+    text-decoration: none;
+}
+
+.commentCard .actions a:hover {
+    color: #555;
+}
+
+.commentForm {
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.commentForm h3 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.commentForm textarea {
+    width: calc(100% - 20px); /* 너비를 조정하여 좌우 여백을 줍니다. */
+    height: 100px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    background-color: #fff;
+    resize: none; /* 사용자가 크기 조정하지 못하도록 설정합니다. */
+    font-size: 14px;
+    color: #495057;
+}
+
+.commentForm .btn {
+    padding: 8px 16px;
+    border: none;
+    background-color: #5cb85c;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.commentForm .btnCancel {
+    background-color: #dc3545;
+}
+
+.commentForm .btn:hover,
+.commentForm .btnCancel:hover {
+    background-color: #0056b3;
+}
+
+input[readonly], textarea[readonly] {
+	cursor: not-allowed; /* 커서를 변경하여 사용자에게 입력할 수 없음을 나타냄 */
 }

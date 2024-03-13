@@ -1,0 +1,29 @@
+#board {
+	display: flex;
+	flex-direction: column;
+	padding-top: 5%;
+	padding-bottom: 5%;
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+.board-container {
+	display: flex;
+	flex-direction: column;
+}
+
+h2 {
+	padding-bottom: 55px;
+}
+
+#title{
+	height: 45px;
+}
+
+#formFileMultiple{
+	height: 40px;
+}
+#board > div > div{
+	display: flex;
+	justify-content: flex-end;
+}

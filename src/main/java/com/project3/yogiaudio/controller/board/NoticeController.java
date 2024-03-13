@@ -39,6 +39,30 @@ public class NoticeController {
 		
 		return "board/notice/noticeView";
 	}
-		
+	
+	
+	/**
+	  * @Method Name : noticeWrite
+	  * @작성일 : 2024. 3. 13.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 공지사항 작성하기 화면
+	  */
+	@GetMapping("/noticeWrite")
+	public String noticeWrite() {
+		return "board/notice/noticeWrite";
+	}
+	
+	/**
+	  * @Method Name : noticeUpdate
+	  * @작성일 : 2024. 3. 13.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 공지사항 수정하기 화면
+	  */
+	@GetMapping("/noticeUpdate")
+	public String noticeUpdate() {
+		return "board/notice/noticeUpdate";
+	}
 	
 }

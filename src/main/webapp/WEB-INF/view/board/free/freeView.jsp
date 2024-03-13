@@ -25,51 +25,55 @@
 			<form class="card">
 				<div class="card-header d-flex justify-content-between">
 					<label for="id">번호 : 1</label> <input type="hidden" id="id"
-						value="${posts.id}">
+						value="${posts.id}"> <label for="createdDate"
+						style="float: right;">2024-03-13</label>
 				</div>
 				<div class="card-header d-flex justify-content-between">
-					<label for="writer">작성자 : user</label>
+					<label for="writer">작성자 : user</label> <label for="view"
+						style="float: right;"><i class="bi bi-hand-index-thumb">&nbsp55</i></label>
+					<!-- 조회수 -->
 				</div>
 				<div class="card-body">
 					<label for="title">제목</label> <input type="text"
-						class="form-control" id="title" value="${posts.title}" readonly>
-					<br /> <label for="content">내용</label>
-					<textarea rows="5" class="form-control" id="content" readonly>${posts.content}</textarea>
+						class="form-control" id="title" value="" readonly> <br />
+					<label for="content">내용</label>
+					<textarea rows="7" class="form-control" id="content" readonly></textarea>
+					<br /> <label for="file">첨부파일</label> <input type="text"
+						class="form-control" id="file" value="" readonly>
 				</div>
 			</form>
 		</div>
 
+		<div class="commentList" style="margin-top: 30px;">
+			<h3>댓글목록</h3>
+			<div class="commentCard">
+				<div class="info">
+					<span class="nick">user</span> <span class="date">2024-03-13</span>
+				</div>
+				<p class="content" >댓글입니다.</p>
+				<div class="actions">
 
-		<div class="card">
-			<div class="card-header bi bi-chat-dots">
-				<label for="writer">&nbsp;user</label>
+					<!--내가쓴댓글만 수정삭제  -->
+					<a href="#" class="remove" data-no="${comment.no}">삭제</a> <input
+						type="hidden" name="commentParent" value="${comment.parent}" /> <a
+						href="#" class="modify">수정</a>
+
+				</div>
 			</div>
-			<a type="button" data-toggle="collapse"
-				data-target=".multi-collapse-${comment.id}"
-				class="bi bi-pencil-square"></a>
-			<!-- 댓글 수정 버튼 -->
-			<a type="button"
-				onclick="main.commentDelete(${comment.postsId},${comment.id},${comment.userId},${user.id})"
-				class="bi bi-x-square"></a>
-			<!-- 댓글 삭제 버튼 -->
-			<!-- 댓글 내용 보기 -->
-			<p class="collapse multi-collapse-${comment.id} show">${comment.comment}</p>
-
-			<!-- 댓글 내용 수정 -->
-			<form class="collapse multi-collapse-${comment.id}">
-				<input type="hidden" id="id" value="${comment.id}"> <input
-					type="hidden" id="postsId" value="${comment.postsId}"> <input
-					type="hidden" id="writerUserId" value="${comment.userId}">
-				<input type="hidden" id="sessionUserId" value="${user.id}">
-				<div class="form-group">
-					<textarea class="form-control" id="comment-content" rows="3">${comment.comment}</textarea>
-				</div>
-				<button type="button" id="btn-comment-update"
-					class="btn btn-outline-primary bi bi-pencil-square">수정</button>
-			</form>
-			</li>
 		</div>
 
+		<div class="commentForm" style="margin-top: 30px;">
+			<h3>댓글쓰기</h3>
+			<form id="formComment" action="#" method="post">
+				<input type="hidden" name="parent" value="${no}" /> <input
+					type="hidden" name="writer" value="${sessUser.uid}" />
+				<textarea name="content" style="width: 80%"></textarea>
+				<div style="float:  right; padding-top: 65px;">
+					<a href="#" class="btn btnCancel"><i class="bi bi-x-circle" style="padding-right: 5px;"></i>취소</a> 
+					<input type="submit" id="btnComment" value="작성완료" class="btn btnComplete" />
+				</div>
+			</form>
+		</div>
 
 	</div>
 </section>

@@ -28,13 +28,17 @@
 						value="${posts.id}">
 				</div>
 				<div class="card-header d-flex justify-content-between">
-					<label for="writer">작성자 : user</label>
+					<label for="writer">작성일 : 2024-03-13</label>
 				</div>
 				<div class="card-body">
-					<label for="title">제목</label> <input type="text"
-						class="form-control" id="title" value="${posts.title}" readonly>
-					<br /> <label for="content">내용</label>
-					<textarea rows="5" class="form-control" id="content" readonly>${posts.content}</textarea>
+					<label for="title">제목</label> 
+					<input type="text" class="form-control" id="title" value="${posts.title}" readonly>
+					<br /> 
+					<label for="content">내용</label>
+					<textarea rows="10" class="form-control" id="content" readonly>${posts.content}</textarea>
+					<br />
+					<label for="file">첨부파일</label>
+					<input type="text" class="form-control" id="file" value="${posts.file}" readonly>
 				</div>
 			</form>
 		</div>

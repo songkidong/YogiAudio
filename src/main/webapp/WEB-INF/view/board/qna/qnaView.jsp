@@ -35,39 +35,30 @@
 						class="form-control" id="title" value="${posts.title}" readonly>
 					<br /> <label for="content">내용</label>
 					<textarea rows="5" class="form-control" id="content" readonly>${posts.content}</textarea>
+				<br /> <label for="file">첨부파일</label> <input type="text"
+						class="form-control" id="file" value="" readonly>
 				</div>
 			</form>
 		</div>
-		
-		<div class="card">
-			<div class="card-header bi bi-chat-dots">
-				<label for="writer">&nbsp;user</label>
-			</div>
-			<a type="button" data-toggle="collapse"
-				data-target=".multi-collapse-${comment.id}"
-				class="bi bi-pencil-square"></a>
-			<!-- 댓글 수정 버튼 -->
-			<a type="button"
-				onclick="main.commentDelete(${comment.postsId},${comment.id},${comment.userId},${user.id})"
-				class="bi bi-x-square"></a>
-			<!-- 댓글 삭제 버튼 -->
-			<!-- 댓글 내용 보기 -->
-			<p class="collapse multi-collapse-${comment.id} show">${comment.comment}</p>
 
-			<!-- 댓글 내용 수정 -->
-			<form class="collapse multi-collapse-${comment.id}">
-				<input type="hidden" id="id" value="${comment.id}"> <input
-					type="hidden" id="postsId" value="${comment.postsId}"> <input
-					type="hidden" id="writerUserId" value="${comment.userId}">
-				<input type="hidden" id="sessionUserId" value="${user.id}">
-				<div class="form-group">
-					<textarea class="form-control" id="comment-content" rows="3">${comment.comment}</textarea>
+		<div class="commentList" style="margin-top: 30px;">
+			<h3>답변</h3>
+			<div class="commentCard">
+				<div class="info">
+					<span class="nick">admin</span> <span class="date">2024-03-13</span>
 				</div>
-				<button type="button" id="btn-comment-update"
-					class="btn btn-outline-primary bi bi-pencil-square">수정</button>
-			</form>
-			</li>
+				<p class="content">답변입니다.</p>
+				<div class="actions">
+
+					<!-- 관리자만 수정삭제  -->
+					<a href="#" class="remove" data-no="${comment.no}">삭제</a> 
+					<input type="hidden" name="commentParent" value="${comment.parent}" /> 
+					<a href="#" class="modify">수정</a>
+
+				</div>
+			</div>
 		</div>
+
 
 	</div>
 </section>

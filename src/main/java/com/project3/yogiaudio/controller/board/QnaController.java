@@ -37,4 +37,28 @@ public class QnaController {
 		
 		return "board/qna/qnaView";
 	}
+	
+	/**
+	  * @Method Name : qnaWrite
+	  * @작성일 : 2024. 3. 13.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 나의 문의하기 작성하기 화면
+	  */
+	@GetMapping("/qnaWrite")
+	public String qnaWrite() {
+		return "board/qna/qnaWrite";
+	}
+	
+	/**
+	  * @Method Name : qnaUpdate
+	  * @작성일 : 2024. 3. 13.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 나의 문의하기 수정하기 화면
+	  */
+	@GetMapping("/qnaUpdate")
+	public String qnaUpdate() {
+		return "board/qna/qnaUpdate";
+	}
 }

@@ -38,4 +38,28 @@ public class FreeController {
 		return "board/free/freeView";
 	}
 	
+	/**
+	  * @Method Name : freeWrite
+	  * @작성일 : 2024. 3. 13.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 자유게시판 작성하기 화면
+	  */
+	@GetMapping("/freeWrite")
+	public String freeWrite() {
+		return "board/free/freeWrite";
+	}
+	
+	/**
+	  * @Method Name : freeUpdate
+	  * @작성일 : 2024. 3. 13.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 자유게시판 수정하기 화면
+	  */
+	@GetMapping("/freeUpdate")
+	public String freeUpdate() {
+		return "board/free/freeUpdate";
+	}
+	
 }
