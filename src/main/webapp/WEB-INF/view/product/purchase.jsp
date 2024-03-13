@@ -36,7 +36,7 @@
                     <div class="card-body" style="margin-left: 30px;">
                         <h5 class="card-title" style="margin-top: 5px;">${purchaselist.purchasename}</h5>
                         <p class="card-text">${purchaselist.price}</p>
-                        <a href="/purchase/detail" class="btn btn-primary">
+                        <a href="/purchase/detail?pno=${purchaselist.pno}" class="btn btn-primary">
                         	구매하기
                         </a>
                     </div>

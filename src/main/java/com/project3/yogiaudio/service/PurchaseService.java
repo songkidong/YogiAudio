@@ -2,8 +2,10 @@ package com.project3.yogiaudio.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.project3.yogiaudio.dto.common.Criteria;
 import com.project3.yogiaudio.dto.music.PurchaseDTO;
@@ -26,6 +28,21 @@ public class PurchaseService {
 	public int countPurchaseList() throws Exception{
 		return purchaseRepository.countPurchaseList();
 	}
+	
+	
+	//이용권상세보기 페이지출력
+	public PurchaseDTO purchaseDetail(@Param(value = "pno") int pno) {
+		return purchaseRepository.purchaseDetail(pno);
+	}
+	
+	
+	//상태변경하기
+	@Transactional
+	public Integer statusUpdate(@Param(value = "id") int id) {
+		return purchaseRepository.statusUpdate(id);
+	}
+	
+	
 	
 	
 }

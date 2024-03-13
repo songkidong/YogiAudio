@@ -84,11 +84,6 @@ public class MusicService {
 	}
 	
 	
-	//상태변경하기
-	@Transactional
-	public Integer statusUpdate(@Param(value = "id") int id) {
-		return musicRepository.statusUpdate(id);
-	}
 	
 	
 	//최신순으로 출력하기

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project3.yogiaudio.dto.common.Criteria;
 import com.project3.yogiaudio.dto.common.PageVO;
@@ -53,13 +54,26 @@ public class PurchaseController {
 		return "product/purchase";
 	}
 	
-	
+	//이용권상세보기 & 결제페이지 출력
 	@GetMapping("/detail")
-	public String PurchaseDetailGET() {
+	public String PurchaseDetailGET(@RequestParam(value = "pno") int pno,Model model) {
+		
+		PurchaseDTO result = purchaseService.purchaseDetail(pno);
+		model.addAttribute("detail", result);
 		
 		log.debug("이용권구매상세보기출력");
 		return"product/purchasedetail";
 	}
+	
+	
+	//성공 후 상태변경 --> 보류중
+	@GetMapping("/success")
+	public String paymentSuccessGET(@RequestParam(value = "id") int id) {
+	   
+	    purchaseService.statusUpdate(id);
+	    return "product/success"; // 성공 페이지를 반환합니다.
+	}
+	
 	
 	
 	

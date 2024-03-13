@@ -38,10 +38,6 @@ public interface MusicRepository {
 	public Integer musicUpdate(MusicDTO dto);
 	
 	
-	//결제상태변경하기
-	public Integer statusUpdate(@Param(value = "id") int id);
-	
-	
 	//최신순으로출력하기
 	public List<MusicDTO> newMusicList(Criteria cri) throws Exception;
 	
