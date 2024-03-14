@@ -31,6 +31,13 @@ public class MusicService {
 	}
 
 	
+	//국내음악리스트 출력하기(발라드)
+	public List<MusicDTO> domesticListMinorBallad(Criteria cri) throws Exception{
+		List<MusicDTO> result = musicRepository.domesticListMinorBallad(cri);
+		return result;
+	}
+	
+	
 	//국외음악리스트 출력하기
 	public List<MusicDTO> aboardListAll(Criteria cri) throws Exception{
 		List<MusicDTO> result = musicRepository.aboardListAll(cri);

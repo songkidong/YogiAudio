@@ -79,14 +79,23 @@ public class ProductController {
 		
 		model.addAttribute("pageVO", pageVO);
 		
+		
+		//전체
 		List<MusicDTO> result = musicService.domesticListAll(cri);
 		
 		model.addAttribute("domesticlist", result);
+		
+			
+		
 		
 		log.debug("국내음악페이지출력");
 		return "product/domestic";
 		
 	}
+	
+
+	
+	
 	
 	//국외음악리스트 호출하기
 	@GetMapping("/aboard-music")

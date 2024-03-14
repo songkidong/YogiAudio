@@ -19,6 +19,10 @@ public interface MusicRepository {
 	//국내음악리스트 카운팅하기
 	public int countdomesticListAll() throws Exception;
 	
+	//국내음악리스트출력하기(발라드)
+	public List<MusicDTO> domesticListMinorBallad(Criteria cri) throws Exception;
+	
+	
 	//국외음악리스트출력하기
 	public List<MusicDTO> aboardListAll(Criteria cri) throws Exception;
 	
