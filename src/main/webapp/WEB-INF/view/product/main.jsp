@@ -15,6 +15,9 @@
 </style>
 
 
+
+
+
 	
 
     
@@ -265,7 +268,6 @@
 							<div class="products-tabs">
 								<!-- tab -->
 								<div id="tab2" class="tab-pane fade in active">
-									<div class="products-slick" data-nav="#slick-nav-2">
 									
 										<!-- product -->
 									 <c:forEach var="dlikelist" items="${dlikelist}">
@@ -297,7 +299,6 @@
 
 										
 									</div>
-									<div id="slick-nav-2" class="products-slick-nav"></div>
 								</div>
 								<!-- /tab -->
 							</div>
