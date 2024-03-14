@@ -60,10 +60,6 @@
 	
 	
 	
-
-	
-	
-	
 	
 	<!-- 국내최신순으로 메인페이지리스트출력 -->
 	<select id="newMusicList" resultType="com.project3.yogiaudio.dto.music.MusicDTO">
@@ -78,7 +74,15 @@
 	
 	
 	
-
+	<!-- 국외최신순으로 메인페이지리스트출력 -->
+	<select id ="newAboardMusicList" resultType="com.project3.yogiaudio.dto.music.MusicDTO">
+		SELECT * FROM music 
+		WHERE music_major = "국외" 
+		ORDER BY startdate ASC
+	</select>
+	
+	
+	
 	
 	
 	

@@ -102,5 +102,14 @@ public class MusicService {
 	
 	
 	
+	//국외최신순
+	public List<MusicDTO> newAboardMusicList() throws Exception{
+		List<MusicDTO> result = musicRepository.newAboardMusicList();
+		return result;
+	}
+	
+	
+	
+	
 	
 }

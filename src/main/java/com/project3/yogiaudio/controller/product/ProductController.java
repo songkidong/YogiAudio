@@ -43,10 +43,18 @@ public class ProductController {
 		PageVO pageVO = new PageVO();
 		pageVO.setCri(cri);
 		pageVO.setTotalCount(musicService.countdomesticListAll());		
+	
+		
 		
 		model.addAttribute("pageVO", pageVO);
 		
+		//국외음악 최신 , 인기순 출력
+		List<MusicDTO> anewlist = musicService.newAboardMusicList();
+		model.addAttribute("anewlist", anewlist);
 		
+		
+		
+		//국내음악 최신 , 인기순 출력
 		List<MusicDTO> dnewresult = musicService.newMusicList(cri);
 		model.addAttribute("dnewlist", dnewresult);
 		
@@ -150,7 +158,6 @@ public class ProductController {
 		
 		return "redirect:/product/domestic-music";
 	}
-	
 	
 	
 	

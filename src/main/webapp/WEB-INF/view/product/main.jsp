@@ -172,12 +172,12 @@
 				  <!-- tab -->
 					<div id="tab2" class="tab-pane">
 					    <div class="products-slick" data-nav="#slick-nav-2">
-					        <c:forEach var="dnewlist" items="${dnewlist}">
+					        <c:forEach var="anewlist" items="${anewlist}">
 					            <div class="product">
 					                <div class="product-img">
 					                   <c:choose>
-										<c:when test="${not empty dnewlist.filepath}">
-											<img src=" ${dnewlist.filepath}">
+										<c:when test="${not empty anewlist.filepath}">
+											<img src=" ${anewlist.filepath}">
 										</c:when>
 										  <c:otherwise>
 											<img src="/album/default.png" >
@@ -187,13 +187,13 @@
 					                    </div>
 					                </div>
 					                <div class="product-body">
-					                    <p class="product-category">${dnewlist.musicminor}</p>
+					                    <p class="product-category">${anewlist.musicminor}</p>
 					                    <h3 class="product-name">
-										<a href="/product/domestic-detail?musicno=${dnewlist.musicno}&musicmajor=${dnewlist.musicmajor}&id=${principal.id}">
-					                            ${dnewlist.musictitle}
+										<a href="/product/domestic-detail?musicno=${anewlist.musicno}&musicmajor=${anewlist.musicmajor}&id=${principal.id}">
+					                            ${anewlist.musictitle}
 					                        </a>
 					                    </h3>
-					                    <h4 class="product-price">${dnewlist.musiccompany}</h4>
+					                    <h4 class="product-price">${anewlist.musiccompany}</h4>
 					                </div>
 					            </div>
 					        </c:forEach>

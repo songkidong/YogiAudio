@@ -46,6 +46,10 @@ public interface MusicRepository {
 	public List<MusicDTO> likeMusicList(Criteria cri) throws Exception;
 	
 	
+	//국외최신순
+	public List<MusicDTO> newAboardMusicList() throws Exception;
+
+
 	
 	
 	
