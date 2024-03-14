@@ -105,9 +105,6 @@
 		where music_no=#{musicno}
 	</update>
 	
-	
-	
-	
 	<!-- 국내최신순으로 메인페이지리스트출력 -->
 	<select id="newMusicList" resultType="com.project3.yogiaudio.dto.music.MusicDTO">
 		select * from music order by startdate asc
@@ -128,8 +125,11 @@
 		ORDER BY startdate ASC
 	</select>
 	
-	
-
+	<!-- 좋아요 클릭 업데이트 -->
+	<update id="likeit">
+		update music set likeit = likeit + 1
+		where music_no=#{musicno}
+	</update>
 	
 	
 	

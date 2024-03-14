@@ -55,7 +55,8 @@ public interface MusicRepository {
 	//국외최신순
 	public List<MusicDTO> newAboardMusicList() throws Exception;
 
-
+	//좋아요업데이트하기
+	public int likeit(MusicDTO dto,@Param(value = "musicno") int musicno, @Param(value = "musicmajor") String musicmajor);
 	
 	
 	

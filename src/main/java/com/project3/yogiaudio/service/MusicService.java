@@ -85,6 +85,18 @@ public class MusicService {
 		Integer result = musicRepository.albumUpdate(music);
 		
 	}
+	
+	
+	//좋아요 업데이트하기
+	@Transactional
+	public void likeit(MusicDTO dto,@Param(value = "musicno") int musicno, @Param(value = "musicmajor") String musicmajor) {
+		
+		MusicDTO music = MusicDTO.builder()
+				.likeit(dto.getLikeit())
+				.build();
+		
+		int result = musicRepository.likeit(music, musicno, musicmajor);
+	}
 
 	
 	//음원등록하기

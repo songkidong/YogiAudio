@@ -153,14 +153,14 @@ public class ProductController {
 	// http://localhost:80/product/domestic-detail?musicno=&musicmajor=
 	@GetMapping("/domestic-detail")
 	public String domesticDetailGET(@RequestParam(value = "musicno") int musicno, @RequestParam(value = "musicmajor") String musicmajor,@RequestParam(value = "id") long id,Model model) {
-		
-		
+				
 		User udetail = userService.findById(id);
 		model.addAttribute("udetail", udetail);
 		
 		
 		MusicDTO result = musicService.domesticDetail(musicno,musicmajor);
 		model.addAttribute("detail", result);
+		
 		
 		
 	    System.out.println("musicno: " + musicno); 
@@ -223,8 +223,20 @@ public class ProductController {
 	
 	
 
+	@GetMapping("/likeit")
+	public String likeitGET(@RequestParam(value = "musicno") int musicno, @RequestParam(value = "musicmajor") String musicmajor, @RequestParam(value = "id") long id, Model model) {
+	    // musicno와 musicmajor을 이용하여 필요한 작업 수행
+	    // 이후에 redirect 경로를 반환
+		return"product/domesticdetail";
+	}
 	
-	
+	//좋아요 
+	@PostMapping("/likeit")
+	public String likeitPOST(@RequestParam(value = "musicno") int musicno, @RequestParam(value = "musicmajor") String musicmajor,@RequestParam(value = "id") long id,Model model,MusicDTO dto) {
+		
+		musicService.likeit(dto,musicno, musicmajor);
+		return "redirect:/product/domestic-detail";
+	}
 	
 	
 	

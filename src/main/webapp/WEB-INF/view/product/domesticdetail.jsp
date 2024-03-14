@@ -57,6 +57,46 @@
 
 
 
+		<script>
+			function likeMusic() {
+			    // musicno, musicmajor, id 값을 가져와서 데이터로 전송
+			    var musicno = 1; // 예시로 임의의 음악 번호를 설정
+			    var musicmajor = "국내"; // 예시로 임의의 음악 카테고리를 설정
+			    var id = 16; // 예시로 사용자 ID를 설정
+			
+			    // Ajax 요청
+			    $.ajax({
+			        type: "POST",
+			        url: "/product/likeit?musicno=" + musicno + "&musicmajor=" + musicmajor + "&id=" + id,
+			        success: function(response) {
+			            // 성공적으로 요청을 처리한 경우
+			            console.log("좋아요가 성공적으로 처리되었습니다.");
+			            // 추가적인 처리 필요 시 여기에 작성
+			        },
+			        error: function(xhr, status, error) {
+			            // 요청에 실패한 경우
+			            console.error("좋아요 요청에 실패하였습니다.");
+			        }
+			    });
+			    
+			    
+			    
+			}
+		</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 		<!-- SECTION -->
 		<div class="section">
@@ -97,10 +137,12 @@
 					<!-- Product details -->
 					<div class="col-md-5">
 						<div class="product-details">
-							<h2 class="product-name">${detail.musictitle}</h2>
-							
+							<h2 class="product-price">${detail.musictitle}&nbsp;&nbsp;&nbsp;
+								<a href="/product/domestic-detail?musicno=${detail.musicno}&musicmajor=${detail.musicmajor}&id=${principal.id}">
+								   <span style="color: black; font-size: medium;" id="likeit" onclick="likeMusic()">💗like</span></h2>
+								</a>
 							<div>
-								<h3 class="product-price">${detail.musiccompany}<del class="product-old-price"></del></h3>
+								<h3 class="product-name">${detail.musiccompany}<del class="product-old-price"></del></h3>						
 							</div><br>
 							<p>
 							   아티스트 : ${detail.musicsinger}
