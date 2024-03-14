@@ -60,9 +60,9 @@
 		<script>
 			function likeMusic() {
 			    // musicno, musicmajor, id 값을 가져와서 데이터로 전송
-			    var musicno = 1; // 예시로 임의의 음악 번호를 설정
-			    var musicmajor = "국내"; // 예시로 임의의 음악 카테고리를 설정
-			    var id = 16; // 예시로 사용자 ID를 설정
+			    var musicno = ${detail.musicno}; // 예시로 임의의 음악 번호를 설정
+			    var musicmajor = "${detail.musicmajor}"; // 예시로 임의의 음악 카테고리를 설정
+			    var id = ${principal.id}; // 예시로 사용자 ID를 설정
 			
 			    // Ajax 요청
 			    $.ajax({
