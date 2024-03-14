@@ -31,11 +31,21 @@ public class MusicService {
 	}
 
 	
-	//국내음악리스트 출력하기(발라드)
-	public List<MusicDTO> domesticListMinorBallad(Criteria cri) throws Exception{
-		List<MusicDTO> result = musicRepository.domesticListMinorBallad(cri);
+	//국내음악리스트(조건) 출력하기
+	public List<MusicDTO> searchDmusicList(Criteria cri) throws Exception{
+		List<MusicDTO> result = musicRepository.searchDmusicList(cri);
 		return result;
 	}
+
+	
+	//국내음악리스트(조건) 카운팅하기
+	public Integer countsearchDmusicList(Criteria cri) throws Exception{
+		return musicRepository.countsearchDmusicList(cri);
+	}
+	
+	
+	
+	
 	
 	
 	//국외음악리스트 출력하기

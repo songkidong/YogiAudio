@@ -17,15 +17,51 @@
 		<![CDATA[ select count(*) from music where music_no > 0 and music_major="국내"]]>
 	</select>
 	
-	<!-- 장르별 음악리스트출력하기(발라드) -->
-	<select id="domesticListMinorBallad" resultType="com.project3.yogiaudio.dto.music.MusicDTO">
-		SELECT * FROM music 
-		WHERE music_major = '국내' AND music_minor = '발라드'
-		LIMIT #{startPage}, #{pageSize}
-	</select> 
+	
+	
+	<!-- 국내음악리스트(조건) 출력하기 -->
+	<select id="searchDmusicList" resultType="com.project3.yogiaudio.dto.music.MusicDTO">
+	    select * from music
+	    <where>
+	        <choose>
+	            <when test="searchOption == '발라드'">
+	                music_minor like concat('%', #{searchOption}, '%')
+	            </when>
+	            <when test="searchOption == '트로트'">
+	                music_minor like concat('%', #{searchOption}, '%')
+	            </when>
+	            <when test="searchOption == '힙합'">
+	                music_minor like concat('%', #{searchOption}, '%')
+	            </when>
+	        </choose>
+	    </where>
+	    limit #{startPage}, #{pageSize}
+	</select>
 	
 	
 	
+	<!-- 국내음악리스트(조건) 카운팅하기 -->
+	<select id="countsearchDmusicList" resultType="Integer">
+		select count(*) from music
+		<where>
+	        <choose>
+	            <when test="searchOption == '발라드'">
+	                music_minor like concat('%', #{searchOption}, '%')
+	            </when>
+	            <when test="searchOption == '트로트'">
+	                music_minor like concat('%', #{searchOption}, '%')
+	            </when>
+	            <when test="searchOption == '힙합'">
+	                music_minor like concat('%', #{searchOption}, '%')
+	            </when>
+	        </choose>
+	    </where>
+	</select>	
+	
+	
+	
+	
+
 	
 	<!-- 국외음악 리스트끌고오기 -->
 	<select id="aboardListAll" resultType="com.project3.yogiaudio.dto.music.MusicDTO">

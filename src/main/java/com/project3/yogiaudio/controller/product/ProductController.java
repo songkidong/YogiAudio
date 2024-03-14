@@ -20,6 +20,8 @@ import com.project3.yogiaudio.dto.common.Criteria;
 import com.project3.yogiaudio.service.MusicService;
 import com.project3.yogiaudio.service.UserService;
 
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
@@ -94,6 +96,36 @@ public class ProductController {
 	}
 	
 
+	
+	
+	//국내음악리스트(조건) 출력하기
+	@GetMapping("/domestic-search")
+	public String searchDomesticGET(HttpServletRequest request, Criteria cri, Model model) throws Exception{
+		
+		String searchOption = request.getParameter("searchOption");
+		
+		if (searchOption != null && !searchOption.isEmpty()) {
+			cri.setSearchOption(searchOption);
+		}
+		
+		PageVO pageVO = new PageVO();
+		pageVO.setCri(cri);
+		pageVO.setTotalCount(musicService.countsearchDmusicList(cri));
+		
+		model.addAttribute("pageVO", pageVO);
+
+		
+		List<MusicDTO> result = musicService.searchDmusicList(cri);
+		
+		model.addAttribute("domesticlist", result);
+		
+		log.debug("admin-user관리 페이지 출력!");
+		return "product/domesticsearch";
+		
+	}
+	
+	
+	
 	
 	
 	
