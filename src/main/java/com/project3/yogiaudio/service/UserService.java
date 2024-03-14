@@ -1,6 +1,9 @@
 package com.project3.yogiaudio.service;
 
-
+import com.project3.yogiaudio.dto.user.SignUpFormDTO;
+import com.project3.yogiaudio.repository.entity.User;
+import com.project3.yogiaudio.repository.interfaces.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -8,21 +11,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.project3.yogiaudio.dto.user.SignUpFormDTO;
-import com.project3.yogiaudio.repository.entity.User;
-import com.project3.yogiaudio.repository.interfaces.UserRepository;
-
-import lombok.extern.slf4j.Slf4j;
-
 @Service
 @Slf4j
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Transactional
     public User createUser(SignUpFormDTO dto) {
@@ -68,7 +68,9 @@ public class UserService {
         }
         return userEntity;
     }
+
+    // 이메일을 기준으로 사용자를 찾는 메서드 추가
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 }
-
-
-

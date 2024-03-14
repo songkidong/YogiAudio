@@ -6,5 +6,4 @@ import lombok.Data;
 public class Properties {
 
 	private String nickname;
-	private String email;
 }
