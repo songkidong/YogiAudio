@@ -267,7 +267,8 @@
 						<div class="row">
 							<div class="products-tabs">
 								<!-- tab -->
-								<div id="tab2" class="tab-pane fade in active">
+								<div id="tab3" class="tab-pane fade in active">
+									<div class="products-slick" data-nav="#slick-nav-3">
 									
 										<!-- product -->
 									 <c:forEach var="dlikelist" items="${dlikelist}">
@@ -299,6 +300,7 @@
 
 										
 									</div>
+									<div id="slick-nav-3" class="products-slick-nav"></div>
 								</div>
 								<!-- /tab -->
 							</div>
@@ -322,11 +324,11 @@
 						<div class="section-title">
 							<h4 class="title">국내인기순위</h4>
 							<div class="section-nav">
-								<div id="slick-nav-3" class="products-slick-nav"></div>
+								<div id="slick-nav-5" class="products-slick-nav"></div>
 							</div>
 						</div>
 
-						<div class="products-widget-slick" data-nav="#slick-nav-3">
+						<div class="products-widget-slick" data-nav="#slick-nav-5">
 						
 							<div>
 
@@ -407,11 +409,11 @@
 						<div class="section-title">
 							<h4 class="title">국외인기순위</h4>
 							<div class="section-nav">
-								<div id="slick-nav-4" class="products-slick-nav"></div>
+								<div id="slick-nav-6" class="products-slick-nav"></div>
 							</div>
 						</div>
 
-						<div class="products-widget-slick" data-nav="#slick-nav-4">
+						<div class="products-widget-slick" data-nav="#slick-nav-6">
 							<div>
 								<!-- product widget -->
 								<div class="product-widget">
@@ -502,11 +504,11 @@
 						<div class="section-title">
 							<h4 class="title">종합인기순위</h4>
 							<div class="section-nav">
-								<div id="slick-nav-5" class="products-slick-nav"></div>
+								<div id="slick-nav-7" class="products-slick-nav"></div>
 							</div>
 						</div>
 
-						<div class="products-widget-slick" data-nav="#slick-nav-5">
+						<div class="products-widget-slick" data-nav="#slick-nav-7">
 							<div>
 								<!-- product widget -->
 								<div class="product-widget">
