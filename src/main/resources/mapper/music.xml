@@ -23,15 +23,16 @@
 	<select id="searchDmusicList" resultType="com.project3.yogiaudio.dto.music.MusicDTO">
 	    select * from music
 	    <where>
+	       music_major = "국내"
 	        <choose>
 	            <when test="searchOption == '발라드'">
-	                music_minor like concat('%', #{searchOption}, '%')
+	               and music_minor like concat('%', #{searchOption}, '%')
 	            </when>
 	            <when test="searchOption == '트로트'">
-	                music_minor like concat('%', #{searchOption}, '%')
+	               and music_minor like concat('%', #{searchOption}, '%')
 	            </when>
 	            <when test="searchOption == '힙합'">
-	                music_minor like concat('%', #{searchOption}, '%')
+	               and music_minor like concat('%', #{searchOption}, '%')
 	            </when>
 	        </choose>
 	    </where>
@@ -44,15 +45,16 @@
 	<select id="countsearchDmusicList" resultType="Integer">
 		select count(*) from music
 		<where>
+		   music_major = "국내"
 	        <choose>
 	            <when test="searchOption == '발라드'">
-	                music_minor like concat('%', #{searchOption}, '%')
+	               and music_minor like concat('%', #{searchOption}, '%')
 	            </when>
 	            <when test="searchOption == '트로트'">
-	                music_minor like concat('%', #{searchOption}, '%')
+	               and music_minor like concat('%', #{searchOption}, '%')
 	            </when>
 	            <when test="searchOption == '힙합'">
-	                music_minor like concat('%', #{searchOption}, '%')
+	               and music_minor like concat('%', #{searchOption}, '%')
 	            </when>
 	        </choose>
 	    </where>
