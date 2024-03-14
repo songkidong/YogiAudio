@@ -26,6 +26,7 @@
 			          <form action="/product/domestic-search" method="get" id="searchForm" onchange="submitForm()">
 			            <div class="section-nav" style="margin-left: 550px;">
 			                <select class="section-tab-select tab-select form-control" name="searchOption">
+			                    <option value="선택">선택</option>
 			                    <option value="발라드">발라드</option>
 			                    <option value="트로트">트로트</option>
 			                    <option value="힙합">힙합</option>
@@ -36,7 +37,8 @@
 					
 					
 					
-					<script>
+				   <script>
+					    // select 요소의 값이 변경될 때마다 호출되는 함수
 					    function submitForm() {
 					        document.getElementById('searchForm').submit();
 					    }
