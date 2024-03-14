@@ -10,20 +10,21 @@
 	
 	<!-- empty 키워드는 변수가 null이거나 비어있는 경우를 확인 -->
 	<c:if test="${empty noticeList }">
-		<h1>공지사항 글이 존재하지 않습니다</h1>
+		<h1 style="display: flex; justify-content: center;">공지사항 글이 존재하지 않습니다</h1>
 	</c:if>
 	
-	
+	<!-- noticeList가 비어있으면 테이블 자체가 보이지 않도록 함 -->
+	<c:if test="${not empty noticeList }">
 	<!-- Hoverable Table rows -->
               <div class="card">
-                <h5 class="card-header">공지사항 목록</h5>
+                <h5 class="card-header">공지사항</h5>
                 <div class="table-responsive text-nowrap">
                   <table class="table table-hover">
                     <thead>
                       <tr>
                         <th>번호</th>
+                        <th>작성자</th>
                         <th>제목</th>
-                        <th>내용</th>
                         <th>등록일</th>
                         <th>수정 / 삭제</th>
                       </tr>
@@ -33,9 +34,9 @@
 	               		<c:forEach var="notice" items="${noticeList }">
 		                 	<tr>
 		            		  <td>${notice.id}</td>
+		            		  <td>${notice.writerName}</td>
 		            		  <td>${notice.title}</td>
-		            		  <td>${notice.content}</td>
-		            		  <td>${notice.createdAt}</td>
+		            		  <td>${notice.formatCreatedAt()}</td>
 		            		  <td>
 		            		  	<a class="btn btn-primary" href="" style="">수정</a>
 		            		  	<a data-id="${notice.id }" name="deleteButton" class="btn btn-primary" href="#" >삭제</a>
@@ -47,7 +48,8 @@
                   </table>
                 </div>
               </div>
-              <!--/ Hoverable Table rows -->
+	<!--/ Hoverable Table rows -->
+	</c:if>
               
               <!-- flex 속성으로 가운데정렬하기 -->
               <ul class="pagination" style="display: flex; justify-content: center; padding-right: 10%;">

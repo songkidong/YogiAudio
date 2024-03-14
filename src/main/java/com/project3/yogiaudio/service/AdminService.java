@@ -6,9 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project3.yogiaudio.dto.admin.AdminCriteria;
+import com.project3.yogiaudio.dto.admin.NoticeSaveFormDTO;
+import com.project3.yogiaudio.dto.board.NoticeDTO;
 import com.project3.yogiaudio.repository.entity.Music;
 import com.project3.yogiaudio.repository.entity.User;
 import com.project3.yogiaudio.repository.entity.board.BoardNotice;
+import com.project3.yogiaudio.repository.entity.board.BoardQna;
 import com.project3.yogiaudio.repository.interfaces.AdminRepository;
 
 @Service
@@ -124,5 +127,60 @@ public class AdminService {
 	public boolean deleteNotice(Integer id) {
 		
 		return adminRepository.deleteNotice(id);
+	}
+	
+	/**
+	  * @Method Name : findAllQna
+	  * @작성일 : 2024. 3. 14.
+	  * @작성자 : 박한산
+	  * @변경이력 : 
+	  * @Method 설명 : qna 목록
+	  */
+	public List<BoardQna> findAllQna(AdminCriteria cri) {
+		
+		return adminRepository.findAllQna(cri);
+	}
+	
+	/**
+	  * @Method Name : countAllQna
+	  * @작성일 : 2024. 3. 14.
+	  * @작성자 : 박한산
+	  * @변경이력 : 
+	  * @Method 설명 : qna 카운팅
+	  */
+	public int countAllQna() {
+		
+		return adminRepository.countAllQna();
+	}
+	
+	/**
+	  * @Method Name : deleteQna
+	  * @작성일 : 2024. 3. 14.
+	  * @작성자 : 박한산
+	  * @변경이력 : 
+	  * @Method 설명 : qna 삭제
+	  */
+	public boolean deleteQna(Integer id) {
+		
+		return adminRepository.deleteQna(id);
+	}
+	
+	/**
+	  * @Method Name : insertNotice
+	  * @작성일 : 2024. 3. 14.
+	  * @작성자 : 박한산
+	  * @변경이력 : 
+	  * @Method 설명 : 공지사항 등록
+	  */
+	public boolean insertNotice(NoticeSaveFormDTO dto, String filePath) {
+		
+		BoardNotice notice = BoardNotice.builder()
+						.writerId(100) // 작성자 아이디 임시번호
+						.title(dto.getTitle())
+						.content(dto.getContent())
+						.filePath(filePath) // 타입 String
+						.build();
+		
+		return adminRepository.insertNotice(notice);
 	}
 }

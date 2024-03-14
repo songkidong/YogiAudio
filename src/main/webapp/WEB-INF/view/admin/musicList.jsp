@@ -6,10 +6,10 @@
 
 <!-- Content -->
 	
-	<br>
+	<hr class="my-5" />
 	<!-- empty 키워드는 변수가 null이거나 비어있는 경우를 확인 -->
 	<c:if test="${empty musicList }">
-		<h1> 노래가 존재하지 않습니다</h1>
+		<h1 style="display: flex; justify-content: center;"> 노래가 존재하지 않습니다</h1>
 	</c:if>
 	
 	<div class="row g-4">
@@ -17,14 +17,15 @@
 	
 	<c:forEach var="music" items= "${musicList}">
 	
-	<div class="col-md-6 col-lg-4 col-xl-3">
+	<div class="col-md-6 col-lg-4 col-xl-3" style="text-align: center;">
 	<div class="card" style="width:20rem;margin:20px 0 24px 0">
+	  <!-- img 경로 가져오기 -->	
 	  <img class="card-img-top" src="img_avatar3.png" alt="image" style="width:100%">
 	  <div class="card-body">
 	    <h4 class="card-title">제목 ${music.musicTitle}</h4>
 	    <h5 class="card-title">가수 ${music.musicSinger}</h5>
 	    <p class="card-text">발매일 ${music.startdate}</p>
-	    <p class="card-text">등록일 ${music.regdate}</p>
+	    <p class="card-text">등록일 ${music.formatRegDate()}</p>
 	    <a href="" class="btn btn-primary">수정</a>
 	    <a data-id="${music.musicNo }" name="deleteButton" href="#" class="btn btn-primary">삭제</a>
 	  </div>

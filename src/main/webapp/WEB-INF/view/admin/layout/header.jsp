@@ -56,10 +56,14 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="/assets/js/config.js"></script>
     
+    <!-- 추가 -->
     <!-- Font Awesome 추가 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- SweetAlert 라이브러리 -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	<!-- JSTL 라이브러리 -->
+	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
   </head>
 
   <body>

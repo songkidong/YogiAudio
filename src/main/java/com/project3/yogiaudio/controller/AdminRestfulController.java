@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project3.yogiaudio.dto.admin.NoticeSaveFormDTO;
+import com.project3.yogiaudio.filedb.service.FiledbService;
 import com.project3.yogiaudio.service.AdminService;
 
 import lombok.extern.log4j.Log4j2;
@@ -19,6 +21,9 @@ public class AdminRestfulController {
 
 	@Autowired
 	AdminService adminService;
+	
+	@Autowired
+	FiledbService fileDbService;
 	
 	// 유저 삭제
 	@DeleteMapping("/user/{id}")
@@ -47,4 +52,27 @@ public class AdminRestfulController {
 		
 		return new ResponseEntity<Boolean>(result, HttpStatus.OK);
 	}
+	
+	// qna 삭제
+	@DeleteMapping("/qna/{id}")
+	public ResponseEntity<?> deleteQna(@PathVariable("id") Integer id) {
+		
+		boolean result = adminService.deleteQna(id);
+		
+		return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+	}
+	
+	// 공지사항 등록
+	public ResponseEntity<?> insertNotice(NoticeSaveFormDTO dto) {
+		
+		// 단일 파일 업로드
+		//String filePath = fileDbService.saveFiles(dto.getFilePath());
+		// 다중 파일 업로드
+		String filePath = fileDbService.saveFiles(dto.getFiles());
+		
+		boolean result = adminService.insertNotice(dto, filePath);
+		
+		return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+	}
+	
 }

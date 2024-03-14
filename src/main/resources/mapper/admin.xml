@@ -4,6 +4,21 @@
 
 <mapper namespace="com.project3.yogiaudio.repository.interfaces.AdminRepository">
 
+<insert id="insertNotice">
+	insert into board_notice set
+					writer_id = #{writerId},
+                    title = #{title},
+                    content = #{content},
+                    file_path = #{filePath},
+                    created_at = now()
+</insert>
+
+<!-- <insert id="insertNoticeFile">
+	insert into filedb set
+				uuid = '1',
+                original_file_name = 'test.jpg'
+</insert> -->
+
 <select id="findAllUser" resultType="com.project3.yogiaudio.repository.entity.User">
 	<!-- offset 속성 Criteria의 getOffset() 메서드로 받을 수 있음 -->
 	select * from user order by id desc limit #{offset}, #{pageSize} 
@@ -23,11 +38,25 @@
 </select>
 
 <select id="findAllNotice" resultType="com.project3.yogiaudio.repository.entity.board.BoardNotice">
-	select * from board_notice order by id desc limit #{offset}, #{pageSize}
+	select a.*, b.name as writerName from board_notice as a
+	left join user as b <!-- left join -->
+	on a.writer_id = b.id
+	order by id desc limit ${offset}, #{pageSize}
 </select>
 
 <select id="countAllNotice" resultType="int">
 	select count(*) from board_notice
+</select>
+
+<select id="findAllQna" resultType="com.project3.yogiaudio.repository.entity.board.BoardQna">
+	select a.*, b.name as writerName from board_qna as a
+	left join user as b
+	on a.writer_id = b.id
+	order by a.id desc limit #{offset}, #{pageSize}
+</select>
+
+<select id="countAllQna" resultType="int">
+	select count(*) from board_qna
 </select>
 	
 <delete id="deleteUser">
@@ -35,11 +64,15 @@
 </delete>
 	
 <delete id="deleteMusic">
-	delete from music where music_no = ${musicNo}
+	delete from music where music_no = #{musicNo}
 </delete>
 	
 <delete id="deleteNotice">
-	delete from board_notice where id=${id}
+	delete from board_notice where id=#{id}
+</delete>
+	
+<delete id="deleteQna">
+	delete from board_qna where id=#{id}
 </delete>	
 
 

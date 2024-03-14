@@ -14,6 +14,7 @@ import com.project3.yogiaudio.dto.admin.AdminPageVO;
 import com.project3.yogiaudio.repository.entity.Music;
 import com.project3.yogiaudio.repository.entity.User;
 import com.project3.yogiaudio.repository.entity.board.BoardNotice;
+import com.project3.yogiaudio.repository.entity.board.BoardQna;
 import com.project3.yogiaudio.service.AdminService;
 
 import lombok.extern.log4j.Log4j2;
@@ -58,20 +59,9 @@ public class AdminController {
 		return "admin/userList";
 	}
 	
-	// 유저 삭제
-	// @PathVariable("id")
-	@GetMapping("/deleteUser/{id}")
-	public String deleteUser(@PathVariable("id") Long id) {
-		
-		log.info("id : " + id);
-		adminService.deleteUser(id);
-		
-		return "redirect:/admin/userList";
-	}
-	
 	// 음악 목록
 	@GetMapping("/musicList")
-	public String findAllMusic(AdminCriteria cri, Model model) {
+	public String musicListPage(AdminCriteria cri, Model model) {
 		
 		// 한 페이징 당 게시글 수 변경
 		cri.setPageSize(12);
@@ -97,7 +87,7 @@ public class AdminController {
 	
 	// 공지사항 목록
 	@GetMapping("/noticeList")
-	public String findAllNotice(AdminCriteria cri, Model model) {
+	public String noticeListPage(AdminCriteria cri, Model model) {
 		
 		List<BoardNotice> noticeList = adminService.findAllNotice(cri);
 		
@@ -113,5 +103,27 @@ public class AdminController {
 		model.addAttribute("pageVO", pageVO);
 		
 		return "admin/noticeList";
+	}
+	
+	// qna 목록
+	@GetMapping("/qnaList")
+	public String qnaListPage(AdminCriteria cri, Model model) {
+		
+		List<BoardQna> qnaList = adminService.findAllQna(cri);
+		model.addAttribute("qnaList", qnaList);
+		
+		AdminPageVO pageVO = new AdminPageVO();
+		pageVO.setCri(cri);
+		pageVO.setTotalCount(adminService.countAllQna());
+		model.addAttribute("pageVO", pageVO);
+		
+		return "admin/qnaList";
+	}
+	
+	// 공지사항 등록
+	@GetMapping("/noticeSave")
+	public String noticeSavePage() {
+		
+		return "admin/noticeSave";
 	}
 }
