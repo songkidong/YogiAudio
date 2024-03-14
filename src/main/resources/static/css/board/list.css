@@ -132,10 +132,6 @@ nav {
 	cursor: not-allowed;
 }
 
-.pagination .page-item.active a, .pagination .page-item.active span {
-	background-color: #007bff;
-	color: #fff;
-}
 
 /* Search container styles */
 .input-group {
@@ -169,4 +165,33 @@ nav {
 #btnInsert:after {
     content: "등록"; /* Display "등록" text after the button */
     margin-left: 5px; /* Adjust spacing as needed */
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-item {
+    list-style-type: none;
+}
+
+.page-link {
+    text-decoration: none;
+    padding: 5px 10px;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.page-link:hover {
+    background-color: #f0f0f0;
+}
+
+.page-item.active .page-link {
+    background-color: #f0ad4e;
+    color: #fff;
+    border-color: #eea236;
 }
