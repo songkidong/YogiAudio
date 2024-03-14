@@ -23,26 +23,23 @@
 					 <div style="display: flex; align-items: center; margin-bottom: 20px;">
 			            <h3 class="title" style="margin-right: 20px;">🌏국내음악</h3>
 			            
-			          <form action="/product/domestic-search" method="get" id="searchForm" onchange="submitForm()">
-			            <div class="section-nav" style="margin-left: 550px;">
-			                <select class="section-tab-select tab-select form-control" name="searchOption">
-			                    <option value="선택">선택</option>
-			                    <option value="발라드">발라드</option>
-			                    <option value="트로트">트로트</option>
-			                    <option value="힙합">힙합</option>
-			                </select>
-			            </div>
-			          </form>  
+			            <div class="section-nav">
+						    <ul class="section-tab-nav tab-nav">
+						        <li id="allOption"><a href="/product/domestic-music">전체</a></li>
+						        <li id="balladOption"><a href="/product/domestic-search?searchOption=발라드">발라드</a></li>
+						        <li id="trotOption"><a href="/product/domestic-search?searchOption=트로트">트로트</a></li>
+						        <li id="hiphopOption"><a href="/product/domestic-search?searchOption=힙합">힙합</a></li>
+						    </ul>
+						</div>
+			          
+			          
 			        </div>
 					
 					
-					<script>
-					    // select 요소의 값이 변경될 때마다 호출되는 함수
-					    function submitForm() {
-					        document.getElementById('searchForm').submit();
-					    }
-	
-					</script>
+					
+					
+					
+					
 					
 					
 					
