@@ -101,7 +101,7 @@
 							
 						    <c:if test="${pageVO.prev }">
 								<li class="page-item">
-								  <a class="page-link" href="/product/domestic-search?page=${pageVO.startPage - 1 }" aria-label="Previous">
+								  <a class="page-link" href="/product/domestic-search?page=${pageVO.startPage - 1 }&searchOption=${pageVO.cri.searchOption}" aria-label="Previous">
 								  	<i class="fa fa-angle-left"></i> 
 								  </a>
 								</li>
@@ -111,7 +111,7 @@
 							
 								<c:forEach var="i" begin="${pageVO.startPage }" end="${pageVO.endPage }" step="1">
 									<li class="page-item ${isActive ? 'active' : ''}">
-										<a class="page-link" href="/product/domestic-search?page=${i}">
+										<a class="page-link" href="/product/domestic-search?page=${i}&searchOption=${pageVO.cri.searchOption}">
 										   ${i}
 										</a>
 									</li>
@@ -121,7 +121,7 @@
 								
 							<c:if test="${pageVO.next}">	
 								<li class="page-item">
-									<a href="/product/domestic-search?page=${pageVO.endPage + 1}">
+									<a href="/product/domestic-search?page=${pageVO.endPage + 1}&searchOption=${pageVO.cri.searchOption}">
 										<i class="fa fa-angle-right"></i>
 									</a>
 								</li>
