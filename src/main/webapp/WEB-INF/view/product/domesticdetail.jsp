@@ -217,45 +217,23 @@
 																				
 											<div class="col-md-4 col-xs-6">
 											  <div class="shop">
-											    <a href="javascript:void(0)" onclick="openModal('https://www.youtube.com/embed/kHW-UVXOcLU')">
+											    <a href="javascript:void(0)" onclick="openModal('${detail.mvfile}/')">
 											      <div class="shop-img">
 											        <img src="${detail.filepath}" style="width:360px; height: 240px;">
 											      </div>
 											    </a>  
 											    <div class="shop-body">
 											      <h3>${detail.musicsinger}<br>${detail.musictitle}</h3>
-											      <a href="javascript:void(0)" onclick="openModal('https://www.youtube.com/embed/kHW-UVXOcLU')" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
+											      <a href="javascript:void(0)" onclick="openModal('${detail.mvfile}/')" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
 											    </div>
 											  </div>
 											</div>
 										
-										<div class="col-md-4 col-xs-6">
-											  <div class="shop">
-											    <a href="javascript:void(0)" onclick="openModal('https://www.youtube.com/embed/kHW-UVXOcLU')">
-											      <div class="shop-img">
-											        <img src="${detail.filepath}" style="width:360px; height: 240px;">
-											      </div>
-											    </a>  
-											    <div class="shop-body">
-											      <h3>${detail.musicsinger}<br>${detail.musictitle}</h3>
-											      <a href="javascript:void(0)" onclick="openModal('https://www.youtube.com/embed/kHW-UVXOcLU')" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
-											    </div>
-											  </div>
+											<div class="col-md-4 col-xs-6">
+												<p>${detail.videocontent}</p>
 											</div>
 										
-										<div class="col-md-4 col-xs-6">
-											  <div class="shop">
-											    <a href="javascript:void(0)" onclick="openModal('https://www.youtube.com/embed/kHW-UVXOcLU')">
-											      <div class="shop-img">
-											        <img src="${detail.filepath}" style="width:360px; height: 240px;">
-											      </div>
-											    </a>  
-											    <div class="shop-body">
-											      <h3>${detail.musicsinger}<br>${detail.musictitle}</h3>
-											      <a href="javascript:void(0)" onclick="openModal('https://www.youtube.com/embed/kHW-UVXOcLU')" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
-											    </div>
-											  </div>
-											</div>
+										
 											
 											
 																
