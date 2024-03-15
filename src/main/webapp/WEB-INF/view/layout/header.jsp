@@ -102,7 +102,7 @@
                                         <a href="/logout">
                                             <p>로그아웃</p>
                                         </a>
-                                        <a href="/mypage/${principal.id}">
+                                        <a href="#">
                                             <p style="margin-left: 10px;">마이페이지</p>
                                         </a>
                                     </c:otherwise>

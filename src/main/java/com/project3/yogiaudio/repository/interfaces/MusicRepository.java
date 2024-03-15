@@ -5,8 +5,10 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.project3.yogiaudio.dto.MusicDTO;
 import com.project3.yogiaudio.dto.common.Criteria;
+import com.project3.yogiaudio.dto.music.MusicDTO;
+
+
 
 @Mapper
 public interface MusicRepository {
@@ -16,6 +18,12 @@ public interface MusicRepository {
 	
 	//국내음악리스트 카운팅하기
 	public int countdomesticListAll() throws Exception;
+	
+	//국내음악리스트(조건) 출력하기
+	public List<MusicDTO> searchDmusicList(Criteria cri) throws Exception;
+	
+	//국내음악리스트(조건) 카운팅하기
+	public int countsearchDmusicList(Criteria cri) throws Exception;
 	
 	//국외음악리스트출력하기
 	public List<MusicDTO> aboardListAll(Criteria cri) throws Exception;
@@ -36,8 +44,20 @@ public interface MusicRepository {
 	public Integer musicUpdate(MusicDTO dto);
 	
 	
-	//결제상태변경하기
-	public Integer statusUpdate(@Param(value = "musicno") int musicno);
+	//최신순으로출력하기
+	public List<MusicDTO> newMusicList(Criteria cri) throws Exception;
+	
+	
+	//좋아요순으로출력하기
+	public List<MusicDTO> likeMusicList(Criteria cri) throws Exception;
+	
+	
+	//국외최신순
+	public List<MusicDTO> newAboardMusicList() throws Exception;
+
+	//좋아요업데이트하기
+	public int likeit(MusicDTO dto,@Param(value = "musicno") int musicno, @Param(value = "musicmajor") String musicmajor);
+	
 	
 	
 	

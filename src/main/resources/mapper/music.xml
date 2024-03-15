@@ -6,7 +6,7 @@
 	
 	
 	<!-- 국내음악 리스트끌고오기 -->
-	<select id ="domesticListAll" resultType="com.project3.yogiaudio.dto.MusicDTO">
+	<select id ="domesticListAll" resultType="com.project3.yogiaudio.dto.music.MusicDTO">
 		select * from music 
 		where music_major = "국내"
 		limit #{startPage},#{pageSize}
@@ -18,8 +18,55 @@
 	</select>
 	
 	
+	
+	<!-- 국내음악리스트(조건) 출력하기 -->
+	<select id="searchDmusicList" resultType="com.project3.yogiaudio.dto.music.MusicDTO">
+	    select * from music
+	    <where>
+	       music_major = "국내"
+	        <choose>
+	            <when test="searchOption == '발라드'">
+	               and music_minor like concat('%', #{searchOption}, '%')
+	            </when>
+	            <when test="searchOption == '트로트'">
+	               and music_minor like concat('%', #{searchOption}, '%')
+	            </when>
+	            <when test="searchOption == '힙합'">
+	               and music_minor like concat('%', #{searchOption}, '%')
+	            </when>
+	        </choose>
+	    </where>
+	    limit #{startPage}, #{pageSize}
+	</select>
+	
+	
+	
+	<!-- 국내음악리스트(조건) 카운팅하기 -->
+	<select id="countsearchDmusicList" resultType="Integer">
+		select count(*) from music
+		<where>
+		   music_major = "국내"
+	        <choose>
+	            <when test="searchOption == '발라드'">
+	               and music_minor like concat('%', #{searchOption}, '%')
+	            </when>
+	            <when test="searchOption == '트로트'">
+	               and music_minor like concat('%', #{searchOption}, '%')
+	            </when>
+	            <when test="searchOption == '힙합'">
+	               and music_minor like concat('%', #{searchOption}, '%')
+	            </when>
+	        </choose>
+	    </where>
+	</select>	
+	
+	
+	
+	
+
+	
 	<!-- 국외음악 리스트끌고오기 -->
-	<select id="aboardListAll" resultType="com.project3.yogiaudio.dto.MusicDTO">
+	<select id="aboardListAll" resultType="com.project3.yogiaudio.dto.music.MusicDTO">
 		select * from music
 		where music_major = "국외"
 		limit #{startPage},#{pageSize}
@@ -33,13 +80,15 @@
 	
 	
 	<!-- 국내음악 상세조회하기 (조건 : 넘버 , 국내 ) -->
-	<select id ="domesticDetail" resultType="com.project3.yogiaudio.dto.MusicDTO">
-		select * from music
-		where music_no=#{musicno} and music_major=#{musicmajor}
+	<select id ="domesticDetail" resultType="com.project3.yogiaudio.dto.music.MusicDTO">
+		SELECT music.*, musicvideo.mv_file, musicvideo.videocontent
+		FROM music
+		JOIN musicvideo ON music.music_no = musicvideo.musicno
+		WHERE music.music_no=#{musicno} AND music.music_major=#{musicmajor};
 	</select>
 	
 	<!-- 국외음악 상세조회하기 (조건 : 넘버 , 국내 ) -->
-	<select id ="aboardDetail" resultType="com.project3.yogiaudio.dto.MusicDTO">
+	<select id ="aboardDetail" resultType="com.project3.yogiaudio.dto.music.MusicDTO">
 		select * from music
 		where music_no=#{musicno} and music_major=#{musicmajor}
 	</select>
@@ -58,13 +107,39 @@
 		where music_no=#{musicno}
 	</update>
 	
+	<!-- 국내최신순으로 메인페이지리스트출력 -->
+	<select id="newMusicList" resultType="com.project3.yogiaudio.dto.music.MusicDTO">
+		select * from music order by startdate asc
+	</select>
 	
 	
-	<!-- 결제 후 상태업데이트하기 -->
-	<update id="statusUpdate">
-		update music set status= 'Y'
+	<!-- 국내인기순으로 메인페이지리스트출력 -->
+	<select id ="likeMusicList" resultType="com.project3.yogiaudio.dto.music.MusicDTO">
+		select * from music order by likeit desc
+	</select>
+	
+	
+	
+	<!-- 국외최신순으로 메인페이지리스트출력 -->
+	<select id ="newAboardMusicList" resultType="com.project3.yogiaudio.dto.music.MusicDTO">
+		SELECT * FROM music 
+		WHERE music_major = "국외" 
+		ORDER BY startdate ASC
+	</select>
+	
+	<!-- 좋아요 클릭 업데이트 -->
+	<update id="likeit">
+		update music set likeit = likeit + 1
 		where music_no=#{musicno}
 	</update>
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 </mapper>

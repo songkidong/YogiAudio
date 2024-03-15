@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.project3.yogiaudio.dto.MusicDTO;
 import com.project3.yogiaudio.dto.common.Criteria;
+import com.project3.yogiaudio.dto.music.MusicDTO;
 import com.project3.yogiaudio.repository.interfaces.MusicRepository;
 
 @Service
@@ -30,6 +30,23 @@ public class MusicService {
 
 	}
 
+	
+	//국내음악리스트(조건) 출력하기
+	public List<MusicDTO> searchDmusicList(Criteria cri) throws Exception{
+		List<MusicDTO> result = musicRepository.searchDmusicList(cri);
+		return result;
+	}
+
+	
+	//국내음악리스트(조건) 카운팅하기
+	public Integer countsearchDmusicList(Criteria cri) throws Exception{
+		return musicRepository.countsearchDmusicList(cri);
+	}
+	
+	
+	
+	
+	
 	
 	//국외음악리스트 출력하기
 	public List<MusicDTO> aboardListAll(Criteria cri) throws Exception{
@@ -68,6 +85,18 @@ public class MusicService {
 		Integer result = musicRepository.albumUpdate(music);
 		
 	}
+	
+	
+	//좋아요 업데이트하기
+	@Transactional
+	public void likeit(MusicDTO dto,@Param(value = "musicno") int musicno, @Param(value = "musicmajor") String musicmajor) {
+		
+		MusicDTO music = MusicDTO.builder()
+				.likeit(dto.getLikeit())
+				.build();
+		
+		int result = musicRepository.likeit(music, musicno, musicmajor);
+	}
 
 	
 	//음원등록하기
@@ -84,11 +113,30 @@ public class MusicService {
 	}
 	
 	
-	//상태변경하기
-	@Transactional
-	public Integer statusUpdate(@Param(value = "musicno") int musicno) {
-		return musicRepository.statusUpdate(musicno);
+	
+	
+	//최신순으로 출력하기
+	public List<MusicDTO> newMusicList(Criteria cri) throws Exception{
+		List<MusicDTO> result = musicRepository.newMusicList(cri);
+		return result;
 	}
+	
+	
+	
+	//좋아요순으로 출력하기
+	public List<MusicDTO> likeMusicList(Criteria cri) throws Exception{
+		List<MusicDTO> result = musicRepository.likeMusicList(cri);
+		return result;
+	}
+	
+	
+	
+	//국외최신순
+	public List<MusicDTO> newAboardMusicList() throws Exception{
+		List<MusicDTO> result = musicRepository.newAboardMusicList();
+		return result;
+	}
+	
 	
 	
 	

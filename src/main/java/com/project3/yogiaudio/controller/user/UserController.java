@@ -1,6 +1,10 @@
 package com.project3.yogiaudio.controller.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+
+import org.springframework.http.*;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -71,6 +75,8 @@ public class UserController {
 	public String signIn(SignUpFormDTO dto) {
 		User userEntity = userService.signIn(dto);
 		httpsession.setAttribute(Define.PRINCIPAL, userEntity);
+		
+		
 		return "redirect:/product/main";
 	}
 

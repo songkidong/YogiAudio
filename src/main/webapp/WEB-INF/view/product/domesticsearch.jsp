@@ -21,11 +21,11 @@
 			
 			  
 					 <div style="display: flex; align-items: center; margin-bottom: 20px;">
-			            <h3 class="title" style="margin-right: 20px;">🌏국내음악</h3>
+			            <h3 class="title" style="margin-right: 20px;">🌏국내음악(${param.searchOption})</h3>
 			            
-			            <div class="section-nav">
+			          <div class="section-nav">
 						    <ul class="section-tab-nav tab-nav">
-						        <li id="allOption"><a href="/product/domestic-music">전체</a></li>
+						    	<li id="allOption"><a href="/product/domestic-music">전체</a></li>
 						        <li id="balladOption"><a href="/product/domestic-search?searchOption=발라드">발라드</a></li>
 						        <li id="trotOption"><a href="/product/domestic-search?searchOption=트로트">트로트</a></li>
 						        <li id="hiphopOption"><a href="/product/domestic-search?searchOption=힙합">힙합</a></li>
@@ -33,10 +33,12 @@
 						</div>
 			          
 			          
+			          
 			        </div>
 					
 					
 					
+				
 					
 					
 					
@@ -87,7 +89,7 @@
 						
 							<!-- /product -->						
 
-
+	
 					</div>
 						<!-- /store products -->
 
@@ -99,7 +101,7 @@
 							
 						    <c:if test="${pageVO.prev }">
 								<li class="page-item">
-								  <a class="page-link" href="/product/domestic-music?page=${pageVO.startPage - 1 }" aria-label="Previous">
+								  <a class="page-link" href="/product/domestic-search?page=${pageVO.startPage - 1 }&searchOption=${pageVO.cri.searchOption}" aria-label="Previous">
 								  	<i class="fa fa-angle-left"></i> 
 								  </a>
 								</li>
@@ -109,7 +111,7 @@
 							
 								<c:forEach var="i" begin="${pageVO.startPage }" end="${pageVO.endPage }" step="1">
 									<li class="page-item ${isActive ? 'active' : ''}">
-										<a class="page-link" href="/product/domestic-music?page=${i}">
+										<a class="page-link" href="/product/domestic-search?page=${i}&searchOption=${pageVO.cri.searchOption}">
 										   ${i}
 										</a>
 									</li>
@@ -119,7 +121,7 @@
 								
 							<c:if test="${pageVO.next}">	
 								<li class="page-item">
-									<a href="/product/domestic-music?page=${pageVO.endPage + 1}">
+									<a href="/product/domestic-search?page=${pageVO.endPage + 1}&searchOption=${pageVO.cri.searchOption}">
 										<i class="fa fa-angle-right"></i>
 									</a>
 								</li>

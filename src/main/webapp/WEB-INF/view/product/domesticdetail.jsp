@@ -3,13 +3,10 @@
 <%@include file="/WEB-INF/view/layout/header.jsp" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://js.tosspayments.com/v1/payment-widget"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 
 
-
-<%
-    session.setAttribute("userId", 15);
- %>
 
 
 
@@ -58,7 +55,41 @@
 }
 </style>
 
+<script>
+    function likeMusic() {
+        var musicno = ${detail.musicno};
+        var musicmajor = "${detail.musicmajor}";
+        var id = ${principal.id};
 
+        $.ajax({
+            type: "POST",
+            url: "/product/likeit?musicno=" + musicno + "&musicmajor=" + musicmajor + "&id=" + id,
+            success: function(response) {
+                console.log("서버 응답: " + response);
+                if (response === "success") {
+                    alert("좋아요 클릭 완료!");
+                    document.getElementById("likeButton").innerText = "Liked";
+                    document.getElementById("likeButton").disabled = true;
+                } else if (response === "already_liked") {
+                    alert("이미 좋아요를 클릭하셨습니다.");
+                } else {
+                	console.log("좋아요클릭실패!");
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("좋아요 요청에 실패하였습니다.");
+                alert("좋아요 클릭 실패!");
+            }
+        });
+    }
+</script>
+
+		
+		
+		
+		
+		
+				
 
 
 		<!-- SECTION -->
@@ -100,11 +131,13 @@
 					<!-- Product details -->
 					<div class="col-md-5">
 						<div class="product-details">
-							<h2 class="product-name">${detail.musictitle}</h2>
-							
+							<h2 class="product-price">${detail.musictitle}&nbsp;&nbsp;&nbsp;
+								<a href="/product/domestic-detail?musicno=${detail.musicno}&musicmajor=${detail.musicmajor}&id=${principal.id}">
+								   <span style="color: black; font-size: medium;" id="likeButton" onclick="likeMusic()">💗like</span></h2>
+								</a>
 							<div>
-								<h3 class="product-price">${detail.musicprice} ￦<del class="product-old-price"></del></h3>
-							</div>
+								<h3 class="product-name">${detail.musiccompany}<del class="product-old-price"></del></h3>						
+							</div><br>
 							<p>
 							   아티스트 : ${detail.musicsinger}
 							</p><br>
@@ -123,11 +156,10 @@
 						    </audio><br>
 						    
 						    <p>
-						        <button id="downloadButton" type="button" class="btn btn-primary">파일 다운로드</button>
 						         <c:choose>
-							        <c:when test="${detail.status eq 'Y'}">
-							            <button id="paymentcheck" type="button" class="btn btn-success">다운로드가능</button>
-							        </c:when>
+							         	<c:when test="${udetail.status eq 'Y'}">
+						        			<button id="downloadButton" type="button" class="btn btn-primary">파일 다운로드</button>
+									    </c:when>
 							        <c:otherwise>
 							            <button id="paymentcheck" type="button" class="btn btn-danger" >다운로드불가능</button>
 							        </c:otherwise>
@@ -136,24 +168,7 @@
 							 
 							    
 						    
-						    
-						     <!-- 주문서 영역 -->
-						    <div class="wrapper">
-						      <div class="box_section" style="padding: 40px 30px 50px 30px; margin-top:30px; margin-bottom:50px">
-						        <!-- 결제 UI -->
-						        <div id="payment-method"></div>
-						        <!-- 이용약관 UI -->
-						        <div id="agreement"></div>
-						        <!-- 쿠폰 체크박스 -->
-						        <div style="padding-left: 25px">
-						          <div class="checkable typography--p"><label for="coupon-box" class="checkable__label typography--regular"><input id="coupon-box" class="checkable__input" type="checkbox" aria-checked="true"><span class="checkable__label-text">5,000원 쿠폰 적용</span></label></div>
-						        </div>
-						        <!-- 결제하기 버튼 -->
-						        <div class="result wrapper">
-						          <button class="button" id="payment-button" style="margin-top:30px; ">결제하기</button>
-						        </div>
-						      </div>
-						    </div>	    
+			    
 						    
 						</div>
 					</div>
@@ -202,45 +217,23 @@
 																				
 											<div class="col-md-4 col-xs-6">
 											  <div class="shop">
-											    <a href="javascript:void(0)" onclick="openModal('https://www.youtube.com/embed/kHW-UVXOcLU')">
+											    <a href="javascript:void(0)" onclick="openModal('${detail.mvfile}/')">
 											      <div class="shop-img">
 											        <img src="${detail.filepath}" style="width:360px; height: 240px;">
 											      </div>
 											    </a>  
 											    <div class="shop-body">
 											      <h3>${detail.musicsinger}<br>${detail.musictitle}</h3>
-											      <a href="javascript:void(0)" onclick="openModal('https://www.youtube.com/embed/kHW-UVXOcLU')" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
+											      <a href="javascript:void(0)" onclick="openModal('${detail.mvfile}/')" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
 											    </div>
 											  </div>
 											</div>
 										
-										<div class="col-md-4 col-xs-6">
-											  <div class="shop">
-											    <a href="javascript:void(0)" onclick="openModal('https://www.youtube.com/embed/kHW-UVXOcLU')">
-											      <div class="shop-img">
-											        <img src="${detail.filepath}" style="width:360px; height: 240px;">
-											      </div>
-											    </a>  
-											    <div class="shop-body">
-											      <h3>${detail.musicsinger}<br>${detail.musictitle}</h3>
-											      <a href="javascript:void(0)" onclick="openModal('https://www.youtube.com/embed/kHW-UVXOcLU')" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
-											    </div>
-											  </div>
+											<div class="col-md-4 col-xs-6">
+												<p>${detail.videocontent}</p>
 											</div>
 										
-										<div class="col-md-4 col-xs-6">
-											  <div class="shop">
-											    <a href="javascript:void(0)" onclick="openModal('https://www.youtube.com/embed/kHW-UVXOcLU')">
-											      <div class="shop-img">
-											        <img src="${detail.filepath}" style="width:360px; height: 240px;">
-											      </div>
-											    </a>  
-											    <div class="shop-body">
-											      <h3>${detail.musicsinger}<br>${detail.musictitle}</h3>
-											      <a href="javascript:void(0)" onclick="openModal('https://www.youtube.com/embed/kHW-UVXOcLU')" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
-											    </div>
-											  </div>
-											</div>
+										
 											
 											
 																
@@ -366,69 +359,6 @@
 		  }
 		});
   </script>
-	
-	
-	
-					<!-- TOSS 결제 UI 창 JS -->  	
-						<script>
-						    const button = document.getElementById("payment-button");
-						    const coupon = document.getElementById("coupon-box");
-						    const no = ${detail.musicno};
-						    const userId = <%= (int) session.getAttribute("userId") %>;
-						    const generateRandomString = () => window.btoa(Math.random()).slice(0, 20);
-						    var amount = ${detail.musicprice};
-						  	
-						
-						    // ------  결제위젯 초기화 ------
-						    // @docs https://docs.tosspayments.com/reference/widget-sdk#sdk-설치-및-초기화
-						    // TODO: clientKey는 개발자센터의 결제위젯 연동 키 > 클라이언트 키로 바꾸세요. 
-						    // TODO: customerKey는 구매자와 1:1 관계로 무작위한 고유값을 생성하세요. 
-						    const clientKey = "test_ck_oEjb0gm23PONwM6GppD48pGwBJn5"; 
-						    const customerKey = generateRandomString();                 
-						    const paymentWidget = PaymentWidget(clientKey, customerKey); // 회원 결제
-						    // const paymentWidget = PaymentWidget(clientKey, PaymentWidget.ANONYMOUS); // 비회원 결제
-						
-						    // ------  결제 UI 렌더링 ------
-						    // @docs https://docs.tosspayments.com/reference/widget-sdk#renderpaymentmethods선택자-결제-금액-옵션
-						    paymentMethodWidget = paymentWidget.renderPaymentMethods(
-						      "#payment-method",
-						      { value: amount },
-						      { variantKey: "DEFAULT" }
-						    );
-						    // ------  이용약관 UI 렌더링 ------
-						    // @docs https://docs.tosspayments.com/reference/widget-sdk#renderagreement선택자-옵션
-						    paymentWidget.renderAgreement(
-						      "#agreement",
-						      { variantKey: "AGREEMENT" }
-						    );
-						
-						    // ------  결제 금액 업데이트 ------
-						    // @docs https://docs.tosspayments.com/reference/widget-sdk#updateamount결제-금액
-						    coupon.addEventListener("change", function () {
-						      if (coupon.checked) {
-						        paymentMethodWidget.updateAmount(amount - 5000);
-						      } else {
-						        paymentMethodWidget.updateAmount(amount);
-						      }
-						    });
-						
-						    // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
-						    // @docs https://docs.tosspayments.com/reference/widget-sdk#requestpayment결제-정보
-						    button.addEventListener("click", function () {
-						      paymentWidget.requestPayment({
-						        orderId: generateRandomString(),
-						        orderName: "${detail.musictitle}",
-						        successUrl: window.location.origin + "/product/success?id=" + userId,
-						        failUrl: window.location.origin + "/fail",
-						        customerTitle: "customer123@gmail.com",
-						        customerName: "${detail.musicsinger}",
-						        customerMobilePhone: "01012341234"
-						      });
-						    });
-						
-						</script>
-													
-				    
 	
 	
 	
