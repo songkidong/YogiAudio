@@ -3,8 +3,8 @@
 <%@include file="/WEB-INF/view/layout/header.jsp"%>
 <link href="/css/board/list.css" rel="stylesheet">
 
-<section id="boardNotice">
-	<div class="containerNotice">
+<section id="board">
+	<div class="board-container">
 		<div class="title-container">
 			<h2>나의 문의하기</h2> <!-- 리스트 : 쿼리 where 유저id  -->
 			<button type="button" class="btn btn-warning" id="btnInsert" >

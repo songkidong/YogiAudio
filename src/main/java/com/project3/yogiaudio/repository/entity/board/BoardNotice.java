@@ -1,6 +1,9 @@
 package com.project3.yogiaudio.repository.entity.board;
 
 import java.sql.Timestamp;
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.project3.yogiaudio.util.TimeUtils;
 
@@ -31,4 +34,5 @@ public class BoardNotice {
 	public String formatCreatedAt() {
 		return TimeUtils.timestampToString(createdAt);
 	}
+
 }

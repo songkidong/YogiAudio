@@ -23,3 +23,7 @@ h2 {
 #formFileMultiple{
 	height: 40px;
 }
+#board > div > div{
+	display: flex;
+	justify-content: flex-end;
+}
