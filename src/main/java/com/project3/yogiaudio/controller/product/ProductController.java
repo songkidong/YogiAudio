@@ -254,14 +254,7 @@ public class ProductController {
 	
 	
 	
-	//뮤직비디오 페이지 GET
-	@GetMapping("/music-video")
-	public String MusicVideoGET() {
-		
-		log.debug("뮤직비디오페이지출력");
-		return "product/musicvideo";
-	}
-	
+
 	
 	
 	

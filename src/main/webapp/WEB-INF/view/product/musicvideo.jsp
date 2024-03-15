@@ -4,16 +4,37 @@
 <%@include file="/WEB-INF/view/layout/header.jsp" %>    
 
 
-
-
-	<!-- SECTION -->
-		<div class="section">
+  <!-- SECTION -->
+		<div class="section" style="margin-left: 200px;">
 			<!-- container -->
 			<div class="container">
-					<h3 class="title">📺뮤직비디오</h3>
+			
+			
+			  
+					 <div style="display: flex; align-items: center; margin-bottom: 20px;">
+			            <h3 class="title" style="margin-right: 20px;">📺뮤직비디오</h3> 
+			         </div>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
 				<!-- row -->
 				<div class="row">
-				
+					<!-- STORE -->
+					<div id="store" class="col-md-9">
+						<!-- store products -->
+						 <div class="row">
+						 
+					   <!-- product -->
+						
+				<c:forEach var="mvlist" items="${mvlist}">
 					<!-- shop -->
 					<div class="col-md-4 col-xs-6">
 						<div class="shop">
@@ -23,53 +44,75 @@
 							</div>
 						  </a>	
 							<div class="shop-body">
-								<h3>아이유<br>Shoppers</h3>
+								<h3>${mvlist.videosinger}<br>${mvlist.videotitle}</h3>
 								<a href="https://www.youtube.com/watch?v=kHW-UVXOcLU/" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
 							</div>
 						</div>
 					</div>
 					<!-- /shop -->
+				</c:forEach>
+						
+							<!-- /product -->						
 
-					<!-- shop -->
-					<div class="col-md-4 col-xs-6">
-						<div class="shop">
-						  <a href="https://www.youtube.com/watch?v=gdZLi9oWNZg/">
-							<div class="shop-img">
-								<img src="/main/img/bts1.jpg" style="width:360px; height: 240px;">
-							</div>
-						  </a>	
-							<div class="shop-body">
-								<h3>BTS(방탄소년단)<br>Dynamite</h3>
-								<a href="https://www.youtube.com/watch?v=gdZLi9oWNZg/" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
-							</div>
-						</div>
-					</div>
-					<!-- /shop -->
 
-					<!-- shop -->
-					<div class="col-md-4 col-xs-6">
-						<div class="shop">
-						  <a href="https://www.youtube.com/watch?v=smdmEhkIRVc/"">
-							<div class="shop-img">
-								<img src="/main/img/bibi1.jpg" style="width:360px; height: 240px;">
-							</div>
-						   </a>	
-							<div class="shop-body">
-								<h3>비비<br>밤양갱</h3>
-								<a href="https://www.youtube.com/watch?v=smdmEhkIRVc/" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
-							</div>
-						</div>
 					</div>
-					<!-- /shop -->
+						<!-- /store products -->
+
+						<!-- store bottom filter -->
+						<div class="store-filter clearfix">
+							<ul class="store-pagination">
+							
+							
+							
+						    <c:if test="${pageVO.prev }">
+								<li class="page-item">
+								  <a class="page-link" href="/mv/list?page=${pageVO.startPage - 1 }" aria-label="Previous">
+								  	<i class="fa fa-angle-left"></i> 
+								  </a>
+								</li>
+							</c:if>
+							
+							
+							
+								<c:forEach var="i" begin="${pageVO.startPage }" end="${pageVO.endPage }" step="1">
+									<li class="page-item ${isActive ? 'active' : ''}">
+										<a class="page-link" href="/mv/list?page=${i}">
+										   ${i}
+										</a>
+									</li>
+								</c:forEach>			
+								
+								
+								
+							<c:if test="${pageVO.next}">	
+								<li class="page-item">
+									<a href="/mv/list?page=${pageVO.endPage + 1}">
+										<i class="fa fa-angle-right"></i>
+									</a>
+								</li>
+							</c:if>
+								
+								
+						  </ul>
+						</div>
+						<!-- /store bottom filter -->
+						
+						
+						
+					</div>
+					<!-- /STORE -->
 				</div>
 				<!-- /row -->
 			</div>
 			<!-- /container -->
 		</div>
 		<!-- /SECTION -->
+	
+
+	
 
 
-
+		
 
 
 
