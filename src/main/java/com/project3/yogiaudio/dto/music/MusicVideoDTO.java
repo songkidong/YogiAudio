@@ -22,6 +22,7 @@ public class MusicVideoDTO {
 	private String videosinger;
 	private String filepath;
 	private String filemusic;
+	private String mvfile;
 	private List<MultipartFile> files; // 파일 url
 	
 	
