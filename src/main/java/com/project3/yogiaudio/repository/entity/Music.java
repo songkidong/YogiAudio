@@ -2,6 +2,8 @@ package com.project3.yogiaudio.repository.entity;
 
 import java.sql.Timestamp;
 
+import com.project3.yogiaudio.util.TimeUtils;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,5 +34,8 @@ public class Music {
 	private String status;
 
 	
-	
+	// 날짜 포멧 설정
+	public String formatRegDate() {
+		return TimeUtils.timestampToString(regdate);
+	}
 }

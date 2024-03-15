@@ -2,6 +2,8 @@ package com.project3.yogiaudio.repository.entity;
 
 import java.sql.Timestamp;
 
+import com.project3.yogiaudio.util.TimeUtils;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,4 +25,9 @@ public class User {
 	private String role;
 	private String deleteYn;
 	private Timestamp deleteAt;
+	
+	// 날짜 포멧 설정
+	public String formatCreatedAt() {
+		return TimeUtils.timestampToString(createdAt);
+	}
 }
