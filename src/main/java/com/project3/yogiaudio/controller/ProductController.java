@@ -2,17 +2,20 @@ package com.project3.yogiaudio.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.project3.yogiaudio.filedb.service.FiledbService;
 import com.project3.yogiaudio.dto.MusicDTO;
-import com.project3.yogiaudio.dto.common.Criteria;
 import com.project3.yogiaudio.dto.common.PageVO;
+import com.project3.yogiaudio.dto.common.Criteria;
 import com.project3.yogiaudio.service.MusicService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +27,8 @@ public class ProductController {
 	
 	@Autowired
 	private MusicService musicService;
-	
+	@Autowired
+	private FiledbService filedbService;
 	
 	
 	// http://localhost:80/product/main
@@ -80,13 +84,16 @@ public class ProductController {
 	// http://localhost:80/product/domestic-detail?musicno=&musicmajor=
 	@GetMapping("/domestic-detail")
 	public String domesticDetailGET(@RequestParam(value = "musicno") int musicno, @RequestParam(value = "musicmajor") String musicmajor,Model model) {
+		
+		MusicDTO result = musicService.domesticDetail(musicno,musicmajor);
+		model.addAttribute("detail", result);
+		
+		
 	    System.out.println("musicno: " + musicno); 
 	    System.out.println("musicmajor: " + musicmajor);
+	    System.out.println("result + :" + result);
 		return"product/domesticdetail";
 	}
-	
-	
-	
 	
 	
 	//국외음악상세페이지
@@ -97,6 +104,59 @@ public class ProductController {
 		 System.out.println("musicmajor: " + musicmajor);
 		return"product/aboarddetail";
 	}
+	
+	
+	//국내앨범자켓바꾸기 GET
+	@GetMapping("/dalbum-update")
+	public String albumUpdateGET() {
+		log.debug("앨범수정페이지modal 실행!");
+		return "product/dalbumupdate";
+	}
+	
+	
+	//국내앨범자켓바꾸기 POST
+	@PostMapping("/dalbum-update")
+	public String albumUpdatePOST(MusicDTO dto) {
+		
+		String filePath = filedbService.saveFiles(dto.getFiles());
+		
+		log.debug("앨범수정완료!");
+		musicService.albumUpdate(dto, filePath);
+		
+		return "redirect:/product/domestic-music";
+	}
+	
+	
+	
+	
+	//음원등록하기 GET
+	@GetMapping("/dmusic-update")
+	public String musicUpdateGET() {
+		log.debug("음원등록페이지modal 실행");
+		return "product/dmusicupdate";
+	}
+	
+	
+	//음원등록하기 POST
+	@PostMapping("/dmusic-update")
+	public String musicUpdatePOST(MusicDTO dto) {
+		
+		String fileMusic = filedbService.saveFiles(dto.getFiles());
+		musicService.musicUpdate(dto, fileMusic);
+		
+		return "redirect:/product/domestic-music";
+		
+	}
+	
+	
+	//성공 후 상태변경
+	@GetMapping("/success")
+	public String paymentSuccessGET(@RequestParam(value = "musicno") int musicno) {
+	   
+	    musicService.statusUpdate(musicno);
+	    return "product/success"; // 성공 페이지를 반환합니다.
+	}
+	
 	
 	
 	

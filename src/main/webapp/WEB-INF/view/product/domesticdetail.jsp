@@ -1,6 +1,63 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/view/layout/header.jsp" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://js.tosspayments.com/v1/payment-widget"></script>
+
+
+
+<%
+    session.setAttribute("userId", 15);
+ %>
+
+
+
+
+<style>
+
+.modalmv{
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
+
+
+#mvmodal{
+  background-color: #fefefe;
+  margin: 0 auto; /* 가운데 정렬 */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 850px; /* 자동으로 YouTube 동영상의 크기에 맞추기 */
+  height: 500px;
+  position: absolute; /* 절대 위치 설정 */
+  top: 50%; /* 화면의 상단에서 절반의 위치에 배치 */
+  left: 50%; /* 화면의 왼쪽에서 절반의 위치에 배치 */
+  transform: translate(-50%, -50%); /* 수직 및 수평 가운데 정렬 */
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
+
 
 
 
@@ -14,112 +71,90 @@
 					<div class="col-md-5 col-md-push-2">
 						<div id="product-main-img">
 							<div class="product-preview">
-								<img src="./img/product01.png" alt="">
-							</div>
-
-							<div class="product-preview">
-								<img src="./img/product03.png" alt="">
-							</div>
-
-							<div class="product-preview">
-								<img src="./img/product06.png" alt="">
-							</div>
-
-							<div class="product-preview">
-								<img src="./img/product08.png" alt="">
+							 <c:choose>
+							    <c:when test="${not empty detail.filepath}">
+							      <img src=" ${detail.filepath}" >
+							    </c:when>
+							  <c:otherwise>
+								  <img src="/album/default.png" >
+							  </c:otherwise>
+							 </c:choose>
 							</div>
 						</div>
 					</div>
 					<!-- /Product main img -->
 
 					<!-- Product thumb imgs -->
-					<div class="col-md-2  col-md-pull-5">
-						<div id="product-imgs">
-							<div class="product-preview">
-								<img src="./img/product01.png" alt="">
-							</div>
-
-							<div class="product-preview">
-								<img src="./img/product03.png" alt="">
-							</div>
-
-							<div class="product-preview">
-								<img src="./img/product06.png" alt="">
-							</div>
-
-							<div class="product-preview">
-								<img src="./img/product08.png" alt="">
-							</div>
-						</div>
+					<div class="col-md-2 col-md-pull-5">
+					  <div id="product-imgs">
+						   <a href="/product/dalbum-update" data-toggle="modal" data-target="#photoModal" >
+								<p>사진변경</p>
+						   </a>
+						   <a href="/product/dmusic-update" data-toggle="modal" data-target="#musicModal" >
+								<p>음원등록</p>
+						   </a>
+					 </div>
 					</div>
 					<!-- /Product thumb imgs -->
 
 					<!-- Product details -->
 					<div class="col-md-5">
 						<div class="product-details">
-							<h2 class="product-name">product name goes here</h2>
+							<h2 class="product-name">${detail.musictitle}</h2>
+							
 							<div>
-								<div class="product-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o"></i>
-								</div>
-								<a class="review-link" href="#">10 Review(s) | Add your review</a>
+								<h3 class="product-price">${detail.musicprice} ￦<del class="product-old-price"></del></h3>
 							</div>
-							<div>
-								<h3 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h3>
-								<span class="product-available">In Stock</span>
-							</div>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-
-							<div class="product-options">
-								<label>
-									Size
-									<select class="input-select">
-										<option value="0">X</option>
-									</select>
-								</label>
-								<label>
-									Color
-									<select class="input-select">
-										<option value="0">Red</option>
-									</select>
-								</label>
-							</div>
-
-							<div class="add-to-cart">
-								<div class="qty-label">
-									Qty
-									<div class="input-number">
-										<input type="number">
-										<span class="qty-up">+</span>
-										<span class="qty-down">-</span>
-									</div>
-								</div>
-								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-							</div>
-
-							<ul class="product-btns">
-								<li><a href="#"><i class="fa fa-heart-o"></i> add to wishlist</a></li>
-								<li><a href="#"><i class="fa fa-exchange"></i> add to compare</a></li>
-							</ul>
-
-							<ul class="product-links">
-								<li>Category:</li>
-								<li><a href="#">Headphones</a></li>
-								<li><a href="#">Accessories</a></li>
-							</ul>
-
-							<ul class="product-links">
-								<li>Share:</li>
-								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-								<li><a href="#"><i class="fa fa-envelope"></i></a></li>
-							</ul>
-
+							<p>
+							   아티스트 : ${detail.musicsinger}
+							</p><br>
+							<p>
+							   장르 / 스타일 : ${detail.musicminor}
+							</p><br>
+							<p>
+							   발매사 / 기획사 : ${detail.musiccompany}
+							</p><br>
+							<p>
+							   발매일 : ${detail.startdate}
+							</p><br>
+							<p>샘플듣기</p>
+						    <audio id="audioPlayer" controls>
+						        <source src="/music/${detail.musicsample}" type="audio/wav">
+						    </audio><br>
+						    
+						    <p>
+						        <button id="downloadButton" type="button" class="btn btn-primary">파일 다운로드</button>
+						         <c:choose>
+							        <c:when test="${detail.status eq 'Y'}">
+							            <button id="paymentcheck" type="button" class="btn btn-success">다운로드가능</button>
+							        </c:when>
+							        <c:otherwise>
+							            <button id="paymentcheck" type="button" class="btn btn-danger" >다운로드불가능</button>
+							        </c:otherwise>
+							    </c:choose>
+						    </p>
+							 
+							    
+						    
+						    
+						     <!-- 주문서 영역 -->
+						    <div class="wrapper">
+						      <div class="box_section" style="padding: 40px 30px 50px 30px; margin-top:30px; margin-bottom:50px">
+						        <!-- 결제 UI -->
+						        <div id="payment-method"></div>
+						        <!-- 이용약관 UI -->
+						        <div id="agreement"></div>
+						        <!-- 쿠폰 체크박스 -->
+						        <div style="padding-left: 25px">
+						          <div class="checkable typography--p"><label for="coupon-box" class="checkable__label typography--regular"><input id="coupon-box" class="checkable__input" type="checkbox" aria-checked="true"><span class="checkable__label-text">5,000원 쿠폰 적용</span></label></div>
+						        </div>
+						        <!-- 결제하기 버튼 -->
+						        <div class="result wrapper">
+						          <button class="button" id="payment-button" style="margin-top:30px; ">결제하기</button>
+						        </div>
+						      </div>
+						    </div>	    
+						    
 						</div>
 					</div>
 					<!-- /Product details -->
@@ -129,9 +164,9 @@
 						<div id="product-tab">
 							<!-- product tab nav -->
 							<ul class="tab-nav">
-								<li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
-								<li><a data-toggle="tab" href="#tab2">Details</a></li>
-								<li><a data-toggle="tab" href="#tab3">Reviews (3)</a></li>
+								<li class="active"><a data-toggle="tab" href="#tab1">곡 소개</a></li>
+								<li><a data-toggle="tab" href="#tab2">가사</a></li>
+								<li><a data-toggle="tab" href="#tab3">뮤직비디오</a></li>
 							</ul>
 							<!-- /product tab nav -->
 
@@ -141,7 +176,9 @@
 								<div id="tab1" class="tab-pane fade in active">
 									<div class="row">
 										<div class="col-md-12">
-											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+											<p>
+											  ${detail.musiccontent}
+											</p>
 										</div>
 									</div>
 								</div>
@@ -151,7 +188,9 @@
 								<div id="tab2" class="tab-pane fade in">
 									<div class="row">
 										<div class="col-md-12">
-											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+										    <p id ="lyrics">
+										      ${detail.lyrics}
+										    </p>
 										</div>
 									</div>
 								</div>
@@ -160,176 +199,52 @@
 								<!-- tab3  -->
 								<div id="tab3" class="tab-pane fade in">
 									<div class="row">
-										<!-- Rating -->
-										<div class="col-md-3">
-											<div id="rating">
-												<div class="rating-avg">
-													<span>4.5</span>
-													<div class="rating-stars">
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star-o"></i>
-													</div>
-												</div>
-												<ul class="rating">
-													<li>
-														<div class="rating-stars">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-														</div>
-														<div class="rating-progress">
-															<div style="width: 80%;"></div>
-														</div>
-														<span class="sum">3</span>
-													</li>
-													<li>
-														<div class="rating-stars">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star-o"></i>
-														</div>
-														<div class="rating-progress">
-															<div style="width: 60%;"></div>
-														</div>
-														<span class="sum">2</span>
-													</li>
-													<li>
-														<div class="rating-stars">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star-o"></i>
-															<i class="fa fa-star-o"></i>
-														</div>
-														<div class="rating-progress">
-															<div></div>
-														</div>
-														<span class="sum">0</span>
-													</li>
-													<li>
-														<div class="rating-stars">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star-o"></i>
-															<i class="fa fa-star-o"></i>
-															<i class="fa fa-star-o"></i>
-														</div>
-														<div class="rating-progress">
-															<div></div>
-														</div>
-														<span class="sum">0</span>
-													</li>
-													<li>
-														<div class="rating-stars">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star-o"></i>
-															<i class="fa fa-star-o"></i>
-															<i class="fa fa-star-o"></i>
-															<i class="fa fa-star-o"></i>
-														</div>
-														<div class="rating-progress">
-															<div></div>
-														</div>
-														<span class="sum">0</span>
-													</li>
-												</ul>
+																				
+											<div class="col-md-4 col-xs-6">
+											  <div class="shop">
+											    <a href="javascript:void(0)" onclick="openModal('https://www.youtube.com/embed/kHW-UVXOcLU')">
+											      <div class="shop-img">
+											        <img src="${detail.filepath}" style="width:360px; height: 240px;">
+											      </div>
+											    </a>  
+											    <div class="shop-body">
+											      <h3>${detail.musicsinger}<br>${detail.musictitle}</h3>
+											      <a href="javascript:void(0)" onclick="openModal('https://www.youtube.com/embed/kHW-UVXOcLU')" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
+											    </div>
+											  </div>
 											</div>
-										</div>
-										<!-- /Rating -->
-
-										<!-- Reviews -->
-										<div class="col-md-6">
-											<div id="reviews">
-												<ul class="reviews">
-													<li>
-														<div class="review-heading">
-															<h5 class="name">John</h5>
-															<p class="date">27 DEC 2018, 8:0 PM</p>
-															<div class="review-rating">
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star-o empty"></i>
-															</div>
-														</div>
-														<div class="review-body">
-															<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-														</div>
-													</li>
-													<li>
-														<div class="review-heading">
-															<h5 class="name">John</h5>
-															<p class="date">27 DEC 2018, 8:0 PM</p>
-															<div class="review-rating">
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star-o empty"></i>
-															</div>
-														</div>
-														<div class="review-body">
-															<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-														</div>
-													</li>
-													<li>
-														<div class="review-heading">
-															<h5 class="name">John</h5>
-															<p class="date">27 DEC 2018, 8:0 PM</p>
-															<div class="review-rating">
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star-o empty"></i>
-															</div>
-														</div>
-														<div class="review-body">
-															<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-														</div>
-													</li>
-												</ul>
-												<ul class="reviews-pagination">
-													<li class="active">1</li>
-													<li><a href="#">2</a></li>
-													<li><a href="#">3</a></li>
-													<li><a href="#">4</a></li>
-													<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-												</ul>
+										
+										<div class="col-md-4 col-xs-6">
+											  <div class="shop">
+											    <a href="javascript:void(0)" onclick="openModal('https://www.youtube.com/embed/kHW-UVXOcLU')">
+											      <div class="shop-img">
+											        <img src="${detail.filepath}" style="width:360px; height: 240px;">
+											      </div>
+											    </a>  
+											    <div class="shop-body">
+											      <h3>${detail.musicsinger}<br>${detail.musictitle}</h3>
+											      <a href="javascript:void(0)" onclick="openModal('https://www.youtube.com/embed/kHW-UVXOcLU')" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
+											    </div>
+											  </div>
 											</div>
-										</div>
-										<!-- /Reviews -->
-
-										<!-- Review Form -->
-										<div class="col-md-3">
-											<div id="review-form">
-												<form class="review-form">
-													<input class="input" type="text" placeholder="Your Name">
-													<input class="input" type="email" placeholder="Your Email">
-													<textarea class="input" placeholder="Your Review"></textarea>
-													<div class="input-rating">
-														<span>Your Rating: </span>
-														<div class="stars">
-															<input id="star5" name="rating" value="5" type="radio"><label for="star5"></label>
-															<input id="star4" name="rating" value="4" type="radio"><label for="star4"></label>
-															<input id="star3" name="rating" value="3" type="radio"><label for="star3"></label>
-															<input id="star2" name="rating" value="2" type="radio"><label for="star2"></label>
-															<input id="star1" name="rating" value="1" type="radio"><label for="star1"></label>
-														</div>
-													</div>
-													<button class="primary-btn">Submit</button>
-												</form>
+										
+										<div class="col-md-4 col-xs-6">
+											  <div class="shop">
+											    <a href="javascript:void(0)" onclick="openModal('https://www.youtube.com/embed/kHW-UVXOcLU')">
+											      <div class="shop-img">
+											        <img src="${detail.filepath}" style="width:360px; height: 240px;">
+											      </div>
+											    </a>  
+											    <div class="shop-body">
+											      <h3>${detail.musicsinger}<br>${detail.musictitle}</h3>
+											      <a href="javascript:void(0)" onclick="openModal('https://www.youtube.com/embed/kHW-UVXOcLU')" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
+											    </div>
+											  </div>
 											</div>
-										</div>
-										<!-- /Review Form -->
+											
+											
+																
+										
 									</div>
 								</div>
 								<!-- /tab3  -->
@@ -347,27 +262,176 @@
 
 		
 
+	<!-- Modal 사진 -->
+	<div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	        </div>
+	    </div>
+	</div>
+	
+	<!-- Modal 음원 -->
+	<div class="modal fade" id="musicModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	        </div>
+	    </div>
+	</div>
+	
+	<!-- 추가한 모달 창 -->
+	<div id="myModal" class="modalmv">
+	  <div class="modal-content"  id="mvmodal">
+	    <span class="close">&times;</span>
+	    <iframe id="videoFrame" width="800" height="400" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	  </div>
+	</div>
+	
+	
+
+	<!-- 가사줄바꿈 JS -->
+	<script>
+		function splitTextIntoLines(text, maxLength) {
+		    var lines = [];
+		    var currentLine = '';
+	
+		    for (var i = 0; i < text.length; i++) {
+		        currentLine += text[i];
+		        if ((i + 1) % maxLength === 0 || i === text.length - 1) {
+		            lines.push(currentLine);
+		            currentLine = '';
+		        }
+		    }
+	
+		    return lines.join('<br>');
+		}
+	
+		var lyrics = "${detail.lyrics}";
+		var maxLength = 20;
+		var formattedLyrics = splitTextIntoLines(lyrics, maxLength);
+		document.getElementById('lyrics').innerHTML = formattedLyrics;
+	</script>
+
+	
+	
+	<!-- 음원재생 JS -->
+	<script>
+        function playAudio() {
+            var audio = document.getElementById("audioPlayer");
+            audio.play();
+        }
+    </script>
+
+	<!-- 음원다운로드 JS -->
+	<script>
+        document.getElementById("downloadButton").addEventListener("click", function(event) {
+            event.preventDefault(); // 기본 동작(버튼 이벤트)을 막음
+            
+            var url = "${detail.filemusic}"; // 다운로드할 파일의 URL
+            var filename = "file.wav"; // 다운로드할 파일의 이름
+            
+            var anchor = document.createElement("a");
+            anchor.href = url;
+            anchor.download = filename;
+            document.body.appendChild(anchor);
+            anchor.click();
+            document.body.removeChild(anchor);
+        });
+    </script>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	<!-- 뮤비열기 JS -->
+	<script>
+		// 모달 창 열기
+		function openModal(videoUrl) {
+		  var modal = document.getElementById("myModal");
+		  var videoFrame = document.getElementById("videoFrame");
+		  
+		  // 모달 창 안에 YouTube 동영상 URL 설정
+		  videoFrame.src = videoUrl;
+		  
+		  // 모달 창 열기
+		  modal.style.display = "block";
+		}
+		
+		// 모달 창 닫기
+		document.getElementsByClassName("close")[0].addEventListener("click", function() {
+		  document.getElementById("myModal").style.display = "none";
+		});
+		
+		// 모달 외부 클릭 시 닫기
+		window.addEventListener("click", function(event) {
+		  if (event.target == document.getElementById("myModal")) {
+		    document.getElementById("myModal").style.display = "none";
+		  }
+		});
+  </script>
+	
+	
+	
+					<!-- TOSS 결제 UI 창 JS -->  	
+						<script>
+						    const button = document.getElementById("payment-button");
+						    const coupon = document.getElementById("coupon-box");
+						    const no = ${detail.musicno};
+						    const userId = <%= (int) session.getAttribute("userId") %>;
+						    const generateRandomString = () => window.btoa(Math.random()).slice(0, 20);
+						    var amount = ${detail.musicprice};
+						  	
+						
+						    // ------  결제위젯 초기화 ------
+						    // @docs https://docs.tosspayments.com/reference/widget-sdk#sdk-설치-및-초기화
+						    // TODO: clientKey는 개발자센터의 결제위젯 연동 키 > 클라이언트 키로 바꾸세요. 
+						    // TODO: customerKey는 구매자와 1:1 관계로 무작위한 고유값을 생성하세요. 
+						    const clientKey = "test_ck_oEjb0gm23PONwM6GppD48pGwBJn5"; 
+						    const customerKey = generateRandomString();                 
+						    const paymentWidget = PaymentWidget(clientKey, customerKey); // 회원 결제
+						    // const paymentWidget = PaymentWidget(clientKey, PaymentWidget.ANONYMOUS); // 비회원 결제
+						
+						    // ------  결제 UI 렌더링 ------
+						    // @docs https://docs.tosspayments.com/reference/widget-sdk#renderpaymentmethods선택자-결제-금액-옵션
+						    paymentMethodWidget = paymentWidget.renderPaymentMethods(
+						      "#payment-method",
+						      { value: amount },
+						      { variantKey: "DEFAULT" }
+						    );
+						    // ------  이용약관 UI 렌더링 ------
+						    // @docs https://docs.tosspayments.com/reference/widget-sdk#renderagreement선택자-옵션
+						    paymentWidget.renderAgreement(
+						      "#agreement",
+						      { variantKey: "AGREEMENT" }
+						    );
+						
+						    // ------  결제 금액 업데이트 ------
+						    // @docs https://docs.tosspayments.com/reference/widget-sdk#updateamount결제-금액
+						    coupon.addEventListener("change", function () {
+						      if (coupon.checked) {
+						        paymentMethodWidget.updateAmount(amount - 5000);
+						      } else {
+						        paymentMethodWidget.updateAmount(amount);
+						      }
+						    });
+						
+						    // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
+						    // @docs https://docs.tosspayments.com/reference/widget-sdk#requestpayment결제-정보
+						    button.addEventListener("click", function () {
+						      paymentWidget.requestPayment({
+						        orderId: generateRandomString(),
+						        orderName: "${detail.musictitle}",
+						        successUrl: window.location.origin + "/product/success?id=" + userId,
+						        failUrl: window.location.origin + "/fail",
+						        customerTitle: "customer123@gmail.com",
+						        customerName: "${detail.musicsinger}",
+						        customerMobilePhone: "01012341234"
+						      });
+						    });
+						
+						</script>
+													
+				    
+	
+	
+	
 
 
 

@@ -2,8 +2,10 @@ package com.project3.yogiaudio.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.project3.yogiaudio.dto.MusicDTO;
 import com.project3.yogiaudio.dto.common.Criteria;
@@ -43,8 +45,8 @@ public class MusicService {
 	
 	
 	//국내음악 디테일
-	public MusicDTO domesticDetail(int musicno, String musicmajor) {
-		return musicRepository.domesticDetail(musicno, musicmajor);
+	public MusicDTO domesticDetail(@Param(value = "musicno") int musicno, @Param(value = "musicmajor") String musicmajor) {
+		return musicRepository.domesticDetail(musicno,musicmajor);
 	}
 
 	
@@ -52,6 +54,42 @@ public class MusicService {
 	public MusicDTO aboardDetail(int musicno, String musicmajor) {
 		return musicRepository.aboardDetail(musicno, musicmajor);
 	}
+	
+	
+	//앨범자켓바꾸기
+	@Transactional
+	public void albumUpdate(MusicDTO dto,String filePath) {
+		
+		MusicDTO music = MusicDTO.builder()
+				.musicno(dto.getMusicno())
+				.filepath(filePath)
+				.build();
+		
+		Integer result = musicRepository.albumUpdate(music);
+		
+	}
+
+	
+	//음원등록하기
+	@Transactional
+	public void musicUpdate(MusicDTO dto,String fileMusic) {
+		
+		MusicDTO music = MusicDTO.builder()
+				.musicno(dto.getMusicno())
+				.filemusic(fileMusic)
+				.build();
+		
+		Integer result = musicRepository.musicUpdate(music);
+		
+	}
+	
+	
+	//상태변경하기
+	@Transactional
+	public Integer statusUpdate(@Param(value = "musicno") int musicno) {
+		return musicRepository.statusUpdate(musicno);
+	}
+	
 	
 	
 	

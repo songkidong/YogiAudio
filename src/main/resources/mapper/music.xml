@@ -44,6 +44,27 @@
 		where music_no=#{musicno} and music_major=#{musicmajor}
 	</select>
 	
-
+	
+	<!-- 앨범자켓사진업데이트하기 -->
+	<update id ="albumUpdate">
+		update music set file_path=#{filepath}
+		where music_no=#{musicno}
+	</update>
+	
+	
+	<!-- 음원파일등록하기 -->
+	<update id="musicUpdate">
+		update music set file_music=#{filemusic}
+		where music_no=#{musicno}
+	</update>
+	
+	
+	
+	<!-- 결제 후 상태업데이트하기 -->
+	<update id="statusUpdate">
+		update music set status= 'Y'
+		where music_no=#{musicno}
+	</update>
+	
 
 </mapper>
