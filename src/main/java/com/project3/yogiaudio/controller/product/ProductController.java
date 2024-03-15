@@ -1,5 +1,6 @@
 package com.project3.yogiaudio.controller.product;
 
+import java.net.http.HttpResponse;
 import java.util.List;
 
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project3.yogiaudio.filedb.service.FiledbService;
 import com.project3.yogiaudio.repository.entity.User;
@@ -20,6 +22,7 @@ import com.project3.yogiaudio.dto.common.Criteria;
 import com.project3.yogiaudio.service.MusicService;
 import com.project3.yogiaudio.service.UserService;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -221,19 +224,29 @@ public class ProductController {
 		
 	}
 	
-	
-
+	//좋아요 get
 	@GetMapping("/likeit")
 	public String likeitGET(@RequestParam(value = "musicno") int musicno, @RequestParam(value = "musicmajor") String musicmajor, @RequestParam(value = "id") long id, Model model) {
 	    // musicno와 musicmajor을 이용하여 필요한 작업 수행
 	    // 이후에 redirect 경로를 반환
+		
 		return"product/domesticdetail";
 	}
 	
-	//좋아요 
+	//좋아요 post
 	@PostMapping("/likeit")
-	public String likeitPOST(@RequestParam(value = "musicno") int musicno, @RequestParam(value = "musicmajor") String musicmajor,@RequestParam(value = "id") long id,Model model,MusicDTO dto) {
+	@ResponseBody
+	public String likeitPOST(@RequestParam(value = "musicno") int musicno, @RequestParam(value = "musicmajor") String musicmajor,@RequestParam(value = "id") long id,Model model,MusicDTO dto,HttpSession session) {
 		
+		 String sessionKey = "liked_" + id + "_" + musicno;
+		    if (session.getAttribute(sessionKey) != null) {
+		        return "already_liked"; // 이미 좋아요를 클릭한 경우
+		    }
+		
+		  session.setAttribute(sessionKey, true);
+
+		    
+		    
 		musicService.likeit(dto,musicno, musicmajor);
 		return "redirect:/product/domestic-detail";
 	}
