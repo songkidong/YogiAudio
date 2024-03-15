@@ -5,7 +5,7 @@ const searchInput = document.querySelector(".searchInput");
 
 
 let searchType = "";
-searchButton.onclick = () => {
+searchButton.onclick = () => { //검색 버튼이 클릭되었을 때 실행될 함수
 	
 	
 	for(let i = 0; i < options.length; i++){
@@ -13,7 +13,8 @@ searchButton.onclick = () => {
 		searchType = options[i].value;
 		
 	}
-}
+}//드롭다운에서 선택된 옵션의 값을 검색 유형 변수 searchType에 할당
+
 
 console.log("검색어:" + searchInput.value);
 
