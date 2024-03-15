@@ -33,7 +33,7 @@
 						<li><a href="/product/aboard-music">국외</a></li>
 						<li><a href="#">최신음악</a></li>
 						<li><a href="#">인기음악</a></li>
-						<li><a href="#">뮤비</a></li>
+						<li><a href="/product/music-video">뮤비</a></li>
 						<li><a href="#">게시판</a></li>
 					</ul>
 					<!-- /NAV -->

@@ -1,6 +1,7 @@
 package com.project3.yogiaudio.controller.product;
 
 import java.net.http.HttpResponse;
+
 import java.util.List;
 
 
@@ -252,6 +253,14 @@ public class ProductController {
 	}
 	
 	
+	
+	//뮤직비디오 페이지 GET
+	@GetMapping("/music-video")
+	public String MusicVideoGET() {
+		
+		log.debug("뮤직비디오페이지출력");
+		return "product/musicvideo";
+	}
 	
 	
 	
