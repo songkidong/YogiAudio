@@ -19,4 +19,7 @@ public class NoticeSaveFormDTO {
 	// 다중파일
 	private List<MultipartFile> files;
 	
+	// dto 원본이름 담을 메서드
+	
+	
 }

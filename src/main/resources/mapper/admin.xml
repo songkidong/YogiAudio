@@ -58,6 +58,12 @@
 <select id="countAllQna" resultType="int">
 	select count(*) from board_qna
 </select>
+
+<select id="findNoticeById" resultType="com.project3.yogiaudio.repository.entity.board.BoardNotice">
+	select * from board_notice where id=#{id}
+</select>
+
+
 	
 <delete id="deleteUser">
 	delete from user where id=#{id}

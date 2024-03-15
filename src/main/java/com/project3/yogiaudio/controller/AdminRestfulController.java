@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,9 +22,6 @@ public class AdminRestfulController {
 
 	@Autowired
 	AdminService adminService;
-	
-	@Autowired
-	FiledbService fileDbService;
 	
 	// 유저 삭제
 	@DeleteMapping("/user/{id}")
@@ -63,14 +61,11 @@ public class AdminRestfulController {
 	}
 	
 	// 공지사항 등록
+	@PostMapping("/notice")
 	public ResponseEntity<?> insertNotice(NoticeSaveFormDTO dto) {
 		
-		// 단일 파일 업로드
-		//String filePath = fileDbService.saveFiles(dto.getFilePath());
-		// 다중 파일 업로드
-		String filePath = fileDbService.saveFiles(dto.getFiles());
-		
-		boolean result = adminService.insertNotice(dto, filePath);
+		log.info("dto : " + dto);
+		boolean result = adminService.insertNotice(dto);
 		
 		return new ResponseEntity<Boolean>(result, HttpStatus.OK);
 	}
