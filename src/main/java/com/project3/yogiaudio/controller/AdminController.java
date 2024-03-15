@@ -121,9 +121,19 @@ public class AdminController {
 	}
 	
 	// 공지사항 등록
-	@GetMapping("/noticeSave")
-	public String noticeSavePage() {
+	@GetMapping("/saveNotice")
+	public String saveNoticePage() {
 		
-		return "admin/noticeSave";
+		return "admin/saveNotice";
+	}
+	
+	// 공지사항 글보기
+	@GetMapping("/noticeView/{id}")
+	public String noticeViewPage(@PathVariable("id") Integer id, Model model) {
+		
+		BoardNotice notice = adminService.findNoticeById(id);
+		model.addAttribute("notice", notice);
+		
+		return "admin/noticeView";
 	}
 }

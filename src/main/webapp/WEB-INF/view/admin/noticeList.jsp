@@ -35,7 +35,8 @@
 		                 	<tr>
 		            		  <td>${notice.id}</td>
 		            		  <td>${notice.writerName}</td>
-		            		  <td>${notice.title}</td>
+		            		  <!-- td 안에 a태그가 있어야함 -->
+		            		  <td><a href="/admin/noticeView/${notice.id }">${notice.title}</a></td>
 		            		  <td>${notice.formatCreatedAt()}</td>
 		            		  <td>
 		            		  	<a class="btn btn-primary" href="" style="">수정</a>

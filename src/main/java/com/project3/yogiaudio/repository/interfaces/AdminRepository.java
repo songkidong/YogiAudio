@@ -44,4 +44,7 @@ public interface AdminRepository {
 	
 	// 공지사항 등록
 	public boolean insertNotice(BoardNotice notice);
+	
+	// 공지사항 글보기
+	public BoardNotice findNoticeById(Integer id);
 }
