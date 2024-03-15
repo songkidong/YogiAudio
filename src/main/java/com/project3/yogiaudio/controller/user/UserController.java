@@ -47,6 +47,11 @@ public class UserController {
 	public String signInPage() {
 		return "user/signIn";
 	}
+	
+	@GetMapping("/consent")
+	public String consentPage() {
+		return "user/consent";
+	}
 
 	@PostMapping("/signUp")
 	public String signUp(SignUpFormDTO dto) {
@@ -80,7 +85,7 @@ public class UserController {
 		
 		User userEntity = userService.findUserById(id);
 		model.addAttribute("user", userEntity);
-		return "/user/mypage";
+		return "redirect:/mypage";
 	}
 
 	@Autowired
