@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -142,6 +143,7 @@ main {
 }
 /* 추가된 부분 끝 */
 </style>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 /* 	var AudioContext;
@@ -180,10 +182,56 @@ document.addEventListener('DOMContentLoaded', function () {
             seekbar.value = 0;
         }
     }, 100);
-	
+    
 	
 	// audioPlayer.autoplay = true;
     const playListItems = document.querySelectorAll('.ui-list-item');
+    
+    window.addEventListener('message', function(event) {
+    	console.log(event.data);
+    	// ajax사용해서 playlist에 저장하기.
+    	  $.ajax({
+                type : "POST",            // HTTP method type(GET, POST) 형식이다.
+                url : "/addPlayList",      // 컨트롤러에서 대기중인 URL 주소이다.
+                data: JSON.stringify(event.data), // JSON 형식의 데이터이다.
+                contentType: "application/json",  // 데이터 형식을 JSON으로 명시한다.
+                success : function(data){ // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
+                    // 응답코드 > 0000
+                    alert(data);
+                },
+                error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+                    alert("통신 실패.")
+                }
+            });
+    	// ajax사용해서 삭제버튼 클릭시 playlz
+        // 전달받은 데이터 출력
+        console.log("Received data:", event.data);
+        
+        // 전달받은 데이터를 플레이리스트에 추가하는 로직 추가
+        const playlistItem = document.createElement('div');
+        playlistItem.classList.add('ui-list-item');
+        playlistItem.setAttribute('data-file-img', event.data.filePath);
+        playlistItem.setAttribute('data-file-music', event.data.fileMusic);
+        playlistItem.setAttribute('data-music-title', event.data.musicTitle);
+        playlistItem.setAttribute('data-music-singer', event.data.musicSinger);
+        playlistItem.textContent = event.data.musicTitle + '- ' + event.data.musicSinger;
+        
+        const titleElement = document.createElement('span');
+        titleElement.textContent = event.data.musicTitle + '- ' + event.data.musicSinger;
+        
+        const deleteButton = document.createElement('span');
+        deleteButton.classList.add('delete-btn');
+        deleteButton.textContent = '❌';
+        deleteButton.addEventListener('click', function() {
+            playlistItem.remove();
+        });
+        
+        playlistItem.appendChild(titleElement);
+        playlistItem.appendChild(deleteButton);
+        
+        // 플레이리스트에 추가
+        document.querySelector('.ui-list').appendChild(playlistItem);
+    });
     
  // 현재 재생 중인 곡의 인덱스를 저장하는 변수
     let currentSongIndex = 0;
@@ -207,6 +255,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // 오디오 소스 변경 및 재생
             audioPlayer.src = musicUrl;
             audioPlayer.play();
+            console.log("최장호");
             console.log(audioPlayer.duration);
         });
     });
@@ -232,6 +281,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         if (e.target.classList.contains('fa-step-forward')) {
             console.log("앞으로");
+            
             playNextSong(); // 다음 곡으로 넘어감
         }
         if (e.target.classList.contains('fa-step-backward')) {
@@ -247,7 +297,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('.ui-cover-title').innerHTML = "<p>" + firstMusicTitle + "</p>" + "<p>" + firstMusicSinger + "</p>" + "<img alt='' src='" + firstAlbumImg + "'>";
     audioPlayer.src = firstMusicUrl;
     audioPlayer.play();
-    console.log(audioPlayer.duration);
     
  // 다음 곡으로 넘어가는 함수
 function playNextSong() {
@@ -258,7 +307,7 @@ function playNextSong() {
         currentSongIndex = 0;
     }
     // 현재 곡의 인덱스를 기반으로 해당 곡을 재생
-    playListItems[currentSongIndex].click();
+  	playListItems[currentSongIndex].click();
 }
 
 // 이전 곡으로 돌아가는 함수
@@ -334,8 +383,8 @@ function playPreviousSong() {
 			</div>
 
 			<div class="ui-controls">
-				<i class="fas fa-random"></i> <i class="fas fa-step-backward"></i> 
-				<i class="fas fa-pause"></i> <i class="fas fa-step-forward"></i> <i
+				<i class="fas fa-random"></i> <i class="fas fa-step-backward"></i> <i
+					class="fas fa-pause"></i> <i class="fas fa-step-forward"></i> <i
 					class="fas fa-redo"></i>
 			</div>
 		</div>
@@ -348,7 +397,7 @@ function playPreviousSong() {
 					<div class="ui-list-item" data-file-img="${play.filePath}"
 						data-file-music="${play.fileMusic}"
 						data-music-title="${play.musicTitle}"
-						data-music-singer="${play.musicSinger}">${play.musicTitle} -
+						data-music-singer="${play.musicSinger}">${play.musicTitle}-
 						${play.musicSinger}</div>
 				</c:forEach>
 			</div>

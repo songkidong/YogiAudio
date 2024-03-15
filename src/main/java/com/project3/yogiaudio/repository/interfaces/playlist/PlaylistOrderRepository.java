@@ -6,5 +6,5 @@ import com.project3.yogiaudio.repository.entity.playlist.PlaylistOrder;
 
 @Mapper
 public interface PlaylistOrderRepository {
-	public int addList(PlaylistOrder playlistOrder);
+	public int insert(PlaylistOrder playlistOrder);
 }

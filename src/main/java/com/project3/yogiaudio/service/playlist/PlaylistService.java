@@ -1,11 +1,15 @@
 package com.project3.yogiaudio.service.playlist;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project3.yogiaudio.dto.playlist.PlayListAddDTO;
 import com.project3.yogiaudio.dto.playlist.PlayListStartDTO;
+import com.project3.yogiaudio.repository.entity.playlist.Playlist;
 import com.project3.yogiaudio.repository.interfaces.playlist.PlaylistRepository;
 
 /**
@@ -29,5 +33,20 @@ public class PlaylistService {
 	
 	public int delete(long id) {
 		return playlistRepository.delete(id);
+	}
+
+	public void savePlayList(PlayListAddDTO input) {
+		if(input.getPlaylistName() != null && input.getPlaylistName().isEmpty() == false) {
+			Map<String, Object> params = new HashMap<>();
+			params.put("userId", input.getUserId());
+			params.put("playlistName", input.getPlaylistName());
+			Playlist result = playlistRepository.findByUserIdAndPlaylistName(params);
+			if(result != null) {
+				
+			}
+		} else {
+			playlistRepository.insert(input);
+		}
+		
 	}
 }

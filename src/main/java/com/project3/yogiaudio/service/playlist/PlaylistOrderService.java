@@ -21,6 +21,6 @@ public class PlaylistOrderService {
 	private PlaylistOrderRepository playlistOrderRepository;
 	
 	public int addList(PlaylistOrder inputMusic) {
-		return playlistOrderRepository.addList(inputMusic);
+		return playlistOrderRepository.insert(inputMusic);
 	}
 }

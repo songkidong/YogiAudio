@@ -6,7 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.project3.yogiaudio.dto.playlist.PlayListAddDTO;
 import com.project3.yogiaudio.dto.playlist.PlayListStartDTO;
 import com.project3.yogiaudio.repository.entity.playlist.PlaylistOrder;
 import com.project3.yogiaudio.service.MusicService;
@@ -45,5 +49,20 @@ public class PlayListController {
 		List<PlayListStartDTO> playList = playlistService.readPlaylistById(id);
 		model.addAttribute("playList" , playList);
 		return "musicPlayer";
+	}
+	@GetMapping("/test2")
+	public String test2() {
+		return "test2";
+	}
+	@GetMapping("/test3")
+	public String test3() {
+		return "test3";
+	}
+	
+	@PostMapping("/addPlayList")
+	@ResponseBody
+	public String addPlayList(@RequestBody PlayListAddDTO input) {
+		playlistService.savePlayList(input);
+		return "이거 추가 되었습니다" + input;
 	}
 }

@@ -7,10 +7,19 @@
 	<delete id="delete">
 		delete from playlist where id=#{id};
 	</delete>
-	<select id="findPlayListById" resultType="com.project3.yogiaudio.dto.playlist.PlayListStartDTO">
+	<select id="findPlayListById"
+		resultType="com.project3.yogiaudio.dto.playlist.PlayListStartDTO">
 		select a.playlist_name, c.music_title, c.music_singer,
 		c.lyrics, c.file_path, c.file_music from playlist a join
 		playlist_order b on a.id = b.playlist_id join music c on b.music_no =
 		c.music_no where a.id=#{id};
+	</select>
+	<insert id="insert">
+		insert into playlist(user_id, playlist_name)
+		values(#{userId}, "#{playlistName});
+	</insert>
+	<select id="findByUserIdAndPlaylistName" parameterType="map" resultType="com.project3.yogiaudio.repository.entity.playlist.Playlist">
+		select * from playlist where user_id = #{userId} and
+		playlist_name=#{playlistName};
 	</select>
 </mapper>
