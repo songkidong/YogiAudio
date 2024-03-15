@@ -1,12 +1,8 @@
 package com.project3.yogiaudio.controller.product;
 
-import java.net.http.HttpResponse;
-
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,16 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.project3.yogiaudio.filedb.service.FiledbService;
-import com.project3.yogiaudio.repository.entity.User;
+import com.project3.yogiaudio.dto.common.Criteria;
 import com.project3.yogiaudio.dto.common.PageVO;
 import com.project3.yogiaudio.dto.music.MusicDTO;
-import com.project3.yogiaudio.dto.common.Criteria;
+import com.project3.yogiaudio.dto.music.MusicVideoDTO;
+import com.project3.yogiaudio.filedb.service.FiledbService;
+import com.project3.yogiaudio.repository.entity.User;
 import com.project3.yogiaudio.service.MusicService;
+import com.project3.yogiaudio.service.MusicVideoService;
 import com.project3.yogiaudio.service.UserService;
 
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +36,9 @@ public class ProductController {
 	private FiledbService filedbService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private MusicVideoService musicVideoService;
+	
 	
 	// http://localhost:80/product/main
 	//메인페이지 호출하기
@@ -53,6 +52,12 @@ public class ProductController {
 		
 		
 		model.addAttribute("pageVO", pageVO);
+		
+		
+		//메인페이지뮤비출력
+		List<MusicVideoDTO> mvlist = musicVideoService.mainMV();
+		model.addAttribute("mvlist", mvlist);
+		
 		
 		//국외음악 최신 , 인기순 출력
 		List<MusicDTO> anewlist = musicService.newAboardMusicList();

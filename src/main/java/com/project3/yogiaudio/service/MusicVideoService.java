@@ -28,7 +28,11 @@ public class MusicVideoService {
 	}
 	
 	
-	
+	//메인페이지뮤비출력하기
+	public List<MusicVideoDTO> mainMV() throws Exception{
+		List<MusicVideoDTO> result = musicVideoRepository.mainMV();
+		return result;
+	}
 	
 	
 	

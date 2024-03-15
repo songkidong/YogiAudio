@@ -16,7 +16,8 @@ public interface MusicVideoRepository {
 	//뮤비리스트갯수계산하기
 	public int mvlistCount() throws Exception;
 	
-	
+	//메인페이지 뮤비 출력하기
+	public List<MusicVideoDTO> mainMV() throws Exception;
 	
 	
 	
