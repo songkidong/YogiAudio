@@ -3,8 +3,8 @@
 <%@include file="/WEB-INF/view/layout/header.jsp" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://js.tosspayments.com/v1/payment-widget"></script>
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 
 
 
@@ -73,7 +73,7 @@
                 } else if (response === "already_liked") {
                     alert("이미 좋아요를 클릭하셨습니다.");
                 } else {
-                    alert("좋아요 클릭 실패!");
+                	console.log("좋아요클릭실패!");
                 }
             },
             error: function(xhr, status, error) {
