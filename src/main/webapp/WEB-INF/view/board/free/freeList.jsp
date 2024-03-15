@@ -3,8 +3,8 @@
 <%@include file="/WEB-INF/view/layout/header.jsp"%>
 <link href="/css/board/list.css" rel="stylesheet">
 
-<section id="boardNotice">
-	<div class="containerNotice">
+<section id="board">
+	<div class="board-container">
 		<div class="title-container">
 			<h2>자유게시판</h2>
 			<button type="button" class="btn btn-warning" id="btnInsert">
@@ -15,11 +15,10 @@
 		<div>
 			<div class="btn-group dropend" style="float: left; margin-top: 20px;">
 				<button type="button" class="btn btn-warning dropdown-toggle"
-					data-bs-toggle="dropdown" aria-expanded="false">Sort</button>
+					data-bs-toggle="dropdown" aria-expanded="false">정렬 기준<i class="bi bi-caret-right-fill" style="padding-left: 5px;"></i></button>
 				<ul class="dropdown-menu">
 					<li><a class="dropdown-item" href="#">최신순</a></li>
 					<li><a class="dropdown-item" href="#">조회순</a></li>
-					<li><a class="dropdown-item" href="#">번호순</a></li>
 				</ul>
 			</div>
 

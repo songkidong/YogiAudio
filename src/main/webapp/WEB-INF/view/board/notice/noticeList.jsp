@@ -3,28 +3,33 @@
 <%@include file="/WEB-INF/view/layout/header.jsp"%>
 <link href="/css/board/list.css" rel="stylesheet">
 
-<section id="boardNotice">
-	<div class="containerNotice">
-		<h2>공지사항</h2>
-
-		<div>
-		<div class="input-group" >
-			<select name="searchType" class="searchType" >
-				<option value="title">제목</option>
-				<option value="content">내용</option>
-				<option value="rdate">작성일</option>
-			</select>
-			<div class="form-outline">
-				<input type="search" id="form1" class="searchInput" name="keyword"
-					placeholder="Search" style="height: 40px" />
-			</div>
-
-			<button type="button" class="btn btn-warning searchButton">
-				<i class="bi bi-search"></i>
+<section id="board">
+	<div class="board-container">
+		<div class="title-container">
+			<h2>공지사항</h2>
+			<button type="button" class="btn btn-warning" id="btnInsert">
+				<i class="bi bi-pencil-square"></i>
 			</button>
 		</div>
+
+		<div>
+			<div class="input-group">
+				<select name="searchType" class="searchType">
+					<option value="title">제목</option>
+					<option value="content">내용</option>
+					<option value="createdAt">작성일</option>
+				</select>
+				<div class="form-outline">
+					<input type="search" id="form1" class="searchInput" name="keyword"
+						placeholder="Search" style="height: 40px" />
+				</div>
+
+				<button type="button" class="btn btn-warning searchButton">
+					<i class="bi bi-search"></i>
+				</button>
+			</div>
 		</div>
-	
+
 
 		<table class="table table-hover">
 			<thead class="thead-light text-center">
@@ -40,91 +45,45 @@
 				</tr>
 			</thead>
 			<tbody class="text-center">
+				<c:forEach var="list" items="${noticeList}">
 				<tr>
-					<td><i class="bi bi-megaphone-fill"></i></td>
-					<td>Notice1</td>
-					<td>Jo*n</td>
-					<td><i class="bi bi-file-earmark-text-fill"></i></td>
-					<td>2024-03-12</td>
+					<td>${list.id}</td>
+					<td>${list.title}</td>
+					<td>${list.writerId}</td>
+					<td>${list.filePath}</td>
+					<td>${list.createdAt}</td>
 				</tr>
-				<tr>
-					<td>2</td>
-					<td>Notice2</td>
-					<td>Jo*n</td>
-					<td><i class="bi bi-file-earmark-text-fill"></i></td>
-					<td>2024-03-12</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>Notice3</td>
-					<td>Jo*n</td>
-					<td>첨부없음</td>
-					<td>2024-03-12</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>Notice3</td>
-					<td>Jo*n</td>
-					<td>첨부없음</td>
-					<td>2024-03-12</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>Notice3</td>
-					<td>Jo*n</td>
-					<td>첨부없음</td>
-					<td>2024-03-12</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>Notice3</td>
-					<td>Jo*n</td>
-					<td>첨부없음</td>
-					<td>2024-03-12</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>Notice3</td>
-					<td>Jo*n</td>
-					<td>첨부없음</td>
-					<td>2024-03-12</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>Notice3</td>
-					<td>Jo*n</td>
-					<td>첨부없음</td>
-					<td>2024-03-12</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>Notice3</td>
-					<td>Jo*n</td>
-					<td>첨부없음</td>
-					<td>2024-03-12</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>Notice3</td>
-					<td>Jo*n</td>
-					<td>첨부없음</td>
-					<td>2024-03-12</td>
-				</tr>
+				</c:forEach>
 		</table>
 
-		<div>
-		<nav aria-label="Page navigation example">
-			<ul class="pagination justify-content-center">
-				<li class="page-item disabled"><a class="page-link">Previous</a>
-				</li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#">Next</a></li>
-			</ul>
-		</nav>
-		</div>
-
+		<!-- 페이징 처리 -->
+			<div class="notice pagination" id="noticePage">
+				<c:if test="${page > 1}">
+					<li class="page-item"><a href="?page=1&size=${size}"
+						class="page-link">&laquo; 첫 페이지</a></li>
+					<li class="page-item"><a href="?page=${page - 1}&size=${size}"
+						class="page-link">&laquo; Prev</a></li>
+				</c:if>
+				<c:forEach begin="${startPage}" end="${endPage}" var="i">
+					<c:choose>
+						<c:when test="${i eq page}">
+							<li class="page-item active"><a
+								href="?page=${i}&size=${size}" class="page-link">${i}</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item"><a href="?page=${i}&size=${size}"
+								class="page-link">${i}</a></li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<c:if test="${page < totalPages}">
+					<li class="page-item"><a href="?page=${page + 1}&size=${size}"
+						class="page-link">Next &raquo;</a></li>
+					<li class="page-item"><a
+						href="?page=${totalPages}&size=${size}" class="page-link">마지막
+							페이지 &raquo;</a></li>
+				</c:if>
+			</div>
 	</div>
 </section>
 

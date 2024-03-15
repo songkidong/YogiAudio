@@ -37,5 +37,9 @@
 	</select>
 	
 	
+	<!-- id로 유저 조회 -->
+	<select id="findById" resultType="com.project3.yogiaudio.repository.entity.User">
+		SELECT * FROM user WHERE id = #{id};
+	</select>
 
 </mapper>
