@@ -91,15 +91,15 @@
                             <div class="login-container" style="display: flex; align-items: center; margin-top: 10px;">
                                 <c:choose>
                                     <c:when test="${empty principal}">
-                                        <a href="#">
+                                        <a href="/signIn">
                                             <p>로그인</p>
                                         </a>
-                                        <a href="#">
+                                        <a href="/signUp">
                                             <p style="margin-left: 10px;">회원가입</p>
                                         </a>
                                     </c:when>
                                     <c:otherwise>
-                                        <a href="#">
+                                        <a href="/logout">
                                             <p>로그아웃</p>
                                         </a>
                                         <a href="#">

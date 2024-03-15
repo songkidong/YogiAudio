@@ -13,6 +13,7 @@
 		</div>
 
 		<div>
+			<form action="/board/notice/noticeList" method="get">
 			<div class="input-group">
 				<select name="searchType" class="searchType">
 					<option value="title">제목</option>
@@ -20,14 +21,15 @@
 					<option value="createdAt">작성일</option>
 				</select>
 				<div class="form-outline">
-					<input type="search" id="form1" class="searchInput" name="keyword"
+					<input type="search" id="form1" class="searchInput" name="searchInput"
 						placeholder="Search" style="height: 40px" />
 				</div>
 
-				<button type="button" class="btn btn-warning searchButton">
+				<button type="submit" class="btn btn-warning searchButton">
 					<i class="bi bi-search"></i>
 				</button>
 			</div>
+			</form>
 		</div>
 
 
@@ -88,7 +90,7 @@
 </section>
 
 
-
+<!-- <script src="/js/board/notice.js"></script> -->
 <%@include file="/WEB-INF/view/layout/footer.jsp"%>
 
 

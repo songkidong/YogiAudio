@@ -20,15 +20,12 @@ console.log("검색어:" + searchInput.value);
 
 	$.ajax({
 		type : "get",
-		url : "board/notice/noticeList", 
+		url : "/noticeList", 
 		data : {
 			searchType: searchType,
 			searchInput: searchInput.value
 		}, 
 		success : function(data){
-				innerFun(data);
-			if(data != ""){
-			}
 		},
 		error : function(){
 			alert("error!!!!");

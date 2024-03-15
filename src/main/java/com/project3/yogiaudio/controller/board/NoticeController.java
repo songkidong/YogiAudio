@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.project3.yogiaudio.dto.board.NoticeDTO;
@@ -55,7 +56,7 @@ public class NoticeController {
 	 */
 	@GetMapping("/noticeList")
 	public String noticeList(PageReq pageReq, Model model) {
-
+		
 		// 페이징
 		if (pageReq.getPage() <= 0) {
 			pageReq.setPage(1); // 페이지가 0 이하일 경우 첫 페이지로 설정한다
@@ -120,6 +121,8 @@ public class NoticeController {
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 
 		noticeDTO.setWriterId(principal.getId());
+		
+		System.out.println(noticeDTO.toString());
 
 		int result = noticeService.saveNotice(noticeDTO);
 
