@@ -59,17 +59,6 @@ public class UserService {
 	public User findById(@Param(value ="id") long id) {
 		return userRepository.findById(id);
 	}
-	
-	
-	
-
-	
-    private void checkExistingUser(String email) {
-        if (userRepository.findByEmail(email) != null) {
-            log.warn("이미 등록된 이메일입니다: {}", email);
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 등록된 이메일입니다");
-        }
-    }
 
 	private void checkExistingUser(String email) {
 		if (userRepository.findByEmail(email) != null) {
