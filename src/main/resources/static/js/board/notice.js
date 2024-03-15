@@ -1,35 +1,28 @@
-const select = document.querySelector(".searchType");
-const options = select.querySelectorAll("option");
-const searchButton = document.querySelector(".searchButton");
-const searchInput = document.querySelector(".searchInput");
+// 페이지가 로드된 후 실행됨
+    window.onload = function() {
+        // 현재 URL 가져오기
+        let currentUrl = window.location.href;
 
+        let url = new URL(currentUrl);
 
-let searchType = "";
-searchButton.onclick = () => { //검색 버튼이 클릭되었을 때 실행될 함수
-	
-	
-	for(let i = 0; i < options.length; i++){
-	if(options[i].selected){
-		searchType = options[i].value;
-		
-	}
-}//드롭다운에서 선택된 옵션의 값을 검색 유형 변수 searchType에 할당
+        // 추가할 파라미터
+        let searchType = url.searchParams.get('searchType');
+        let search = url.searchParams.get('searchInput');
 
+        // pagination 클래스를 가진 요소 찾기
+        let paginationLinks = document.querySelectorAll('#noticePage a');
 
-console.log("검색어:" + searchInput.value);
+        // 각 링크에 추가 파라미터 추가
+        paginationLinks.forEach(function(link) {
+            let linkUrl = new URL(link.href);
 
-	$.ajax({
-		type : "get",
-		url : "/noticeList", 
-		data : {
-			searchType: searchType,
-			searchInput: searchInput.value
-		}, 
-		success : function(data){
-		},
-		error : function(){
-			alert("error!!!!");
-		}
-	});
+            // 파라미터 추가
+            if (searchType && search) {
+                linkUrl.searchParams.append('searchType', searchType);
+                linkUrl.searchParams.append('search', search);
+            }
 
-}
+            // 변경된 URL을 href 속성에 설정
+            link.href = linkUrl.href;
+        });
+    };

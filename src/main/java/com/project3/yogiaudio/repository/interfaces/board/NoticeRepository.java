@@ -17,5 +17,5 @@ public interface NoticeRepository {
 	public List<BoardNotice> findAllByKeywordwithPasing(@Param ("offset") int offset, @Param ("limit") int limit,@Param ("searchType") String searchType,@Param ("searchInput") String keyword);
 
 	// 공지사항 검색&페이지 countAll
-	public int getAllPageCount();
+	public int getAllPageCount(@Param ("searchType") String searchType,@Param ("searchInput") String keyword);
 }

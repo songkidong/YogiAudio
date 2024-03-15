@@ -195,3 +195,7 @@ nav {
     color: #fff;
     border-color: #eea236;
 }
+#board > div > form > div > div{
+	float: right;
+	display: flex;
+}

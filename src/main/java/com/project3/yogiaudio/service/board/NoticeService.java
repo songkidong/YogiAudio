@@ -62,7 +62,9 @@ public class NoticeService {
 	 * @Method 설명 : 검색&페이징 list 갯수
 	 */
 	public int getAllPageCount() {
-		return noticeRepository.getAllPageCount();
+		String searchType = null;
+		String searchInput = null;
+		return noticeRepository.getAllPageCount(searchType, searchInput);
 	}
 
 	/**
@@ -81,7 +83,7 @@ public class NoticeService {
 		String searchInput = pageReq.getSearchInput();
 
 		// 총 데이터 개수 조회
-		long totalElements = noticeRepository.getAllPageCount();
+		long totalElements = noticeRepository.getAllPageCount(searchType, searchInput);
 		System.out.println("총갯수말해줘봐보바ㅗ바ㅗ바봐보바 :" + totalElements);
 
 		// 페이징 처리된 목록 조회

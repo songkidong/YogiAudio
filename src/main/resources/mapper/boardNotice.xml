@@ -21,7 +21,7 @@
 			where content like CONCAT('%',#{searchInput},'%')
 		</if>
 		<if test="searchType == 'createdAt'">
-			where createdAt like CONCAT('%',#{searchInput},'%')
+			where created_at like CONCAT('%',#{searchInput},'%')
 		</if>
 		<if test="searchType == null">
 			<!-- If no search type is specified, fetch all records -->
@@ -33,21 +33,18 @@
 	<select id="getAllPageCount" resultType="int">
 		select count(*) from
 		board_notice
-		<where>
-			<if test="searchType != null">
-				<choose>
-					<when test="searchType == 'title'">
-						AND title LIKE CONCAT('%', #{searchInput}, '%')
-					</when>
-					<when test="searchType == 'content'">
-						AND content LIKE CONCAT('%', #{searchInput}, '%')
-					</when>
-					<when test="searchType == 'createdAt'">
-						AND createdAt LIKE CONCAT('%', #{searchInput}, '%')
-					</when>
-				</choose>
-			</if>
-		</where>
+		<if test="searchType == 'title'">
+			where title like CONCAT('%',#{searchInput},'%')
+		</if>
+		<if test="searchType == 'content'">
+			where content like CONCAT('%',#{searchInput},'%')
+		</if>
+		<if test="searchType == 'createdAt'">
+			where created_at like CONCAT('%',#{searchInput},'%')
+		</if>
+		<if test="searchType == null">
+			<!-- If no search type is specified, fetch all records -->
+		</if>
 	</select>
 
 
