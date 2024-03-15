@@ -13,5 +13,6 @@ public interface UserRepository {
 	// 이메일 조회
 	public User findByEmail(String email);
 	
-	
+	// id 조회
+	public User findById(Long id);
 }
