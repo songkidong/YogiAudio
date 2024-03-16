@@ -69,8 +69,8 @@ public class PurchaseController {
 	
 	//성공 후 상태변경 --> 보류중
 	@GetMapping("/success")
-	public String paymentSuccessGET(@RequestParam(value = "id") int id,@RequestParam(value="orderId") String orderId, @RequestParam(value="paymentKey") String paymentKey, @RequestParam(value="amount") int amount) {
-		purchaseService.insertHistory(id, orderId, paymentKey, amount);
+	public String paymentSuccessGET(@RequestParam(value = "id") int id,@RequestParam(value="orderId") String orderId, @RequestParam(value="paymentKey") String paymentKey, @RequestParam(value="amount") int amount,@RequestParam(value="pno") int pno) {
+		purchaseService.insertHistory(id, orderId, paymentKey, amount,pno);
 	    purchaseService.statusUpdate(id);
 	    return "product/success"; // 성공 페이지를 반환합니다.
 	}

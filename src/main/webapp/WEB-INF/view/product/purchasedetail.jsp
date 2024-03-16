@@ -175,7 +175,7 @@
 						<!-- TOSS 결제 UI 창 JS -->  	
 						<script>
 						    const button = document.getElementById("payment-button");
-						    const no = ${detail.pno};
+						    const pno = ${detail.pno};
 						    const userId = ${principal.id};
 						    const generateRandomString = () => window.btoa(Math.random()).slice(0, 20);
 						    var amount = ${detail.price};
@@ -213,7 +213,7 @@
 						      paymentWidget.requestPayment({
 						        orderId: generateRandomString(),
 						        orderName: "${detail.purchasename}",
-						        successUrl: window.location.origin + "/purchase/success?id=" + userId,
+						        successUrl: window.location.origin + "/purchase/success?id=" + userId + "&pno=" + pno,
 						        failUrl: window.location.origin + "/fail",
 						        customerTitle: "customer123@gmail.com",
 						        customerName: "${principal.id}",

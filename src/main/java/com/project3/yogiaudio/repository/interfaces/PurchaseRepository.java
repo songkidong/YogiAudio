@@ -25,7 +25,7 @@ public interface PurchaseRepository {
 	public Integer statusUpdate(@Param(value = "id") int id);
 	
 	//결제내역등록하기
-	public Integer insertHistory(@Param(value = "id") int id,@Param(value="orderId") String orderId, @Param(value="paymentKey") String paymentKey, @Param(value="amount") int amount);
+	public Integer insertHistory(@Param(value = "id") int id,@Param(value="orderId") String orderId, @Param(value="paymentKey") String paymentKey, @Param(value="amount") int amount,@Param(value="pno") int pno);
 	
 	
 	

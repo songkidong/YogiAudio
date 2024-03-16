@@ -36,8 +36,8 @@
 	
 	<!-- 결제내역등록하기 -->
 	<insert id="insertHistory">
-		insert into history(id,orderid,paymentkey,amount)
-		values(#{id},#{orderId},#{paymentKey},#{amount})
+		insert into history(id,orderid,paymentkey,amount,pno)
+		values(#{id},#{orderId},#{paymentKey},#{amount},#{pno})
 	</insert>
 	
 	

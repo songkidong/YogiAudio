@@ -44,8 +44,8 @@ public class PurchaseService {
 	
 	//결제내역등록하기
 	@Transactional
-	public Integer insertHistory(@Param(value = "id") int id,@Param(value="orderId") String orderId, @Param(value="paymentKey") String paymentKey, @Param(value="amount") int amount) {
-		return purchaseRepository.insertHistory(id, orderId, paymentKey, amount);
+	public Integer insertHistory(@Param(value = "id") int id,@Param(value="orderId") String orderId, @Param(value="paymentKey") String paymentKey, @Param(value="amount") int amount,@Param(value="pno") int pno) {
+		return purchaseRepository.insertHistory(id, orderId, paymentKey, amount,pno);
 	}
 
 	
