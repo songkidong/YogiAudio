@@ -6,7 +6,7 @@ public class PageVO {
 	private int startPage;	 // 페이지 블럭 시작번호
 	private int endPage;	 // 페이지 블럭 끝번호
 
-	private boolean prev; 	 // 이전링크
+	private boolean prev; // 이전링크
 	private boolean next;	 // 다음링크
 
 	private int displayPageNum = 5; //페이지 블럭의 크기

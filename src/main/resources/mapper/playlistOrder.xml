@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.project3.yogiaudio.repository.interfaces.playlist.PlaylistOrderRepository">
+
+	<insert id="addList">
+		insert into playlist_order(playlist_id,
+		music_no,order_index)
+		values(#{playlistId},#{musicNo},#{orderIndex});
+	</insert>
+
+</mapper>
