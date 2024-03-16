@@ -1,11 +1,6 @@
 package com.project3.yogiaudio.service;
 
 import org.apache.ibatis.annotations.Param;
-
-import com.project3.yogiaudio.dto.user.SignUpFormDTO;
-import com.project3.yogiaudio.repository.entity.User;
-import com.project3.yogiaudio.repository.interfaces.UserRepository;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -71,12 +66,7 @@ public class UserService {
         }
     }
 
-	private void checkExistingUser(String email) {
-		if (userRepository.findByEmail(email) != null) {
-			log.warn("이미 등록된 이메일입니다: {}", email);
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 등록된 이메일입니다");
-		}
-	}
+
 
 	private User buildUserEntity(SignUpFormDTO dto) {
 		return User.builder().name(dto.getName()).nickname(dto.getNickname()).email(dto.getEmail())
