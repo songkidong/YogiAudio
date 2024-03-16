@@ -75,7 +75,6 @@ public class PaymentController {
 	    Reader reader = new InputStreamReader(responseStream, StandardCharsets.UTF_8);
 	    JSONObject jsonObject = (JSONObject) parser.parse(reader);
 	    responseStream.close();
-	    
 	    return ResponseEntity.status(code).body(jsonObject);
 	  }
 	

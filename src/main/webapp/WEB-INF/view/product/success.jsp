@@ -6,12 +6,13 @@
 	  <script>
 		    // 결제 완료 알림을 표시
 		    alert("결제 완료되었습니다");
-		
 		    // 확인 버튼을 누르면 /product/domestic-music로 이동
-		    window.location.href = "/product/domestic-music";
+		    //window.location.href = "/product/domestic-music";
 	  </script>
    	
-   	
+   	    <p id="paymentKey"></p>
+	    <p id="orderId"></p>
+	    <p id="amount"></p>
    	
    	
    	
@@ -23,12 +24,14 @@
       const paymentKey = urlParams.get("paymentKey");
       const orderId = urlParams.get("orderId");
       const amount = urlParams.get("amount");
+      const customerName = urlParams.get("customerName");
 
       async function confirm() {
         const requestData = {
           paymentKey: paymentKey,
           orderId: orderId,
           amount: amount,
+          customerName: customerName
         };
 
         const response = await fetch("/confirm", {

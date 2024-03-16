@@ -1,5 +1,7 @@
 package com.project3.yogiaudio.dto.music;
 
+import com.project3.yogiaudio.repository.entity.History;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,11 +13,13 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PurchaseDTO {
-
-	private Integer pno;
-	private String purchasename;
-	private String purchasedetail;
-	private Integer price;
+public class HistoryDTO {
+	
+	private Integer hno;
+	private Integer id;
+	private String orderId;
+	private String paymentKey;
+	private String amount;
+	
 	
 }

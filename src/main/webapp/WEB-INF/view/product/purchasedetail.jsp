@@ -179,6 +179,7 @@
 						    const userId = ${principal.id};
 						    const generateRandomString = () => window.btoa(Math.random()).slice(0, 20);
 						    var amount = ${detail.price};
+
 						  	
 						
 						    // ------  결제위젯 초기화 ------

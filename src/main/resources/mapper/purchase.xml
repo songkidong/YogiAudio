@@ -33,7 +33,14 @@
 		where id=#{id}
 	</update>
 	
-
+	
+	<!-- 결제내역등록하기 -->
+	<insert id="insertHistory">
+		insert into history(id,orderid,paymentkey,amount)
+		values(#{id},#{orderId},#{paymentKey},#{amount})
+	</insert>
+	
+	
 
 	
 

@@ -2,6 +2,7 @@ package com.project3.yogiaudio.controller.product;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
@@ -68,8 +69,8 @@ public class PurchaseController {
 	
 	//성공 후 상태변경 --> 보류중
 	@GetMapping("/success")
-	public String paymentSuccessGET(@RequestParam(value = "id") int id) {
-	   
+	public String paymentSuccessGET(@RequestParam(value = "id") int id,@RequestParam(value="orderId") String orderId, @RequestParam(value="paymentKey") String paymentKey, @RequestParam(value="amount") int amount) {
+		purchaseService.insertHistory(id, orderId, paymentKey, amount);
 	    purchaseService.statusUpdate(id);
 	    return "product/success"; // 성공 페이지를 반환합니다.
 	}
