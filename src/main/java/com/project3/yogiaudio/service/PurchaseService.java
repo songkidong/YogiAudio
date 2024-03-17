@@ -1,5 +1,6 @@
 package com.project3.yogiaudio.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -48,6 +49,13 @@ public class PurchaseService {
 		return purchaseRepository.insertHistory(id, orderId, paymentKey, amount,pno);
 	}
 
+	//결제원상복귀
+	public Integer resetUpdate(@Param(value ="pno") int pno, LocalDateTime targetTime , @Param(value ="id") int id) {
+		return purchaseRepository.resetUpdate(pno,targetTime,id);
+	}
+
+	
+	
 	
 	
 	

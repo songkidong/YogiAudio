@@ -1,5 +1,6 @@
 package com.project3.yogiaudio.repository.interfaces;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -26,6 +27,9 @@ public interface PurchaseRepository {
 	
 	//결제내역등록하기
 	public Integer insertHistory(@Param(value = "id") int id,@Param(value="orderId") String orderId, @Param(value="paymentKey") String paymentKey, @Param(value="amount") int amount,@Param(value="pno") int pno);
+	
+	//결제상태원상복귀하기
+	public Integer resetUpdate(@Param(value ="pno") int pno, LocalDateTime targetTime, @Param(value ="id") int id);
 	
 	
 	

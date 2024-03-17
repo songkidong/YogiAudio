@@ -40,8 +40,12 @@
 		values(#{id},#{orderId},#{paymentKey},#{amount},#{pno})
 	</insert>
 	
+	<!-- 결제상태 원상복귀하기 -->
+	<update id="resetUpdate">
+		update user set status = 'N'
+		where id=#{id}
+	</update>
 	
-
 	
 
 </mapper>

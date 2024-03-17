@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +16,7 @@ import com.project3.yogiaudio.dto.common.PageVO;
 import com.project3.yogiaudio.dto.music.PurchaseDTO;
 import com.project3.yogiaudio.filedb.service.FiledbService;
 import com.project3.yogiaudio.service.PurchaseService;
+import com.project3.yogiaudio.util.Scheduler;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,7 +29,8 @@ public class PurchaseController {
 	private PurchaseService purchaseService;
 	@Autowired
 	private FiledbService filedbService;
-	
+	@Autowired
+	private Scheduler scheduler;
 	
 	// http://localhost:80/purchase/main
 	
@@ -68,11 +70,20 @@ public class PurchaseController {
 	
 	
 	//성공 후 상태변경 --> 보류중
+	
 	@GetMapping("/success")
 	public String paymentSuccessGET(@RequestParam(value = "id") int id,@RequestParam(value="orderId") String orderId, @RequestParam(value="paymentKey") String paymentKey, @RequestParam(value="amount") int amount,@RequestParam(value="pno") int pno) {
 		purchaseService.insertHistory(id, orderId, paymentKey, amount,pno);
 	    purchaseService.statusUpdate(id);
+	    
+	    //업데이트될때 pno 값에따라서 기간정해지는 업데이트 메서드 호출!
+	    // 1개월 -> pno = 1 , 3개월 -> pno =2  , 6개월 -> pno =3 , 12개월 -> pno=4 
+	    scheduler.updateStatus();
 	    return "product/success"; // 성공 페이지를 반환합니다.
+	    
+	    
+	    
+	    
 	}
 	
 	

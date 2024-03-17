@@ -7,16 +7,11 @@
 		    // 결제 완료 알림을 표시
 		    alert("결제 완료되었습니다");
 		    // 확인 버튼을 누르면 /product/domestic-music로 이동
-		    //window.location.href = "/product/domestic-music";
+		    window.location.href = "/product/domestic-music";
 	  </script>
    	
-   	    <p id="paymentKey"></p>
-	    <p id="orderId"></p>
-	    <p id="amount"></p>
+   	   
    	
-   	
-   	
-
     <script>
       // 쿼리 파라미터 값이 결제 요청할 때 보낸 데이터와 동일한지 반드시 확인하세요.
       // 클라이언트에서 결제 금액을 조작하는 행위를 방지할 수 있습니다.
