@@ -1,3 +1,12 @@
+const title = $("#title");
+const content = $("#content");
+const filepath = $("#formFileMultiple");
+const updateBtn = $("#btn-update");
+const deleteBtn = $("#btn-delete");
+
+
+let addressNum = window.location.pathname.split("/")[4];
+
 // 페이지가 로드된 후 실행됨
     window.onload = function() {
         // 현재 URL 가져오기
@@ -26,3 +35,12 @@
             link.href = linkUrl.href;
         });
     };
+    
+// notice list에서 View 위한 클릭 이벤트
+function loadView() {
+	const pageClick = $(".page-click");
+	pageClick.on("click", function() {
+		window.location.href = "/board/notice/noticeView/" + $(this).attr("id");
+	});
+}
+loadView();

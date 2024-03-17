@@ -24,21 +24,21 @@
 		<div>
 			<form class="card">
 				<div class="card-header d-flex justify-content-between">
-					<label for="id">번호 : 1</label> <input type="hidden" id="id"
-						value="${posts.id}">
+					<label for="id">번호</label> <input type="text" id="id-display">
+					<%-- <input type="hidden" id="id-display" value="${posts.id}"> --%>
 				</div>
 				<div class="card-header d-flex justify-content-between">
-					<label for="writer">작성일 : 2024-03-13</label>
+					<label for="writer">작성일</label> <input type="text" id="writer-display">
 				</div>
 				<div class="card-body">
 					<label for="title">제목</label> 
-					<input type="text" class="form-control" id="title" value="${posts.title}" readonly>
+					<input type="text" class="form-control" id="title-display" readonly>
 					<br /> 
 					<label for="content">내용</label>
-					<textarea rows="10" class="form-control" id="content" readonly>${posts.content}</textarea>
+					<textarea rows="10" class="form-control" id="content-display" readonly></textarea>
 					<br />
 					<label for="file">첨부파일</label>
-					<input type="text" class="form-control" id="file" value="${posts.file}" readonly>
+					<input type="text" class="form-control" id="file-display" readonly>
 				</div>
 			</form>
 		</div>
