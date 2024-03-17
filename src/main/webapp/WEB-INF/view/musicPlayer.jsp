@@ -141,25 +141,30 @@ main {
 	width: 50%;
 	height: 500px;
 }
+#volumeContainer {
+    position: relative;
+}
+
+#volumeSlider {
+    position: absolute;
+    top: 0; /* 아이콘 위에 위치 */
+    left: 0;
+    width: 70px;
+    display: none; /* 초기에는 볼륨 슬라이더 숨김 */
+}
+
+#volumeContainer:hover #volumeSlider {
+    display: inline-block; /* 볼륨 아이콘에 마우스를 가져다 대면 볼륨 슬라이더 표시 */
+}
 /* 추가된 부분 끝 */
 </style>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-/* 	var AudioContext;
-	var audioContext;
-
-	window.onload = function() {
-	    navigator.mediaDevices.getUserMedia({ audio: true }).then(() => {
-	        AudioContext = window.AudioContext || window.webkitAudioContext;
-	        audioContext = new AudioContext();
-	    }).catch(e => {
-	        console.error(`Audio permissions denied: ${e}`);
-	    });
-	} */
 	
 	const audioPlayer = new Audio();
-	 // 슬라이더 요소 가져오기
+	
+    // 슬라이더 요소 가져오기
     const seekbar = document.querySelector('.ui-slider');
     
     // 슬라이더의 최대값 설정
@@ -170,7 +175,76 @@ document.addEventListener('DOMContentLoaded', function () {
         seekbar.max = parseInt(audioPlayer.duration); // 노래의 길이를 초 단위로 설정
     };
     
-    // 1초마다 슬라이더 위치 변경
+	// 볼륨 조절
+	var volumeSlider = document.getElementById("volumeSlider");
+	var previousVolume; // 음소거 이전 볼륨값
+    volumeSlider.addEventListener("input", function() {
+        // 볼륨 슬라이더의 현재 값 가져오기
+        var volume = volumeSlider.value;
+        // 음소거 해제
+        if (volume > 0 && isMuted) {
+            volumeIcon.classList.remove("fa-volume-mute");
+            volumeIcon.classList.add("fa-volume-up");
+            isMuted = false;
+        } 
+        // 음원의 볼륨 설정
+        audioPlayer.volume = volume;
+        previousVolume = volume;
+        // 볼륨이 0인 경우 음소거
+        if (volume == 0) {
+            volumeIcon.classList.remove("fa-volume-up");
+            volumeIcon.classList.add("fa-volume-mute");
+            isMuted = true;
+        }
+    });
+    const volumeIcon = document.getElementById("volumeIcon");
+    let isMuted = false;
+    volumeIcon.addEventListener('click', function() {
+    	// 음소거
+    	if (isMuted == false) {
+    		volumeIcon.classList.remove("fa-volume-up");
+    		volumeIcon.classList.add("fa-volume-mute");
+            audioPlayer.volume = 0;
+            previousVolume = volumeSlider.value;
+            volumeSlider.value = 0;
+            isMuted = true;
+        } else {
+            // 음소거 해제
+         	volumeIcon.classList.remove("fa-volume-mute");
+         	volumeIcon.classList.add("fa-volume-up");
+            audioPlayer.volume = previousVolume; // 현재 볼륨으로 설정
+            volumeSlider.value = previousVolume;
+            isMuted = false;
+        }
+    });
+    
+    var currentTimeDisplay = document.getElementById("currentTime");
+    var totalDurationDisplay = document.getElementById("totalDuration");
+    audioPlayer.addEventListener('timeupdate', function() {
+        // 현재 재생 시간 가져오기
+        var currentPlayTime = audioPlayer.currentTime;
+        // 전체 재생 시간 가져오기
+        var totalDuration = audioPlayer.duration;
+
+        // 시간 표시 업데이트
+        currentTimeDisplay.textContent = formatTime(currentPlayTime);
+        totalDurationDisplay.textContent = formatTime(totalDuration);
+    });
+
+    // 시간 형식을 변환하는 함수
+    function formatTime(time) {
+        var minutes = Math.floor(time / 60);
+        var seconds = Math.floor(time % 60);
+        // 시간을 "분:초" 형식으로 반환
+        return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+    }
+    
+    // 슬라이더 변경 이벤트 리스너 추가 -> 재생시간 변경될때마다 이벤트 발생
+    seekbar.addEventListener('input', function() {
+        const newPosition = parseInt(seekbar.value); // 변경된 위치 가져오기
+        audioPlayer.currentTime = newPosition; // 오디오의 재생 위치 변경
+    });
+    
     setInterval(() => {
         // 현재 슬라이더 위치 가져오기
         let position = parseInt(audioPlayer.currentTime);
@@ -183,57 +257,36 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }, 100);
     
+    // 노래 끝나면 다음 곡으로 넘어가는 이벤트리스너
+    audioPlayer.addEventListener('ended', function() {
+    	playNextSong();
+    });
 	
 	// audioPlayer.autoplay = true;
-    const playListItems = document.querySelectorAll('.ui-list-item');
+   const playListItems = Array.from(document.querySelectorAll('.ui-list-item'));
     
     window.addEventListener('message', function(event) {
     	console.log(event.data);
+    	console.log(event.data.type);
+    	let type = event.data.type;
     	// ajax사용해서 playlist에 저장하기.
     	  $.ajax({
-                type : "POST",            // HTTP method type(GET, POST) 형식이다.
-                url : "/addPlayList",      // 컨트롤러에서 대기중인 URL 주소이다.
-                data: JSON.stringify(event.data), // JSON 형식의 데이터이다.
+                type : "POST",           
+                url : "/addPlayList",  
+                data: JSON.stringify({ musicNo: event.data.musicNo }), // JSON 형식의 데이터
                 contentType: "application/json",  // 데이터 형식을 JSON으로 명시한다.
-                success : function(data){ // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
-                    // 응답코드 > 0000
+                success : function(data){
+                	// 추가한 노래 playlist에 추가
                     alert(data);
+                    addPlaylistItem(data, type);
                 },
-                error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+                error : function(XMLHttpRequest, textStatus, errorThrown){
                     alert("통신 실패.")
                 }
             });
-    	// ajax사용해서 삭제버튼 클릭시 playlz
-        // 전달받은 데이터 출력
-        console.log("Received data:", event.data);
-        
-        // 전달받은 데이터를 플레이리스트에 추가하는 로직 추가
-        const playlistItem = document.createElement('div');
-        playlistItem.classList.add('ui-list-item');
-        playlistItem.setAttribute('data-file-img', event.data.filePath);
-        playlistItem.setAttribute('data-file-music', event.data.fileMusic);
-        playlistItem.setAttribute('data-music-title', event.data.musicTitle);
-        playlistItem.setAttribute('data-music-singer', event.data.musicSinger);
-        playlistItem.textContent = event.data.musicTitle + '- ' + event.data.musicSinger;
-        
-        const titleElement = document.createElement('span');
-        titleElement.textContent = event.data.musicTitle + '- ' + event.data.musicSinger;
-        
-        const deleteButton = document.createElement('span');
-        deleteButton.classList.add('delete-btn');
-        deleteButton.textContent = '❌';
-        deleteButton.addEventListener('click', function() {
-            playlistItem.remove();
-        });
-        
-        playlistItem.appendChild(titleElement);
-        playlistItem.appendChild(deleteButton);
-        
-        // 플레이리스트에 추가
-        document.querySelector('.ui-list').appendChild(playlistItem);
     });
     
- // 현재 재생 중인 곡의 인덱스를 저장하는 변수
+ 	// 현재 재생 중인 곡의 인덱스를 저장하는 변수
     let currentSongIndex = 0;
 
     // forEach를 사용하여 각 곡 요소에 이벤트 리스너를 추가합니다.
@@ -241,6 +294,9 @@ document.addEventListener('DOMContentLoaded', function () {
         item.addEventListener('click', function() {
             console.log("클릭됨");
             // 클릭한 곡의 정보 가져오기
+            const orderIndex = this.getAttribute('data-order-index');
+            const playlistName = this.getAttribute('data-playlist-name');
+            const musinNo = this.getAttribute('data-music-no');
             const musicUrl = this.getAttribute('data-file-music');
             const musicTitle = this.getAttribute('data-music-title');
             const musicSinger = this.getAttribute('data-music-singer');
@@ -251,12 +307,45 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log(currentSongIndex);
 
             // 현재 재생 중인 곡 정보 업데이트
-            document.querySelector('.ui-cover-title').innerHTML = "<p>" + musicTitle + "</p>" + "<p>" + musicSinger + "</p>" + "<img alt='' src='" + albumImg + "'>";
+			    // 앨범 사진
+		    const albumImage = document.querySelector('.ui-cover-art');
+		    albumImage.src = albumImg;
+			// 가수 세팅
+            document.querySelector('.ui-cover-title').innerHTML = "<p>" + musicTitle + "</p>" + "<p>" + musicSinger + "</p>";
             // 오디오 소스 변경 및 재생
             audioPlayer.src = musicUrl;
             audioPlayer.play();
-            console.log("최장호");
             console.log(audioPlayer.duration);
+        });
+        // 아이템의 삭제 버튼 클릭 이벤트 처리
+        const deleteBtn = item.querySelector('.delete-btn');
+        deleteBtn.addEventListener('click', function(event) {
+            event.stopPropagation(); // 이벤트 전파 방지
+            item.remove(); // 해당 아이템 삭제
+    	    console.log('Deleted item index:', index);
+    	    const playlistName = item.getAttribute('data-playlist-name'); // 플레이리스트 이름 가져오기
+    	    const musicNo = item.getAttribute('data-music-no'); // 음악 번호 가져오기
+    	    const orderIndex = item.getAttribute('data-order-index');// 순서 가져오기
+	    	//ajax로 playlistname, musicno, index 넘겨주면 playlist 조회 후 해당 id로 playlist_order 삭제하기
+	    	$.ajax({
+                type : "POST",           
+                url : "/deletePlayList",  
+                data: JSON.stringify({ 
+                	playlistName: playlistName, 
+                	musicNo: musicNo, 
+                	orderIndex: orderIndex
+                		}), // JSON 형식의 데이터
+                contentType: "application/json",  // 데이터 형식을 JSON으로 명시한다.
+                success : function(data){
+                	// 추가한 노래 playlist에 추가
+                	console.log(data);
+                    alert(data);
+                },
+                error : function(XMLHttpRequest, textStatus, errorThrown){
+                    alert("통신 실패.")
+                }
+            });
+    	    playListItems.splice(index, 1);
         });
     });
 
@@ -289,38 +378,123 @@ document.addEventListener('DOMContentLoaded', function () {
             playPreviousSong();
         }
     });
-    
-    const firstMusicUrl = playListItems[0].getAttribute('data-file-music');
-    const firstMusicTitle = playListItems[0].getAttribute('data-music-title');
-    const firstMusicSinger = playListItems[0].getAttribute('data-music-singer');
-    const firstAlbumImg = playListItems[0].getAttribute('data-file-img');
-    document.querySelector('.ui-cover-title').innerHTML = "<p>" + firstMusicTitle + "</p>" + "<p>" + firstMusicSinger + "</p>" + "<img alt='' src='" + firstAlbumImg + "'>";
-    audioPlayer.src = firstMusicUrl;
-    audioPlayer.play();
-    
- // 다음 곡으로 넘어가는 함수
-function playNextSong() {
-    // 현재 재생 중인 곡의 인덱스를 증가시킴
-    currentSongIndex++;
-    // 재생 목록의 끝에 도달하면 처음 곡으로 돌아감
-    if (currentSongIndex >= playListItems.length) {
-        currentSongIndex = 0;
-    }
-    // 현재 곡의 인덱스를 기반으로 해당 곡을 재생
-  	playListItems[currentSongIndex].click();
-}
+    setFirstSong();
 
-// 이전 곡으로 돌아가는 함수
-function playPreviousSong() {
-    // 현재 재생 중인 곡의 인덱스를 감소시킴
-    currentSongIndex--;
-    // 재생 목록의 처음에 도달하면 마지막 곡으로 이동
-    if (currentSongIndex < 0) {
-        currentSongIndex = playListItems.length - 1;
-    }
-    // 현재 곡의 인덱스를 기반으로 해당 곡을 재생
-    playListItems[currentSongIndex].click();
-}
+	// 플레이리스트 처음곡 재생하는 함수
+	function setFirstSong() {
+		const firstSong = playListItems[0];
+		const firstPlaylistName = firstSong.getAttribute('data-playlist-name');
+		const firstMusicNo = firstSong.getAttribute('data-music-no');
+		const firstMusicUrl = firstSong.getAttribute('data-file-music');
+	    const firstMusicTitle = firstSong.getAttribute('data-music-title');
+	    const firstMusicSinger = firstSong.getAttribute('data-music-singer');
+	    const firstAlbumImg = firstSong.getAttribute('data-file-img');
+	    // 앨범 사진
+	    const albumImage = document.querySelector('.ui-cover-art');
+	    albumImage.src = firstAlbumImg;
+		// 가수 세팅
+		document.querySelector('.ui-cover-title').innerHTML = "<p>" + firstMusicTitle + "</p>" + "<p>" + firstMusicSinger + "</p>"; 
+	    audioPlayer.src = firstMusicUrl;
+	    audioPlayer.play();
+	}
+	 // 다음 곡으로 넘어가는 함수
+	function playNextSong() {
+	    // 현재 재생 중인 곡의 인덱스를 증가시킴
+	    currentSongIndex++;
+	    // 재생 목록의 끝에 도달하면 처음 곡으로 돌아감
+	    if (currentSongIndex >= playListItems.length) {
+	        currentSongIndex = 0;
+	    }
+	    // 현재 곡의 인덱스를 기반으로 해당 곡을 재생
+	    console.log(currentSongIndex);
+	  	playListItems[currentSongIndex].click();
+	}
+	
+	// 이전 곡으로 돌아가는 함수
+	function playPreviousSong() {
+	    // 현재 재생 중인 곡의 인덱스를 감소시킴
+	    currentSongIndex--;
+	    // 재생 목록의 처음에 도달하면 마지막 곡으로 이동
+	    if (currentSongIndex < 0) {
+	        currentSongIndex = playListItems.length - 1;
+	    }
+	    // 현재 곡의 인덱스를 기반으로 해당 곡을 재생
+	    playListItems[currentSongIndex].click();
+	}
+
+	// 플레이리스트에 노래 추가
+	function addPlaylistItem(data, type) {
+	    // 플레이리스트 아이템 생성
+	    const playlistItem = document.createElement('div');
+	    playlistItem.classList.add('ui-list-item');
+	    playlistItem.setAttribute('data-order-index', data.orderIndex);
+	    playlistItem.setAttribute('data-playlist-name', data.playlistName);
+	    playlistItem.setAttribute('data-music-no', data.musicNo);
+	    playlistItem.setAttribute('data-file-img', data.filepath);
+	    playlistItem.setAttribute('data-file-music', data.filemusic);
+	    playlistItem.setAttribute('data-music-title', data.musictitle);
+	    playlistItem.setAttribute('data-music-singer', data.musicsinger);
+	    playlistItem.textContent = data.musictitle + '- ' + data.musicsinger;
+		// playlist배열에 추가
+		playListItems.push(playlistItem);
+		console.log(data.playlistName);
+		console.log(data.musicNo);
+		// 삭제 버튼 생성
+	    const deleteButton = document.createElement('span');
+	    deleteButton.classList.add('delete-btn');
+	    deleteButton.textContent = '❌';
+	    deleteButton.addEventListener('click', function() {
+	    	 const index = playListItems.indexOf(playlistItem);
+	    	    console.log('Deleted item index:', index);
+	    	//ajax로 playlistname, musicno, index 넘겨주면 playlist 조회 후 해당 id로 playlist_order 삭제하기
+	    	$.ajax({
+                type : "POST",           
+                url : "/deletePlayList",  
+                data: JSON.stringify({ 
+                	playlistName: data.playlistName, 
+                	musicNo: data.musicNo, 
+                	orderIndex: data.orderIndex
+                		}), // JSON 형식의 데이터
+                contentType: "application/json",  // 데이터 형식을 JSON으로 명시한다.
+                success : function(data){
+                	// 추가한 노래 playlist에 추가
+                	console.log(data);
+                    alert(data);
+                },
+                error : function(XMLHttpRequest, textStatus, errorThrown){
+                    alert("통신 실패.")
+                }
+            });
+	        playlistItem.remove();
+	        playListItems.splice(index, 1);
+	    });
+	
+	    // 플레이리스트 아이템에 삭제 버튼 추가
+	    playlistItem.appendChild(deleteButton);
+	
+	    // 플레이리스트에 아이템 추가
+	    document.querySelector('.ui-list').appendChild(playlistItem);
+	
+	    // 새로 추가된 아이템에 클릭 이벤트 추가
+	    playlistItem.addEventListener('click', function() {
+	        const musicNo = this.getAttribute('data-music-no');
+	        const musicUrl = this.getAttribute('data-file-music');
+	        const musicTitle = this.getAttribute('data-music-title');
+	        const musicSinger = this.getAttribute('data-music-singer');
+	        const albumImg = this.getAttribute('data-file-img');
+	
+	        // 현재 재생 중인 곡 정보 업데이트
+	        const albumImage = document.querySelector('.ui-cover-art');
+	        albumImage.src = albumImg;
+	        document.querySelector('.ui-cover-title').innerHTML = "<p>" + musicTitle + "</p>" + "<p>" + musicSinger + "</p>";
+	        audioPlayer.src = musicUrl;
+	        audioPlayer.play();
+	    });
+	    if(type == 'play'){
+	    	playlistItem.click();
+	    }
+	}
+
 });
 </script>
 </head>
@@ -331,42 +505,13 @@ function playPreviousSong() {
 				<i class="fas fa-chevron-down"></i>
 
 				<div>
-					<i class="fas fa-volume-up"></i> <i class="fas fa-ellipsis-v"></i>
+					<i class="fas fa-ellipsis-v"></i>
 				</div>
 			</div>
 
 			<div class="ui-cover">
 				<!-- Icon made by Freepik (https://www.freepik.com) -->
-				<svg class="ui-cover-art" height="511pt"
-					viewBox="1 -12 511.99976 511" width="511pt"
-					xmlns="http://www.w3.org/2000/svg">
-					<path
-						d="m481.472656 256.59375-225.378906 225.378906c-7.027344 7.027344-18.417969 7.027344-25.445312 0l-225.378907-225.378906c-7.027343-7.027344-7.027343-18.417969 0-25.445312l225.378907-225.378907c7.027343-7.027343 18.417968-7.027343 25.445312 0l225.378906 225.378907c7.027344 7.027343 7.027344 18.417968 0 25.445312zm0 0"
-						fill="#fab700" />
-					<path
-						d="m230.277344 6.140625-33.238282 33.238281 226.527344 226.527344c3.714844 3.714844 3.714844 9.738281 0 13.453125l-197.765625 197.765625 4.476563 4.476562c7.230468 7.230469 18.957031 7.230469 26.1875 0l224.636718-224.636718c7.234376-7.230469 7.234376-18.957032 0-26.1875l-224.636718-224.636719c-7.230469-7.230469-18.957032-7.230469-26.1875 0zm0 0"
-						fill="#faa200" />
-					<path
-						d="m512 252.789062c0 102.949219-83.457031 186.402344-186.40625 186.402344-102.945312 0-186.402344-83.453125-186.402344-186.402344 0-102.949218 83.457032-186.40625 186.402344-186.40625 102.949219 0 186.40625 83.457032 186.40625 186.40625zm0 0"
-						fill="#682c54" />
-					<path
-						d="m325.59375 66.382812c-7.027344 0-13.957031.40625-20.785156 1.160157 93.164062 10.339843 165.617187 89.324219 165.617187 185.246093 0 95.921876-72.453125 174.90625-165.617187 185.246094 6.828125.757813 13.757812 1.160156 20.785156 1.160156 102.949219 0 186.40625-83.457031 186.40625-186.40625 0-102.945312-83.457031-186.40625-186.40625-186.40625zm0 0"
-						fill="#542a48" />
-					<path
-						d="m325.59375 66.382812c-102.945312 0-186.402344 83.457032-186.402344 186.40625 0 34.3125 9.28125 66.453126 25.457032 94.070313l255.015624-255.019531c-27.613281-16.171875-59.753906-25.457032-94.070312-25.457032zm0 0"
-						fill="#723661" />
-					<path
-						d="m402.570312 108.933594 17.09375-17.09375c-27.613281-16.171875-59.753906-25.453125-94.070312-25.453125-7.027344 0-13.957031.402343-20.785156 1.160156 36.910156 4.09375 70.574218 18.953125 97.761718 41.386719zm0 0"
-						fill="#682c54" />
-					<path
-						d="m418.285156 252.789062c0 51.191407-41.5 92.6875-92.691406 92.6875-51.1875 0-92.6875-41.496093-92.6875-92.6875 0-51.191406 41.5-92.691406 92.6875-92.691406 51.191406 0 92.691406 41.5 92.691406 92.691406zm0 0"
-						fill="#542a48" />
-					<path
-						d="m389.765625 252.789062c0 35.441407-28.730469 64.167969-64.171875 64.167969-35.4375 0-64.167969-28.726562-64.167969-64.167969 0-35.441406 28.730469-64.171874 64.167969-64.171874 35.441406 0 64.171875 28.730468 64.171875 64.171874zm0 0"
-						fill="#ff6914" />
-					<path
-						d="m338.429688 252.789062c0 7.089844-5.746094 12.835938-12.835938 12.835938-7.085938 0-12.832031-5.746094-12.832031-12.835938 0-7.089843 5.746093-12.835937 12.832031-12.835937 7.089844 0 12.835938 5.746094 12.835938 12.835937zm0 0"
-						fill="#005ca0" /></svg>
+				<img class="ui-cover-art" src="">
 				<div class="ui-cover-title">
 					<p>Halsey</p>
 					<p>Without Me</p>
@@ -380,12 +525,19 @@ function playPreviousSong() {
 
 			<div class="ui-seekbar">
 				<input type="range" class="ui-slider" min="1" max="1200" value="0">
+				<span id="currentTime">0:00</span> / <span id="totalDuration">0:00</span>
 			</div>
 
 			<div class="ui-controls">
-				<i class="fas fa-random"></i> <i class="fas fa-step-backward"></i> <i
-					class="fas fa-pause"></i> <i class="fas fa-step-forward"></i> <i
-					class="fas fa-redo"></i>
+				<i class="fas fa-random"></i> 
+				 <i class="fas fa-redo"></i>
+				<i class="fas fa-step-backward"></i> <i
+					class="fas fa-pause"></i> <i class="fas fa-step-forward"></i>
+					<div id="volumeContainer">
+						<i class="fas fa-volume-up" id="volumeIcon"> </i> 
+						<input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.3">
+					</div>
+					<i class="fas fa-align-right"></i>
 			</div>
 		</div>
 		<div class="container">
@@ -394,11 +546,14 @@ function playPreviousSong() {
 			</div>
 			<div class="ui-list">
 				<c:forEach var="play" items="${playList}">
-					<div class="ui-list-item" data-file-img="${play.filePath}"
+					<div class="ui-list-item" data-order-index="${play.orderIndex}"
+						data-playlist-name="${play.playlistName}"
+						data-file-img="${play.filePath}" data-music-no="${play.musicNo}"
 						data-file-music="${play.fileMusic}"
 						data-music-title="${play.musicTitle}"
 						data-music-singer="${play.musicSinger}">${play.musicTitle}-
-						${play.musicSinger}</div>
+						${play.musicSinger}<span class="delete-btn">❌</span>
+					</div>
 				</c:forEach>
 			</div>
 		</div>

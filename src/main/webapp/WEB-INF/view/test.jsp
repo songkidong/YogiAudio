@@ -9,11 +9,12 @@
 
 	<h2>Now Playing: Song Title</h2>
 
-	<button onclick="sendDataToChild()">Add to Playlist</button>
+	<button onclick="sendDataToChild('add')">Add to Playlist</button>
+	<button onclick="sendDataToChild('play')">playMusic</button>
 	<button onclick="playMusic()">Play Music</button>
 
 	<script>
-		var playerWindow; // 변수를 전역으로 선언하여 창의 상태를 유지합니다.
+		var playerWindow;
 		function playMusic() {
 			// 이미 열려 있는 musicPlayer.jsp 창이 있는지 확인
 			if (!playerWindow || playerWindow.closed) {
@@ -25,13 +26,13 @@
 				playerWindow.focus();
 			}
 		}
-		function sendDataToChild() {
+		function sendDataToChild(type) {
 			if (playerWindow && !playerWindow.closed) {
 				console.log("최장호");
 				const dataToSend = {
-					musicNo : 1,
-					userId : 1,
-					playlistName : "플레이어",
+					musicNo : 2,
+					type : type
+					// playlistName : "플레이리스트 이름 들어갈 예정",
 				};
 				playerWindow.postMessage(dataToSend, '*'); // 데이터를 자식 창으로 전달
 			} else {
@@ -42,8 +43,7 @@
 				setTimeout(function() {
 					const dataToSend = {
 						musicNo : 1,
-						userId : 1,
-						playlistName : "플레이어",
+						type : type
 					};
 					playerWindow.postMessage(dataToSend, '*'); // 데이터를 자식 창으로 전달
 				}, 100); // 1초 후에 호출하도록 설정 (필요에 따라 시간 조정 가능)

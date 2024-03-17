@@ -8,11 +8,12 @@ import lombok.Data;
   * @Date : 2024. 3. 15. 
   * @작성자 : 최장호
   * @변경이력 :
-  * @프로그램 설명 : 플레이리스트 추가 DTO
+  * @프로그램 설명 : 플레이리스트 삭제 DTO
   */
 @Data
-public class PlayListAddDTO {
-	private String playlistName;
+public class PlayListDelteDTO {
 	private long userId;
+	private String playlistName;
+	private int orderIndex;
 	private long musicNo;
 }
