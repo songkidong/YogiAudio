@@ -84,35 +84,10 @@
   </head>
   <body>
     <section>
-      <% if (isSuccess) { %>
-      <h1>취소 성공</h1>
-      <p>결과 데이터 : <%= jsonObject.toJSONString() %></p>
-      <p>orderName : <%= jsonObject.get("orderName") %></p>
-      <p>method : <%= jsonObject.get("method") %></p>
-      <p>cancels -> cancelReason : <% JSONArray cancels = ((JSONArray)jsonObject.get("cancels")); JSONObject cancel = (JSONObject) cancels.iterator().next(); %> <%=cancel.get("cancelReason") %></p>
-	
-	   <script>
+     	<script>
 	        alert("취소성공 환불이 완료되었습니다!");
 	        window.location.href = "/purchase/main"; // 취소 성공 후 /purchase/main 페이지로 이동
     	</script>
-	
-	
-	
-	
-      <%} else { %>
-      <h1>취소 실패</h1>
-      <p><%= jsonObject.get("message") %></p>
-      <span>에러코드: <%= jsonObject.get("code") %></span>
-      
-      
-        <script>
-       	  alert("취소 실패: <%= jsonObject.get("message") %>");
-	      window.location.href = "/purchase/main"; // 취소 성공 후 /purchase/main 페이지로 이동
-    	</script>
-      
-      
-      
-      <% } %>
     </section>
   </body>
 </html>
