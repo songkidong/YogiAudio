@@ -3,7 +3,7 @@ body {
   background: white;
 }
 
-.sign--in--container {
+.sign--up--container {
   display: block;
   max-width: 680px;
   width: 80%;
@@ -183,4 +183,15 @@ form .signin__btn:hover {
   color: #005f6b; /* 마우스를 올렸을 때의 버튼 색상을 변경합니다. */
 }
 
+.certification__button button {
+  font-size: 12px; /* 버튼의 폰트 크기를 조정합니다. */
+  color: #06BBCC; /* 버튼의 색상을 설정합니다. */
+  background: none; /* 버튼의 배경을 투명으로 설정합니다. */
+  border: none; /* 버튼의 테두리를 없앱니다. */
+  cursor: pointer; /* 마우스 커서를 포인터로 변경합니다. */
+}
+
+.certification__button button:hover {
+  color: #005f6b; /* 마우스를 올렸을 때의 버튼 색상을 변경합니다. */
+}
 

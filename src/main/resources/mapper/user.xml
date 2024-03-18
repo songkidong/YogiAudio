@@ -35,5 +35,9 @@
 	<select id="findById" resultType="com.project3.yogiaudio.repository.entity.User">
 		select * from user where id =#{id}
 	</select>
-
+	
+	<!-- 이름으로 유저 조회 -->
+	<select id="findByName" resultType="com.project3.yogiaudio.repository.entity.User">
+		select * from user where name =#{name}
+	</select>
 </mapper>
