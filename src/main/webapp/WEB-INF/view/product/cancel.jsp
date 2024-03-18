@@ -1,3 +1,4 @@
+<%@page import="com.project3.yogiaudio.dto.music.CancelDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.Base64"%>
 <%@ page import="java.util.Base64.Encoder"%>
@@ -12,13 +13,22 @@
 <%@ page import="java.io.InputStreamReader" %>
 <%@ page import="java.io.Reader" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
+<%@ page import="com.project3.yogiaudio.repository.interfaces.PurchaseRepository" %>
+<%@ page import="com.project3.yogiaudio.service.PurchaseService" %>
+
+
 
 <%
+ 
+	
 
-  String paymentKey = "1kZn04DxKBE92LAa5PVbw9x7owbm59r7YmpXyJjg6Owzoeqd";
-  String cancelReason = "고객 변심";
-  String method = "카드";
-  String orderName = "김진수";
+
+	 String paymentKey = request.getParameter("paymentKey");
+ 	 String cancelReason = "고객 변심";
+  	 String method = "카드";
+  	 String orderName = "김진수";
+  	 
+  	 
   //String bank = "신한";  
   
   
@@ -80,11 +90,28 @@
       <p>orderName : <%= jsonObject.get("orderName") %></p>
       <p>method : <%= jsonObject.get("method") %></p>
       <p>cancels -> cancelReason : <% JSONArray cancels = ((JSONArray)jsonObject.get("cancels")); JSONObject cancel = (JSONObject) cancels.iterator().next(); %> <%=cancel.get("cancelReason") %></p>
-
+	
+	   <script>
+	        alert("취소성공 환불이 완료되었습니다!");
+	        window.location.href = "/purchase/main"; // 취소 성공 후 /purchase/main 페이지로 이동
+    	</script>
+	
+	
+	
+	
       <%} else { %>
       <h1>취소 실패</h1>
       <p><%= jsonObject.get("message") %></p>
       <span>에러코드: <%= jsonObject.get("code") %></span>
+      
+      
+        <script>
+       	  alert("취소 실패: <%= jsonObject.get("message") %>");
+	      window.location.href = "/purchase/main"; // 취소 성공 후 /purchase/main 페이지로 이동
+    	</script>
+      
+      
+      
       <% } %>
     </section>
   </body>

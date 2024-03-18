@@ -27,6 +27,15 @@
 	</select>
 	
 	
+	<!-- 결제취소용출력문 -->
+	<select id="purchaseDetailCancel" resultType="com.project3.yogiaudio.dto.music.PurchaseDTO">
+		SELECT history.*, purchase.pno
+		FROM history
+		JOIN purchase ON history.pno = purchase.pno
+	</select>
+	
+	
+	
 	<!-- 결제 후 상태업데이트하기 (추후 이용권구매후 유저상태 -> Y 업뎃으로 바꿔야함!!) -->
 	<update id="statusUpdate">
 		update user set status= 'Y'

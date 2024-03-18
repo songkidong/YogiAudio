@@ -2,9 +2,7 @@ package com.project3.yogiaudio.controller.product;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,11 +11,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project3.yogiaudio.dto.common.Criteria;
 import com.project3.yogiaudio.dto.common.PageVO;
+import com.project3.yogiaudio.dto.music.CancelDTO;
 import com.project3.yogiaudio.dto.music.PurchaseDTO;
 import com.project3.yogiaudio.filedb.service.FiledbService;
 import com.project3.yogiaudio.service.PurchaseService;
 import com.project3.yogiaudio.util.Scheduler;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -64,6 +64,9 @@ public class PurchaseController {
 		PurchaseDTO result = purchaseService.purchaseDetail(pno);
 		model.addAttribute("detail", result);
 		
+		PurchaseDTO result2 = purchaseService.purchaseDetailCancel();
+		model.addAttribute("detailcancel", result2);
+		
 		log.debug("이용권구매상세보기출력");
 		return"product/purchasedetail";
 	}
@@ -85,11 +88,19 @@ public class PurchaseController {
 	}
 	
 	
+	
+	//결제취소컨트롤러
 	// http://localhost:80/purchase/cancel
 	@GetMapping("/cancel")
-	public String paymentCancelGET() {
+	public String paymentCancelGET(@RequestParam("paymentKey") String paymentKey, Model model) {
+		
+		model.addAttribute("paymentKey", paymentKey);
 		return "product/cancel";
 	}
+	
+	
+	
+	
 	
 	
 	

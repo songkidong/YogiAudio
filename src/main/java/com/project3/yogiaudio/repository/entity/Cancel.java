@@ -11,14 +11,12 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class History {
-	
-	private Integer hno;
-	private Integer id;
-	private String orderId;
-	private String paymentKey;
-	private String amount;
-	
+public class Cancel {
+
+	private Integer hcno;
+	private String orderName;
+	private String method;
+	private String cancelReason;
 	
 	
 }

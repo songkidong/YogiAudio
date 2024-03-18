@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project3.yogiaudio.repository.interfaces.PurchaseRepository">
+	
+	
+	<!-- hno 로 paymentKey 불러오기 -->
+	<select id ="paymentKeyByHno" resultType="com.project3.yogiaudio.dto.music.CancelDTO">
+		select paymentkey from history
+		where hno =#{hno}
+	</select>
+	
+	<!-- 결제취소db에 데이터저장하기 -->
+	<insert id ="cancelPayment">
+		insert into history_cancel(ordername,method,cancelreason)
+		values(#{orderName},#{method},#{cancelReason})
+	</insert>
+
+	
+
+
+</mapper>

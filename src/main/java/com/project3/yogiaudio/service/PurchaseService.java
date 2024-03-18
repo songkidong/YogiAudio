@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.project3.yogiaudio.dto.common.Criteria;
+import com.project3.yogiaudio.dto.music.CancelDTO;
 import com.project3.yogiaudio.dto.music.PurchaseDTO;
 import com.project3.yogiaudio.repository.interfaces.PurchaseRepository;
 
@@ -36,6 +37,12 @@ public class PurchaseService {
 		return purchaseRepository.purchaseDetail(pno);
 	}
 	
+	//결제취소용
+	public PurchaseDTO purchaseDetailCancel() {
+		return purchaseRepository.purchaseDetailCancel();
+	}
+	
+	
 	
 	//상태변경하기
 	@Transactional
@@ -55,6 +62,22 @@ public class PurchaseService {
 	}
 
 	
+	//결제취소내역 DB업데이트하기
+	@Transactional
+	public Integer cancelPayment(CancelDTO dto) {
+		return purchaseRepository.cancelPayment(dto);
+		
+	}
+	
+	
+
+	//출력하기 Hno받아서
+	public CancelDTO paymentKeyByHno(CancelDTO dto) {
+		CancelDTO result = purchaseRepository.paymentKeyByHno(dto);
+		return result;
+	}
+
+
 	
 	
 	

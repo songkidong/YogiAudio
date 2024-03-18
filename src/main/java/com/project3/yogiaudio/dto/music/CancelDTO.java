@@ -11,13 +11,13 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PurchaseDTO {
-
-	private Integer id;
-	private Integer pno;
-	private String purchasename;
-	private String purchasedetail;
-	private Integer price;
+public class CancelDTO {
+	
+	private Integer hno;
+	private Integer hcno;
+	private String orderName;
+	private String method;
+	private String cancelReason;
 	private String paymentKey;
 	
 }
