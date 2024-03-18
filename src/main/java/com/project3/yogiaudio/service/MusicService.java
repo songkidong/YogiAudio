@@ -136,6 +136,12 @@ public class MusicService {
 		List<MusicDTO> result = musicRepository.newAboardMusicList();
 		return result;
 	}
+
+
+	public MusicDTO readByMusicno(int musicNo) {
+		MusicDTO result = musicRepository.findByMusicNo(musicNo);
+		return result;
+	}
 	
 	
 	

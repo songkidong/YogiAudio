@@ -136,7 +136,7 @@
 	</div>
 
 	<audio id="audio-player"
-		src="http://localhost/filedb/get-file/f67e0bba286b41bcafac4bd3625e5f4b"
+		src="http://localhost/filedb/get-file/8106ae72f9304203a5d02c2e95e1be3e"
 		controls></audio>
 
 	<script>
@@ -151,12 +151,15 @@
 
 	function highlightLyrics(currentTime) {
 	    const lyrics = lyricsContainer.querySelectorAll('p');
-	    let nextLyricIndex = currentLyricIndex + 1; // 다음 가사 인덱스 계산
+	    let currentLyricIndex = -1;
 
-	    // 다음 가사가 존재하고 해당 가사의 시간이 현재 재생 중인 시간보다 미래일 때까지 반복
-	    while (nextLyricIndex < lyrics.length && parseInt(lyrics[nextLyricIndex].getAttribute('time-id')) <= currentTime) {
-	        currentLyricIndex = nextLyricIndex; // 현재 가사 인덱스 업데이트
-	        nextLyricIndex++; // 다음 가사 인덱스 증가
+	    // 현재 재생 중인 가사를 찾습니다.
+	    for (let i = 0; i < lyrics.length; i++) {
+	        const lyricTime = parseInt(lyrics[i].getAttribute('time-id'));
+	        if (lyricTime > currentTime) {
+	            break; // 현재 재생 중인 가사를 찾으면 반복문을 종료합니다.
+	        }
+	        currentLyricIndex = i;
 	    }
 
 	    // 모든 가사에서 강조 스타일 제거
@@ -164,11 +167,15 @@
 	        lyric.classList.remove('highlight');
 	    });
 
-	    // 현재 가사 강조
+	    // 현재 재생 중인 가사만 강조
 	    if (currentLyricIndex !== -1) {
 	        lyrics[currentLyricIndex].classList.add('highlight');
 	    }
 	}
+    window.addEventListener('DOMContentLoaded',e=>console.log('DOM 요소 로드 완료 이벤트 발생!'));
+    window.addEventListener('load',e=>console.log('모든 요소 로드 완료 이벤트 발생!'));
+    window.addEventListener('beforeunload',e=>document.querySelector('.beforeunload').innerHTML = '브라우저 종료 전 이벤트 발생!');
+    window.addEventListener('unload',e=>document.querySelector('.unload').innerHTML = '브라우저 종료 이벤트 발생!');
 	</script>
 </body>
 </html>

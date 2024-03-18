@@ -116,8 +116,8 @@ public class PlayListController {
 			playlistAddRspDTO.setOrderIndex(resultPlaylist.getOrderIndex());
 		}
 		// 2. 추가된 노래 정보 반환
-//		MusicDTO musicDTO = musicService.readByMusicno((int) input.getMusicNo());
-//		playlistAddRspDTO.setFromMusicDTO(musicDTO);
+		MusicDTO musicDTO = musicService.readByMusicno((int) input.getMusicNo());
+		playlistAddRspDTO.setFromMusicDTO(musicDTO);
 		log.debug(playlistAddRspDTO.getPlaylistName());
 		
 		return playlistAddRspDTO;

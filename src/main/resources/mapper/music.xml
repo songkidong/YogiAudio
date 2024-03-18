@@ -134,7 +134,9 @@
 	</update>
 	
 	
-	
+	<select id="findByMusicNo" resultType="com.project3.yogiaudio.dto.music.MusicDTO">
+		select * from music where music_no = #{musicNo};
+	</select>
 	
 	
 	
