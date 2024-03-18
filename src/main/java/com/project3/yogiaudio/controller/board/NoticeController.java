@@ -94,11 +94,10 @@ public class NoticeController {
 	
 	 @GetMapping("/noticeView/{id}") 
 	 public String noticeView() {
+	  
+	  return "board/notice/noticeView"; }
 	 
-	 return "board/notice/noticeView"; 
-	 }
-	
-	
+	 
 	/**
 	  * @Method Name : noticeView
 	  * @작성일 : 2024. 3. 18.
@@ -106,9 +105,9 @@ public class NoticeController {
 	  * @변경이력 : 
 	  * @Method 설명 : 공지사항 상세보기 출력 
 	  */
-	@PostMapping("/noticeView")
+	@PostMapping("/noticeView/{id}")
 	@ResponseBody
-	public BoardNotice noticeView(@RequestBody int id) {
+	public BoardNotice noticeViewId(@PathVariable(value = "id") int id) {
 		System.out.println("아이디아이디 : " + id);
 		
 		BoardNotice boardNotice = noticeService.noticeView(id);
@@ -166,10 +165,32 @@ public class NoticeController {
 	 * @변경이력 :
 	 * @Method 설명 : 공지사항 수정하기 화면
 	 */
-	@GetMapping("/noticeUpdate")
+	@GetMapping("/noticeUpdate/{id}")
 	public String noticeUpdate() {
 		return "board/notice/noticeUpdate";
 	}
+	
+	
+	/**
+	  * @Method Name : noticeUpdate
+	  * @작성일 : 2024. 3. 18.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 공지사항 수정하기 출력
+	  */
+	@PostMapping("/noticeUpdate/{id}")
+	@ResponseBody
+	public boolean noticeUpdate(@PathVariable(value = "id") int id, NoticeDTO noticeDTO) {
+		
+		System.out.println("아이디 번호" + id);
+		System.out.println("데이터" + noticeDTO.toString());
+		System.out.println("files" + noticeDTO.toString());
+		
+		boolean result = noticeService.noticeUpdate(id, noticeDTO);
+		
+		return result;
+	}
+	
 	
 	/**
 	  * @Method Name : noticeDelete
@@ -180,7 +201,7 @@ public class NoticeController {
 	  */
 	@PostMapping("/noticeDelete/{id}")
 	@ResponseBody
-	public boolean noticeDelete(@PathVariable int id) {
+	public boolean noticeDelete(@PathVariable(value =  "id") int id) {
 		boolean result = noticeService.noticeDelete(id);
 		
 		return result;

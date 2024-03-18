@@ -87,7 +87,8 @@ public class NoticeService {
 		System.out.println("총갯수말해줘봐보바ㅗ바ㅗ바봐보바 :" + totalElements);
 
 		// 페이징 처리된 목록 조회
-		List<BoardNotice> NoticeList = noticeRepository.findAllByKeywordwithPasing(offset, size, searchType, searchInput);
+		List<BoardNotice> NoticeList = noticeRepository.findAllByKeywordwithPasing(offset, size, searchType,
+				searchInput);
 
 		// 페이징 결과 객체 생성
 		PageRes<BoardNotice> pageRes = new PageRes<>(NoticeList, page, totalElements, size);
@@ -97,29 +98,61 @@ public class NoticeService {
 	}
 
 	/**
-	  * @Method Name : noticeView
-	  * @작성일 : 2024. 3. 18.
-	  * @작성자 : 노수현
-	  * @변경이력 : 
-	  * @Method 설명 : 공지사항 상세보기
-	  */
+	 * @Method Name : noticeView
+	 * @작성일 : 2024. 3. 18.
+	 * @작성자 : 노수현
+	 * @변경이력 :
+	 * @Method 설명 : 공지사항 상세보기
+	 */
 	public BoardNotice noticeView(int id) {
-		
+
 		return noticeRepository.findAllById(id);
 	}
 
 	/**
-	  * @Method Name : noticeDelete
-	  * @작성일 : 2024. 3. 18.
-	  * @작성자 : 노수현
-	  * @변경이력 : 
-	  * @Method 설명 : 공지사항 삭제하기
-	  */
+	 * @Method Name : noticeDelete
+	 * @작성일 : 2024. 3. 18.
+	 * @작성자 : 노수현
+	 * @변경이력 :
+	 * @Method 설명 : 공지사항 삭제하기
+	 */
 	public boolean noticeDelete(int id) {
-		
+
 		int result = noticeRepository.noticeDelete(id);
-		
-		if(result == 1) {
+
+		if (result == 1) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * @Method Name : noticeUpdate
+	 * @작성일 : 2024. 3. 18.
+	 * @작성자 : 노수현
+	 * @변경이력 :
+	 * @Method 설명 : 공지사항 수정하기
+	 */
+	public boolean noticeUpdate(int id, NoticeDTO noticeDTO) {
+
+		// form에서 넘어온 파일이 빈값이면 제거
+		if (noticeDTO.getFiles() != null) {
+			for (int i = 0; i < noticeDTO.getFiles().size(); i++) {
+				if (noticeDTO.getFiles().get(i).isEmpty()) {
+					noticeDTO.getFiles().remove(i);
+				}
+			}
+		}
+
+		String filePath = filedbService.saveFiles(noticeDTO.getFiles());
+
+		BoardNotice boardNotice = BoardNotice.builder().title(noticeDTO.getTitle()).content(noticeDTO.getContent())
+				.filePath(filePath).id(id).build();
+
+		int result = noticeRepository.noticeUpdate(boardNotice);
+
+		if (result == 1) {
 			return true;
 		}
 

@@ -52,6 +52,10 @@
 		SELECT * FROM board_notice WHERE id = #{id};
 	</select>
 
+	<update id="noticeUpdate">
+		update board_notice set title = #{title}, content = #{content}, file_path = #{filePath} WHERE id = #{id};
+	</update>
+
 	<delete id="noticeDelete">
 		delete from board_notice WHERE id = #{id};
 	</delete>

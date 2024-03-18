@@ -28,7 +28,7 @@
 				<div class="mb-3" style="padding-bottom: 30px;">
 					<div class="file_input" style="display: inline-block;">
 						<label for="formFileMultiple" class="form-label">파일첨부: </label> <input
-							class="form-control" type="file" id="formFileMultiple" multiple
+							class="form-control" type="file" id="updated-file" multiple
 							name="filepath" onchange="selectFile(this);"
 							style="background-color: white;" />
 					</div>
@@ -90,8 +90,8 @@ function addFile() {
 
         fileDiv.innerHTML = `
         	<div class="file_input" style="display: inline-block; ">
-			<label for="formFileMultiple" class="form-label">File: </label> <input
-			class="form-control" type="file" id="formFileMultiple" multiple
+			<label for="formFileMultiple" class="form-label">파일첨부: </label> <input
+			class="form-control" type="file" id="updated-file" multiple
 			name="filepath" onchange="selectFile(this);" style="background-color: white;" />
 		</div>
         <button type="button" onclick="removeFile(this);" class="btn btn-danger"><span>삭제</span></button>
@@ -134,6 +134,7 @@ function removeFile(element) {
 			});
 </script>
 
+<script src="/js/board/notice.js"></script>
 <%@include file="/WEB-INF/view/layout/footer.jsp"%>
 
 

@@ -24,4 +24,7 @@ public interface NoticeRepository {
 
 	// 공지사항 삭제하기
 	public int noticeDelete(int id);
+
+	// 공지사항 수정하기
+	public int noticeUpdate(BoardNotice boardNotice);
 }
