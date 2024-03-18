@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		// 이미 열려 있는 musicPlayer.jsp 창이 있는지 확인
 		if (!playerWindow || playerWindow.closed) {
 			// 창이 없거나 닫혀 있으면 새로 열기
-			playerWindow = window.open('/musicPlayer', '_blank', 'width=1000,height=700');
+			playerWindow = window.open('/musicPlayer', 'musicPlayerWindow', 'width=1000,height=700');
 		} else {
 			// 이미 열려 있는 창이 있으면 해당 창을 활용
 			playerWindow.focus();
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			playerWindow.postMessage(dataToSend, '*'); // 데이터를 자식 창으로 전달
 		} else {
 			alert('자식 창이 아직 열리지 않았거나 이미 닫혔습니다. 자식 창을 다시 열었습니다.');
-			playerWindow = window.open('/musicPlayer', '_blank', 'width=1000,height=700');
+			playerWindow = window.open('/musicPlayer', 'musicPlayerWindow', 'width=1000,height=700');
 			// setTimeout을 사용하여 자식 창이 열린 후에 postMessage 호출
 			setTimeout(function() {
 				const dataToSend = {
