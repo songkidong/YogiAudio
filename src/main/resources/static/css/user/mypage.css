@@ -1,0 +1,136 @@
+@charset "UTF-8";
+*{
+    box-sizing: border-box;
+}
+body{
+    /*위아래 0 , 좌우 auto로 해두면 항상 가운데로 온다.*/
+    margin:0 auto;
+    color:#3f464d;
+    font-family: "Spoqa Han Sans Neo", "Sans-serif";
+}
+/* a 태그 초기화 */
+a{
+    all : unset;
+}
+a:link{
+    text-decoration: none;
+    color:#3f464d;
+}
+a:visited{
+    text-decoration: none;
+    color:#3f464d;
+}
+a:active{
+    text-decoration: none;
+    color:#3f464d;
+}
+a:hover{
+    text-decoration: none;
+    color:#3f464d;
+}
+
+.mypage-main-container{
+    margin: 0 auto;
+    max-width: 1000px; 
+}
+
+label{
+    font-size:0.85rem;
+    color: black;
+}
+.input-name{
+    margin: 0 3rem;
+}
+
+.input-name input[type=text]{
+    border : none;
+    pointer-events: none;
+}
+
+.input-name input[type=text]:focus{
+    border : none;
+}
+.input-name input[type=text]:hover{
+    border : none;
+}
+
+.input-name input[type=password]{
+    border : none;
+    pointer-events: none;
+}
+
+.input-name input[type=password]:focus{
+    border : none;
+}
+.input-name input[type=password]:hover{
+    border : none;
+}
+
+.input-name .input-key{
+    margin-top : 2.5rem;
+    border-bottom:1px #D9DBE1 solid;
+}
+.input-name {
+    border : 1px #D9DBE1 solid;
+    padding : 0 20px 30px 30px;
+}
+.head-name{
+    margin-left: 3rem;
+}
+.input-key label{
+    display: block;
+    margin-bottom: 0.1rem;
+    pointer-events: none;
+    color : #767676;
+}
+
+.head-private{
+    margin-top : 5rem;
+    margin-bottom: 1.5rem;
+}
+
+.head-adv{
+    margin-top : 5rem;
+    margin-bottom: 1.5rem;
+}
+.head-basic-info{
+    margin-top : 1.4rem;
+    margin-bottom: 0;
+}
+
+.adv-agree{
+    margin-top : 1.5rem;
+}
+
+input[type=checkbox]{
+    width: 17px;
+    height: 17px;
+}
+.adv-item{
+    margin-bottom: 1.5rem;
+}
+
+#private-agree{
+    color:#767777;
+}
+
+.button{
+    display: flex;
+    flex-direction: row-reverse;
+    padding-right: 3rem;
+    margin-top: 2rem;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 3rem;
+}
+.button .change{
+    width: 120px;
+    height: 44px;
+    background:#013066 ;
+    color : #fff;
+}
+.button .change:hover{
+    cursor: pointer;
+    border: 3px groove #fff;
+}
+

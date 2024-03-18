@@ -168,3 +168,19 @@ form .signin__btn:hover {
   margin: 0px 60px 0px 60px; /* 네이버 로그인 버튼 아래 여백 추가 */
 }
 
+.certification__button {
+  text-align: right; /* 버튼을 오른쪽으로 정렬합니다. */
+  margin-top: 10px; /* 버튼과 입력 폼 사이의 간격을 조정합니다. */
+}
+
+.certification__button a {
+  font-size: 12px; /* 버튼의 폰트 크기를 조정합니다. */
+  color: #06BBCC; /* 버튼의 색상을 설정합니다. */
+  text-decoration: none; /* 밑줄을 제거합니다. */
+}
+
+.certification__button a:hover {
+  color: #005f6b; /* 마우스를 올렸을 때의 버튼 색상을 변경합니다. */
+}
+
+

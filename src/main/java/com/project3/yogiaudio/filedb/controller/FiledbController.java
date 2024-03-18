@@ -1,5 +1,7 @@
 package com.project3.yogiaudio.filedb.controller;
 
+import java.net.URLEncoder;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -28,12 +30,17 @@ public class FiledbController {
     public ResponseEntity<byte[]> findByIdDownloading(@PathVariable(value="uuid") String uuid) {
         try {
             Filedb file = filedbService.findByUuid(uuid);
-
+            HttpHeaders headers = new HttpHeaders();
+            String encodedFileName = URLEncoder.encode(file.getOriginalFileName(), "UTF-8").replaceAll("\\+", "%20");
+            // header 추가 240317 - audio태그 currentTime 적용 위한 헤더 추가
+            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + encodedFileName + "\"");
+            headers.add("Accept-Ranges", "bytes");
             return ResponseEntity.ok()
 //           Todo : header() : 헤더 (1)첨부파일로 전송한다고 표시, (2) 첨부파일명 표시
 //                  HttpHeaders.CONTENT_DISPOSITION : 첨부파일 표시
 //                  "attachment; filename=\"" + projectImages.getFileName() + "\"" : 첨부파일명 표시
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getOriginalFileName() + "\"")
+                    // header 추가 240317
+                    .headers(headers)
 //           TODO : body() : 바디 - 실제 이미지 전송(리액트)
                     .body(file.getFileData());    // 첨부파일
         } catch (Exception e) {

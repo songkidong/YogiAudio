@@ -11,8 +11,50 @@
 	transition: opacity 1s ease-in-out;
 
 }
+.modalmv{
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
 
+
+#mvmodal{
+  background-color: #fefefe;
+  margin: 0 auto; /* 가운데 정렬 */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 850px; /* 자동으로 YouTube 동영상의 크기에 맞추기 */
+  height: 500px;
+  position: absolute; /* 절대 위치 설정 */
+  top: 30%; /* 화면의 상단에서 절반의 위치에 배치 */
+  left: 50%; /* 화면의 왼쪽에서 절반의 위치에 배치 */
+  transform: translate(-50%, -50%); /* 수직 및 수평 가운데 정렬 */
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
 </style>
+
+
+
 
 
 	
@@ -30,6 +72,8 @@
 						<li><a href="/product/aboard-music">국외</a></li>
 						<li><a href="#">최신음악</a></li>
 						<li><a href="#">인기음악</a></li>
+						<li><a href="/mv/list">뮤비</a></li>
+						<li><a href="#">게시판</a></li>
 						<li><a href="#">뮤비</a></li>
 					</ul>
 					<!-- /NAV -->
@@ -45,57 +89,29 @@
 			<!-- container -->
 			<div class="container">
 					<h3 class="title">💘에디터 추천MV</h3>
-				
 				<!-- row -->
 				<div class="row">
-				
+				 
+				 
+				 <c:forEach var="mvlist" items="${mvlist}">
 					<!-- shop -->
 					<div class="col-md-4 col-xs-6">
 						<div class="shop">
-						  <a href="https://www.youtube.com/watch?v=kHW-UVXOcLU/">
+						  <a href="javascript:void(0)"  onclick="openModal('${mvlist.mvfile}/')" class="cta-btn">
 							<div class="shop-img">
 								<img src="/main/img/IU1.jpg" style="width:360px; height: 240px;">
 							</div>
 						  </a>	
 							<div class="shop-body">
-								<h3>아이유<br>Shoppers</h3>
-								<a href="https://www.youtube.com/watch?v=kHW-UVXOcLU/" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
+								<h3>${mvlist.videosinger}<br>${mvlist.videotitle}</h3>
+								<a href="javascript:void(0)"  onclick="openModal('${mvlist.mvfile}/')" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
 							</div>
 						</div>
 					</div>
 					<!-- /shop -->
-
-					<!-- shop -->
-					<div class="col-md-4 col-xs-6">
-						<div class="shop">
-						  <a href="https://www.youtube.com/watch?v=gdZLi9oWNZg/">
-							<div class="shop-img">
-								<img src="/main/img/bts1.jpg" style="width:360px; height: 240px;">
-							</div>
-						  </a>	
-							<div class="shop-body">
-								<h3>BTS(방탄소년단)<br>Dynamite</h3>
-								<a href="https://www.youtube.com/watch?v=gdZLi9oWNZg/" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
-							</div>
-						</div>
-					</div>
-					<!-- /shop -->
-
-					<!-- shop -->
-					<div class="col-md-4 col-xs-6">
-						<div class="shop">
-						  <a href="https://www.youtube.com/watch?v=smdmEhkIRVc/"">
-							<div class="shop-img">
-								<img src="/main/img/bibi1.jpg" style="width:360px; height: 240px;">
-							</div>
-						   </a>	
-							<div class="shop-body">
-								<h3>비비<br>밤양갱</h3>
-								<a href="https://www.youtube.com/watch?v=smdmEhkIRVc/" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
-							</div>
-						</div>
-					</div>
-					<!-- /shop -->
+				</c:forEach>
+				
+					
 				</div>
 				<!-- /row -->
 			</div>
@@ -131,155 +147,92 @@
 								<!-- tab -->
 								<div id="tab1" class="tab-pane active">
 									<div class="products-slick" data-nav="#slick-nav-1">
-										<!-- product -->
+									
+									
+									   <!-- product -->
+									  <c:forEach var="dnewlist" items="${dnewlist}">
 										<div class="product">
 											<div class="product-img">
-												<img src="/main/img/new1.jpg" alt="">
+												<c:choose>
+												    <c:when test="${not empty dnewlist.filepath}">
+												      <img src=" ${dnewlist.filepath}">
+												    </c:when>
+												  <c:otherwise>
+													  <img src="/album/default.png" >
+												  </c:otherwise>
+												 </c:choose>
 												<div class="product-label">
-													<span class="sale">-30%</span>
-													<span class="new">NEW</span>
 												</div>
 											</div>
 											<div class="product-body">
-												<p class="product-category">Category</p>
-												<h3 class="product-name"><a href="#">product name goes here</a></h3>
-												<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-												<div class="product-rating">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-												</div>
-												<div class="product-btns">
-													<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-													<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-													<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-												</div>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+												<p class="product-category">${dnewlist.musicminor}</p>
+												<h3 class="product-name">
+													<a href="/product/domestic-detail?musicno=${dnewlist.musicno}&musicmajor=${dnewlist.musicmajor}&id=${principal.id}">
+														${dnewlist.musictitle}
+													</a>
+												</h3>
+												<h4 class="product-price">${dnewlist.musiccompany}</h4>
 											</div>
 										</div>
+										</c:forEach> 
 										<!-- /product -->
 
-										<!-- product -->
-										<div class="product">
-											<div class="product-img">
-												<img src="/main/img/new2.jpg" alt="">
-												<div class="product-label">
-													<span class="new">NEW</span>
-												</div>
-											</div>
-											<div class="product-body">
-												<p class="product-category">Category</p>
-												<h3 class="product-name"><a href="#">product name goes here</a></h3>
-												<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-												<div class="product-rating">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star-o"></i>
-												</div>
-												<div class="product-btns">
-													<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-													<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-													<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-												</div>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-											</div>
-										</div>
-										<!-- /product -->
-
-										<!-- product -->
-										<div class="product">
-											<div class="product-img">
-												<img src="/main/img/new3.jpg">
-												<div class="product-label">
-													<span class="sale">-30%</span>
-												</div>
-											</div>
-											<div class="product-body">
-												<p class="product-category">Category</p>
-												<h3 class="product-name"><a href="#">product name goes here</a></h3>
-												<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-												<div class="product-rating">
-												</div>
-												<div class="product-btns">
-													<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-													<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-													<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-												</div>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-											</div>
-										</div>
-										<!-- /product -->
-
-										<!-- product -->
-										<div class="product">
-											<div class="product-img">
-												<img src="/main/img/new4.jpg" alt="">
-											</div>
-											<div class="product-body">
-												<p class="product-category">Category</p>
-												<h3 class="product-name"><a href="#">product name goes here</a></h3>
-												<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-												<div class="product-rating">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-												</div>
-												<div class="product-btns">
-													<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-													<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-													<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-												</div>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-											</div>
-										</div>
-										<!-- /product -->
-
-										<!-- product -->
-										<div class="product">
-											<div class="product-img">
-												<img src="/main/img/new5.jpg" alt="">
-											</div>
-											<div class="product-body">
-												<p class="product-category">Category</p>
-												<h3 class="product-name"><a href="#">product name goes here</a></h3>
-												<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-												<div class="product-rating">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-												</div>
-												<div class="product-btns">
-													<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-													<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-													<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-												</div>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-											</div>
-										</div>
-										<!-- /product -->
+										
 												
 									</div>
 									<div id="slick-nav-1" class="products-slick-nav"></div>
 								</div>
 								<!-- /tab -->
+								
+								
+				  <!-- tab -->
+					<div id="tab2" class="tab-pane">
+					    <div class="products-slick" data-nav="#slick-nav-2">
+					        <c:forEach var="anewlist" items="${anewlist}">
+					            <div class="product">
+					                <div class="product-img">
+					                   <c:choose>
+										<c:when test="${not empty anewlist.filepath}">
+											<img src=" ${anewlist.filepath}">
+										</c:when>
+										  <c:otherwise>
+											<img src="/album/default.png" >
+										  </c:otherwise>
+										</c:choose>
+					                    <div class="product-label">
+					                    </div>
+					                </div>
+					                <div class="product-body">
+					                    <p class="product-category">${anewlist.musicminor}</p>
+					                    <h3 class="product-name">
+										<a href="/product/domestic-detail?musicno=${anewlist.musicno}&musicmajor=${anewlist.musicmajor}&id=${principal.id}">
+					                            ${anewlist.musictitle}
+					                        </a>
+					                    </h3>
+					                    <h4 class="product-price">${anewlist.musiccompany}</h4>
+					                </div>
+					            </div>
+					        </c:forEach>
+					    </div>
+					    <div id="slick-nav-2" class="products-slick-nav"></div>
+					</div>
+					<!-- /tab -->
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
 								
 							</div>
 						</div>
@@ -314,8 +267,8 @@
 							<h3 class="title">👍인기곡</h3>
 							<div class="section-nav">
 								<ul class="section-tab-nav tab-nav">
-									<li class="active"><a data-toggle="tab" href="#tab2">국내</a></li>
-									<li><a data-toggle="tab" href="#tab2">국외</a></li>
+									<li class="active"><a data-toggle="tab" href="#tab3">국내</a></li>
+									<li><a data-toggle="tab" href="#tab4">국외</a></li>
 								</ul>
 							</div>
 						</div>
@@ -327,154 +280,40 @@
 						<div class="row">
 							<div class="products-tabs">
 								<!-- tab -->
-								<div id="tab2" class="tab-pane fade in active">
-									<div class="products-slick" data-nav="#slick-nav-2">
+								<div id="tab3" class="tab-pane fade in active">
+									<div class="products-slick" data-nav="#slick-nav-3">
+									
 										<!-- product -->
+									 <c:forEach var="dlikelist" items="${dlikelist}">
 										<div class="product">
 											<div class="product-img">
-												<img src="/main/img/new2.jpg" alt="">
+												<c:choose>
+												    <c:when test="${not empty dlikelist.filepath}">
+												      <img src=" ${dlikelist.filepath}">
+												    </c:when>
+												  <c:otherwise>
+													  <img src="/album/default.png" >
+												  </c:otherwise>
+												 </c:choose>
 												<div class="product-label">
-													<span class="sale">-30%</span>
-													<span class="new">NEW</span>
 												</div>
 											</div>
 											<div class="product-body">
-												<p class="product-category">Category</p>
-												<h3 class="product-name"><a href="#">product name goes here</a></h3>
-												<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-												<div class="product-rating">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-												</div>
-												<div class="product-btns">
-													<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-													<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-													<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-												</div>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-											</div>
-										</div>
+												<p class="product-category">${dlikelist.musicminor}</p>
+												<h3 class="product-name">
+													<a href="/product/domestic-detail?musicno=${dlikelist.musicno}&musicmajor=${dlikelist.musicmajor}&id=${principal.id}">
+													  ${dlikelist.musictitle}
+													</a>
+												</h3>
+												<h4 class="product-price">${dlikelist.musiccompany}</h4>
+										   </div>
+										  </div>
+										 </c:forEach>
 										<!-- /product -->
 
-										<!-- product -->
-										<div class="product">
-											<div class="product-img">
-												<img src="/main/img/bibi1.jpg" alt="">
-												<div class="product-label">
-													<span class="new">NEW</span>
-												</div>
-											</div>
-											<div class="product-body">
-												<p class="product-category">Category</p>
-												<h3 class="product-name"><a href="#">product name goes here</a></h3>
-												<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-												<div class="product-rating">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star-o"></i>
-												</div>
-												<div class="product-btns">
-													<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-													<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-													<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-												</div>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-											</div>
-										</div>
-										<!-- /product -->
-
-										<!-- product -->
-										<div class="product">
-											<div class="product-img">
-												<img src="/main/img/new1.jpg" alt="">
-												<div class="product-label">
-													<span class="sale">-30%</span>
-												</div>
-											</div>
-											<div class="product-body">
-												<p class="product-category">Category</p>
-												<h3 class="product-name"><a href="#">product name goes here</a></h3>
-												<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-												<div class="product-rating">
-												</div>
-												<div class="product-btns">
-													<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-													<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-													<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-												</div>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-											</div>
-										</div>
-										<!-- /product -->
-
-										<!-- product -->
-										<div class="product">
-											<div class="product-img">
-												<img src="/main/img/new4.jpg" alt="">
-											</div>
-											<div class="product-body">
-												<p class="product-category">Category</p>
-												<h3 class="product-name"><a href="#">product name goes here</a></h3>
-												<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-												<div class="product-rating">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-												</div>
-												<div class="product-btns">
-													<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-													<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-													<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-												</div>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-											</div>
-										</div>
-										<!-- /product -->
-
-										<!-- product -->
-										<div class="product">
-											<div class="product-img">
-												<img src="/main/img/new6.jpg" alt="">
-											</div>
-											<div class="product-body">
-												<p class="product-category">Category</p>
-												<h3 class="product-name"><a href="#">product name goes here</a></h3>
-												<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-												<div class="product-rating">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-												</div>
-												<div class="product-btns">
-													<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-													<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-													<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-												</div>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-											</div>
-										</div>
-										<!-- /product -->
+										
 									</div>
-									<div id="slick-nav-2" class="products-slick-nav"></div>
+									<div id="slick-nav-3" class="products-slick-nav"></div>
 								</div>
 								<!-- /tab -->
 							</div>
@@ -498,92 +337,84 @@
 						<div class="section-title">
 							<h4 class="title">국내인기순위</h4>
 							<div class="section-nav">
-								<div id="slick-nav-3" class="products-slick-nav"></div>
+								<div id="slick-nav-5" class="products-slick-nav"></div>
 							</div>
 						</div>
 
-						<div class="products-widget-slick" data-nav="#slick-nav-3">
+						<div class="products-widget-slick" data-nav="#slick-nav-5">
+						
 							<div>
-								<!-- product widget -->
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="/main/img/new1.jpg" >
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-									</div>
-								</div>
-								<!-- /product widget -->
 
 								<!-- product widget -->
+							<c:forEach var="dlikelist" items="${dlikelist}" begin="0" end="2">
 								<div class="product-widget">
 									<div class="product-img">
-										<img src="/main/img/new2.jpg" >
+										<c:choose>
+											<c:when test="${not empty dlikelist.filepath}">
+												  <img src=" ${dlikelist.filepath}">
+										    </c:when>
+										    <c:otherwise>
+												   <img src="/album/default.png" >
+											</c:otherwise>
+										 </c:choose>
 									</div>
 									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+										<p class="product-category">${dlikelist.musicminor}</p>
+										<h3 class="product-name">
+											<a href="/product/domestic-detail?musicno=${dlikelist.musicno}&musicmajor=${dlikelist.musicmajor}&id=${principal.id}">
+												${dlikelist.musictitle}
+											</a>
+										</h3>
+										<h4 class="product-price">${dlikelist.musiccompany}</h4>
 									</div>
 								</div>
-								<!-- /product widget -->
-
+							  </c:forEach>	
 								<!-- product widget -->
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="/main/img/new3.jpg" >
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-									</div>
-								</div>
-								<!-- product widget -->
+								
+								
+								
 							</div>
 
+
+
 							<div>
+								
+								
+								
 								<!-- product widget -->
+							<c:forEach var="dlikelist" items="${dlikelist}" begin="3" end="5">
 								<div class="product-widget">
 									<div class="product-img">
-										<img src="/main/img/new3.jpg" >
+										<c:choose>
+											<c:when test="${not empty dlikelist.filepath}">
+												  <img src=" ${dlikelist.filepath}">
+										    </c:when>
+										    <c:otherwise>
+												   <img src="/album/default.png" >
+											</c:otherwise>
+										 </c:choose>
 									</div>
 									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+										<p class="product-category">${dlikelist.musicminor}</p>
+										<h3 class="product-name">
+											<a href="/product/domestic-detail?musicno=${dlikelist.musicno}&musicmajor=${dlikelist.musicmajor}&id=${principal.id}">
+											   ${dlikelist.musictitle}
+											</a>
+										</h3>
+										<h4 class="product-price">${dlikelist.musiccompany}</h4>
 									</div>
 								</div>
-								<!-- /product widget -->
-
+							</c:forEach>
 								<!-- product widget -->
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="/main/img/new3.jpg" >
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-									</div>
-								</div>
-								<!-- /product widget -->
-
-								<!-- product widget -->
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="/main/img/new3.jpg" >
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-									</div>
-								</div>
-								<!-- product widget -->
+								
+								
+								
+								
 							</div>
+							
+							
+							
+							
 						</div>
 					</div>
 
@@ -591,11 +422,11 @@
 						<div class="section-title">
 							<h4 class="title">국외인기순위</h4>
 							<div class="section-nav">
-								<div id="slick-nav-4" class="products-slick-nav"></div>
+								<div id="slick-nav-6" class="products-slick-nav"></div>
 							</div>
 						</div>
 
-						<div class="products-widget-slick" data-nav="#slick-nav-4">
+						<div class="products-widget-slick" data-nav="#slick-nav-6">
 							<div>
 								<!-- product widget -->
 								<div class="product-widget">
@@ -686,11 +517,11 @@
 						<div class="section-title">
 							<h4 class="title">종합인기순위</h4>
 							<div class="section-nav">
-								<div id="slick-nav-5" class="products-slick-nav"></div>
+								<div id="slick-nav-7" class="products-slick-nav"></div>
 							</div>
 						</div>
 
-						<div class="products-widget-slick" data-nav="#slick-nav-5">
+						<div class="products-widget-slick" data-nav="#slick-nav-7">
 							<div>
 								<!-- product widget -->
 								<div class="product-widget">
@@ -812,6 +643,46 @@
 	      }
 	</script>		
 		
+
+
+	<!-- 추가한 모달 창 -->
+	<div id="myModal" class="modalmv">
+	  <div class="modal-content"  id="mvmodal">
+	    <span class="close">&times;</span>
+	    <iframe id="videoFrame" width="800" height="400" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	  </div>
+	</div>
+
+		
+	<!-- 뮤비열기 JS -->
+	<script>
+		// 모달 창 열기
+		function openModal(videoUrl) {
+		  var modal = document.getElementById("myModal");
+		  var videoFrame = document.getElementById("videoFrame");
+		  
+		  // 모달 창 안에 YouTube 동영상 URL 설정
+		  videoFrame.src = videoUrl;
+		  
+		  // 모달 창 열기
+		  modal.style.display = "block";
+		}
+		
+		// 모달 창 닫기
+		document.getElementsByClassName("close")[0].addEventListener("click", function() {
+		  document.getElementById("myModal").style.display = "none";
+		});
+		
+		// 모달 외부 클릭 시 닫기
+		window.addEventListener("click", function(event) {
+		  if (event.target == document.getElementById("myModal")) {
+		    document.getElementById("myModal").style.display = "none";
+		  }
+		});
+  </script>
+
+
+
 		
 		
 <%@include file="/WEB-INF/view/layout/footer.jsp" %>    

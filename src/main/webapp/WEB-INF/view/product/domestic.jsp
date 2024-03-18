@@ -6,13 +6,45 @@
 <title>국내음악리스트</title>
 
 
+<style>
+  .section-tab-select {
+    width: 150px; /* 원하는 너비로 설정하세요 */
+  }
+</style>
+
 
 	   <!-- SECTION -->
 		<div class="section" style="margin-left: 200px;">
 			<!-- container -->
 			<div class="container">
-					<h3 class="title">🌏국내음악</h3>
-				
+			
+			
+			  
+					 <div style="display: flex; align-items: center; margin-bottom: 20px;">
+			            <h3 class="title" style="margin-right: 20px;">🌏국내음악</h3>
+			            
+			            <div class="section-nav">
+						    <ul class="section-tab-nav tab-nav">
+						        <li id="allOption"><a href="/product/domestic-music">전체</a></li>
+						        <li id="balladOption"><a href="/product/domestic-search?searchOption=발라드">발라드</a></li>
+						        <li id="trotOption"><a href="/product/domestic-search?searchOption=트로트">트로트</a></li>
+						        <li id="hiphopOption"><a href="/product/domestic-search?searchOption=힙합">힙합</a></li>
+						    </ul>
+						</div>
+			          
+			          
+			        </div>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
 				<!-- row -->
 				<div class="row">
 					<!-- STORE -->
@@ -20,9 +52,8 @@
 						<!-- store products -->
 						 <div class="row">
 						 
-						 
-						 
-							<!-- product -->
+					   <!-- product -->
+						
 						  <c:forEach var="domesticlist" items="${domesticlist}">
 							 <div class="col-md-4 col-xs-6">
 								<div class="product">
@@ -42,35 +73,39 @@
 										<p class="product-category">${domesticlist.musicno}</p>
 										<p class="product-category">${domesticlist.musicmajor}</p>
 										<h3 class="product-name">
-											<a href="/product/domestic-detail?musicno=${domesticlist.musicno}&musicmajor=${domesticlist.musicmajor}">
+											<a href="/product/domestic-detail?musicno=${domesticlist.musicno}&musicmajor=${domesticlist.musicmajor}&id=${principal.id}">
 												${domesticlist.musictitle}
 											</a>
 										</h3>
-										<h4 class="product-price">${domesticlist.musicprice}<del class="product-old-price"></del></h4>
+										<h4 class="product-price">${domesticlist.musiccompany}<del class="product-old-price"></del></h4>
 										
-										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-											<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-										</div>
 									</div>
-									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-									</div>
+								
 								</div>
 							</div>
 						 </c:forEach>
-							<!-- /product -->
+						
+							<!-- /product -->						
 
 
-
-							
-						</div>
+					</div>
 						<!-- /store products -->
 
 						<!-- store bottom filter -->
 						<div class="store-filter clearfix">
 							<ul class="store-pagination">
+							
+							
+							
+						    <c:if test="${pageVO.prev }">
+								<li class="page-item">
+								  <a class="page-link" href="/product/domestic-music?page=${pageVO.startPage - 1 }" aria-label="Previous">
+								  	<i class="fa fa-angle-left"></i> 
+								  </a>
+								</li>
+							</c:if>
+							
+							
 							
 								<c:forEach var="i" begin="${pageVO.startPage }" end="${pageVO.endPage }" step="1">
 									<li class="page-item ${isActive ? 'active' : ''}">
@@ -79,6 +114,8 @@
 										</a>
 									</li>
 								</c:forEach>			
+								
+								
 								
 							<c:if test="${pageVO.next}">	
 								<li class="page-item">

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.project3.yogiaudio.repository.interfaces.PurchaseRepository">
+
+
+	<!-- 이용권명단들고오기 -->
+	<select id="purchaseListAll" resultType="com.project3.yogiaudio.dto.music.PurchaseDTO">
+		select * from purchase
+		limit #{startPage},#{pageSize}
+	</select>
+
+	
+	<!-- 갯수세기 -->
+	<select id ="countPurchaseList" resultType="int">
+		<![CDATA[ select count(*) from purchase where pno > 0]]>
+	</select>
+	
+	
+	
+	<!-- 상세보기 -->
+	<select id="purchaseDetail" resultType="com.project3.yogiaudio.dto.music.PurchaseDTO">
+		select * from purchase
+		where pno =#{pno}
+	</select>
+	
+	
+	<!-- 결제 후 상태업데이트하기 (추후 이용권구매후 유저상태 -> Y 업뎃으로 바꿔야함!!) -->
+	<update id="statusUpdate">
+		update user set status= 'Y'
+		where id=#{id}
+	</update>
+	
+
+
+	
+
+</mapper>
