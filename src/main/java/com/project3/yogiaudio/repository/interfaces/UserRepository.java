@@ -10,6 +10,9 @@ public interface UserRepository {
 
 	// 회원 가입
 	public int insert(User user);
+	
+	// 회원 수정
+	public int updateById(User user);
 
 	// 이메일 조회
 	public User findByEmail(String email);

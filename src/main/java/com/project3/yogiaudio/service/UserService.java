@@ -34,7 +34,6 @@ public class UserService {
 
 	@Transactional
 	public User createUser(SignUpFormDTO dto) {
-		log.info("createUser 메서드 호출됨");
 		validateSignUpForm(dto);
 		checkExistingUser(dto.getEmail());
 		User newUser = buildUserEntity(dto);
@@ -43,6 +42,13 @@ public class UserService {
 		return newUser;
 	}
 
+	/**
+	  * @Method Name : validateSignUpForm
+	  * @작성일 : 2024. 3. 18.
+	  * @작성자 : 송기동
+	  * @변경이력 : 
+	  * @Method 설명 : 회원가입 유효성 검사
+	  */
 	private void validateSignUpForm(SignUpFormDTO dto) {
 		if (isEmpty(dto.getName()) || isEmpty(dto.getNickname()) || isEmpty(dto.getEmail())
 				|| isEmpty(dto.getPassword())) {

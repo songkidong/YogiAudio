@@ -42,35 +42,62 @@ public class UserController {
 	@Autowired
 	private HttpSession httpsession;
 
+	/**
+	  * @Method Name : signUpPage
+	  * @작성일 : 2024. 3. 18.
+	  * @작성자 : 송기동
+	  * @변경이력 : 
+	  * @Method 설명 : 회원가입 페이지 요청
+	  */
 	@GetMapping("/signUp")
 	public String signUpPage() {
 		return "user/signUp";
 	}
 
+	/**
+	  * @Method Name : signInPage
+	  * @작성일 : 2024. 3. 18.
+	  * @작성자 : 송기동
+	  * @변경이력 : 
+	  * @Method 설명 : 로그인 페이지 요청
+	  */
 	@GetMapping("/signIn")
 	public String signInPage() {
 		return "user/signIn";
 	}
 	
+	/**
+	  * @Method Name : consentPage
+	  * @작성일 : 2024. 3. 18.
+	  * @작성자 : 송기동
+	  * @변경이력 : 
+	  * @Method 설명 : 약관동의 페이지 요청
+	  */
 	@GetMapping("/consent")
 	public String consentPage() {
 		return "user/consent";
 	}
 
+	/**
+	  * @Method Name : signUp
+	  * @작성일 : 2024. 3. 18.
+	  * @작성자 : 송기동
+	  * @변경이력 : 
+	  * @Method 설명 : 회원가입 요청
+	  */
 	@PostMapping("/signUp")
 	public String signUp(SignUpFormDTO dto) {
-		if (!isValidSignUpForm(dto)) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "모든 필드를 입력하세요");
-		}
 		userService.createUser(dto);
 		return "redirect:/signIn";
 	}
 
-	private boolean isValidSignUpForm(SignUpFormDTO dto) {
-		return dto.getName() != null && dto.getNickname() != null && dto.getEmail() != null
-				&& dto.getPassword() != null;
-	}
-
+	/**
+	  * @Method Name : signIn
+	  * @작성일 : 2024. 3. 18.
+	  * @작성자 : 송기동
+	  * @변경이력 : 
+	  * @Method 설명 : 로그인 요청
+	  */
 	@PostMapping("/signIn")
 	public String signIn(SignUpFormDTO dto) {
 		User userEntity = userService.signIn(dto);
@@ -80,6 +107,13 @@ public class UserController {
 		return "redirect:/product/main";
 	}
 
+	/**
+	  * @Method Name : logout
+	  * @작성일 : 2024. 3. 18.
+	  * @작성자 : 송기동
+	  * @변경이력 : 
+	  * @Method 설명 : 로그아웃 기능
+	  */
 	@GetMapping("/logout")
 	public String logout() {
 		httpsession.invalidate();
@@ -91,7 +125,7 @@ public class UserController {
 		
 		User userEntity = userService.findUserById(id);
 		model.addAttribute("user", userEntity);
-		return "redirect:/mypage";
+		return "/user/mypage";
 	}
 
 	@Autowired
