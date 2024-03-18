@@ -48,12 +48,16 @@
 			</thead>
 			<tbody class="text-center">
 				<c:forEach var="list" items="${noticeList}">
-					<tr>
+					<tr class="page-click" id="${list.id}">
 						<td>${list.id}</td>
-						<td>${list.title}</td>
-						<td>${list.writerId}</td>
+						<td class="text-left">
+							<div class="panel-board-container">
+								<p class="panel-board-title">${list.title}</p>
+							</div>
+						</td>
+						<td><span class="mask-writer">${list.writerId}</span></td>
 						<td>${list.filePath}</td>
-						<td>${list.createdAt}</td>
+						<td>${list.createdAt}</td><!--날짜포맷-->
 					</tr>
 				</c:forEach>
 		</table>

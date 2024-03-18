@@ -112,10 +112,6 @@ nav {
 	align-items: center;
 }
 
-.pagination li {
-	margin: 0 5px;
-}
-
 .pagination a, .pagination span {
 	display: block;
 	padding: 10px;

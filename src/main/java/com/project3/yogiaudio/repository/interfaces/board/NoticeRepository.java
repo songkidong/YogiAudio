@@ -18,4 +18,10 @@ public interface NoticeRepository {
 
 	// 공지사항 검색&페이지 countAll
 	public int getAllPageCount(@Param ("searchType") String searchType,@Param ("searchInput") String keyword);
+
+	// 공지사항 상세보기
+	public BoardNotice findAllById(int id);
+
+	// 공지사항 삭제하기
+	public int noticeDelete(int id);
 }

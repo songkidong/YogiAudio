@@ -47,5 +47,13 @@
 		</if>
 	</select>
 
+	<select id="findAllById"
+		resultType="com.project3.yogiaudio.repository.entity.board.BoardNotice">
+		SELECT * FROM board_notice WHERE id = #{id};
+	</select>
+
+	<delete id="noticeDelete">
+		delete from board_notice WHERE id = #{id};
+	</delete>
 
 </mapper>

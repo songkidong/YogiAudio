@@ -96,4 +96,34 @@ public class NoticeService {
 
 	}
 
+	/**
+	  * @Method Name : noticeView
+	  * @작성일 : 2024. 3. 18.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 공지사항 상세보기
+	  */
+	public BoardNotice noticeView(int id) {
+		
+		return noticeRepository.findAllById(id);
+	}
+
+	/**
+	  * @Method Name : noticeDelete
+	  * @작성일 : 2024. 3. 18.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 공지사항 삭제하기
+	  */
+	public boolean noticeDelete(int id) {
+		
+		int result = noticeRepository.noticeDelete(id);
+		
+		if(result == 1) {
+			return true;
+		}
+
+		return false;
+	}
+
 }
