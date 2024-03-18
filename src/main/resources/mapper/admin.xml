@@ -48,6 +48,10 @@
 	select count(*) from board_notice
 </select>
 
+<select id="findNoticeById" resultType="com.project3.yogiaudio.repository.entity.board.BoardNotice">
+	select * from board_notice where id=#{id}
+</select>
+
 <select id="findAllQna" resultType="com.project3.yogiaudio.repository.entity.board.BoardQna">
 	select a.*, b.name as writerName from board_qna as a
 	left join user as b
@@ -59,11 +63,30 @@
 	select count(*) from board_qna
 </select>
 
-<select id="findNoticeById" resultType="com.project3.yogiaudio.repository.entity.board.BoardNotice">
-	select * from board_notice where id=#{id}
+<select id="findAllFree" resultType="com.project3.yogiaudio.repository.entity.board.BoardFree">
+	select a.*, b.name as writerName from board_free as a
+	left join user as b
+	on a.writer_id = b.id
+	order by a.id desc limit #{offset}, #{pageSize}
 </select>
 
+<select id="countAllFree" resultType="int">
+	select count(*) from board_free
+</select>
 
+<select id="findFreeById" resultType="com.project3.yogiaudio.repository.entity.board.BoardFree">
+	select a.*, b.name as writerName from board_free as a
+	join user as b
+	on a.writer_id = b.id
+	where a.id=#{id}
+</select>
+
+<select id="findAllCommentByBoardFreeId" resultType="com.project3.yogiaudio.repository.entity.board.BoardFreeComment">
+	select a.*, b.name as writerName from board_free_comment as a
+	join user as b on a.writer_id = b.id
+	where board_free_id=#{boardFreeId}
+	order by a.id desc
+</select>
 	
 <delete id="deleteUser">
 	delete from user where id=#{id}
@@ -79,6 +102,18 @@
 	
 <delete id="deleteQna">
 	delete from board_qna where id=#{id}
+</delete>
+	
+<delete id="deleteFree">
+	delete from board_free where id=#{id}
+</delete>
+	
+<delete id="deleteComment">
+	delete from board_free_comment where id = #{id}
+</delete>
+	
+<delete id="deleteCommentsByBoardFreeId">
+	delete from board_free_comment where board_free_id = #{boardFreeId}
 </delete>	
 
 
