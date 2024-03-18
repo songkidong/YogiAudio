@@ -80,11 +80,17 @@ public class PurchaseController {
 	    // 1개월 -> pno = 1 , 3개월 -> pno =2  , 6개월 -> pno =3 , 12개월 -> pno=4 
 	    scheduler.updateStatus();
 	    return "product/success"; // 성공 페이지를 반환합니다.
-	    
-	    
-	    
+	      
 	    
 	}
+	
+	
+	// http://localhost:80/purchase/cancel
+	@GetMapping("/cancel")
+	public String paymentCancelGET() {
+		return "product/cancel";
+	}
+	
 	
 	
 	

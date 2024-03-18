@@ -18,6 +18,7 @@ public class Scheduler {
 
 	@Scheduled(cron = "0 0 0 * * *")
 	public void updateStatus() {
+		// id 값 초기화
 		int id = 0;
 	    // pno에 따라서 다른 기간을 설정하여 상태를 변경합니다.
 	    List<Integer> pnos = Arrays.asList(1, 2, 3, 4); // 처리할 pno 목록
