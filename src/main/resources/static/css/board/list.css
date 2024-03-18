@@ -112,10 +112,6 @@ nav {
 	align-items: center;
 }
 
-.pagination li {
-	margin: 0 5px;
-}
-
 .pagination a, .pagination span {
 	display: block;
 	padding: 10px;
@@ -194,4 +190,8 @@ nav {
     background-color: #f0ad4e;
     color: #fff;
     border-color: #eea236;
+}
+#board > div > form > div > div{
+	float: right;
+	display: flex;
 }

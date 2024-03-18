@@ -24,8 +24,8 @@
 			<div class="file_list">
 				<div class="mb-3">
 					<div class="file_input" style="display: inline-block;">
-						<label for="formFileMultiple" class="form-label">File: </label> 
-						<input class="form-control" type="file" id="formFileMultiple" multiple name="filePath" onchange="selectFile(this);"
+						<label for="formFileMultiple" class="form-label">File: </label> <!-- multiple타입 일 경우 빈값이 들어갈 수 있음  -->
+						<input class="form-control" type="file" id="formFileMultiple" multiple name="files" onchange="selectFile(this);"
 							style="background-color: white;" />
 					</div>
 					<button type="button" onclick="removeFile(this);" class="btn btn-danger">
@@ -80,7 +80,7 @@ function addFile() {
         	<div class="file_input" style="display: inline-block; ">
 			<label for="formFileMultiple" class="form-label">File: </label> <input
 			class="form-control" type="file" id="formFileMultiple" multiple
-			name="filePath" onchange="selectFile(this);" style="background-color: white;" />
+			name="files" onchange="selectFile(this);" style="background-color: white;" />
 		</div>
         <button type="button" onclick="removeFile(this);" class="btn btn-outline-danger"><span>삭제</span></button>
         `;
@@ -123,5 +123,3 @@ function removeFile(element) {
 </script>
 
 <%@include file="/WEB-INF/view/layout/footer.jsp"%>
-
-
