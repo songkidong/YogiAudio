@@ -23,7 +23,7 @@ public interface PurchaseRepository {
 	public PurchaseDTO purchaseDetail(@Param(value = "pno") int pno);
 	
 	//결제취소용
-	public PurchaseDTO purchaseDetailCancel();
+	public PurchaseDTO purchaseDetailCancel(long id);
 	
 	
 	

@@ -13,11 +13,15 @@ import com.project3.yogiaudio.dto.common.Criteria;
 import com.project3.yogiaudio.dto.common.PageVO;
 import com.project3.yogiaudio.dto.music.CancelDTO;
 import com.project3.yogiaudio.dto.music.PurchaseDTO;
+import com.project3.yogiaudio.dto.user.SignUpFormDTO;
 import com.project3.yogiaudio.filedb.service.FiledbService;
+import com.project3.yogiaudio.repository.entity.User;
 import com.project3.yogiaudio.service.PurchaseService;
+import com.project3.yogiaudio.util.Define;
 import com.project3.yogiaudio.util.Scheduler;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -59,12 +63,17 @@ public class PurchaseController {
 	
 	//이용권상세보기 & 결제페이지 출력
 	@GetMapping("/detail")
-	public String PurchaseDetailGET(@RequestParam(value = "pno") int pno,Model model) {
+	public String PurchaseDetailGET(@RequestParam(value = "pno") int pno,Model model,HttpSession session) {
+		
+		User userEntity = (User) session.getAttribute(Define.PRINCIPAL);
+		long id = userEntity.getId();
+		
+		//session.setAttribute("id", id);
 		
 		PurchaseDTO result = purchaseService.purchaseDetail(pno);
 		model.addAttribute("detail", result);
 		
-		PurchaseDTO result2 = purchaseService.purchaseDetailCancel();
+		PurchaseDTO result2 = purchaseService.purchaseDetailCancel(id);
 		model.addAttribute("detailcancel", result2);
 		
 		log.debug("이용권구매상세보기출력");

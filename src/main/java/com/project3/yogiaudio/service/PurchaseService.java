@@ -38,8 +38,9 @@ public class PurchaseService {
 	}
 	
 	//결제취소용
-	public PurchaseDTO purchaseDetailCancel() {
-		return purchaseRepository.purchaseDetailCancel();
+	public PurchaseDTO purchaseDetailCancel(long id) {
+		PurchaseDTO result = purchaseRepository.purchaseDetailCancel(id);
+		return result;
 	}
 	
 	

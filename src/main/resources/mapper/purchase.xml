@@ -32,6 +32,7 @@
 		SELECT history.*, purchase.pno
 		FROM history
 		JOIN purchase ON history.pno = purchase.pno
+		WHERE history.id=#{id}
 	</select>
 	
 	

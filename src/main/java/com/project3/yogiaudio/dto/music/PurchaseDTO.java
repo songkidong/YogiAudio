@@ -13,7 +13,7 @@ import lombok.ToString;
 @Builder
 public class PurchaseDTO {
 
-	private Integer id;
+	private long id;
 	private Integer pno;
 	private String purchasename;
 	private String purchasedetail;

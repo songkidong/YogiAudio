@@ -39,11 +39,9 @@
 							
 							<div>
 								<h3 class="product-price">${detail.price}<del class="product-old-price"></del></h3>
-								  <c:if test="${detail.pno eq detailcancel.pno and principal.id eq detailcancel.id}">
-									   <a href="/purchase/cancel?paymentKey=${detailcancel.paymentKey}">
-									       <button class="btn btn-danger" id="cancel-button" style="margin-top:30px; margin-left: 50px;">취소하기</button>
-									   </a>
-								</c:if>
+							      <a href="/purchase/cancel?paymentKey=${detailcancel.paymentKey}">
+									<button class="btn btn-danger" id="cancel-button" style="margin-top:30px; margin-left: 50px;">취소하기</button>
+								 </a>
 							</div>
 						
 							
