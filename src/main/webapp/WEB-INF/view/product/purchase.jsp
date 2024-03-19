@@ -36,9 +36,16 @@
                     <div class="card-body" style="margin-left: 30px;">
                         <h5 class="card-title" style="margin-top: 5px;">${purchaselist.purchasename}</h5>
                         <p class="card-text">${purchaselist.price}</p>
-                        <a href="/purchase/detail?pno=${purchaselist.pno}" class="btn btn-primary">
-                        	구매하기
-                        </a>
+                       <c:choose>
+							<c:when test="${principal.cancel eq 'Y' || principal.status eq 'N'}">
+		                        <a href="/purchase/detail?pno=${purchaselist.pno}" class="btn btn-primary">
+		                        	구매하기
+		                        </a>
+	                        </c:when>
+	                        <c:otherwise>
+	                        	<p>이미 이용권을 구입하셨습니다!</p>
+	                        </c:otherwise>
+                      </c:choose>  
                     </div>
                 </div>
                 <!-- End of Card 1 -->
