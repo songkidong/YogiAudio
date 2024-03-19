@@ -28,7 +28,8 @@
     
         <div class="row">
          	
-             <c:forEach var="purchaselist" items="${purchaselist}">
+         	
+           <c:forEach var="purchaselist" items="${purchaselist}">
             <div class="col-md-3">
                 <!-- Card 1 -->
                 <div class="card">
@@ -36,21 +37,28 @@
                     <div class="card-body" style="margin-left: 30px;">
                         <h5 class="card-title" style="margin-top: 5px;">${purchaselist.purchasename}</h5>
                         <p class="card-text">${purchaselist.price}</p>
-                       <c:choose>
-							<c:when test="${principal.cancel eq 'Y' || principal.status eq 'N'}">
-		                        <a href="/purchase/detail?pno=${purchaselist.pno}" class="btn btn-primary">
-		                        	구매하기
-		                        </a>
-	                        </c:when>
-	                        <c:otherwise>
-	                        	<p>이미 이용권을 구입하셨습니다!</p>
-	                        </c:otherwise>
-                      </c:choose>  
+                      
+                      <c:if test="${principal.status eq 'N' && principal.cancel eq 'N'}">
+		                 <a href="/purchase/detail?pno=${purchaselist.pno}" class="btn btn-primary">
+		                    구매하기
+		                 </a>
+		              </c:if>  
+		              <c:if test="${principal.status eq 'N' && principal.cancel eq 'Y'}">
+		                 <a href="/purchase/detail?pno=${purchaselist.pno}" class="btn btn-primary">
+		                    구매하기
+		                 </a>
+		              </c:if> 
+		              <c:if test="${principal.status eq 'Y' && principal.cancel eq 'N'}">
+		                 <p>
+		                   이미이용권구매를완료했습니다!
+		                 </p>
+		              </c:if>    
+		                 
                     </div>
                 </div>
                 <!-- End of Card 1 -->
             </div>
-                </c:forEach>
+           </c:forEach>
             
           
     
