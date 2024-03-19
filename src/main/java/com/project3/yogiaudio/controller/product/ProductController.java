@@ -204,7 +204,7 @@ public class ProductController {
 		        model.addAttribute("udetail", udetail);
 		    }
 
-		    MusicDTO result = musicService.aboardDetail(musicno, musicmajor);
+		    MusicDTO result = musicService.domesticDetail(musicno, musicmajor);
 		    model.addAttribute("detail", result);
 		    
 		    System.out.println("musicno: " + musicno); 

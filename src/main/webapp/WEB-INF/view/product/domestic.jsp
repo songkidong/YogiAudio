@@ -87,7 +87,7 @@
 											        </c:otherwise>
 											    </c:choose>
 											</c:url>
-											
+												
 											<a href="${detailUrl}">
 											    ${domesticlist.musictitle}
 											</a>
