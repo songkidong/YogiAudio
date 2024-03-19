@@ -28,7 +28,7 @@
                         <th>제목</th>
                         <th>답변 여부</th>
                         <th>등록일</th>
-                        <th>수정 / 삭제</th>
+                        <th>삭제</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
@@ -37,12 +37,11 @@
 		                 	<tr>
 		            		  <td>${qna.id}</td>
 		            		  <td>${qna.writerName}</td>
-		            		  <td>${qna.title}</td>
+		            		  <td><a href="/admin/qnaView/${qna.id}">${qna.title}</a></td>
 		            		  <td>${qna.answerYn}</td>
 		            		  <td>${qna.formatCreatedAt()}</td>
 		            		  <td>
-		            		  	<a class="btn btn-primary" href="" style="">수정</a>
-		            		  	<a data-id="${qna.id }" name="deleteButton" class="btn btn-primary" href="#" >삭제</a>
+		            		  	<a data-id="${qna.id }" name="deleteButton" class="btn btn-primary" style="color: white">삭제</a>
 		            		  </td>
 		                   	</tr>
 	                  	</c:forEach>

@@ -140,8 +140,8 @@
 		controls></audio>
 
 	<script>
-	const lyricsContainer = document.getElementById('mCSB_1_container');
 	const audioPlayer = document.getElementById('audio-player');
+	const lyricsContainer = document.getElementById('mCSB_1_container');
 	let currentLyricIndex = -1; // 현재 가사 인덱스 변수 초기화
 
 	audioPlayer.addEventListener('timeupdate', function() {
@@ -150,7 +150,7 @@
 	});
 
 	function highlightLyrics(currentTime) {
-	    const lyrics = lyricsContainer.querySelectorAll('p');
+		const lyrics = lyricsContainer.querySelectorAll('#mCSB_1_container > p');
 	    let currentLyricIndex = -1;
 
 	    // 현재 재생 중인 가사를 찾습니다.
