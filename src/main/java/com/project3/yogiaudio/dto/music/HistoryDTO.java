@@ -20,6 +20,7 @@ public class HistoryDTO {
 	private String orderId;
 	private String paymentKey;
 	private String amount;
+	private String cancelYn;
 	
 	
 }

@@ -39,7 +39,7 @@
 	
 	<!-- 결제 후 상태업데이트하기 (추후 이용권구매후 유저상태 -> Y 업뎃으로 바꿔야함!!) -->
 	<update id="statusUpdate">
-		update user set status= 'Y'
+		update user set status = 'Y', cancel = 'N'
 		where id=#{id}
 	</update>
 	
@@ -52,7 +52,7 @@
 	
 	<!-- 결제상태 원상복귀하기 -->
 	<update id="resetUpdate">
-		update user set status = 'N'
+		update user set status = 'N', cancel = 'N'
 		where id=#{id}
 	</update>
 	

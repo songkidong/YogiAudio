@@ -19,5 +19,7 @@ public class PurchaseDTO {
 	private String purchasedetail;
 	private Integer price;
 	private String paymentKey;
+	private String cancelYn;
+
 	
 }

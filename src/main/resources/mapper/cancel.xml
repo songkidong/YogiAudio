@@ -13,7 +13,7 @@
 		
 		<!-- 환불 후 상태원상복귀하기 -->
 		<update id="refundStatus">
-			update user set status = 'N'
+			update user set status = 'N', cancel = 'Y'
 			where id=#{id}
 		</update>
 		

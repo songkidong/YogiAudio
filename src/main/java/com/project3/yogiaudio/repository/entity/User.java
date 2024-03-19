@@ -24,5 +24,6 @@ public class User {
 	private String deleteYn;
 	private Timestamp deleteAt;
 	private String status;
+	private String cancel;
 
 }

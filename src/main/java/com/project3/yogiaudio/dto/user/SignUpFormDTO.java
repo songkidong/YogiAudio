@@ -19,4 +19,5 @@ public class SignUpFormDTO {
 	private String email;
 	private String password;
 	private String status;
+	private String cancel;
 }
