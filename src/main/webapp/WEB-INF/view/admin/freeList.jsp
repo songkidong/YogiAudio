@@ -41,7 +41,7 @@
 		            		  <td>${free.hit}</td>
 		            		  <td>${free.formatCreatedAt()}</td>
 		            		  <td>
-		            		  	<a data-id="${free.id }" name="deleteButton" class="btn btn-primary" href="#" >삭제</a>
+		            		  	<a data-id="${free.id }" name="deleteButton" class="btn btn-primary" style="color: white">삭제</a>
 		            		  </td>
 		                   	</tr>
 	                  	</c:forEach>
