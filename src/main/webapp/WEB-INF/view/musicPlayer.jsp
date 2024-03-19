@@ -34,9 +34,9 @@
 			</div>
 
 			<div class="ui-actions">
-				<i class="fas fa-list-ul"></i> <img src="/img/music_like/unlike.png"
-					alt="like" id="heart" /> <img src="/img/music_like/like.png"
-					alt="like" id="heart" /> <i class="fas fa-plus"></i>
+				<i class="fas fa-list-ul"></i> 
+				<img alt="" src="/img/music_like/unlike.png" id="heart">
+				<i class="fas fa-plus"></i>
 			</div>
 			<!-- 가사 위치 -->
 			<div id="lyrics-container">

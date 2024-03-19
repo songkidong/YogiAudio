@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			const orderIndex = this.getAttribute('data-order-index');
 			const playlistName = this.getAttribute('data-playlist-name');
 			const lyrics = this.getAttribute('data-lyrics');
-			const musinNo = this.getAttribute('data-music-no');
+			const musicNo = this.getAttribute('data-music-no');
 			const musicUrl = this.getAttribute('data-file-music');
 			const musicTitle = this.getAttribute('data-music-title');
 			const musicSinger = this.getAttribute('data-music-singer');
@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			console.log(currentSongIndex);
 
 			// 현재 재생 중인 곡 정보 업데이트
-			setCurrentMusic(albumImg, lyrics, musicTitle, musicSinger, musicUrl);
+			setCurrentMusic(albumImg, lyrics, musicTitle, musicSinger, musicUrl, musicNo);
 		});
 		// 아이템의 삭제 버튼 클릭 이벤트 처리
 		const deleteBtn = item.querySelector('.delete-btn');
@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		const firstMusicSinger = firstSong.getAttribute('data-music-singer');
 		const firstAlbumImg = firstSong.getAttribute('data-file-img');
 
-		setCurrentMusic(firstAlbumImg, firstLyrics, firstMusicTitle, firstMusicSinger, firstMusicUrl);
+		setCurrentMusic(firstAlbumImg, firstLyrics, firstMusicTitle, firstMusicSinger, firstMusicUrl, firstMusicNo);
 	}
 	// 다음 곡으로 넘어가는 함수
 	function playNextSong() {
@@ -278,7 +278,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	}
 	// 재생할 곡 세팅 함수
-	function setCurrentMusic(albumImg, lyrics, musicTitle, musicSinger, musicUrl) {
+	function setCurrentMusic(albumImg, lyrics, musicTitle, musicSinger, musicUrl, musicNo) {
+		// 좋아요 버튼 함수
+		likeBtn(musicNo);
+
 		// 현재 재생 중인 곡 정보 업데이트
 		const albumImage = document.querySelector('.ui-cover-art');
 		albumImage.src = albumImg;
@@ -297,6 +300,85 @@ document.addEventListener('DOMContentLoaded', function() {
 		document.querySelector('.ui-cover-title').innerHTML = "<p>" + musicTitle + "</p>" + "<p>" + musicSinger + "</p>";
 		audioPlayer.src = musicUrl;
 		audioPlayer.play();
+	}
+	// 좋아요 기능
+	function likeBtn(musicNo) {
+		// ui-actions 요소에 추가
+		let heartBtnImg = document.getElementById('heart');
+
+		// ajax로 좋아요 확인하기
+		$.ajax({
+			type: 'GET',
+			url: '/readLikeMusic',
+			data: {
+				userId: userId,
+				musicNo: musicNo
+			},
+			success: function(response) {
+				// 좋아요 되어있으면 like로 세팅
+				if(response !== null && response !== "") {
+					console.log("이거 있네요?");
+					heartBtnImg.src = "/img/music_like/like.png";
+				} else {
+					heartBtnImg.src = "/img/music_like/unlike.png";
+				}
+			},
+			error: function(error) {
+				console.error('Error saving markers:', error);
+			}
+		});
+		
+		heartBtnImg.addEventListener('click', function() {
+			if (userId == null || userId == '') {
+				console.log("최장호 : " + userId);
+				if (confirm("로그인 하시겠습니까?")) {
+					window.opener.location.href = '/signIn'; // 메인 페이지 URL로 리다이렉트
+					return;
+				}
+			} else {
+				// 클릭 이벤트 처리 코드 작성
+				console.log('Like 이미지를 클릭했습니다.');
+
+				// 예시: 이미지를 클릭할 때마다 이미지 소스 변경
+				if (heartBtnImg.src.includes('/img/music_like/like.png')) {
+					$.ajax({
+						type: 'GET',
+						url: '/deleteLikeMusic',
+						data: {
+							userId: userId,
+							musicNo: musicNo
+						},
+						success: function(response) {
+							console.log(response);
+						},
+						error: function(error) {
+							console.error('Error saving markers:', error);
+						}
+					});
+					heartBtnImg.src = '/img/music_like/unlike.png';
+					console.log("여기선 삭제");
+					return;
+				} else {
+					$.ajax({
+						type: 'GET',
+						url: '/saveLikeMusic',
+						data: {
+							userId: userId,
+							musicNo: musicNo
+						},
+						success: function(response) {
+							console.log(response);
+						},
+						error: function(error) {
+							console.error('Error saving markers:', error);
+						}
+					});
+					heartBtnImg.src = '/img/music_like/like.png';
+					console.log("여기선 추가");
+					return;
+				}
+			}
+		});
 	}
 	// 플레이리스트에 노래 추가
 	function addPlaylistItem(data, type) {
@@ -361,11 +443,10 @@ document.addEventListener('DOMContentLoaded', function() {
 			const musicSinger = this.getAttribute('data-music-singer');
 			const albumImg = this.getAttribute('data-file-img');
 
-			setCurrentMusic(albumImg, lyrics, musicTitle, musicSinger, musicUrl);
+			setCurrentMusic(albumImg, lyrics, musicTitle, musicSinger, musicUrl, musicNo);
 		});
 		if (type == 'play') {
 			playlistItem.click();
 		}
 	}
-
 });
