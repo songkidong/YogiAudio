@@ -195,3 +195,7 @@ nav {
 	float: right;
 	display: flex;
 }
+
+#board > div > div.title-container > h2 > a:hover{
+	color: inherit;
+}

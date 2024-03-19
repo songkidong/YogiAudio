@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project3.yogiaudio.dto.board.NoticeDTO;
@@ -22,7 +21,6 @@ import com.project3.yogiaudio.util.Define;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Slf4j
@@ -74,6 +72,7 @@ public class NoticeController {
 
 		// 페이징 정보를 모델에 추가
 		model.addAttribute("noticeList", noticeList); // 프로젝트 마다 다른 코드
+		System.out.println("리스트 나와라!!!!!!!!!!!"+noticeList.toString());
 		// 공통 코드
 		model.addAttribute("page", pageReq.getPage());
 		model.addAttribute("size", pageRes.getSize());

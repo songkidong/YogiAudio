@@ -59,7 +59,7 @@ public class NoticeService {
 	 * @작성일 : 2024. 3. 14.
 	 * @작성자 : 노수현
 	 * @변경이력 :
-	 * @Method 설명 : 검색&페이징 list 갯수
+	 * @Method 설명 : 공지사항 검색&페이징 list 갯수
 	 */
 	public int getAllPageCount() {
 		String searchType = null;
@@ -72,7 +72,7 @@ public class NoticeService {
 	 * @작성일 : 2024. 3. 14.
 	 * @작성자 : 노수현
 	 * @변경이력 :
-	 * @Method 설명 : 검색&페이징 list
+	 * @Method 설명 : 공지사항 검색&페이징 list
 	 */
 	public PageRes<BoardNotice> findAllByKeywordwithPasing(PageReq pageReq) {
 
@@ -84,7 +84,7 @@ public class NoticeService {
 
 		// 총 데이터 개수 조회
 		long totalElements = noticeRepository.getAllPageCount(searchType, searchInput);
-		System.out.println("총갯수말해줘봐보바ㅗ바ㅗ바봐보바 :" + totalElements);
+		System.out.println("총갯수 :" + totalElements);
 
 		// 페이징 처리된 목록 조회
 		List<BoardNotice> NoticeList = noticeRepository.findAllByKeywordwithPasing(offset, size, searchType,

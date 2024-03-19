@@ -6,7 +6,10 @@
 <section id="board">
 	<div class="board-container">
 		<div class="title-container">
-			<h2>공지사항</h2>
+			<h2>
+				<a href="/board/notice/noticeList">공지사항</a>
+			</h2>
+			<!-- 검색 후 페이지 고침 -->
 			<button type="button" class="btn btn-warning" id="btnInsert">
 				<i class="bi bi-pencil-square"></i>
 			</button>
@@ -36,14 +39,13 @@
 		<table class="table table-hover">
 			<thead class="thead-light text-center">
 				<tr>
-					<th>No</th>
-					<!-- 최신글 상위3개 메가폰아이콘 처리 -->
-					<th>NOTICE Title</th>
-					<th>Writer</th>
-					<!-- 작성자 마스킹 처리 -->
-					<th>File</th>
+					<th style="width: 10%;">No</th>
+					<!-- 최신글 상위3개 메가폰아이콘 처리 js-->
+					<th style="width: 55%;">NOTICE Title</th>
+					<th style="width: 10%;">Writer</th>
+					<th style="width: 10%;">File</th>
 					<!-- 첨부됐으면 파일아이콘 처리 -->
-					<th>Date</th>
+					<th style="width: 15%;">Date</th>
 				</tr>
 			</thead>
 			<tbody class="text-center">
@@ -55,9 +57,16 @@
 								<p class="panel-board-title">${list.title}</p>
 							</div>
 						</td>
-						<td><span class="mask-writer">${list.writerId}</span></td>
-						<td>${list.filePath}</td>
-						<td>${list.createdAt}</td><!--날짜포맷-->
+						<td><span class="mask-writer">${list.writerName}</span></td>
+						<c:choose>
+							<c:when test="${not empty list.filePath}">
+								<td><i class="bi bi-file-earmark-minus-fill"></i></td>
+							</c:when>
+							<c:otherwise>
+								<td></td>
+							</c:otherwise>
+						</c:choose>
+						<td>${list.formatCreatedAt()}</td> <!--날짜포맷-->
 					</tr>
 				</c:forEach>
 		</table>
@@ -90,9 +99,9 @@
 						페이지 &raquo;</a></li>
 			</c:if>
 		</div>
+		
 	</div>
 </section>
-
 
 <script src="/js/board/notice.js"></script>
 <%@include file="/WEB-INF/view/layout/footer.jsp"%>
