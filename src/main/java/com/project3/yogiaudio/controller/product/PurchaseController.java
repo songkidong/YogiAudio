@@ -11,16 +11,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project3.yogiaudio.dto.common.Criteria;
 import com.project3.yogiaudio.dto.common.PageVO;
-import com.project3.yogiaudio.dto.music.CancelDTO;
 import com.project3.yogiaudio.dto.music.PurchaseDTO;
-import com.project3.yogiaudio.dto.user.SignUpFormDTO;
 import com.project3.yogiaudio.filedb.service.FiledbService;
 import com.project3.yogiaudio.repository.entity.User;
+import com.project3.yogiaudio.service.CancelService;
 import com.project3.yogiaudio.service.PurchaseService;
 import com.project3.yogiaudio.util.Define;
 import com.project3.yogiaudio.util.Scheduler;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,6 +33,8 @@ public class PurchaseController {
 	private FiledbService filedbService;
 	@Autowired
 	private Scheduler scheduler;
+	@Autowired
+	private CancelService cancelService;
 	
 	// http://localhost:80/purchase/main
 	
@@ -101,7 +101,11 @@ public class PurchaseController {
 	//결제취소컨트롤러
 	// http://localhost:80/purchase/cancel
 	@GetMapping("/cancel")
-	public String paymentCancelGET(@RequestParam("paymentKey") String paymentKey, Model model) {
+	public String paymentCancelGET(@RequestParam(value = "paymentKey") String paymentKey, Model model,@RequestParam (value="amount") int amount,@RequestParam (value="pno") int pno,HttpSession session,@RequestParam(value = "id") int id) {
+		
+		//상태업데이트 , 내역등록
+		cancelService.InsertCancel(paymentKey, amount, pno, id);
+		cancelService.refundStatus(id);
 		
 		model.addAttribute("paymentKey", paymentKey);
 		return "product/cancel";

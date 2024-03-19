@@ -63,24 +63,6 @@ public class PurchaseService {
 	}
 
 	
-	//결제취소내역 DB업데이트하기
-	@Transactional
-	public Integer cancelPayment(CancelDTO dto) {
-		return purchaseRepository.cancelPayment(dto);
-		
-	}
-	
-	
-
-	//출력하기 Hno받아서
-	public CancelDTO paymentKeyByHno(CancelDTO dto) {
-		CancelDTO result = purchaseRepository.paymentKeyByHno(dto);
-		return result;
-	}
-
-
-	
-	
 	
 	
 	

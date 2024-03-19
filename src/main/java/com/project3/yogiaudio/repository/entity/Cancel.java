@@ -1,5 +1,7 @@
 package com.project3.yogiaudio.repository.entity;
 
+import java.sql.Timestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,10 +15,12 @@ import lombok.ToString;
 @Builder
 public class Cancel {
 
-	private Integer hcno;
-	private String orderName;
-	private String method;
-	private String cancelReason;
+	private Integer cno;
+	private Integer id;
+	private Integer pno;
+	private String paymentKey;
+	private String amount;
+	private Timestamp date;
 	
 	
 }
