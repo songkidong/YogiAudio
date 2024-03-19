@@ -31,7 +31,15 @@ public class UserService {
 		this.userRepository = userRepository;
 		this.passwordEncoder = passwordEncoder;
 	}
-
+	
+	
+	/**
+	  * @Method Name : createUser
+	  * @작성일 : 2024. 3. 19.
+	  * @작성자 : 송기동
+	  * @변경이력 : 
+	  * @Method 설명 : 회원가입 기능
+	  */
 	@Transactional
 	public User createUser(SignUpFormDTO dto) {
 		validateSignUpForm(dto);

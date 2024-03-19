@@ -2,7 +2,6 @@ package com.project3.yogiaudio.controller.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-
 import org.springframework.http.*;
 
 import org.springframework.http.HttpEntity;
@@ -42,49 +41,52 @@ public class UserController {
 	@Autowired
 	private HttpSession httpsession;
 
+	@Autowired
+	private RestTemplate restTemplate;
+
 	/**
-	  * @Method Name : signUpPage
-	  * @작성일 : 2024. 3. 18.
-	  * @작성자 : 송기동
-	  * @변경이력 : 
-	  * @Method 설명 : 회원가입 페이지 요청
-	  */
+	 * @Method Name : signUpPage
+	 * @작성일 : 2024. 3. 18.
+	 * @작성자 : 송기동
+	 * @변경이력 :
+	 * @Method 설명 : 회원가입 페이지
+	 */
 	@GetMapping("/signUp")
 	public String signUpPage() {
 		return "user/signUp";
 	}
 
 	/**
-	  * @Method Name : signInPage
-	  * @작성일 : 2024. 3. 18.
-	  * @작성자 : 송기동
-	  * @변경이력 : 
-	  * @Method 설명 : 로그인 페이지 요청
-	  */
+	 * @Method Name : signInPage
+	 * @작성일 : 2024. 3. 18.
+	 * @작성자 : 송기동
+	 * @변경이력 :
+	 * @Method 설명 : 로그인 페이지
+	 */
 	@GetMapping("/signIn")
 	public String signInPage() {
 		return "user/signIn";
 	}
-	
+
 	/**
-	  * @Method Name : consentPage
-	  * @작성일 : 2024. 3. 18.
-	  * @작성자 : 송기동
-	  * @변경이력 : 
-	  * @Method 설명 : 약관동의 페이지 요청
-	  */
+	 * @Method Name : consentPage
+	 * @작성일 : 2024. 3. 18.
+	 * @작성자 : 송기동
+	 * @변경이력 :
+	 * @Method 설명 : 약관동의 페이지
+	 */
 	@GetMapping("/consent")
 	public String consentPage() {
 		return "user/consent";
 	}
 
 	/**
-	  * @Method Name : signUp
-	  * @작성일 : 2024. 3. 18.
-	  * @작성자 : 송기동
-	  * @변경이력 : 
-	  * @Method 설명 : 회원가입 요청
-	  */
+	 * @Method Name : signUp
+	 * @작성일 : 2024. 3. 18.
+	 * @작성자 : 송기동
+	 * @변경이력 :
+	 * @Method 설명 : 회원가입 기능
+	 */
 	@PostMapping("/signUp")
 	public String signUp(SignUpFormDTO dto) {
 		userService.createUser(dto);
@@ -92,83 +94,94 @@ public class UserController {
 	}
 
 	/**
-	  * @Method Name : signIn
-	  * @작성일 : 2024. 3. 18.
-	  * @작성자 : 송기동
-	  * @변경이력 : 
-	  * @Method 설명 : 로그인 요청
-	  */
+	 * @Method Name : signIn
+	 * @작성일 : 2024. 3. 18.
+	 * @작성자 : 송기동
+	 * @변경이력 :
+	 * @Method 설명 : 로그인 기능
+	 */
 	@PostMapping("/signIn")
 	public String signIn(SignUpFormDTO dto) {
 		User userEntity = userService.signIn(dto);
 		httpsession.setAttribute(Define.PRINCIPAL, userEntity);
-		
-		
+
 		return "redirect:/product/main";
 	}
 
 	/**
-	  * @Method Name : logout
-	  * @작성일 : 2024. 3. 18.
-	  * @작성자 : 송기동
-	  * @변경이력 : 
-	  * @Method 설명 : 로그아웃 기능
-	  */
+	 * @Method Name : logout
+	 * @작성일 : 2024. 3. 18.
+	 * @작성자 : 송기동
+	 * @변경이력 :
+	 * @Method 설명 : 로그아웃 기능
+	 */
 	@GetMapping("/logout")
 	public String logout() {
 		httpsession.invalidate();
 		return "redirect:/product/main";
 	}
-	
+
+	/**
+	  * @Method Name : mypage
+	  * @작성일 : 2024. 3. 19.
+	  * @작성자 : 송기동
+	  * @변경이력 : 
+	  * @Method 설명 : 마이페이지
+	  */
 	@GetMapping("/mypage/{id}")
 	public String mypage(@PathVariable("id") Long id, Model model) {
-		
+
 		User userEntity = userService.findUserById(id);
 		model.addAttribute("user", userEntity);
 		return "/user/mypage";
 	}
-
-	@Autowired
-	private RestTemplate restTemplate;
 
 	/**
 	 * @Method Name : naverProc
 	 * @작성일 : 2024. 3. 14.
 	 * @작성자 : 송기동
 	 * @변경이력 :
-	 * @Method 설명 : 네이버 로그인
+	 * @Method 설명 : 네이버 로그인 기능
 	 */
 	@GetMapping("/naver/login")
-	public String naverProc(@RequestParam("code") String code, @RequestParam("state") String state) {
-		OAuthToken authToken = getNaverAccessToken(code, state);
-		NaverProfile naverProfile = getNaverUserProfile(authToken.getAccessToken());
-		SignUpFormDTO signUpFormDTO = mapNaverProfileToSignUpFormDTO(naverProfile);
-		userService.createUser(signUpFormDTO);
-		httpsession.setAttribute(Define.PRINCIPAL, signUpFormDTO);
-		return "redirect:/product/main";
-	}
-
-	private OAuthToken getNaverAccessToken(String code, String state) {
-		String url = "https://nid.naver.com/oauth2.0/token?" + "grant_type=authorization_code"
-				+ "&client_id=cLVvs14822OOyYydIWA1" + "&client_secret=dV0yEpBLcq" + "&code=" + code + "&state=" + state;
-		ResponseEntity<OAuthToken> responseEntity = restTemplate.postForEntity(url, null, OAuthToken.class);
-		return responseEntity.getBody();
-	}
-
-	private NaverProfile getNaverUserProfile(String accessToken) {
-		String url = "https://openapi.naver.com/v1/nid/me";
+	public String naverProc(@RequestParam("code") String code, @RequestParam("state") String state,
+			HttpSession session) {
+		String tokenReqUrl = "https://nid.naver.com/oauth2.0/token";
+		String userReqUrl = "https://openapi.naver.com/v1/nid/me";
 		HttpHeaders headers = new HttpHeaders();
-		headers.set("Authorization", "Bearer " + accessToken);
-		HttpEntity<String> requestEntity = new HttpEntity<>(headers);
-		ResponseEntity<NaverProfile> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity,
-				NaverProfile.class);
-		return responseEntity.getBody();
-	}
 
-	private SignUpFormDTO mapNaverProfileToSignUpFormDTO(NaverProfile naverProfile) {
-		return SignUpFormDTO.builder().name(naverProfile.getResponse().getName())
-				.nickname("네이버유저" + naverProfile.getResponse().getNickname())
-				.email(naverProfile.getResponse().getEmail()).password("naverpassword").build();
+		// 네이버 인증 토큰 가져오기
+		String clientId = "cLVvs14822OOyYydIWA1";
+		String clientSecret = "dV0yEpBLcq";
+		String url = tokenReqUrl + "?grant_type=authorization_code" + "&client_id=" + clientId + "&client_secret="
+				+ clientSecret + "&code=" + code + "&state=" + state;
+		ResponseEntity<OAuthToken> tokenResponseEntity = restTemplate.postForEntity(url, null, OAuthToken.class);
+		OAuthToken authToken = tokenResponseEntity.getBody();
+
+		// 네이버 사용자 프로필 가져오기
+		HttpHeaders userHeaders = new HttpHeaders();
+		userHeaders.set("Authorization", "Bearer " + authToken.getAccessToken());
+		HttpEntity<String> userRequestEntity = new HttpEntity<>(userHeaders);
+		ResponseEntity<NaverProfile> userResponseEntity = restTemplate.exchange(userReqUrl, HttpMethod.GET,
+				userRequestEntity, NaverProfile.class);
+		NaverProfile naverProfile = userResponseEntity.getBody();
+
+		User existingUser = userService.findUserByEmail(naverProfile.getResponse().getEmail());
+
+		if (existingUser != null) {
+			// 사용자가 이미 존재하면 바로 로그인
+			httpsession.setAttribute(Define.PRINCIPAL, existingUser);
+		} else {
+			SignUpFormDTO signUpFormDTO = SignUpFormDTO.builder().name(naverProfile.getResponse().getName())
+					.nickname("네이버유저" + naverProfile.getResponse().getNickname())
+					.email(naverProfile.getResponse().getEmail()).password("naverpassword").build();
+
+			User naverUser = userService.createUser(signUpFormDTO);
+			httpsession.setAttribute(Define.PRINCIPAL, naverUser);
+		}
+
+		return "redirect:/product/main";
+
 	}
 
 	/**
@@ -176,59 +189,60 @@ public class UserController {
 	 * @작성일 : 2024. 3. 14.
 	 * @작성자 : 송기동
 	 * @변경이력 :
-	 * @Method 설명 : 카카오 로그인
+	 * @Method 설명 : 카카오 로그인 기능
 	 */
 	@GetMapping("/kakao/login")
-	public String kakaoProc(@RequestParam("code") String code) {
-		OAuthToken authToken = getKakaoAccessToken(code);
-		KakaoProfile kakaoProfile = getKakaoUserProfile(authToken.getAccessToken());
-		SignUpFormDTO signUpFormDTO = mapKakaoProfileToSignUpFormDTO(kakaoProfile);
-		userService.createUser(signUpFormDTO);
-		httpsession.setAttribute(Define.PRINCIPAL, signUpFormDTO);
+	public String kakaoProc(@RequestParam("code") String code, HttpSession session) {
+		String tokenReqUrl = "https://kauth.kakao.com/oauth/token";
+		String userReqUrl = "https://kapi.kakao.com/v2/user/me";
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+
+		// 카카오 인증 토큰 가져오기
+		MultiValueMap<String, String> tokenParams = new LinkedMultiValueMap<>();
+		tokenParams.add("grant_type", "authorization_code");
+		tokenParams.add("client_id", "d4f846759e28d648d1c4296141742ccb");
+		tokenParams.add("redirect_uri", "http://localhost/kakao/login");
+		tokenParams.add("code", code);
+		HttpEntity<MultiValueMap<String, String>> tokenRequestEntity = new HttpEntity<>(tokenParams, headers);
+		ResponseEntity<OAuthToken> tokenResponseEntity = restTemplate.exchange(tokenReqUrl, HttpMethod.POST,
+				tokenRequestEntity, OAuthToken.class);
+		OAuthToken authToken = tokenResponseEntity.getBody();
+
+		// 카카오 사용자 프로필 가져오기
+		HttpHeaders userHeaders = new HttpHeaders();
+		userHeaders.set("Authorization", "Bearer " + authToken.getAccessToken());
+		userHeaders.set("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+		HttpEntity<MultiValueMap<String, String>> userRequestEntity = new HttpEntity<>(userHeaders);
+		ResponseEntity<KakaoProfile> userResponseEntity = restTemplate.exchange(userReqUrl, HttpMethod.POST,
+				userRequestEntity, KakaoProfile.class);
+		KakaoProfile kakaoProfile = userResponseEntity.getBody();
+
+		User existingUser = userService.findUserByEmail(kakaoProfile.getKakaoAccount().getEmail());
+		if (existingUser != null) {
+			// 사용자가 이미 존재하면 바로 로그인
+			httpsession.setAttribute(Define.PRINCIPAL, existingUser);
+		} else {
+			// 회원가입 폼 DTO로 매핑
+			SignUpFormDTO signUpFormDTO = SignUpFormDTO.builder().name(kakaoProfile.getProperties().getNickname())
+					.nickname("카카오" + kakaoProfile.getProperties().getNickname())
+					.email(kakaoProfile.getKakaoAccount().getEmail()).password("kakaopassword").build();
+
+			User kakaoUser = userService.createUser(signUpFormDTO);
+			httpsession.setAttribute(Define.PRINCIPAL, kakaoUser);
+		}
+
 		return "redirect:/product/main";
-	}
 
-	// 카카오 인증 토큰 가져오는 코드
-	private OAuthToken getKakaoAccessToken(String code) {
-		String url = "https://kauth.kakao.com/oauth/token";
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-		params.add("grant_type", "authorization_code");
-		params.add("client_id", "d4f846759e28d648d1c4296141742ccb");
-		params.add("redirect_uri", "http://localhost/kakao/login");
-		params.add("code", code);
-		HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(params, headers);
-		ResponseEntity<OAuthToken> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity,
-				OAuthToken.class);
-		return responseEntity.getBody();
-	}
-
-	// 카카오 사용자 프로필을 가져오는 코드
-	private KakaoProfile getKakaoUserProfile(String accessToken) {
-		String url = "https://kapi.kakao.com/v2/user/me";
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("Authorization", "Bearer " + accessToken);
-		headers.set("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-		HttpEntity<?> requestEntity = new HttpEntity<>(headers);
-		ResponseEntity<KakaoProfile> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity,
-				KakaoProfile.class);
-		return responseEntity.getBody();
-	}
-
-	private SignUpFormDTO mapKakaoProfileToSignUpFormDTO(KakaoProfile kakaoProfile) {
-		return SignUpFormDTO.builder().name(kakaoProfile.getProperties().getNickname())
-				.nickname("카카오" + kakaoProfile.getProperties().getNickname())
-				.email(kakaoProfile.getKakaoAccount().getEmail()).password("kakaopassword").build();
 	}
 
 	/**
-	  * @Method Name : googleProc
-	  * @작성일 : 2024. 3. 15.
-	  * @작성자 : 송기동
-	  * @변경이력 : 
-	  * @Method 설명 : 구글 로그인
-	  */
+	 * @Method Name : googleProc
+	 * @작성일 : 2024. 3. 15.
+	 * @작성자 : 송기동
+	 * @변경이력 :
+	 * @Method 설명 : 구글 로그인 기능
+	 */
 	@GetMapping("/google/login")
 	public String googleProc(@RequestParam("code") String code) {
 		String tokenReqUrl = "https://oauth2.googleapis.com/token";
