@@ -21,22 +21,24 @@
 			
 			  
 					 <div style="display: flex; align-items: center; margin-bottom: 20px;">
-			            <h3 class="title" style="margin-right: 20px;">🌏국내음악</h3>
+			            <h3 class="title" style="margin-right: 20px;">🛫국외음악(${param.searchOption})</h3>
 			            
-			            <div class="section-nav">
+			          <div class="section-nav">
 						    <ul class="section-tab-nav tab-nav">
-						        <li id="allOption"><a href="/product/domestic-music">전체</a></li>
-						        <li id="balladOption"><a href="/product/domestic-search?searchOption=발라드">발라드</a></li>
-						        <li id="trotOption"><a href="/product/domestic-search?searchOption=트로트">트로트</a></li>
-						        <li id="hiphopOption"><a href="/product/domestic-search?searchOption=힙합">힙합</a></li>
+						    	<li id="allOption"><a href="/product/aboard-music">전체</a></li>
+						        <li id="balladOption"><a href="/product/aboard-search?searchOption=발라드">발라드</a></li>
+						        <li id="trotOption"><a href="/product/aboard-search?searchOption=트로트">트로트</a></li>
+						        <li id="hiphopOption"><a href="/product/aboard-search?searchOption=힙합">힙합</a></li>
 						    </ul>
 						</div>
+			          
 			          
 			          
 			        </div>
 					
 					
 					
+				
 					
 					
 					
@@ -54,13 +56,13 @@
 						 
 					   <!-- product -->
 						
-						  <c:forEach var="domesticlist" items="${domesticlist}">
+						  <c:forEach var="aboardlist" items="${aboardlist}">
 							 <div class="col-md-4 col-xs-6">
 								<div class="product">
 									<div class="product-img">
 										<c:choose>
-										    <c:when test="${not empty domesticlist.filepath}">
-										      <img src=" ${domesticlist.filepath}">
+										    <c:when test="${not empty aboardlist.filepath}">
+										      <img src=" ${aboardlist.filepath}">
 										    </c:when>
 										  <c:otherwise>
 											  <img src="/album/default.png" >
@@ -69,19 +71,17 @@
 										<div class="product-label">
 									  </div>
 									</div>
-									
-									
 									<div class="product-body">
-										<p class="product-category">${domesticlist.musicno}</p>
-										<p class="product-category">${domesticlist.musicmajor}</p>
+										<p class="product-category">${aboardlist.musicno}</p>
+										<p class="product-category">${aboardlist.musicmajor}</p>
 										<h3 class="product-name">
-											<a href="/product/domestic-detail?musicno=${domesticlist.musicno}&musicmajor=${domesticlist.musicmajor}&id=${principal.id}">
-												${domesticlist.musictitle}
+											<a href="/product/domestic-detail?musicno=${aboardlist.musicno}&musicmajor=${aboardlist.musicmajor}&id=${principal.id}">
+												${aboardlist.musictitle}
 											</a>
 										</h3>
-										<h4 class="product-price">${domesticlist.musiccompany}<del class="product-old-price"></del></h4>
+										<h4 class="product-price">${aboardlist.musiccompany}<del class="product-old-price"></del></h4>
+										
 									</div>
-								
 								
 								</div>
 							</div>
@@ -89,7 +89,7 @@
 						
 							<!-- /product -->						
 
-
+	
 					</div>
 						<!-- /store products -->
 
@@ -101,7 +101,7 @@
 							
 						    <c:if test="${pageVO.prev }">
 								<li class="page-item">
-								  <a class="page-link" href="/product/domestic-music?page=${pageVO.startPage - 1 }" aria-label="Previous">
+								  <a class="page-link" href="/product/aboard-search?page=${pageVO.startPage - 1 }&searchOption=${pageVO.cri.searchOption}" aria-label="Previous">
 								  	<i class="fa fa-angle-left"></i> 
 								  </a>
 								</li>
@@ -111,7 +111,7 @@
 							
 								<c:forEach var="i" begin="${pageVO.startPage }" end="${pageVO.endPage }" step="1">
 									<li class="page-item ${isActive ? 'active' : ''}">
-										<a class="page-link" href="/product/domestic-music?page=${i}">
+										<a class="page-link" href="/product/aboard-search?page=${i}&searchOption=${pageVO.cri.searchOption}">
 										   ${i}
 										</a>
 									</li>
@@ -121,7 +121,7 @@
 								
 							<c:if test="${pageVO.next}">	
 								<li class="page-item">
-									<a href="/product/domestic-music?page=${pageVO.endPage + 1}">
+									<a href="/product/aboard-search?page=${pageVO.endPage + 1}&searchOption=${pageVO.cri.searchOption}">
 										<i class="fa fa-angle-right"></i>
 									</a>
 								</li>
