@@ -109,11 +109,11 @@
                                         <a href="/logout">
                                             <p>로그아웃</p>
                                         </a>
-<<<<<<< HEAD
+
                                         <a href="#">
-=======
+
                                         <a href="/mypage/${principal.id}">
->>>>>>> dev
+
                                             <p style="margin-left: 10px;">마이페이지</p>
                                         </a>
                                     </c:otherwise>

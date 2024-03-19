@@ -152,6 +152,10 @@ function loadViewId() {
 }
 
 // loadViewId() 실행함수 --> noticeView.jsp 
+//페이지 로드 시 데이터 로딩 함수 호출
+$(document).ready(function() {
+	loadViewId();
+});
 
 // notice view에서 update를 위한 클릭 이벤트 
 updateBtn.on("click", function() {

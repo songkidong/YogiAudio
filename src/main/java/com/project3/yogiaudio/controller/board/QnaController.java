@@ -1,18 +1,28 @@
 package com.project3.yogiaudio.controller.board;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.project3.yogiaudio.dto.board.NoticeDTO;
+import com.project3.yogiaudio.dto.board.QnaDTO;
 import com.project3.yogiaudio.dto.common.PageReq;
 import com.project3.yogiaudio.dto.common.PageRes;
+import com.project3.yogiaudio.filedb.entity.Filedb;
+import com.project3.yogiaudio.filedb.service.FiledbService;
+import com.project3.yogiaudio.repository.entity.User;
 import com.project3.yogiaudio.repository.entity.board.BoardNotice;
 import com.project3.yogiaudio.repository.entity.board.BoardQna;
 import com.project3.yogiaudio.service.board.QnaService;
+import com.project3.yogiaudio.util.Define;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +37,9 @@ public class QnaController {
 	
 	@Autowired
 	private QnaService qnaService;
+	
+	@Autowired
+	private FiledbService filedbService;
 	
 
 	// http://localhost:80/board/qna/qnaList
@@ -86,18 +99,38 @@ public class QnaController {
 	  * @변경이력 : 
 	  * @Method 설명 : 문의하기 상세보기 화면
 	  */
-	@GetMapping("/qnaView")
+	@GetMapping("/qnaView/{id}")
 	public String qnaView() {
 		
 		return "board/qna/qnaView";
 	}
 	
 	/**
+	  * @Method Name : qnaViewId
+	  * @작성일 : 2024. 3. 19.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 문의하기 상세보기 출력
+	  */
+	@PostMapping("/qnaView/{id}")
+	@ResponseBody
+	public BoardQna qnaViewId(@PathVariable(value = "id") int id) {
+		System.out.println("아이디아이디 : " + id);
+		
+		BoardQna boardQna = qnaService.qnaReadById(id);
+	
+		System.out.println("엔티티엔티티 : " + boardQna.toString());
+		
+		return boardQna;
+	}
+	
+	
+	/**
 	  * @Method Name : qnaWrite
 	  * @작성일 : 2024. 3. 13.
 	  * @작성자 : 노수현
 	  * @변경이력 : 
-	  * @Method 설명 : 나의 문의하기 작성하기 화면
+	  * @Method 설명 : 문의하기 작성하기 화면
 	  */
 	@GetMapping("/qnaWrite")
 	public String qnaWrite() {
@@ -105,14 +138,100 @@ public class QnaController {
 	}
 	
 	/**
+	  * @Method Name : insertQna
+	  * @작성일 : 2024. 3. 19.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 문의하기 작성하기
+	  */
+	@PostMapping("/qnaWrite")
+	public String insertQna(QnaDTO qnaDTO) {
+
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+
+		qnaDTO.setWriterId(principal.getId());
+		
+		System.out.println(qnaDTO.toString());
+
+		int result = qnaService.saveQna(qnaDTO);
+
+		if (result != 1) {
+			// TODO : 예외처리
+		}
+
+		return "redirect:/board/qna/qnaList";
+	}
+	
+	
+	/**
 	  * @Method Name : qnaUpdate
 	  * @작성일 : 2024. 3. 13.
 	  * @작성자 : 노수현
 	  * @변경이력 : 
-	  * @Method 설명 : 나의 문의하기 수정하기 화면
+	  * @Method 설명 : 문의하기 수정하기 화면
 	  */
-	@GetMapping("/qnaUpdate")
-	public String qnaUpdate() {
+	@GetMapping("/qnaUpdate/{id}")
+	public String qnaUpdate(@PathVariable(value = "id")int id, Model model) {
+		
+
+		QnaDTO qnaDTO = new QnaDTO();
+		
+		BoardQna boardQna = qnaService.qnaReadById(id);
+		
+		qnaDTO.setTitle(boardQna.getTitle());
+		qnaDTO.setContent(boardQna.getContent());
+		
+	    String filePath = boardQna.getFilePath();
+
+        // 쉼표를 기준으로 문자열 분리
+        String[] filePathList = filePath.split(",");
+        
+        List<String> uuidList = new ArrayList<>();
+        
+        // 각 URL에서 "http://localhost/filedb/get-file/" 부분 제거
+        for (String file : filePathList) {
+            uuidList.add(file);
+        }
+
+        qnaDTO.setUuidList(uuidList);
+        
+		model.addAttribute("qnaDTO", qnaDTO);
+		
 		return "board/qna/qnaUpdate";
 	}
+	
+	/**
+	  * @Method Name : qnaUpdate
+	  * @작성일 : 2024. 3. 19.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 문의하기 수정하기 출력
+	  */
+	@PostMapping("/qnaUpdate/{id}")
+	@ResponseBody
+	public boolean qnaUpdate(@PathVariable(value = "id") int id, QnaDTO qnaDTO) {
+		
+		System.out.println("아이디 번호" + id);
+		System.out.println("데이터" + qnaDTO.toString());
+		
+		boolean result = qnaService.qnaUpdate(id, qnaDTO);
+		
+		return result;
+	}
+	
+	/**
+	  * @Method Name : qnaDelete
+	  * @작성일 : 2024. 3. 19.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 문의하기 삭제하기
+	  */
+	@PostMapping("/qnaDelete/{id}")
+	@ResponseBody
+	public boolean qnaDelete(@PathVariable(value =  "id") int id) {
+		boolean result = qnaService.qnaDelete(id);
+		
+		return result;
+	}
+	
 }

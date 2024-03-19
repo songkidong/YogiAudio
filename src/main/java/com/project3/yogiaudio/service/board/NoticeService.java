@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.project3.yogiaudio.dto.board.NoticeDTO;
 import com.project3.yogiaudio.dto.common.PageReq;
@@ -26,7 +25,7 @@ public class NoticeService {
 	private FiledbService filedbService;
 
 	/**
-	 * @Method Name : noticeWrite
+	 * @Method Name : saveNotice
 	 * @작성일 : 2024. 3. 13.
 	 * @작성자 : 노수현
 	 * @변경이력 :

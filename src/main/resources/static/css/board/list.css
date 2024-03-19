@@ -128,7 +128,6 @@ nav {
 	cursor: not-allowed;
 }
 
-
 /* Search container styles */
 .input-group {
 	margin-bottom: 20px;
@@ -157,45 +156,74 @@ nav {
 	cursor: pointer;
 }
 
-
 #btnInsert:after {
-    content: "등록"; /* Display "등록" text after the button */
-    margin-left: 5px; /* Adjust spacing as needed */
+	content: "등록"; /* Display "등록" text after the button */
+	margin-left: 5px; /* Adjust spacing as needed */
 }
 
 .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .page-item {
-    list-style-type: none;
+	list-style-type: none;
 }
 
 .page-link {
-    text-decoration: none;
-    padding: 5px 10px;
-    color: #333;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    transition: all 0.3s ease;
+	text-decoration: none;
+	padding: 5px 10px;
+	color: #333;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	transition: all 0.3s ease;
 }
 
 .page-link:hover {
-    background-color: #f0f0f0;
+	background-color: #f0f0f0;
 }
 
 .page-item.active .page-link {
-    background-color: #f0ad4e;
-    color: #fff;
-    border-color: #eea236;
+	background-color: #f0ad4e;
+	color: #fff;
+	border-color: #eea236;
 }
-#board > div > form > div > div{
+
+#board>div>form>div>div {
 	float: right;
 	display: flex;
 }
 
-#board > div > div.title-container > h2 > a:hover{
+#board>div>div.title-container>h2>a:hover {
 	color: inherit;
+}
+
+.form-select {
+	position: relative;
+	background-color: transparent;
+	border: none; /* 선택 상자 주변의 테두리 제거 */
+	color: inherit; /* 폰트 색상 유지 */
+	padding: 0; /* 내부 여백 제거 */
+	-webkit-appearance: none; /* 웹킷 브라우저에서 기본 UI 제거 */
+	-moz-appearance: none; /* 모질라 브라우저에서 기본 UI 제거 */
+	appearance: none; /* 기본 UI 제거 */
+	position: relative;
+	z-index: 1;
+	
+}
+
+.form-select::after {
+    content: "\25BC";
+    font-family: Arial, sans-serif;
+    position: absolute;
+    top: 50%;
+    right: 0.5rem;
+    transform: translateY(-50%);
+    pointer-events: none; /* 화살표 아이콘에 대한 이벤트 처리 방지 */
+}
+
+/* 선택 상자 호버 상태 스타일링 */
+.form-select:hover {
+	cursor: pointer;
 }

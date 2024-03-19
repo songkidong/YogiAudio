@@ -6,30 +6,33 @@
 <section id="board">
 	<div class="board-container">
 		<div class="title-container">
-			<h2>나의 문의하기</h2>
+			<h2><a href="/board/qna/qnaList">나의 문의하기</a></h2>
 			<!-- 리스트 : 쿼리 where 유저id  -->
 			<button type="button" class="btn btn-warning" id="btnInsert">
 				<i class="bi bi-pencil-square"></i>
 			</button>
 		</div>
 
-		<div>
-			<div class="input-group">
-				<select name="searchType" class="searchType">
-					<option value="title">제목</option>
-					<option value="content">내용</option>
-					<option value="rdate">작성일</option>
-				</select>
-				<div class="form-outline">
-					<input type="search" id="form1" class="searchInput" name="keyword"
-						placeholder="Search" style="height: 40px" />
-				</div>
+		<form action="/board/qna/qnaList" method="get">
+			<div>
+				<div class="input-group">
+					<select name="searchType" class="searchType">
+						<option value="title">제목</option>
+						<option value="content">내용</option>
+						<option value="createdAt">작성일</option>
+					</select>
+					<div class="form-outline">
+						<input type="search" id="form1" class="searchInput"
+							name="searchInput" placeholder="Search" style="height: 40px" />
+					</div>
 
-				<button type="button" class="btn btn-warning searchButton">
-					<i class="bi bi-search"></i>
-				</button>
+					<button type="submit" class="btn btn-warning searchButton">
+						<i class="bi bi-search"></i>
+					</button>
+				</div>
 			</div>
-		</div>
+		</form>
+
 
 
 		<table class="table table-hover">
@@ -41,18 +44,35 @@
 					<!-- 작성자 마스킹 처리 js-->
 					<th style="width: 10%;">Date</th>
 					<!-- 날짜포맷  -->
-					<th style="width: 15%;">Answer</th>
+					<th style="width: 15%;"><select
+						class="form-select form-select-sm"
+						aria-label="Small select example">
+							<option selected>Answer</option>
+							<option value="1">답변완료</option>
+							<option value="2">미답변</option>
+					</select></th>
 					<!-- 답변여부 -->
 				</tr>
 			</thead>
 			<tbody class="text-center">
-				<tr>
-					<td>1</td>
-					<td>Qna1</td>
-					<td>Jo*n</td>
-					<td>2024-03-12</td>
-					<td>답변완료</td>
-				</tr>
+				<c:forEach var="list" items="${qnaList}">
+					<tr class="page-click" id="${list.id}">
+						<td>${list.id}</td>
+						<td class="text-left">
+							<div class="panel-board-container">
+								<p class="panel-board-title">${list.title}</p>
+							</div>
+						</td>
+						<td><span class="mask-writer">${list.writerName}</span></td>
+						<td>${list.formatCreatedAt()}</td><!--날짜포맷-->
+						<c:if test="${list.answerYn eq 'Y'}">
+							<td>답변완료</td>
+						</c:if>
+						<c:if test="${list.answerYn eq 'N'}">
+							<td>미답변</td>
+						</c:if>
+					</tr>
+				</c:forEach>
 		</table>
 
 		<!-- 페이징 처리 -->

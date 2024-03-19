@@ -35,34 +35,34 @@ window.onload = function() {
 };
 
 
-// notice list에서 insert 위한 클릭 이벤트
+// qna list에서 insert 위한 클릭 이벤트
 function loadInsert() {
 	const insertClick = $("#btnInsert");
 	insertClick.on("click", function() {
-		window.location.href = "/board/notice/noticeWrite";
+		window.location.href = "/board/qna/qnaWrite";
 	});
 }
 loadInsert();
 
 
-// notice list에서 View 위한 클릭 이벤트
+// qna list에서 View 위한 클릭 이벤트
 function loadView() {
 	const pageClick = $(".page-click");
 	pageClick.on("click", function() {
-		window.location.href = "/board/notice/noticeView/" + $(this).attr("id");
+		window.location.href = "/board/qna/qnaView/" + $(this).attr("id");
 
 	});
 }
 loadView();
 
-// notice view 출력
+// qna view 출력
 function loadViewId() {
 
 	console.log(typeof addressNum);
 
 	$.ajax({
 		type: "post",
-		url: "/board/notice/noticeView/" + addressNum,
+		url: "/board/qna/qnaView/" + addressNum,
 		data: {},
 		success: function(data) {
 
@@ -106,14 +106,14 @@ function loadViewId() {
 		// AJAX를 사용하여 서버로 수정된 데이터 전송
 		$.ajax({
 			type: "post",
-			url: "/board/notice/noticeUpdate/" + addressNum,
+			url: "/board/qna/qnaUpdate/" + addressNum,
 			data: formData,
 			contentType: false,
 			processData: false,
 			success: function(data) {
 				if (data === true) {
 					// 수정이 성공했을 때, 목록 페이지로 이동
-					window.location.href = "/board/notice/noticeList";
+					window.location.href = "/board/qna/qnaList";
 				} else {
 					// 수정이 실패했을 때의 처리
 					alert("데이터 수정에 실패했습니다.");
@@ -135,10 +135,10 @@ function loadViewId() {
 
 		$.ajax({
 			type: "post",
-			url: "/board/notice/noticeDelete/" + addressNum,
+			url: "/board/qna/qnaDelete/" + addressNum,
 			success: function(data) {
 				if (data == true) {
-					window.location.href = "/board/notice/noticeList";
+					window.location.href = "/board/qna/qnaList";
 				} else {
 					alert("데이터 삭제에 실패했습니다.");
 				}
@@ -151,27 +151,34 @@ function loadViewId() {
 
 }
 
-// loadViewId() 실행함수 --> noticeView.jsp 
-
-// notice view에서 update를 위한 클릭 이벤트 
-updateBtn.on("click", function() {
-	window.location.href = "/board/notice/noticeUpdate/" + addressNum;
+// loadViewId() 실행함수 --> qnaView.jsp 
+//페이지 로드 시 데이터 로딩 함수 호출
+$(document).ready(function() {
+	loadViewId();
 });
 
-// 상위 3개 글(최신글) id대신 메가폰 아이콘 처리
+// qna view에서 update를 위한 클릭 이벤트 
+updateBtn.on("click", function() {
+	window.location.href = "/board/qna/qnaUpdate/" + addressNum;
+});
+
+// 작성자이름 마스킹 처리
 document.addEventListener("DOMContentLoaded", function() {
-	// 상위 3개의 행을 가져옵니다.
-	var topRows = document.querySelectorAll(".page-click:nth-child(-n+3)");
+    var writerElements = document.querySelectorAll('.mask-writer');
 
-	// 각 상위 3개의 행에 대해 아이콘을 변경합니다.
-	topRows.forEach(function(row) {
-		var idCell = row.querySelector("td:first-child"); // 첫 번째 td 셀을 가져옵니다.
-		var id = idCell.textContent.trim(); // 텍스트 내용을 가져옵니다.
+    writerElements.forEach(function(element) {
+        var writerName = element.textContent;
+        var maskedName = maskMiddleCharacters(writerName);
+        element.textContent = maskedName;
+    });
 
-		// id 값이 있다면
-		if (id !== "") {
-			// 아이콘으로 대체합니다.
-			idCell.innerHTML = '<i class="bi bi-megaphone-fill text-danger"></i>';
-		}
-	});
+    function maskMiddleCharacters(name) {
+        if (name.length <= 2) {
+            return name;
+        } else {
+            var middleCharacters = name.substring(1, name.length - 1);
+            var maskedCharacters = '*'.repeat(middleCharacters.length);
+            return name[0] + maskedCharacters + name[name.length - 1];
+        }
+    }
 });

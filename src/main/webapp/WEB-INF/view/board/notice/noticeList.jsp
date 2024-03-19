@@ -40,7 +40,7 @@
 			<thead class="thead-light text-center">
 				<tr>
 					<th style="width: 10%;">No</th>
-					<!-- 최신글 상위3개 메가폰아이콘 처리 js-->
+					<!-- 최신글 상위3개 메가폰아이콘 처리 js???????????-->
 					<th style="width: 55%;">NOTICE Title</th>
 					<th style="width: 10%;">Writer</th>
 					<th style="width: 10%;">File</th>

@@ -94,7 +94,8 @@ public class NoticeController {
 	 @GetMapping("/noticeView/{id}") 
 	 public String noticeView() {
 	  
-	  return "board/notice/noticeView"; }
+	  return "board/notice/noticeView"; 
+	 }
 	 
 	 
 	/**
@@ -131,9 +132,7 @@ public class NoticeController {
 	}
 
 	/**
-	 * @param MultipartFile
-	 * @param file
-	 * @Method Name : noticeWrite
+	 * @Method Name : insertNotice
 	 * @작성일 : 2024. 3. 13.
 	 * @작성자 : 노수현
 	 * @변경이력 :

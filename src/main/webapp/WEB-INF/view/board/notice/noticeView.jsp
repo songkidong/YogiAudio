@@ -53,12 +53,7 @@
 </section>
 
 <script src="/js/board/notice.js"></script>
-<script>
-//페이지 로드 시 데이터 로딩 함수 호출
-$(document).ready(function() {
-	loadViewId();
-});
-</script>
+
 <%@include file="/WEB-INF/view/layout/footer.jsp"%>
 
 
