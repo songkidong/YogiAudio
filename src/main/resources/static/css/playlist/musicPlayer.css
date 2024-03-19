@@ -147,4 +147,11 @@ main {
 #volumeContainer:hover #volumeSlider {
     display: inline-block; /* 볼륨 아이콘에 마우스를 가져다 대면 볼륨 슬라이더 표시 */
 }
+.highlight {
+	background-color: yellow;
+}
+#heart {
+	width: 20px;
+	height: 20px;
+}
 /* 추가된 부분 끝 */
