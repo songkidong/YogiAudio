@@ -76,6 +76,9 @@ public class PurchaseController {
 		PurchaseDTO result2 = purchaseService.purchaseDetailCancel(id);
 		model.addAttribute("detailcancel", result2);
 		
+		System.out.println("id ==> :" + id);
+		
+		
 		log.debug("이용권구매상세보기출력");
 		return"product/purchasedetail";
 	}
