@@ -149,7 +149,7 @@
 						        <source src="/music/${detail.musicsample}" type="audio/wav">
 						    </audio><br>
 						    
-						    <p>
+						       <p>					    
 						         <c:choose>
 							         	<c:when test="${udetail.status eq 'Y'}">
 						        			<button id="downloadButton" type="button" class="btn btn-primary">파일 다운로드</button>
@@ -158,7 +158,7 @@
 							            <button id="paymentcheck" type="button" class="btn btn-danger" >다운로드불가능</button>
 							        </c:otherwise>
 							    </c:choose>
-						    </p>
+						      </p>
 							 
 							    
 						    

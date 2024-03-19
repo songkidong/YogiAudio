@@ -76,8 +76,21 @@
 										<p class="product-category">${aboardlist.musicmajor}</p>
 										<p class="product-category">${aboardlist.musicminor}</p>
 										<h3 class="product-name">
-											<a href="/product/aboard-detail?musicno=${aboardlist.musicno}&musicmajor=${aboardlist.musicmajor}&id=${principal.id}">
-											  ${aboardlist.musictitle}
+											<c:url value="/product/aboard-detail" var="detailUrl">
+											    <c:param name="musicno" value="${aboardlist.musicno}" />
+											    <c:param name="musicmajor" value="${aboardlist.musicmajor}" />
+											    <c:choose>
+											        <c:when test="${not empty principal}">
+											            <c:param name="id" value="${principal.id}" />
+											        </c:when>
+											        <c:otherwise>
+											            <c:param name="id" value="" />
+											        </c:otherwise>
+											    </c:choose>
+											</c:url>
+											
+											<a href="${detailUrl}">
+											    ${aboardlist.musictitle}
 											</a>
 										</h3>
 										<h4 class="product-price">${aboardlist.musiccompany}<del class="product-old-price"></del></h4>

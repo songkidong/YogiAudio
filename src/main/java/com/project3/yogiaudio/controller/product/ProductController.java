@@ -217,20 +217,19 @@ public class ProductController {
 	//국외음악상세페이지
 	// http://localhost:80/product/aboard-detail?musicno=&musicmajor=
 	@GetMapping("/aboard-detail")
-	public String aboardDetailGET(@RequestParam(value = "musicno") int musicno, @RequestParam(value = "musicmajor") String musicmajor,@RequestParam(value = "id") long id,Model model) {
+	public String aboardDetailGET(@RequestParam(value = "musicno") int musicno, @RequestParam(value = "musicmajor") String musicmajor,@RequestParam(value = "id", required = false) Long id,Model model) {
 		
-		User udetail = userService.findById(id);
-		model.addAttribute("udetail", udetail);
-		
-		
-		MusicDTO result = musicService.aboardDetail(musicno, musicmajor);
-		model.addAttribute("detail", result);
-		
-		
-		
-		 System.out.println("musicno: " + musicno); 
-		 System.out.println("musicmajor: " + musicmajor);
-		return"product/aboarddetail";
+		 if (id != null) {
+		        User udetail = userService.findById(id);
+		        model.addAttribute("udetail", udetail);
+		    }
+
+		    MusicDTO result = musicService.aboardDetail(musicno, musicmajor);
+		    model.addAttribute("detail", result);
+		    
+		    System.out.println("musicno: " + musicno); 
+		    System.out.println("musicmajor: " + musicmajor);
+		    return "product/aboarddetail";
 	}
 	
 	
