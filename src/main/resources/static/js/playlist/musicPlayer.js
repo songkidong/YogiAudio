@@ -357,7 +357,6 @@ document.addEventListener('DOMContentLoaded', function() {
 					});
 					heartBtnImg.src = '/img/music_like/unlike.png';
 					console.log("여기선 삭제");
-					return;
 				} else {
 					$.ajax({
 						type: 'GET',
@@ -375,7 +374,6 @@ document.addEventListener('DOMContentLoaded', function() {
 					});
 					heartBtnImg.src = '/img/music_like/like.png';
 					console.log("여기선 추가");
-					return;
 				}
 			}
 		});
