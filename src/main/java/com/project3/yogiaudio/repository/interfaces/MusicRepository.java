@@ -31,11 +31,17 @@ public interface MusicRepository {
 	//국외음악리스트 카운팅하기
 	public int countaboardListAll() throws Exception;
 	
+	//국외음악리스트(조건) 출력하기
+	public List<MusicDTO> searchAmusicList(Criteria cri) throws Exception;
+	
+	//국외음악리스트(조건) 카운팅하기
+	public int countsearchAmusicList(Criteria cri) throws Exception;
+	
 	//국내음악디테일 
 	public MusicDTO domesticDetail(@Param(value = "musicno") int musicno, @Param(value = "musicmajor") String musicmajor);
 	
 	//국외음악디테일
-	public MusicDTO aboardDetail(int musicno, String musicmajor);
+	public MusicDTO aboardDetail(@Param(value = "musicno") int musicno, @Param(value = "musicmajor") String musicmajor);
 
 	//앨범자켓바꾸기
 	public Integer albumUpdate(MusicDTO dto);

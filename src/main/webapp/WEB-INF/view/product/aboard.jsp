@@ -30,7 +30,7 @@
 						    <ul class="section-tab-nav tab-nav">
 						        <li id="allOption"><a href="/product/aboard-music">전체</a></li>
 						        <li id="balladOption"><a href="/product/aboard-search?searchOption=발라드">발라드</a></li>
-						        <li id="classicOption"><a href="/product/aboard-search?searchOption=클래식">트로트</a></li>
+						        <li id="classicOption"><a href="/product/aboard-search?searchOption=클래식">클래식</a></li>
 						        <li id="hiphopOption"><a href="/product/aboard-search?searchOption=힙합">힙합</a></li>
 						    </ul>
 						</div>
@@ -76,7 +76,7 @@
 										<p class="product-category">${aboardlist.musicmajor}</p>
 										<p class="product-category">${aboardlist.musicminor}</p>
 										<h3 class="product-name">
-											<a href="/product/aboard-detail?musicno=${aboardlist.musicno}&musicmajor=${aboardlist.musicmajor}">
+											<a href="/product/aboard-detail?musicno=${aboardlist.musicno}&musicmajor=${aboardlist.musicmajor}&id=${principal.id}">
 											  ${aboardlist.musictitle}
 											</a>
 										</h3>

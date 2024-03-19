@@ -27,7 +27,7 @@
 						    <ul class="section-tab-nav tab-nav">
 						    	<li id="allOption"><a href="/product/aboard-music">전체</a></li>
 						        <li id="balladOption"><a href="/product/aboard-search?searchOption=발라드">발라드</a></li>
-						        <li id="trotOption"><a href="/product/aboard-search?searchOption=트로트">트로트</a></li>
+						        <li id="classicOption"><a href="/product/aboard-search?searchOption=클래식">클래식</a></li>
 						        <li id="hiphopOption"><a href="/product/aboard-search?searchOption=힙합">힙합</a></li>
 						    </ul>
 						</div>
