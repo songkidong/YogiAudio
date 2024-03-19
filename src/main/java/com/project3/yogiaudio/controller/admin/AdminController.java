@@ -1,4 +1,4 @@
-package com.project3.yogiaudio.controller;
+package com.project3.yogiaudio.controller.admin;
 
 import java.util.List;
 
@@ -13,8 +13,11 @@ import com.project3.yogiaudio.dto.admin.AdminCriteria;
 import com.project3.yogiaudio.dto.admin.AdminPageVO;
 import com.project3.yogiaudio.repository.entity.Music;
 import com.project3.yogiaudio.repository.entity.User;
+import com.project3.yogiaudio.repository.entity.board.BoardFree;
+import com.project3.yogiaudio.repository.entity.board.BoardFreeComment;
 import com.project3.yogiaudio.repository.entity.board.BoardNotice;
 import com.project3.yogiaudio.repository.entity.board.BoardQna;
+import com.project3.yogiaudio.service.AdminBoardService;
 import com.project3.yogiaudio.service.AdminService;
 
 import lombok.extern.log4j.Log4j2;
@@ -24,8 +27,12 @@ import lombok.extern.log4j.Log4j2;
 @RequestMapping("/admin")
 public class AdminController {
 
+	// Autowired에 final 선언
 	@Autowired
 	AdminService adminService;
+	
+	@Autowired
+	AdminBoardService adminBoardService;
 
 	// 인덱스
 	@GetMapping("/index")
@@ -89,7 +96,7 @@ public class AdminController {
 	@GetMapping("/noticeList")
 	public String noticeListPage(AdminCriteria cri, Model model) {
 		
-		List<BoardNotice> noticeList = adminService.findAllNotice(cri);
+		List<BoardNotice> noticeList = adminBoardService.findAllNotice(cri);
 		
 		if(noticeList.isEmpty()) {
 			model.addAttribute("noticeList", null);
@@ -99,31 +106,75 @@ public class AdminController {
 		
 		AdminPageVO pageVO = new AdminPageVO();
 		pageVO.setCri(cri);
-		pageVO.setTotalCount(adminService.countAllNotice());
+		pageVO.setTotalCount(adminBoardService.countAllNotice());
 		model.addAttribute("pageVO", pageVO);
 		
 		return "admin/noticeList";
+	}
+	
+	// 공지사항 글보기
+	@GetMapping("/noticeView/{id}")
+	public String noticeViewPage(@PathVariable("id") Integer id, Model model) {
+		
+		BoardNotice notice = adminBoardService.findNoticeById(id);
+		model.addAttribute("notice", notice);
+		
+		return "admin/noticeView";
 	}
 	
 	// qna 목록
 	@GetMapping("/qnaList")
 	public String qnaListPage(AdminCriteria cri, Model model) {
 		
-		List<BoardQna> qnaList = adminService.findAllQna(cri);
+		List<BoardQna> qnaList = adminBoardService.findAllQna(cri);
 		model.addAttribute("qnaList", qnaList);
 		
 		AdminPageVO pageVO = new AdminPageVO();
 		pageVO.setCri(cri);
-		pageVO.setTotalCount(adminService.countAllQna());
+		pageVO.setTotalCount(adminBoardService.countAllQna());
 		model.addAttribute("pageVO", pageVO);
 		
 		return "admin/qnaList";
 	}
 	
-	// 공지사항 등록
-	@GetMapping("/noticeSave")
-	public String noticeSavePage() {
+	// 자유게시판 목록
+	@GetMapping("/freeList")
+	public String freeListPage(AdminCriteria cri, Model model) {
 		
-		return "admin/noticeSave";
+		List<BoardFree> freeList = adminBoardService.findAllFree(cri);
+		model.addAttribute("freeList", freeList);
+		
+		AdminPageVO pageVO = new AdminPageVO();
+		pageVO.setCri(cri);
+		pageVO.setTotalCount(adminBoardService.countAllFree());
+		model.addAttribute("pageVO", pageVO);
+		
+		return "/admin/freeList";
 	}
+	
+	// 자유게시판 글보기
+	@GetMapping("/freeView/{id}")
+	public String freeViewPage(@PathVariable("id") Integer id, Model model) {
+		
+		BoardFree free = adminBoardService.findFreeById(id);
+		model.addAttribute("free", free);
+		
+		// 댓글 목록
+		List<BoardFreeComment> commentList = adminBoardService.findAllCommentByBoardFreeId(id);
+		log.info("로그!!!!!! commentList : " + commentList);
+		model.addAttribute("commentList", commentList);
+		
+		return "admin/freeView";
+	}
+	
+	// 공지사항 등록
+	@GetMapping("/saveNotice")
+	public String saveNoticePage() {
+		
+		return "admin/saveNotice";
+	}
+	
+	
+	
+	
 }

@@ -25,6 +25,8 @@ public class User {
 	private String role;
 	private String deleteYn;
 	private Timestamp deleteAt;
+	private String status;
+
 	
 	// 날짜 포멧 설정
 	public String formatCreatedAt() {

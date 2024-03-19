@@ -5,12 +5,42 @@
     
 <title>국외음악리스트</title>
 	
+<style>
+  .section-tab-select {
+    width: 150px; /* 원하는 너비로 설정하세요 */
+  }
+</style>
+
+
+
 
 	   <!-- SECTION -->
 		<div class="section" style="margin-left: 200px;">
 			<!-- container -->
 			<div class="container">
-					<h3 class="title">🛫국외음악</h3>
+			
+			
+					
+				
+					 <div style="display: flex; align-items: center; margin-bottom: 20px;">
+			            <h3 class="title" style="margin-right: 20px;">🛫국외음악</h3>
+			            <div class="section-nav" style="margin-left: 550px;">
+			                <select class="section-tab-select tab-select form-control">
+			                    <option value="#tab1">전체</option>
+			                    <option value="#tab2">발라드</option>
+			                    <option value="#tab3">트로트</option>
+			                    <option value="#tab4">힙합</option>
+			                </select>
+			            </div>
+			        </div>
+				
+				
+				
+				
+				
+				
+				
+				
 				
 				<!-- row -->
 				<div class="row">
@@ -28,8 +58,6 @@
 									<div class="product-img">
 										<img src="/album/default.png" alt="">
 										<div class="product-label">
-											<span class="sale">-30%</span>
-											<span class="new">NEW</span>
 										</div>
 									</div>
 									<div class="product-body">
@@ -39,23 +67,11 @@
 											  ${aboardlist.musictitle}
 											</a>
 										</h3>
-										<h4 class="product-price">${aboardlist.musicprice}<del class="product-old-price"></del></h4>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-											<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-										</div>
+										<h4 class="product-price">${aboardlist.musiccompany}<del class="product-old-price"></del></h4>
+										
+										
 									</div>
-									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-									</div>
+									
 								</div>
 							</div>
 						 </c:forEach>

@@ -37,6 +37,13 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
+
+
+<!-- j쿼리 -->
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+
 </head>
 <body>
     <!-- HEADER -->
@@ -102,7 +109,11 @@
                                         <a href="/logout">
                                             <p>로그아웃</p>
                                         </a>
+
                                         <a href="#">
+
+                                        <a href="/mypage/${principal.id}">
+
                                             <p style="margin-left: 10px;">마이페이지</p>
                                         </a>
                                     </c:otherwise>

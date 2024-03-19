@@ -13,7 +13,9 @@
 
 	<select id="findAllByKeywordwithPasing"
 		resultType="com.project3.yogiaudio.repository.entity.board.BoardNotice">
-		select * from board_notice
+		select a.*, b.name as writerName from board_notice as a
+		left join `user` as b
+		on a.writer_id = b.id
 		<if test="searchType == 'title'">
 			where title like CONCAT('%',#{searchInput},'%')
 		</if>
@@ -47,5 +49,18 @@
 		</if>
 	</select>
 
+	<select id="findAllById"
+		resultType="com.project3.yogiaudio.repository.entity.board.BoardNotice">
+		SELECT * FROM board_notice WHERE id = #{id};
+	</select>
+
+	<update id="noticeUpdate">
+		update board_notice set title = #{title}, content =
+		#{content}, file_path = #{filePath} WHERE id = #{id};
+	</update>
+
+	<delete id="noticeDelete">
+		delete from board_notice WHERE id = #{id};
+	</delete>
 
 </mapper>

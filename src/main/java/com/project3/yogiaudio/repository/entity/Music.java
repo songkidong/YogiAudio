@@ -32,6 +32,8 @@ public class Music {
 	private String musicMinor;
 	private int musicPrice;
 	private String status;
+	private int likeit;
+
 
 	
 	// 날짜 포멧 설정

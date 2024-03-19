@@ -12,9 +12,11 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 public class SignUpFormDTO {
-
+	
+	private long id;
 	private String name;
 	private String nickname;
 	private String email;
 	private String password;
+	private String status;
 }

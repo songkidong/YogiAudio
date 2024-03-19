@@ -38,6 +38,11 @@ dependencies {
 	implementation 'org.springframework.security:spring-security-crypto'
 	implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1' // JSONObject
 	
+	// 이메일 인증
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '3.0.5'
+	// JavaMail API
+	implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2' 
+	
 }
 
 tasks.named('test') {
