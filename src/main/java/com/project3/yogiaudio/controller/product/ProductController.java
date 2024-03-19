@@ -196,21 +196,20 @@ public class ProductController {
 	//국내음악상세페이지
 	// http://localhost:80/product/domestic-detail?musicno=&musicmajor=
 	@GetMapping("/domestic-detail")
-	public String domesticDetailGET(@RequestParam(value = "musicno") int musicno, @RequestParam(value = "musicmajor") String musicmajor,@RequestParam(value = "id") long id,Model model) {
+	public String domesticDetailGET(@RequestParam(value = "musicno") int musicno, @RequestParam(value = "musicmajor") String musicmajor,@RequestParam(value = "id", required = false) Long id,Model model) {
 				
-		User udetail = userService.findById(id);
-		model.addAttribute("udetail", udetail);
-		
-		
-		MusicDTO result = musicService.domesticDetail(musicno,musicmajor);
-		model.addAttribute("detail", result);
-		
-		
-		
-	    System.out.println("musicno: " + musicno); 
-	    System.out.println("musicmajor: " + musicmajor);
-	    System.out.println("result + :" + result);
-		return"product/domesticdetail";
+
+		 if (id != null) {
+		        User udetail = userService.findById(id);
+		        model.addAttribute("udetail", udetail);
+		    }
+
+		    MusicDTO result = musicService.aboardDetail(musicno, musicmajor);
+		    model.addAttribute("detail", result);
+		    
+		    System.out.println("musicno: " + musicno); 
+		    System.out.println("musicmajor: " + musicmajor);
+		    return "product/domesticdetail";
 	}
 	
 	
