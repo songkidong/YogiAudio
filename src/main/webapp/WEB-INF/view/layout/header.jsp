@@ -93,9 +93,9 @@
 							<div class="header-search">
 								<form>
 									<select class="input-select">
-										<option value="0">모든 카테고리</option>
-										<option value="1">카테고리 01</option>
-										<option value="1">카테고리 02</option>
+										<option value="0">종합</option>
+										<option value="1">국내</option>
+										<option value="1">국외</option>
 									</select> <input class="input" placeholder="여기에 검색">
 									<button class="search-btn">검색</button>
 								</form>
