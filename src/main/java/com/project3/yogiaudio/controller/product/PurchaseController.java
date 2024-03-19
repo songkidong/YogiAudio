@@ -73,8 +73,8 @@ public class PurchaseController {
 		PurchaseDTO result = purchaseService.purchaseDetail(pno);
 		model.addAttribute("detail", result);
 		
-		PurchaseDTO result2 = purchaseService.purchaseDetailCancel(id);
-		model.addAttribute("detailcancel", result2);
+		//PurchaseDTO result2 = purchaseService.purchaseDetailCancel(id);
+		//model.addAttribute("detailcancel", result2);
 		
 		System.out.println("id ==> :" + id);
 		
@@ -104,13 +104,12 @@ public class PurchaseController {
 	//결제취소컨트롤러
 	// http://localhost:80/purchase/cancel
 	@GetMapping("/cancel")
-	public String paymentCancelGET(@RequestParam(value = "paymentKey") String paymentKey, Model model,@RequestParam (value="amount") int amount,@RequestParam (value="pno") int pno,HttpSession session,@RequestParam(value = "id") int id) {
+	public String paymentCancelGET(Model model,@RequestParam (value="amount") int amount,@RequestParam (value="pno") int pno,HttpSession session,@RequestParam(value = "id") int id) {
 		
 		//상태업데이트 , 내역등록
-		cancelService.InsertCancel(paymentKey, amount, pno, id);
+		cancelService.InsertCancel(amount, pno, id);
 		cancelService.refundStatus(id);
 		
-		model.addAttribute("paymentKey", paymentKey);
 		return "product/cancel";
 	}
 	

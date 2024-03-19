@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface CancelRepository {
 	
 	//취소내역등록하기
-	public Integer InsertCancel(@Param(value = "id") int id, @Param(value="paymentKey") String paymentKey, @Param(value="amount") int amount,@Param(value="pno") int pno);
+	public Integer InsertCancel(@Param(value = "id") int id,@Param(value="amount") int amount,@Param(value="pno") int pno);
 	
 	
 	//환불후상태업데이트하기

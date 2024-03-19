@@ -17,8 +17,8 @@ public class CancelService {
 	
 	//결제취소후내역등록하기
 	@Transactional
-	public Integer InsertCancel(@Param(value="paymentKey") String paymentKey, @Param(value="amount") int amount,@Param(value="pno") int pno, @Param(value = "id") int id) {
-		return cancelRepository.InsertCancel(id, paymentKey, amount, pno);
+	public Integer InsertCancel(@Param(value="amount") int amount,@Param(value="pno") int pno, @Param(value = "id") int id) {
+		return cancelRepository.InsertCancel(id,amount, pno);
 		
 	}
 	

@@ -6,8 +6,8 @@
 		
 		<!-- 취소내역 등록하기 -->
 		<insert id="InsertCancel">
-		  insert into cancel(id,pno,paymentkey,amount)
-		  values(#{id},#{pno},#{paymentKey},#{amount})
+		  insert into cancel(id,pno,amount)
+		  values(#{id},#{pno},#{amount})
 		</insert>
 		
 		
