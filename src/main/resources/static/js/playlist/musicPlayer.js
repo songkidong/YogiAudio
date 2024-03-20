@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
+	// 셔플 상태를 나타내는 변수
+	let isShuffled = false;
+	// 반복재생 상태를 나타내는 변수
+	let isRepeat = false;
+	
 	const audioPlayer = new Audio();
 
 	// 슬라이더 요소 가져오기
@@ -187,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	function getCurrentSongIndex() {
 		return currentSongIndex;
 	}
-	
+
 	const heartBtnImg = document.getElementById('heart');
 	// 좋아요 버튼 클릭 이벤트 리스너 추가
 	heartBtnImg.addEventListener('click', function() {
@@ -215,12 +220,15 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 		if (e.target.classList.contains('fa-step-forward')) {
 			console.log("앞으로");
-
 			playNextSong(); // 다음 곡으로 넘어감
 		}
 		if (e.target.classList.contains('fa-step-backward')) {
 			console.log("뒤로");
 			playPreviousSong();
+		}
+		if (e.target.classList.contains('fa-random')) {
+			console.log("랜덤");
+			shuffleMusic(e);
 		}
 	});
 	setFirstSong();
@@ -242,10 +250,15 @@ document.addEventListener('DOMContentLoaded', function() {
 	function playNextSong() {
 		// 현재 재생 중인 곡의 인덱스를 증가시킴
 		currentSongIndex++;
-		// 재생 목록의 끝에 도달하면 처음 곡으로 돌아감
-		if (currentSongIndex >= playListItems.length) {
-			currentSongIndex = 0;
+		
+		// 반복재생일때만 처음곡으로 넘어감
+		if(isRepeat) {
+			// 재생 목록의 끝에 도달하면 처음 곡으로 돌아감
+			if (currentSongIndex >= playListItems.length) {
+				currentSongIndex = 0;
+			}
 		}
+
 		// 현재 곡의 인덱스를 기반으로 해당 곡을 재생
 		console.log(currentSongIndex);
 		playListItems[currentSongIndex].click();
@@ -385,6 +398,32 @@ document.addEventListener('DOMContentLoaded', function() {
 				console.log("여기선 추가");
 			}
 		}
+	}
+	// 셔플 토글 버튼 클릭 이벤트 리스너 추가
+	function shuffleMusic(e) {
+		console.log("이거 클릭 됐나요???????");
+		// 셔플 상태를 토글
+		isShuffled = !isShuffled;
+
+		// 셔플 상태에 따라 동작 수행
+		if (isShuffled) {
+			// 플레이리스트 섞기
+			shufflePlaylist();
+			// 버튼 아이콘 변경: 활성화 상태로 변경
+			e.target.classList.remove('disabled');
+			console.log("활성화 하기");
+		} else {
+			// 플레이리스트 원래 순서로 정렬
+			playListItems.sort((a, b) => a.getAttribute('data-order-index') - b.getAttribute('data-order-index'));
+			// 버튼 아이콘 변경: 비활성화 상태로 변경
+			e.target.classList.add('disabled');
+			console.log("비활성화 하기");
+		}
+	}
+
+	// 플레이리스트를 섞는 함수
+	function shufflePlaylist() {
+		playListItems.sort(() => Math.random() - 0.5);
 	}
 
 	// 플레이리스트에 노래 추가

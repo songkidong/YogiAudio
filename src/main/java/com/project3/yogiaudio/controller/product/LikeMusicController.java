@@ -38,7 +38,6 @@ public class LikeMusicController {
 		if(result == 0) {
 			throw new DataAccessException("Failed to delete playlist") {};
 		}
-		System.out.println("여기타냐?");
 		return result;
 	}
 	/**
@@ -55,7 +54,6 @@ public class LikeMusicController {
 		if(result == 0) {
 			throw new DataAccessException("Failed to save playlist") {};
 		}
-		System.out.println("여기타냐?");
 		return result;
 	}
 	/**

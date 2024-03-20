@@ -7,6 +7,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+.disabled {
+  color: #999; /* 회색으로 아이콘 색상 변경 */
+}
+</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/playlist/musicPlayer.css">
@@ -51,7 +56,7 @@
 			</div>
 
 			<div class="ui-controls">
-				<i class="fas fa-random"></i> <i class="fas fa-redo"></i> <i
+				<i class="fas fa-random disabled"></i> <i class="fas fa-redo"></i> <i
 					class="fas fa-step-backward"></i> <i class="fas fa-pause"></i> <i
 					class="fas fa-step-forward"></i>
 				<div id="volumeContainer">
