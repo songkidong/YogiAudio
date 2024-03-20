@@ -111,6 +111,16 @@ public class FiledbService {
 		return filedbRepository.findByUuid(uuid);
 	}
 	
-	
+	/**
+	  * @Method Name : deleteByUuid
+	  * @작성일 : 2024. 3. 20.
+	  * @작성자 : 최장호
+	  * @변경이력 : 
+	  * @Method 설명 : Uuide로 filedb 삭제
+	  */
+	@Transactional
+	public int deleteByUuid(String uuid) {
+		return filedbRepository.deleteByUuid(uuid);
+	}
 	
 }
