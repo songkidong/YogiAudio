@@ -29,7 +29,20 @@ public class MusicService {
 		return musicRepository.countdomesticListAll();
 
 	}
-
+	
+	//통합검색출력하기
+	public List<MusicDTO> MainSearch(Criteria cri) throws Exception{
+		List<MusicDTO> result = musicRepository.MainSearch(cri);
+		return result;
+	}
+	
+	
+	//통합검색카운팅하기
+	public Integer MainSearchCount(Criteria cri) throws Exception{
+		return musicRepository.MainSearchCount(cri);
+	}
+	
+	
 	
 	//국내음악리스트(조건) 출력하기
 	public List<MusicDTO> searchDmusicList(Criteria cri) throws Exception{

@@ -91,12 +91,12 @@
 						<!-- 검색 바 -->
 						<div class="col-md-12">
 							<div class="header-search">
-								<form>
-									<select class="input-select">
-										<option value="0">종합</option>
-										<option value="1">국내</option>
-										<option value="1">국외</option>
-									</select> <input class="input" placeholder="여기에 검색">
+								<form action="/product/main-search" method="get">
+									<select class="input-select" id="searchOption" name="searchOption" >
+										<option value="국내">국내</option>
+										<option value="국외">국외</option>
+									</select> 
+									<input class="input" placeholder="여기에 검색">
 									<button class="search-btn">검색</button>
 								</form>
 							</div>

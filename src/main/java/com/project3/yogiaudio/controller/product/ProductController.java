@@ -81,6 +81,39 @@ public class ProductController {
 	}
 	
 	
+	//메인페이지 검색페이지출력
+	@GetMapping("/main-search")
+	public String mainSearchPageGET(HttpServletRequest request, Criteria cri, Model model) throws Exception {
+		
+		String searchOption = request.getParameter("searchOption");
+		
+		if (searchOption != null && !searchOption.isEmpty()) {
+			cri.setSearchOption(searchOption);
+		}
+		
+		PageVO pageVO = new PageVO();
+		pageVO.setCri(cri);
+		pageVO.setTotalCount(musicService.MainSearchCount(cri));
+		
+		model.addAttribute("pageVO", pageVO);
+
+		
+		List<MusicDTO> result = musicService.MainSearch(cri);
+		
+		model.addAttribute("searchlist", result);
+		
+		log.debug("admin-user관리 페이지 출력!");
+		
+		
+		
+		return "product/mainsearch";
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	// http://localhost:80/product/domestic-music

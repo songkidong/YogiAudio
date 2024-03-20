@@ -19,6 +19,12 @@ public interface MusicRepository {
 	//국내음악리스트 카운팅하기
 	public int countdomesticListAll() throws Exception;
 	
+	//통합검색출력하기
+	public List<MusicDTO> MainSearch(Criteria cri) throws Exception;
+	
+	//통합검색카운팅하기
+	public Integer MainSearchCount(Criteria cri) throws Exception;
+	
 	//국내음악리스트(조건) 출력하기
 	public List<MusicDTO> searchDmusicList(Criteria cri) throws Exception;
 	
