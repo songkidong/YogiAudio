@@ -174,6 +174,25 @@
 	</select>
 	
 	
+	
+	<!-- 최신음악 전체리스트 출력하기 -->
+	<select id ="newListAll" resultType="com.project3.yogiaudio.dto.music.MusicDTO">
+		select * from music
+		order by startdate asc
+		limit #{startPage},#{pageSize}
+	</select>
+	
+	
+	<!-- 최신음악 전체리스트 카운팅하기 -->
+	<select id="newListAllcount" resultType="Integer">
+		<![CDATA[ select count(*) from music where music_no > 0]]>
+	</select>
+	
+
+	
+	
+	
+	
 	<!-- 국내인기순으로 메인페이지리스트출력 -->
 	<select id ="likeMusicList" resultType="com.project3.yogiaudio.dto.music.MusicDTO">
 		select * from music order by likeit desc

@@ -18,7 +18,7 @@
 					<div class="col-md-5 col-md-push-2">
 						<div id="product-main-img">
 							<div class="product-preview">
-								  <img src="/banner/p1.png" >
+							   <img src="/banner/p1.png" >
 							</div>
 						</div>
 					</div>
@@ -37,17 +37,19 @@
 						<div class="product-details">
 							<h2 class="product-name">${detail.purchasename},${principal.cancel}</h2>
 							
-							<div>
+						  <div>
 							
 								<h3 class="product-price">${detail.price}<del class="product-old-price"></del></h3>
 								
-								<c:if test="${principal.cancel eq 'N'} && ${principal.status eq 'Y'}">
+							   <c:if test="${principal.cancel eq 'N'} && ${principal.status eq 'Y'}">
 							      <a href="/purchase/cancel?amount=${detail.price}&pno=${detail.pno}&id=${principal.id}">
-									<button class="btn btn-danger" id="cancel-button" style="margin-top:30px; margin-left: 50px;">취소하기</button>
+									 <button class="btn btn-danger" id="cancel-button" style="margin-top:30px; margin-left: 50px;">취소하기</button>
 								  </a>
-							    </c:if> 
+							   </c:if> 
+								
+								
 								 
-							</div>
+						  </div>
 						
 							
 						    

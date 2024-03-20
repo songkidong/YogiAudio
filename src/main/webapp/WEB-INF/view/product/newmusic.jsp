@@ -3,7 +3,7 @@
 <%@include file="/WEB-INF/view/layout/header.jsp" %>
 
     
-<title>국외음악리스트</title>
+<title>최신음악리스트</title>
 	
 <style>
   .section-tab-select {
@@ -23,22 +23,15 @@
 					
 				
 					 <div style="display: flex; align-items: center; margin-bottom: 20px;">
-			            <h3 class="title" style="margin-right: 20px;">🛫국외음악</h3>
+			            <h3 class="title" style="margin-right: 20px;">🔥최신곡</h3>
 			            
 			             
-			            <div class="section-nav">
-						    <ul class="section-tab-nav tab-nav">
-						        <li id="allOption"><a href="/product/aboard-music">전체</a></li>
-						        <li id="balladOption"><a href="/product/aboard-search?searchOption=발라드">발라드</a></li>
-						        <li id="classicOption"><a href="/product/aboard-search?searchOption=클래식">클래식</a></li>
-						        <li id="hiphopOption"><a href="/product/aboard-search?searchOption=힙합">힙합</a></li>
-						    </ul>
-						</div>
+			            <!-- 검색옵션창 -->
 			            
 			        </div>
 				
 				
-				
+					
 				
 				
 				
@@ -55,13 +48,13 @@
 						 
 						 
 							<!-- product -->
-						  <c:forEach var="aboardlist" items="${aboardlist}">
+						  <c:forEach var="newlist" items="${newlist}">
 							 <div class="col-md-4 col-xs-6">
 								<div class="product">
 									<div class="product-img">
 									 	 <c:choose>
-										    <c:when test="${not empty aboardlist.filepath}">
-										      <img src=" ${aboardlist.filepath}">
+										    <c:when test="${not empty newlist.filepath}">
+										      <img src=" ${newlist.filepath}">
 										    </c:when>
 										  <c:otherwise>
 											  <img src="/album/default.png" >
@@ -73,12 +66,12 @@
 								 
 								 
 									<div class="product-body">
-										<p class="product-category">${aboardlist.musicmajor}</p>
-										<p class="product-category">${aboardlist.musicminor}</p>
+										<p class="product-category">${newlist.musicmajor}</p>
+										<p class="product-category">${newlist.musicminor}</p>
 										<h3 class="product-name">
-											<c:url value="/product/aboard-detail" var="detailUrl">
-											    <c:param name="musicno" value="${aboardlist.musicno}" />
-											    <c:param name="musicmajor" value="${aboardlist.musicmajor}" />
+											<c:url value="#" var="detailUrl">
+											    <c:param name="musicno" value="${newlist.musicno}" />
+											    <c:param name="musicmajor" value="${newlist.musicmajor}" />
 											    <c:choose>
 											        <c:when test="${not empty principal}">
 											            <c:param name="id" value="${principal.id}" />
@@ -90,10 +83,10 @@
 											</c:url>
 											
 											<a href="${detailUrl}">
-											    ${aboardlist.musictitle}
+											    ${newlist.musictitle}
 											</a>
 										</h3>
-										<h4 class="product-price">${aboardlist.musiccompany}<del class="product-old-price"></del></h4>
+										<h4 class="product-price">${newlist.musiccompany}<del class="product-old-price"></del></h4>
 									</div>
 									
 								</div>

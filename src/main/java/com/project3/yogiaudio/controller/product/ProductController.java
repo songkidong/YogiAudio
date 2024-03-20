@@ -193,6 +193,36 @@ public class ProductController {
 	}
 	
 	
+	
+	//최신음악리스트 전부 호출하기
+	@GetMapping("/new-music")
+	public String newmusicListAllGET(Model model, Criteria cri, MusicDTO dto) throws Exception {
+		
+		PageVO pageVO = new PageVO();
+		pageVO.setCri(cri);
+		pageVO.setTotalCount(musicService.newListAllcount());
+		
+		model.addAttribute("pageVO", pageVO);
+		
+		List<MusicDTO> result = musicService.newListAll(cri);
+		model.addAttribute("newlist", result);
+		
+		return "product/newmusic";
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//국내음악상세페이지
 	// http://localhost:80/product/domestic-detail?musicno=&musicmajor=
 	@GetMapping("/domestic-detail")

@@ -54,6 +54,14 @@ public interface MusicRepository {
 	public List<MusicDTO> newMusicList(Criteria cri) throws Exception;
 	
 	
+	//최신음악리스트 전부출력하기
+	public List<MusicDTO> newListAll(Criteria cri) throws Exception;
+	
+	//최신음악리스트 전부(카운팅) 하기
+	public Integer newListAllcount() throws Exception;
+	
+	
+	
 	//좋아요순으로출력하기
 	public List<MusicDTO> likeMusicList(Criteria cri) throws Exception;
 	

@@ -129,6 +129,20 @@ public class MusicService {
 	}
 	
 	
+	//최신음악리스트 전부출력하기
+	public List<MusicDTO> newListAll(Criteria cri) throws Exception{
+		List<MusicDTO> result = musicRepository.newListAll(cri);
+		return result;
+	}
+
+	
+	//최신음악리스트 전부(카운팅) 하기
+	public Integer newListAllcount() throws Exception{
+		return musicRepository.newListAllcount();
+	}
+	
+	
+	
 	
 	//좋아요순으로 출력하기
 	public List<MusicDTO> likeMusicList(Criteria cri) throws Exception{
