@@ -133,8 +133,10 @@
 	
 	<!-- 국외음악 상세조회하기 (조건 : 넘버 , 국적 ) -->
 	<select id ="aboardDetail" resultType="com.project3.yogiaudio.dto.music.MusicDTO">
-		select * from music
-		where music_no=#{musicno} and music_major=#{musicmajor}
+		SELECT music.*, musicvideo.mv_file, musicvideo.videocontent
+		FROM music
+		JOIN musicvideo ON music.music_no = musicvideo.musicno
+		WHERE music.music_no=#{musicno} AND music.music_major=#{musicmajor}
 	</select>
 	
 	
