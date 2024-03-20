@@ -123,6 +123,16 @@ public class AdminController {
 		return "admin/noticeView";
 	}
 	
+	// 공지사항 수정하기
+	@GetMapping("/updateNotice/{id}")
+	public String updateNoticePage(@PathVariable("id") Integer id, Model model) {
+		
+		BoardNotice notice = adminBoardService.findNoticeById(id);
+		model.addAttribute("notice", notice);
+		
+		return "admin/updateNotice";
+	}
+	
 	// qna 목록
 	@GetMapping("/qnaList")
 	public String qnaListPage(AdminCriteria cri, Model model) {

@@ -43,13 +43,15 @@
 						class="form-control" id="title" value="${qna.title }" readonly> <br />
 					<label for="content">내용</label>
 					<!-- style="white-space: pre-wrap;" db에 입력된대로 줄바꿈 -->
-					<textarea style="white-space: pre-wrap;" rows="7" class="form-control" id="content" readonly>${qna.content }</textarea>
+					<!-- data-content = "${qna.content}" 로 지정해서, 자바스크립트로 innerHTML 했는데 안됨 -->
+					<!-- textarea 라서 안된 것!!! textarea는 텍스트만 출력!!! -->
+					<div style="white-space: pre-wrap; min-height: 500px;" class="form-control">${qna.content}</div>
 					<br /> 
 					<label for="file">첨부파일</label> 
                     <!-- 링크 클릭하면 바로 다운로드됨 -->
                     <!-- http://localhost/filedb/get-file/f8b843fecaf34737a8aae2e2e3d935da  -->
                     <!-- 파일 원본이름으로 출력하는 방법은?? -->
-                    <div><a href="${qna.filePath}">${qna.filePath}</a></div>
+                    <div id="filePaths" data-filePaths="${qna.filePath }"></div>
 				</div>
 			</form>
 		</div>

@@ -6,6 +6,10 @@
 <%@ include file="/WEB-INF/view/admin/layout/header.jsp" %>
 
 
+<!-- cs파트 css 가져오기 -->
+<link href="/css/admin/view.css" rel="stylesheet">
+
+
 
 <%-- <%NoticeSaveFormDTO dto = new NoticeSaveFormDTO()%> --%>
 
@@ -14,67 +18,61 @@
 	<!-- 수평선 -->
 	<hr class="my-5" />
 	
-	<!-- Form -->
-	<div class="col-md-6">
-	<form id="form" action="" enctype="multipart/form-data">
-                  <div class="card mb-4">
-                    <h5 class="card-header">공지사항 상세보기</h5>
-                    <div class="card-body">
-                      <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">제목</label>
-                        <input name="title" type="text" class="form-control" id="exampleFormControlInput1" value="${notice.title }">
-                      </div>
-                     
-                      <div>
-                        <label for="exampleFormControlTextarea1" class="form-label">내용</label>
-                        <textarea name="content" class="form-control" id="content" rows="11">${notice.content }</textarea>
-                      </div>
-                      
-                      <br>
-                      <div class="mb-3">
-                        <label for="formFileMultiple" class="form-label">파일 첨부</label>
-                        <!-- multiple 속성으로 여러개 첨부 가능 -->
-                        <!-- name 속성 빠트리지 말기 -->
-                        <!-- 파일 어떻게 가져오지... -->
-                        <input name="files" class="form-control" type="file" id="formFileMultiple" multiple="">
-                      </div>
-                      
-                      <div><a href="${notice.filePath }">파일불러오기</a></div>
-                      
-                      <button id="button" class="btn btn-primary">수정</button>
-                      
-                    </div>
-                  </div>
-	</form>                  
+	<section id="board">
+	<div class="board-container">
+		<h2>공지사항 상세보기</h2>
+
+		<div class="button-container d-flex justify-content-end">
+			<!-- onclick="history.back()" 하면 답변 등록됐을 때 view 페이지는  답변 여부가 업데이트가 되는데, list 페이지는 반영 안됨 -->
+			<a href="/admin/noticeList" class="btn btn-info rounded-pill shadow-sm" style="color: white;">목록</a>
+			<a href="/admin/updateNotice/${notice.id}" class="btn btn-danger rounded-pill shadow-sm" id="" data-id="${notice.id }">수정</a>
+			<button class="btn btn-danger rounded-pill shadow-sm" id="deleteButton" data-id="${notice.id }">삭제</button>
+		</div>
+
+		<div>
+			<form class="card">
+				<div class="card-header d-flex justify-content-between">
+					<label for="id">번호 : ${notice.id}</label> 
+					<label for="createdDate" style="float: right;">${notice.formatCreatedAt()}</label>
+				</div>
+				<div class="card-header d-flex justify-content-between">
+					<label for="writer">작성자 : ${notice.writerName}</label> 
+				</div>
+				<div class="card-body">
+					<label for="title">제목</label> <input type="text"
+						class="form-control" id="title" value="${notice.title }" readonly> <br />
+					<label for="content">내용</label>
+					<!-- textarea라서 태그가 그대로 텍스트로 출력됐던 것! -->
+					<div style="white-space: pre-wrap; min-height: 500px;" class="form-control">${notice.content}</div>
+					<br /> 
+					<label for="file">첨부파일</label> 
+                    <!-- 링크 클릭하면 바로 다운로드됨 -->
+                    <!-- http://localhost/filedb/get-file/f8b843fecaf34737a8aae2e2e3d935da  -->
+                    <!-- 파일 원본이름으로 출력하는 방법은?? -->
+                    <div id="filePaths" data-filePaths="${notice.filePath }"></div>
+				</div>
+			</form>
+		</div>
+
+		
+		
+		
+		
+
+		
+
 	</div>
-	<!-- Form end -->
+	</section>
+	
+	
+	
+	
 	
 <!-- / Content -->
 
 
 
-<!-- 서머노트 라이브러리 -->
-<script src="https://code.jquery.com/jquery-latest.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-
-<script>
-	$('#content').summernote(
-			{
-				tabsize : 2,
-				height : 200,
-				toolbar : [ [ 'style', [ 'style' ] ],
-						[ 'font', [ 'bold', 'underline', 'clear' ] ],
-						[ 'color', [ 'color' ] ],
-						[ 'para', [ 'ul', 'ol', 'paragraph' ] ],
-						[ 'table', [ 'table' ] ],
-						[ 'insert', [ 'link', 'picture', 'video' ] ],
-						[ 'view', [ 'fullscreen', 'codeview', 'help' ] ] ],
-				
-			});
-</script>
-
-<script src="/js/admin/.js"></script>
+<script src="/js/admin/noticeview.js"></script>
 <%@ include file="/WEB-INF/view/admin/layout/footer.jsp" %>            
 		
 		

@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.project3.yogiaudio.dto.admin.AdminCriteria;
 import com.project3.yogiaudio.dto.admin.NoticeSaveFormDTO;
 import com.project3.yogiaudio.dto.admin.QnaSaveFormDTO;
+import com.project3.yogiaudio.filedb.entity.Filedb;
+import com.project3.yogiaudio.filedb.repository.FiledbRepository;
 import com.project3.yogiaudio.filedb.service.FiledbService;
 import com.project3.yogiaudio.repository.entity.board.BoardFree;
 import com.project3.yogiaudio.repository.entity.board.BoardFreeComment;
@@ -25,6 +27,9 @@ public class AdminBoardService {
 	
 	@Autowired
 	FiledbService fileDbService;
+	
+	@Autowired
+	FiledbRepository fileDbRepository;
 	
 	/**
 	  * @Method Name : findAllNotice
@@ -84,8 +89,6 @@ public class AdminBoardService {
 	@Transactional  
 	public boolean insertNotice(NoticeSaveFormDTO dto) {
 		
-		
-		
 		// 단일 파일 업로드
 		//String filePath = fileDbService.saveFiles(dto.getFilePath());
 		// 다중 파일 업로드
@@ -99,6 +102,27 @@ public class AdminBoardService {
 						.build();
 		
 		return adminBoardRepository.insertNotice(notice);
+	}
+	
+	/**
+	  * @Method Name : updateNotice
+	  * @작성일 : 2024. 3. 20.
+	  * @작성자 : 박한산
+	  * @변경이력 : 
+	  * @Method 설명 : 공지사항 수정
+	  */
+	public boolean updateNotice(Integer id, NoticeSaveFormDTO dto) {
+
+		// 다중 파일 업로드
+		String filePath = fileDbService.saveFiles(dto.getFiles());
+		
+		BoardNotice boardNotice = BoardNotice.builder()
+							.title(dto.getTitle())
+							.content(dto.getContent())
+							.filePath(filePath)
+							.build();
+		
+		return adminBoardRepository.updateNotice(id, boardNotice);
 	}
 	
 	/**
@@ -298,7 +322,17 @@ public class AdminBoardService {
 		return adminBoardRepository.deleteComment(id);
 	}
 	
-	
+	/**
+	  * @Method Name : selectFile
+	  * @작성일 : 2024. 3. 20.
+	  * @작성자 : 박한산
+	  * @변경이력 : 
+	  * @Method 설명 : 파일명 가져오기
+	  */
+	public Filedb findFileByUuid(String uuid) {
+		
+		return fileDbRepository.findByUuid(uuid);
+	}
 	
 	
 	

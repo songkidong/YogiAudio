@@ -42,12 +42,12 @@
 					<label for="title">제목</label> <input type="text"
 						class="form-control" id="title" value="${free.title }" readonly> <br />
 					<label for="content">내용</label>
-					<textarea rows="7" class="form-control" id="content" readonly>${free.content }</textarea>
+					<div style="white-space: pre-wrap; min-height: 500px;" class="form-control">${free.content}</div>
 					<br /> 
 					<label for="file">첨부파일</label> 
                     <!-- 링크 클릭하면 바로 다운로드됨 -->
                     <!-- http://localhost/filedb/get-file/f8b843fecaf34737a8aae2e2e3d935da  -->
-                    <div><a href="${free.filePath}">${free.filePath}</a></div>
+                    <div id="filePaths" data-filePaths="${free.filePath }"></div>
 				</div>
 			</form>
 		</div>
