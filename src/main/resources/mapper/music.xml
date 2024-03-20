@@ -23,34 +23,46 @@
 	
 	<!-- 통합검색출력하기 -->
 	 <select id="MainSearch" resultType="com.project3.yogiaudio.dto.music.MusicDTO">
-		select * from music
-		 <where>
-		   <choose>
-		   	 <when test="searchOption == '국내'">
-		   	 	and music_major like concat('%', #{searchOption}, '%')
-		   	 </when>
-		   	  <when test="searchOption == '국외'">
-		   	 	and music_major like concat('%', #{searchOption}, '%')
-		   	 </when>
-		   </choose>
-		 </where>
-		  limit #{startPage}, #{pageSize}
-	 </select>
+	    SELECT * FROM music
+	    <where>
+	        <choose>
+	            <when test="searchOption == '국내'">
+	                AND music_major LIKE CONCAT('%', #{searchOption}, '%')
+	                <if test="searchKeyword != null and searchKeyword != ''">
+	                    AND music_title LIKE CONCAT('%', #{searchKeyword}, '%')
+	                </if>
+	            </when>
+	            <when test="searchOption == '국외'">
+	                AND music_major LIKE CONCAT('%', #{searchOption}, '%')
+	                <if test="searchKeyword != null and searchKeyword != ''">
+	                    AND music_title LIKE CONCAT('%', #{searchKeyword}, '%')
+	                </if>
+	            </when>
+	        </choose>
+	    </where>
+	    LIMIT #{startPage}, #{pageSize}
+	</select>
 	
 	
 	<!-- 통합검색출력카운팅하기 -->
 	<select id="MainSearchCount" resultType="Integer">
 		select count(*) from music
 		 <where>
-		   <choose>
-		   	 <when test="searchOption == '국내'">
-		   	 	and music_major like concat('%', #{searchOption}, '%')
-		   	 </when>
-		   	  <when test="searchOption == '국외'">
-		   	 	and music_major like concat('%', #{searchOption}, '%')
-		   	 </when>
-		   </choose>
-		 </where>
+	        <choose>
+	            <when test="searchOption == '국내'">
+	                AND music_major LIKE CONCAT('%', #{searchOption}, '%')
+	                <if test="searchKeyword != null and searchKeyword != ''">
+	                    AND music_title LIKE CONCAT('%', #{searchKeyword}, '%')
+	                </if>
+	            </when>
+	            <when test="searchOption == '국외'">
+	                AND music_major LIKE CONCAT('%', #{searchOption}, '%')
+	                <if test="searchKeyword != null and searchKeyword != ''">
+	                 AND music_title LIKE CONCAT('%', #{searchKeyword}, '%')
+	                </if>
+	            </when>
+	        </choose>
+	    </where>
 	</select>
 	
 	

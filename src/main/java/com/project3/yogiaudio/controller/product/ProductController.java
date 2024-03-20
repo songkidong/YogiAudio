@@ -86,9 +86,15 @@ public class ProductController {
 	public String mainSearchPageGET(HttpServletRequest request, Criteria cri, Model model) throws Exception {
 		
 		String searchOption = request.getParameter("searchOption");
+		String searchKeyword = request.getParameter("searchKeyword");
+		
 		
 		if (searchOption != null && !searchOption.isEmpty()) {
 			cri.setSearchOption(searchOption);
+		}
+		
+		if (searchKeyword != null && !searchKeyword.isEmpty()) {
+			cri.setSearchKeyword(searchKeyword);
 		}
 		
 		PageVO pageVO = new PageVO();

@@ -96,7 +96,7 @@
 										<option value="국내">국내</option>
 										<option value="국외">국외</option>
 									</select> 
-									<input class="input" placeholder="여기에 검색">
+									<input class="input" placeholder="여기에 검색" name="searchKeyword">
 									<button class="search-btn">검색</button>
 								</form>
 							</div>
