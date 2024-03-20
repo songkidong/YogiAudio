@@ -9,11 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project3.yogiaudio.dto.board.BoardFileDTO;
 import com.project3.yogiaudio.dto.board.QnaDTO;
+import com.project3.yogiaudio.dto.board.QnaUpdateDTO;
 import com.project3.yogiaudio.dto.common.PageReq;
 import com.project3.yogiaudio.dto.common.PageRes;
 import com.project3.yogiaudio.filedb.entity.Filedb;
@@ -219,14 +221,16 @@ public class QnaController {
 	 */
 	@PostMapping("/qnaUpdate/{id}")
 	@ResponseBody
-	public boolean qnaUpdate(@PathVariable(value = "id") int id, QnaDTO qnaDTO) {
+	public boolean qnaUpdate(@PathVariable(value = "id") int id, QnaUpdateDTO qnaUpdateDTO) {
 
 		System.out.println("아이디 번호" + id);
-		System.out.println("데이터" + qnaDTO.toString());
+		
+		System.out.println("데이터jjjjjjjjjjjjjjjjjjjjjjj" + qnaUpdateDTO.toString());
 
-		boolean result = qnaService.qnaUpdate(id, qnaDTO);
-
-		return result;
+//		boolean result = qnaService.qnaUpdate(id, qnaUpdateDTO);
+//
+//		return result;
+		return true;
 	}
 
 	/**

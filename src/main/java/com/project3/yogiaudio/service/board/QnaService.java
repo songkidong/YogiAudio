@@ -129,7 +129,7 @@ public class QnaService {
 			}
 		}
 
-		String filePath = filedbService.updateFiles(validFiles);
+		String filePath = filedbService.saveFiles(validFiles);
 
 		BoardQna boardQna = BoardQna.builder().title(qnaDTO.getTitle()).content(qnaDTO.getContent()).filePath(filePath)
 				.id(id).build();
