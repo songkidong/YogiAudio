@@ -27,6 +27,8 @@ public interface AdminBoardRepository {
 	public boolean deleteNotice(Integer id);
 	// 공지사항 글보기
 	public BoardNotice findNoticeById(Integer id);
+	// 공지사항 수정
+	public boolean updateNotice(Integer id, BoardNotice boardNotice);
 
 	// qna 목록
 	public List<BoardQna> findAllQna(AdminCriteria cri);
