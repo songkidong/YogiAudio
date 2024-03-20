@@ -2,7 +2,7 @@ package com.project3.yogiaudio.service;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.project3.yogiaudio.dto.user.SignUpFormDTO;
+import com.project3.yogiaudio.dto.user.UserDTO;
 import com.project3.yogiaudio.repository.entity.User;
 import com.project3.yogiaudio.repository.interfaces.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.project3.yogiaudio.dto.user.SignUpFormDTO;
+import com.project3.yogiaudio.dto.user.UserDTO;
 import com.project3.yogiaudio.repository.entity.User;
 import com.project3.yogiaudio.repository.interfaces.UserRepository;
 
@@ -41,7 +41,7 @@ public class UserService {
 	  * @Method 설명 : 회원가입 기능
 	  */
 	@Transactional
-	public User createUser(SignUpFormDTO dto) {
+	public User createUser(UserDTO dto) {
 		validateSignUpForm(dto);
 		checkExistingUser(dto.getEmail());
 		User newUser = buildUserEntity(dto);
@@ -57,7 +57,7 @@ public class UserService {
 	  * @변경이력 : 
 	  * @Method 설명 : 회원가입 유효성 검사
 	  */
-	private void validateSignUpForm(SignUpFormDTO dto) {
+	private void validateSignUpForm(UserDTO dto) {
 		if (isEmpty(dto.getName()) || isEmpty(dto.getNickname()) || isEmpty(dto.getEmail())
 				|| isEmpty(dto.getPassword())) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "모든 필드를 입력하세요");
@@ -81,12 +81,12 @@ public class UserService {
 		}
 	}
 
-	private User buildUserEntity(SignUpFormDTO dto) {
+	private User buildUserEntity(UserDTO dto) {
 		return User.builder().name(dto.getName()).nickname(dto.getNickname()).email(dto.getEmail())
 				.password(passwordEncoder.encode(dto.getPassword())).build();
 	}
 
-	public User signIn(SignUpFormDTO dto) {
+	public User signIn(UserDTO dto) {
 		User userEntity = userRepository.findByEmail(dto.getEmail());
 		if (userEntity == null || !passwordEncoder.matches(dto.getPassword(), userEntity.getPassword())) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "유저가 존재하지 않거나 비밀번호가 일치하지 않습니다");

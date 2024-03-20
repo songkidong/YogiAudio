@@ -11,7 +11,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class SignUpFormDTO {
+public class UserDTO {
 	
 	private long id;
 	private String name;

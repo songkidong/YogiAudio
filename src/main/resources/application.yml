@@ -41,17 +41,17 @@ spring:
             trust: smtp.naver.com
             enable: true
 
-#  datasource:    
-#    url: jdbc:mysql://192.168.0.101:3306/yogi_audio?serverTimeZone=Asia/Seoul
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    username: develop
-#    password: 1111
-    
   datasource:    
-    url: jdbc:mysql://localhost:3306/yogiaudio?serverTimeZone=Asia/Seoul
+    url: jdbc:mysql://192.168.0.101:3306/yogi_audio?serverTimeZone=Asia/Seoul
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: asd1234
+    username: develop
+    password: 1111
+    
+#  datasource:    
+#    url: jdbc:mysql://localhost:3306/yogiaudio?serverTimeZone=Asia/Seoul
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    username: root
+#    password: asd1234
     
   #h2:
   #  console:

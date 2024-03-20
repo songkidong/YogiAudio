@@ -1,13 +1,9 @@
 package com.project3.yogiaudio.controller.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.http.*;
-
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,15 +13,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.project3.yogiaudio.dto.user.GoogleProfile;
 import com.project3.yogiaudio.dto.user.KakaoProfile;
 import com.project3.yogiaudio.dto.user.NaverProfile;
 import com.project3.yogiaudio.dto.user.OAuthToken;
-import com.project3.yogiaudio.dto.user.SignUpFormDTO;
+import com.project3.yogiaudio.dto.user.UserDTO;
 import com.project3.yogiaudio.repository.entity.User;
 import com.project3.yogiaudio.service.UserService;
 import com.project3.yogiaudio.util.Define;
@@ -88,7 +82,7 @@ public class UserController {
 	 * @Method 설명 : 회원가입 기능
 	 */
 	@PostMapping("/signUp")
-	public String signUp(SignUpFormDTO dto) {
+	public String signUp(UserDTO dto) {
 		userService.createUser(dto);
 		return "redirect:/signIn";
 	}
@@ -101,7 +95,7 @@ public class UserController {
 	 * @Method 설명 : 로그인 기능
 	 */
 	@PostMapping("/signIn")
-	public String signIn(SignUpFormDTO dto) {
+	public String signIn(UserDTO dto) {
 		User userEntity = userService.signIn(dto);
 		httpsession.setAttribute(Define.PRINCIPAL, userEntity);
 
@@ -122,18 +116,18 @@ public class UserController {
 	}
 
 	/**
-	  * @Method Name : mypage
-	  * @작성일 : 2024. 3. 19.
-	  * @작성자 : 송기동
-	  * @변경이력 : 
-	  * @Method 설명 : 마이페이지
-	  */
-	@GetMapping("/mypage/{id}")
-	public String mypage(@PathVariable("id") Long id, Model model) {
+	 * @Method Name : mypage
+	 * @작성일 : 2024. 3. 19.
+	 * @작성자 : 송기동
+	 * @변경이력 :
+	 * @Method 설명 : 마이페이지
+	 */
+	@GetMapping("/account/{id}")
+	public String accountPage(@PathVariable("id") Long id, Model model) {
 
 		User userEntity = userService.findUserById(id);
 		model.addAttribute("user", userEntity);
-		return "/user/mypage";
+		return "/user/account";
 	}
 
 	/**
@@ -172,11 +166,11 @@ public class UserController {
 			// 사용자가 이미 존재하면 바로 로그인
 			httpsession.setAttribute(Define.PRINCIPAL, existingUser);
 		} else {
-			SignUpFormDTO signUpFormDTO = SignUpFormDTO.builder().name(naverProfile.getResponse().getName())
+			UserDTO userDTO = UserDTO.builder().name(naverProfile.getResponse().getName())
 					.nickname("네이버유저" + naverProfile.getResponse().getNickname())
 					.email(naverProfile.getResponse().getEmail()).password("naverpassword").build();
 
-			User naverUser = userService.createUser(signUpFormDTO);
+			User naverUser = userService.createUser(userDTO);
 			httpsession.setAttribute(Define.PRINCIPAL, naverUser);
 		}
 
@@ -224,11 +218,11 @@ public class UserController {
 			httpsession.setAttribute(Define.PRINCIPAL, existingUser);
 		} else {
 			// 회원가입 폼 DTO로 매핑
-			SignUpFormDTO signUpFormDTO = SignUpFormDTO.builder().name(kakaoProfile.getProperties().getNickname())
+			UserDTO userDTO = UserDTO.builder().name(kakaoProfile.getProperties().getNickname())
 					.nickname("카카오" + kakaoProfile.getProperties().getNickname())
 					.email(kakaoProfile.getKakaoAccount().getEmail()).password("kakaopassword").build();
 
-			User kakaoUser = userService.createUser(signUpFormDTO);
+			User kakaoUser = userService.createUser(userDTO);
 			httpsession.setAttribute(Define.PRINCIPAL, kakaoUser);
 		}
 
@@ -282,14 +276,18 @@ public class UserController {
 			httpsession.setAttribute(Define.PRINCIPAL, existingUser);
 		} else {
 			// 사용자가 존재하지 않으면 새로 생성
-			SignUpFormDTO dto = SignUpFormDTO.builder().name(googleProfile.getName())
-					.nickname(googleProfile.getGiven_name()).email(googleProfile.getEmail()).password("googlepassword")
-					.build();
+			UserDTO dto = UserDTO.builder().name(googleProfile.getName()).nickname(googleProfile.getGiven_name())
+					.email(googleProfile.getEmail()).password("googlepassword").build();
 
 			User googleUser = userService.createUser(dto);
 			httpsession.setAttribute(Define.PRINCIPAL, googleUser);
 		}
 
 		return "redirect:/product/main";
+	}
+
+	@PostMapping("/updateUser/{id}")
+	public String updateUser(@PathVariable("id") Long id, UserDTO dto) {
+		return "";
 	}
 }
