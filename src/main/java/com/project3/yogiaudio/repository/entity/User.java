@@ -32,4 +32,9 @@ public class User {
 	public String formatCreatedAt() {
 		return TimeUtils.timestampToString(createdAt);
 	}
+	
+    // filePath 필드에 대한 getter 메서드
+    public String getFilePath() {
+        return this.filePath;
+    }
 }

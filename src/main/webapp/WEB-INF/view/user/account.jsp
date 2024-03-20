@@ -50,25 +50,27 @@
                 <div class="col-md-12">
                   <ul class="nav nav-pills flex-column flex-md-row mb-3">
                     <li class="nav-item">
-                      <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> 계정</a>
+                      <a class="nav-link active" href="/account/${principal.id}"><i class="bx bx-user me-1"></i> 계정</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="pages-account-settings-notifications.html"
+                      <a class="nav-link" href="/payment/${principal.id}"
                         ><i class="bx bx-table me-1"></i> 결제 내역</a
                       >
                     </li>
+
                   </ul>
                   <div class="card mb-4">
                     <h5 class="card-header">나의 정보</h5>
                     <!-- Account -->
+                      <form action="/updateUser/${principal.id}" method="POST" onsubmit="return validateForm()" enctype="multipart/form-data">
                     <div class="card-body">
                       <div class="d-flex align-items-start align-items-sm-center gap-4">
                         <img
-                          src="../assets/img/avatars/1.png"
-                          alt="user-avatar"
+                          src="${principal.filePath}"
+                          alt="이미지가 없습니다."
                           class="d-block rounded"
-                          height="100"
-                          width="100"
+                          height="130"
+                          width="130"
                           id="uploadedAvatar" />
                         <div class="button-wrapper">
                           <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
@@ -78,13 +80,11 @@
                               type="file"
                               id="upload"
                               class="account-file-input"
+                              name="profileFile"
                               hidden
                               accept="image/png, image/jpeg" />
                           </label>
-                          <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                            <i class="bx bx-reset d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">Reset</span>
-                          </button>
+
 
                           <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
                         </div>
@@ -92,7 +92,6 @@
                     </div>
                     <hr class="my-0" />
                     <div class="card-body">
-                      <form action="/updateUser/${principal.id}" method="POST" >
                         <div class="row">
                           <div class="mb-3 col-md-6">
                             <label for="name" class="form-label">이름</label>
@@ -102,7 +101,7 @@
                               id="name"
                               name="name"
                               value="${principal.name}"
-                              readonly />
+                               />
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="nickname" class="form-label">닉네임</label>
@@ -116,7 +115,7 @@
                               id="email"
                               name="email"
                               value="${principal.email}"
-                              placeholder="abcd@example.com" />
+                              readonly/>
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="status" class="form-label">구독</label>
@@ -143,13 +142,12 @@
                               class="form-control"
                               id="checkpassword"
                               name="checkpassword"
-                              />
+                              value="${principal.password}" />
                           </div>
 
                         </div>
                         <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2">수정</button>
-                          <button type="button" class="btn btn-outline-secondary">홈으로</button>
+                          <button type="submit" class="btn btn-primary me-2" onclick="return confirmUpdate()">수정</button>
                         </div>
                       </form>
                     </div>
@@ -164,7 +162,7 @@
                           <p class="mb-0">계정을 한 번 삭제하면 되돌릴 수 없습니다.</p>
                         </div>
                       </div>
-                      <form id="formAccountDeactivation" onsubmit="return false">
+                      <form action="/deleteUser/${principal.id}" method="POST" onsubmit="return confirmAccountDeletion()" >
                         <div class="form-check mb-3">
                           <input
                             class="form-check-input"
@@ -196,6 +194,7 @@
     </div>
     <!-- / Layout wrapper -->
 
+	<script src="/js/user/account.js"></script>
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->

@@ -31,15 +31,14 @@ public class UserService {
 		this.userRepository = userRepository;
 		this.passwordEncoder = passwordEncoder;
 	}
-	
-	
+
 	/**
-	  * @Method Name : createUser
-	  * @작성일 : 2024. 3. 19.
-	  * @작성자 : 송기동
-	  * @변경이력 : 
-	  * @Method 설명 : 회원가입 기능
-	  */
+	 * @Method Name : createUser
+	 * @작성일 : 2024. 3. 19.
+	 * @작성자 : 송기동
+	 * @변경이력 :
+	 * @Method 설명 : 회원가입 기능
+	 */
 	@Transactional
 	public User createUser(UserDTO dto) {
 		validateSignUpForm(dto);
@@ -51,12 +50,12 @@ public class UserService {
 	}
 
 	/**
-	  * @Method Name : validateSignUpForm
-	  * @작성일 : 2024. 3. 18.
-	  * @작성자 : 송기동
-	  * @변경이력 : 
-	  * @Method 설명 : 회원가입 유효성 검사
-	  */
+	 * @Method Name : validateSignUpForm
+	 * @작성일 : 2024. 3. 18.
+	 * @작성자 : 송기동
+	 * @변경이력 :
+	 * @Method 설명 : 회원가입 유효성 검사
+	 */
 	private void validateSignUpForm(UserDTO dto) {
 		if (isEmpty(dto.getName()) || isEmpty(dto.getNickname()) || isEmpty(dto.getEmail())
 				|| isEmpty(dto.getPassword())) {
@@ -68,9 +67,8 @@ public class UserService {
 		return value == null || value.trim().isEmpty();
 	}
 
-	
-	//아이디로 유저조회
-	public User findById(@Param(value ="id") long id) {
+	// 아이디로 유저조회
+	public User findById(@Param(value = "id") long id) {
 		return userRepository.findById(id);
 	}
 
@@ -88,9 +86,12 @@ public class UserService {
 
 	public User signIn(UserDTO dto) {
 		User userEntity = userRepository.findByEmail(dto.getEmail());
-		if (userEntity == null || !passwordEncoder.matches(dto.getPassword(), userEntity.getPassword())) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "유저가 존재하지 않거나 비밀번호가 일치하지 않습니다");
+		
+		if (userEntity == null || userEntity.getDeleteYn().equals("Y")
+				|| !passwordEncoder.matches(dto.getPassword(), userEntity.getPassword())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "탈퇴한 유저이거나 비밀번호가 일치하지 않습니다");
 		}
+		
 		return userEntity;
 	}
 
@@ -98,9 +99,20 @@ public class UserService {
 	public User findUserByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
-	
+
 	public User findUserById(Long id) {
 		return userRepository.findById(id);
 	}
-	
+
+	// 회원 수정
+	public int updateUser(User user) {
+
+		return userRepository.updateById(user);
+	}
+
+	// 회원 탈퇴
+	public int deleteUser(User user) {
+		return userRepository.deleteById(user);
+	}
+
 }

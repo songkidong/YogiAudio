@@ -10,16 +10,21 @@ import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.project3.yogiaudio.dto.user.GoogleProfile;
 import com.project3.yogiaudio.dto.user.KakaoProfile;
 import com.project3.yogiaudio.dto.user.NaverProfile;
 import com.project3.yogiaudio.dto.user.OAuthToken;
+import com.project3.yogiaudio.dto.user.UpdateUserDTO;
 import com.project3.yogiaudio.dto.user.UserDTO;
+import com.project3.yogiaudio.filedb.service.FiledbService;
 import com.project3.yogiaudio.repository.entity.User;
 import com.project3.yogiaudio.service.UserService;
 import com.project3.yogiaudio.util.Define;
@@ -31,6 +36,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private FiledbService filedbService;
 
 	@Autowired
 	private HttpSession httpsession;
@@ -116,11 +124,11 @@ public class UserController {
 	}
 
 	/**
-	 * @Method Name : mypage
+	 * @Method Name : accountPage
 	 * @작성일 : 2024. 3. 19.
 	 * @작성자 : 송기동
 	 * @변경이력 :
-	 * @Method 설명 : 마이페이지
+	 * @Method 설명 : 내정보 페이지
 	 */
 	@GetMapping("/account/{id}")
 	public String accountPage(@PathVariable("id") Long id, Model model) {
@@ -128,6 +136,21 @@ public class UserController {
 		User userEntity = userService.findUserById(id);
 		model.addAttribute("user", userEntity);
 		return "/user/account";
+	}
+	
+	/**
+	 * @Method Name : accountPage
+	 * @작성일 : 2024. 3. 19.
+	 * @작성자 : 송기동
+	 * @변경이력 :
+	 * @Method 설명 : 내정보 페이지
+	 */
+	@GetMapping("/payment/{id}")
+	public String paymentPage(@PathVariable("id") Long id, Model model) {
+
+		User userEntity = userService.findUserById(id);
+		model.addAttribute("user", userEntity);
+		return "/user/payment";
 	}
 
 	/**
@@ -248,6 +271,7 @@ public class UserController {
 		String clientId = "411584291074-u6va1riq7hp0gubh4uoe9kk6gvcgp59k.apps.googleusercontent.com";
 		String clientSecret = "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";
 
+		// 구글 인증토큰 받아오기
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("grant_type", "authorization_code");
 		params.add("client_id", clientId);
@@ -259,6 +283,7 @@ public class UserController {
 		ResponseEntity<OAuthToken> responseEntity = restTemplate.exchange(tokenReqUrl, HttpMethod.POST, requestEntity,
 				OAuthToken.class);
 
+		// 구글 사용자 정보 받아오기
 		HttpHeaders headers2 = new HttpHeaders();
 		headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 		headers2.add("Authorization", "Bearer " + responseEntity.getBody().getAccessToken());
@@ -286,8 +311,63 @@ public class UserController {
 		return "redirect:/product/main";
 	}
 
+	/**
+	  * @Method Name : updateUser
+	  * @작성일 : 2024. 3. 20.
+	  * @작성자 : 송기동
+	  * @변경이력 : 
+	  * @Method 설명 : 회원정보 수정
+	  */
 	@PostMapping("/updateUser/{id}")
-	public String updateUser(@PathVariable("id") Long id, UserDTO dto) {
-		return "";
+	public String updateUser(@PathVariable("id") Long id, @ModelAttribute UpdateUserDTO dto) {
+		
+	    String filePath;
+	    
+        User userUpload = userService.findById(id);
+        
+        String originPath = userUpload.getFilePath();
+        String[] parts = originPath.split("/");
+        String uuid = parts[parts.length -1];
+        filedbService.deleteByUuid(uuid);
+
+	    if(dto.getProfileFile() == null || dto.getProfileFile().isEmpty()) {
+	        // 기존 이미지의 경로를 가져와서 사용
+	        filePath = userUpload.getFilePath();
+	    } else {
+	        // dto의 프로필 파일이 null이 아닌 경우 새로운 파일 업로드
+	        filePath = filedbService.saveFiles(dto.getProfileFile());
+	    }
+
+		User user = new User();
+		user.setId(id);
+		user.setName(dto.getName());
+		user.setNickname(dto.getNickname());
+		user.setPassword(dto.getPassword());
+		user.setFilePath(filePath);
+		
+		userService.updateUser(user);
+		User userSession = userService.findById(id);
+		httpsession.setAttribute(Define.PRINCIPAL, userSession);
+		
+	
+		return "redirect:/product/main";
 	}
+	
+	/**
+	  * @Method Name : deleteUser
+	  * @작성일 : 2024. 3. 20.
+	  * @작성자 : 송기동
+	  * @변경이력 : 
+	  * @Method 설명 : 회원 탈퇴
+	  */
+	@PostMapping("/deleteUser/{id}")
+	public String deleteUser(@PathVariable("id") Long id, @ModelAttribute User user) {
+		
+		userService.deleteUser(user);
+		
+		httpsession.invalidate();
+		
+		return "redirect:/product/main";
+	}
+	
 }
