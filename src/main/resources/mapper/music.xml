@@ -121,35 +121,32 @@
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<!-- 국내음악 상세조회하기 (조건 : 넘버 , 국내 ) -->
+	<!-- 국내음악 상세조회하기 (조건 : 넘버 , 국적 ) -->
 	<select id ="domesticDetail" resultType="com.project3.yogiaudio.dto.music.MusicDTO">
 		SELECT music.*, musicvideo.mv_file, musicvideo.videocontent
 		FROM music
 		JOIN musicvideo ON music.music_no = musicvideo.musicno
-		WHERE music.music_no=#{musicno} AND music.music_major=#{musicmajor};
+		WHERE music.music_no=#{musicno} AND music.music_major=#{musicmajor}
 	</select>
 	
 	
 	
-	<!-- 국외음악 상세조회하기 (조건 : 넘버 , 국내 ) -->
+	<!-- 국외음악 상세조회하기 (조건 : 넘버 , 국적 ) -->
 	<select id ="aboardDetail" resultType="com.project3.yogiaudio.dto.music.MusicDTO">
 		select * from music
 		where music_no=#{musicno} and music_major=#{musicmajor}
 	</select>
+	
+	
+	<!-- 최신음악(전체) 상세조회하기 (조건 : 넘버 ) -->
+	<select id="newDetail" resultType="com.project3.yogiaudio.dto.music.MusicDTO">
+		select music.*, musicvideo.mv_file, musicvideo.videocontent
+		from music
+		join musicvideo 
+		on music.music_no = musicvideo.musicno
+		where music.music_no=#{musicno}
+	</select>
+	
 	
 	
 	<!-- 앨범자켓사진업데이트하기 -->
@@ -188,7 +185,54 @@
 		<![CDATA[ select count(*) from music where music_no > 0]]>
 	</select>
 	
-
+	
+ 	<!-- 최신음악(조건) 출력하기 -->
+		<select id="newlistSearch" resultType="com.project3.yogiaudio.dto.music.MusicDTO">
+		   SELECT * FROM music
+		    <where>
+		        <choose>
+		            <when test="searchOption == '국내'">
+		                AND music_major LIKE CONCAT('%', #{searchOption}, '%')
+		            </when>
+		            <when test="searchOption == '국외'">
+		                AND music_major LIKE CONCAT('%', #{searchOption}, '%')
+		            </when>
+		        </choose>
+		    </where>
+		    ORDER BY startdate ASC
+		    LIMIT #{startPage}, #{pageSize}
+		</select>
+	
+	
+	
+	  <!-- 최신음악(조건) 카운팅하기 -->
+		<select id="newlistSearchCount" resultType="Integer">
+			select count(*) from music
+		    <where>
+		        <choose>
+		            <when test="searchOption == '국내'">
+		                AND music_major LIKE CONCAT('%', #{searchOption}, '%')
+		            </when>
+		            <when test="searchOption == '국외'">
+		                AND music_major LIKE CONCAT('%', #{searchOption}, '%')
+		            </when>
+		        </choose>
+		    </where>
+		</select>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
 	
 	
 	

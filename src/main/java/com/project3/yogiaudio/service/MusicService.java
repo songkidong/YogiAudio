@@ -79,6 +79,12 @@ public class MusicService {
 		return musicRepository.aboardDetail(musicno, musicmajor);
 	}
 	
+	//최신음악 디테일
+	public MusicDTO newDetail(@Param(value = "musicno") int musicno) {
+		return musicRepository.newDetail(musicno);
+	}
+
+	
 	
 	//앨범자켓바꾸기
 	@Transactional
@@ -141,6 +147,18 @@ public class MusicService {
 		return musicRepository.newListAllcount();
 	}
 	
+	
+	//최신음악리스트 조건별출력하기
+	public List<MusicDTO> newlistSearch(Criteria cri) throws Exception{
+		List<MusicDTO> result = musicRepository.newlistSearch(cri);
+		return result;
+	}
+	
+	
+	//최신음악리스트 조건(카운팅)
+	public Integer newlistSearchCount(Criteria cri) throws Exception{
+		return musicRepository.newlistSearchCount(cri);
+	}
 	
 	
 	

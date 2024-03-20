@@ -46,6 +46,7 @@ public class ProductController {
 	@GetMapping("/main")
 	public String productMainGET(HttpSession session,Model model,Criteria cri) throws Exception {
 		
+		
 		PageVO pageVO = new PageVO();
 		pageVO.setCri(cri);
 		pageVO.setTotalCount(musicService.countdomesticListAll());		
@@ -212,6 +213,32 @@ public class ProductController {
 	}
 	
 	
+	//최신음악리스트(조건) 출력하기
+	@GetMapping("/new-search")
+	public String newSearchGET(HttpServletRequest request, Criteria cri, Model model) throws Exception {
+		
+		String searchOption = request.getParameter("searchOption");
+		
+		if (searchOption != null && !searchOption.isEmpty()) {
+			cri.setSearchOption(searchOption);
+		}
+		
+		PageVO pageVO = new PageVO();
+		pageVO.setCri(cri);
+		pageVO.setTotalCount(musicService.newlistSearchCount(cri));
+		
+		model.addAttribute("pageVO", pageVO);
+
+		
+		List<MusicDTO> result = musicService.newlistSearch(cri);
+		
+		model.addAttribute("newlist", result);
+		
+		log.debug("admin-user관리 페이지 출력!");
+		
+		return "product/newsearch";
+	}
+	
 	
 	
 	
@@ -262,9 +289,21 @@ public class ProductController {
 	}
 	
 	
-	
-	
-	
+	//최신음악 디테일페이지 출력
+	@GetMapping("/new-detail")
+	public String newDetailGET(@RequestParam(value = "musicno") int musicno,@RequestParam(value = "id", required = false) Long id,Model model) {
+		
+		 if (id != null) {
+		        User udetail = userService.findById(id);
+		        model.addAttribute("udetail", udetail);
+		    }
+
+		    MusicDTO result = musicService.newDetail(musicno);
+		    model.addAttribute("detail", result);
+		
+
+		return"product/newdetail";
+	}
 	
 	
 	//국내앨범자켓바꾸기 GET

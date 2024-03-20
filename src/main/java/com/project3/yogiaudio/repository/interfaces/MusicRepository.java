@@ -43,6 +43,9 @@ public interface MusicRepository {
 	//국외음악디테일
 	public MusicDTO aboardDetail(@Param(value = "musicno") int musicno, @Param(value = "musicmajor") String musicmajor);
 
+	//최신음악디테일
+	public MusicDTO newDetail(@Param(value = "musicno") int musicno);
+		
 	//앨범자켓바꾸기
 	public Integer albumUpdate(MusicDTO dto);
 	
@@ -59,6 +62,13 @@ public interface MusicRepository {
 	
 	//최신음악리스트 전부(카운팅) 하기
 	public Integer newListAllcount() throws Exception;
+	
+	//최신음악리스트(조건) 출력하기
+	public List<MusicDTO> newlistSearch(Criteria cri) throws Exception;
+	
+	//최신음악리스트(카운팅)
+	public Integer newlistSearchCount(Criteria cri) throws Exception;
+	
 	
 	
 	
