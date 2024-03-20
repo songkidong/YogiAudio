@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/view/layout/header.jsp" %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
     
 <title>검색결과</title>
@@ -21,19 +22,7 @@
 			
 			  
 					 <div style="display: flex; align-items: center; margin-bottom: 20px;">
-			            <h3 class="title" style="margin-right: 20px;">통합검색결과(${param.searchOption})</h3>
-			            
-			          <div class="section-nav">
-						    <ul class="section-tab-nav tab-nav">
-						    	<li id="allOption"><a href="/product/aboard-music">전체</a></li>
-						        <li id="balladOption"><a href="/product/aboard-search?searchOption=발라드">발라드</a></li>
-						        <li id="classOption"><a href="/product/aboard-search?searchOption=클래식">클래식</a></li>
-						        <li id="hiphopOption"><a href="/product/aboard-search?searchOption=힙합">힙합</a></li>
-						    </ul>
-						</div>
-			          
-			          
-			          
+			            <h3 class="title" style="margin-right: 20px;">통합검색결과(${param.searchOption})</h3>       
 			        </div>
 					
 					
@@ -145,10 +134,7 @@
 	
 	
 	
-	
-	
-	
-	
+
 	
 	
 	

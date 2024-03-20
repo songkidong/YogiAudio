@@ -21,7 +21,7 @@
 	
 	
 	
-	<!-- 통합검색출력하기 -->
+		<!-- 통합검색출력하기 -->
 	 <select id="MainSearch" resultType="com.project3.yogiaudio.dto.music.MusicDTO">
 	    SELECT * FROM music
 	    <where>
