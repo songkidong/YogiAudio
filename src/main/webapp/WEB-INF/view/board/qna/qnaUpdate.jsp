@@ -26,22 +26,33 @@
 				<label for="content">내용:</label>
 				<textarea id="updated-content" name="content"><p>${qnaDTO.content}</p></textarea>
 			</div>
-			<div class="file_list">
-				<div class="mb-3" style="padding-bottom: 30px;">
-					<c:forEach var="uuid" items="${qnaDTO.uuidList}">
-						<div class="file_input" style="display: inline-block;">
-							<label for="formFileMultiple" class="form-label">파일첨부: </label> <input
-								class="form-control" type="file" id="updated-file" multiple
-								name="filepath" onchange="selectFile(this);"
-								style="background-color: white;" value="${uuid}" />
 
-						</div>
-					
+			<div class="file_list">
+				<!-- 기존 업로드된 파일 출력  -->
+				<div>
+					<ul>
+						<c:forEach var="fileList" items="${qnaDTO.boardFileDTOList}">
+							<button type="button" />	
+							<li>
+							<a href="${fileList.filePath}">${fileList.originFileName}</a>
+							</li>
+						</c:forEach>
+					</ul>
+				</div>
+
+				<!-- 새로 업로드 할 파일 추가 -->
+				<div class="mb-3" style="padding-bottom: 30px;">
+					<div class="file_input" style="display: inline-block;">
+						<label for="formFileMultiple" class="form-label">파일첨부: </label> <input
+							class="form-control" type="file" id="updated-file" multiple
+							name="filepath" onchange="selectFile(this);"
+							style="background-color: white;" />
+					</div>
+
 					<button type="button" onclick="removeFile(this);"
 						class="btn btn-danger">
 						<span>삭제</span>
 					</button>
-					</c:forEach>
 					<button type="button" onclick="addFile();" class="btn btn-primary">
 						<span>파일 추가</span>
 					</button>
@@ -65,8 +76,8 @@
 
 	</div>
 </section>
+
 <script type="text/javascript">
-// 파일 선택
 // 파일 선택
 function selectFile(element) {
 

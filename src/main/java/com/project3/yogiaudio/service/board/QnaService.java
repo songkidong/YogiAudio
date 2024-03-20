@@ -1,9 +1,11 @@
 package com.project3.yogiaudio.service.board;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.project3.yogiaudio.dto.board.NoticeDTO;
 import com.project3.yogiaudio.dto.board.QnaDTO;
@@ -71,17 +73,20 @@ public class QnaService {
 	 * @Method 설명 : 나의 문의하기 작성하기
 	 */
 	public int saveQna(QnaDTO qnaDTO) {
-		
-		// form에서 넘어온 파일이 빈값이면 제거
+
+		List<MultipartFile> validFiles = new ArrayList<>();
+
+		// 빈 파일이 아닌 경우에만 유효한 파일 목록에 추가
 		if (qnaDTO.getFiles() != null) {
-			for (int i = 0; i < qnaDTO.getFiles().size(); i++) {
-				if (qnaDTO.getFiles().get(i).isEmpty()) {
-					qnaDTO.getFiles().remove(i);
+			for (MultipartFile file : qnaDTO.getFiles()) {
+				if (!file.isEmpty()) {
+					validFiles.add(file);
 				}
 			}
 		}
 
-		String filePath = filedbService.saveFiles(qnaDTO.getFiles());
+
+		String filePath = filedbService.saveFiles(validFiles);
 
 		BoardQna boardQna = BoardQna.builder().writerId(qnaDTO.getWriterId()).title(qnaDTO.getTitle())
 				.content(qnaDTO.getContent()).filePath(filePath).build();
@@ -93,40 +98,41 @@ public class QnaService {
 	}
 
 	/**
-	  * @Method Name : qnaView
-	  * @작성일 : 2024. 3. 19.
-	  * @작성자 : 노수현
-	  * @변경이력 : 
-	  * @Method 설명 : 문의하기 상세보기
-	  */
+	 * @Method Name : qnaView
+	 * @작성일 : 2024. 3. 19.
+	 * @작성자 : 노수현
+	 * @변경이력 :
+	 * @Method 설명 : 문의하기 상세보기
+	 */
 	public BoardQna qnaReadById(int id) {
-		
+
 		return qnaRepository.findById(id);
 	}
-	
+
 	/**
-	  * @Method Name : qnaUpdate
-	  * @작성일 : 2024. 3. 19.
-	  * @작성자 : 노수현
-	  * @변경이력 : 
-	  * @Method 설명 : 문의하기 수정하기
-	  */
+	 * @Method Name : qnaUpdate
+	 * @작성일 : 2024. 3. 19.
+	 * @작성자 : 노수현
+	 * @변경이력 :
+	 * @Method 설명 : 문의하기 수정하기
+	 */
 	public boolean qnaUpdate(int id, QnaDTO qnaDTO) {
 
-		// form에서 넘어온 파일이 빈값이면 제거
+		List<MultipartFile> validFiles = new ArrayList<>();
+
+		// 빈 파일이 아닌 경우에만 유효한 파일 목록에 추가
 		if (qnaDTO.getFiles() != null) {
-			for (int i = 0; i < qnaDTO.getFiles().size(); i++) {
-				if (qnaDTO.getFiles().get(i).isEmpty()) {
-					qnaDTO.getFiles().remove(i);
+			for (MultipartFile file : qnaDTO.getFiles()) {
+				if (!file.isEmpty()) {
+					validFiles.add(file);
 				}
 			}
 		}
 
-		
-		String filePath = filedbService.updateFiles(qnaDTO.getFiles());
+		String filePath = filedbService.updateFiles(validFiles);
 
-		BoardQna boardQna = BoardQna.builder().title(qnaDTO.getTitle()).content(qnaDTO.getContent())
-				.filePath(filePath).id(id).build();
+		BoardQna boardQna = BoardQna.builder().title(qnaDTO.getTitle()).content(qnaDTO.getContent()).filePath(filePath)
+				.id(id).build();
 
 		int result = qnaRepository.qnaUpdate(boardQna);
 
@@ -136,14 +142,14 @@ public class QnaService {
 
 		return false;
 	}
-	
+
 	/**
-	  * @Method Name : qnaDelete
-	  * @작성일 : 2024. 3. 19.
-	  * @작성자 : 노수현
-	  * @변경이력 : 
-	  * @Method 설명 : 문의하기 삭제하기
-	  */
+	 * @Method Name : qnaDelete
+	 * @작성일 : 2024. 3. 19.
+	 * @작성자 : 노수현
+	 * @변경이력 :
+	 * @Method 설명 : 문의하기 삭제하기
+	 */
 	public boolean qnaDelete(int id) {
 
 		int result = qnaRepository.qnaDelete(id);
@@ -154,6 +160,5 @@ public class QnaService {
 
 		return false;
 	}
-	
 
 }

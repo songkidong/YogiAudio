@@ -24,8 +24,8 @@ public class QnaDTO {
 	private List<MultipartFile> files;
 	private Timestamp createdAt;
 	
-	// file 수정,삭제
-	private List<String> uuidList;
+	// 추가 필드 - file(uuid, originName)
+	private List<BoardFileDTO> boardFileDTOList;
 	
 	
 }
