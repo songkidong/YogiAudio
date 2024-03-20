@@ -8,9 +8,7 @@
 <html>
 <head>
 <style>
-.disabled {
-  color: #999; /* 회색으로 아이콘 색상 변경 */
-}
+
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -39,9 +37,9 @@
 			</div>
 
 			<div class="ui-actions">
-				<i class="fas fa-list-ul"></i> 
-				<img alt="" src="/img/music_like/unlike.png" id="heart">
-				<i class="fas fa-plus"></i>
+				<i class="fas fa-list-ul"></i> <img alt=""
+					src="/img/music_like/unlike.png" id="heart"> <i
+					class="fas fa-plus"></i>
 			</div>
 			<!-- 가사 위치 -->
 			<div id="lyrics-container">
@@ -54,9 +52,9 @@
 				<input type="range" class="ui-slider" min="1" max="1200" value="0">
 				<span id="currentTime">0:00</span> / <span id="totalDuration">0:00</span>
 			</div>
-
 			<div class="ui-controls">
-				<i class="fas fa-random disabled"></i> <i class="fas fa-redo"></i> <i
+				<i class="fas fa-random disabled"></i> <img class="fas fa-redo"
+					src="img/musicPlayer/repeat-all.png" /> <i
 					class="fas fa-step-backward"></i> <i class="fas fa-pause"></i> <i
 					class="fas fa-step-forward"></i>
 				<div id="volumeContainer">
@@ -70,6 +68,9 @@
 		<div class="container">
 			<div class="ui-user">
 				<p>유저 정보 들어가는 곳</p>
+			</div>
+			<div class="ui-music-btn">
+				<button type="button" id="deleteDuplicate">중복곡 삭제</button>
 			</div>
 			<div class="ui-list">
 				<c:forEach var="play" items="${playList}">

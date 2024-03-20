@@ -1,9 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
+	// 반복재생 상태를 나타내는 변수 0. 반복x 1. 전체 반복, 2. 1곡 반복
+	let isRepeatMode = 0;
+	// 랜덤 버튼
+	const repeatModeBtn = document.querySelector('.fa-redo');
+	// 기존 업데이트 모드
+	updateRepeatModeUI(repeatModeBtn);
+
 	// 셔플 상태를 나타내는 변수
 	let isShuffled = false;
-	// 반복재생 상태를 나타내는 변수
-	let isRepeat = false;
-	
+
 	const audioPlayer = new Audio();
 
 	// 슬라이더 요소 가져오기
@@ -106,7 +111,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// 노래 끝나면 다음 곡으로 넘어가는 이벤트리스너
 	audioPlayer.addEventListener('ended', function() {
-		playNextSong();
+		if (isRepeatMode === 1) {
+			audioPlayer.play();
+		} else {
+			playNextSong();
+		}
 	});
 
 	// audioPlayer.autoplay = true;
@@ -192,6 +201,18 @@ document.addEventListener('DOMContentLoaded', function() {
 	function getCurrentSongIndex() {
 		return currentSongIndex;
 	}
+	const deleteDuplicateBtn = document.getElementById('deleteDuplicate');
+	deleteDuplicateBtn.addEventListener('click', function() {
+		console.log("중복곡 제거");
+		console.log(playListItems);
+		playListItems.forEach(item => {
+			 const musicNo = item.getAttribute('data-music-no');
+			 const orderIndex = item.getAttribute('data-order-index');
+			 console.log("최장호오오오오오오");
+			 console.log(musicNo);
+			 console.log(orderIndex);
+		});
+	});
 
 	const heartBtnImg = document.getElementById('heart');
 	// 좋아요 버튼 클릭 이벤트 리스너 추가
@@ -230,8 +251,16 @@ document.addEventListener('DOMContentLoaded', function() {
 			console.log("랜덤");
 			shuffleMusic(e);
 		}
+		if (e.target.classList.contains('fa-redo')) {
+			// 반복 모드 변경: 0 -> 1 -> 2 -> 0 (반복 없음 -> 한 곡 반복 -> 전체 반복 -> 반복 없음)
+			isRepeatMode = (isRepeatMode + 1) % 3;
+			// UI 업데이트
+			updateRepeatModeUI(e.target);
+		}
 	});
+
 	setFirstSong();
+
 
 	// 플레이리스트 처음곡 재생하는 함수
 	function setFirstSong() {
@@ -246,22 +275,47 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		setCurrentMusic(firstAlbumImg, firstLyrics, firstMusicTitle, firstMusicSinger, firstMusicUrl, firstMusicNo);
 	}
+
+	// 반복 모드 세팅
+	function updateRepeatModeUI(repeatModeBtn) {
+
+		if (isRepeatMode === 0) {
+			repeatModeBtn.classList.remove('repeat-one-icon', 'repeat-all-icon');
+			repeatModeBtn.classList.add('repeat-none-icon');
+			repeatModeBtn.title = '반복 없음';
+		} else if (isRepeatMode === 1) {
+			repeatModeBtn.classList.remove('repeat-none-icon', 'repeat-one-icon');
+			repeatModeBtn.classList.add('repeat-all-icon');
+			repeatModeBtn.title = '전체 반복';
+		} else if (isRepeatMode === 2) {
+			repeatModeBtn.classList.remove('repeat-none-icon', 'repeat-all-icon');
+			repeatModeBtn.classList.add('repeat-one-icon');
+			repeatModeBtn.title = '한 곡 반복';
+		}
+	}
 	// 다음 곡으로 넘어가는 함수
 	function playNextSong() {
 		// 현재 재생 중인 곡의 인덱스를 증가시킴
 		currentSongIndex++;
-		
-		// 반복재생일때만 처음곡으로 넘어감
-		if(isRepeat) {
-			// 재생 목록의 끝에 도달하면 처음 곡으로 돌아감
-			if (currentSongIndex >= playListItems.length) {
-				currentSongIndex = 0;
-			}
+
+		// 재생 목록의 끝에 도달하면 처음 곡으로 돌아감
+		if (currentSongIndex >= playListItems.length) {
+			currentSongIndex = 0;
 		}
 
 		// 현재 곡의 인덱스를 기반으로 해당 곡을 재생
 		console.log(currentSongIndex);
 		playListItems[currentSongIndex].click();
+		// 반복 모드가 0, 기본일땐 처음으로 간 뒤 정지
+		if (isRepeatMode === 0) {
+			// 재생/일시정지 아이콘을 재생 아이콘으로 변경
+			const playPauseIcon = document.querySelector('.ui-controls .fa-pause');
+			if (playPauseIcon) {
+				audioPlayer.pause();
+				playPauseIcon.classList.remove('fa-pause');
+				playPauseIcon.classList.add('fa-play');
+			}
+		}
 	}
 
 	// 이전 곡으로 돌아가는 함수
@@ -303,6 +357,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 	// 재생할 곡 세팅 함수
 	function setCurrentMusic(albumImg, lyrics, musicTitle, musicSinger, musicUrl, musicNo) {
+		// 좋아요 체크
 		likeCheck(musicNo, heartBtnImg);
 		// ui-actions 요소에 추가
 
