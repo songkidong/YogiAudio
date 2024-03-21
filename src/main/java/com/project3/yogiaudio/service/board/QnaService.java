@@ -7,12 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.project3.yogiaudio.dto.board.NoticeDTO;
 import com.project3.yogiaudio.dto.board.QnaDTO;
+import com.project3.yogiaudio.dto.board.QnaUpdateDTO;
 import com.project3.yogiaudio.dto.common.PageReq;
 import com.project3.yogiaudio.dto.common.PageRes;
 import com.project3.yogiaudio.filedb.service.FiledbService;
-import com.project3.yogiaudio.repository.entity.board.BoardNotice;
 import com.project3.yogiaudio.repository.entity.board.BoardQna;
 import com.project3.yogiaudio.repository.interfaces.board.QnaRepository;
 
@@ -116,13 +115,13 @@ public class QnaService {
 	 * @변경이력 : 1. file서비스 새로 insert한 파일 saves로직 수행, 2. deletedHref uuid 잘라서 file서비스 삭제로직 수행
 	 * @Method 설명 : 문의하기 수정하기
 	 */
-	public boolean qnaUpdate(int id, QnaDTO qnaDTO) {
+	public boolean qnaUpdate(int id, QnaUpdateDTO qnaUpdateDTO) {
 
 		List<MultipartFile> validFiles = new ArrayList<>();
 
 		// 빈 파일이 아닌 경우에만 유효한 파일 목록에 추가
-		if (qnaDTO.getFiles() != null) {
-			for (MultipartFile file : qnaDTO.getFiles()) {
+		if (qnaUpdateDTO.getFiles() != null) {
+			for (MultipartFile file : qnaUpdateDTO.getFiles()) {
 				if (!file.isEmpty()) {
 					validFiles.add(file);
 				}
@@ -130,8 +129,41 @@ public class QnaService {
 		}
 
 		String filePath = filedbService.saveFiles(validFiles);
+		
+		List<String> deleteList  = qnaUpdateDTO.getDeletedHref();
 
-		BoardQna boardQna = BoardQna.builder().title(qnaDTO.getTitle()).content(qnaDTO.getContent()).filePath(filePath)
+		int deleteResult = 0;
+		
+		for (String deleteFilePath : deleteList) {
+		    // "get-file/" 다음의 부분을 추출합니다.
+		    int startIndex = filePath.indexOf("get-file/") + "get-file/".length();
+		    String trimmedPath = deleteFilePath.substring(startIndex);
+		    deleteResult += filedbService.deleteByUuid(trimmedPath);
+		}
+
+		if(deleteResult != deleteList.size() ) {
+			return false;
+		}
+		
+		// 기존 filePath가 있으면 유지하고, 없으면 빈 문자열로 초기화합니다.
+		if (filePath == null) {
+		    filePath = "";
+		}
+
+		List<String> hrefList = qnaUpdateDTO.getHref();
+
+		// hrefList가 null이 아닌 경우에만 처리합니다.
+		if (hrefList != null) {
+		    // 기존 filePath에 누적하여 새로운 파일 경로를 추가합니다.
+		    for (String addFilePath : hrefList) {
+		        if (!filePath.isEmpty()) {
+		            filePath += ",";
+		        }
+		        filePath += addFilePath;
+		    }
+		}
+		
+		BoardQna boardQna = BoardQna.builder().title(qnaUpdateDTO.getTitle()).content(qnaUpdateDTO.getContent()).filePath(filePath)
 				.id(id).build();
 
 		int result = qnaRepository.qnaUpdate(boardQna);
@@ -151,7 +183,9 @@ public class QnaService {
 	 * @Method 설명 : 문의하기 삭제하기
 	 */
 	public boolean qnaDelete(int id) {
-
+		
+		
+		
 		int result = qnaRepository.qnaDelete(id);
 
 		if (result == 1) {
