@@ -72,7 +72,7 @@ public class PlayListController {
 	public String musicPlayerPage(Model model) {
 		User user = (User) httpSession.getAttribute(Define.PRINCIPAL);
 		if (user != null) {
-			List<PlayListStartDTO> playList = playlistService.readPlaylistByUserId(user.getId());
+			List<PlayListStartDTO> playList = playlistService.readPlaylistByUserId(user.getId(), null);
 			if (playList != null && playList.isEmpty() == false) {
 				model.addAttribute("playList", playList);
 			}

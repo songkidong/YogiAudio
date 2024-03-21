@@ -47,10 +47,14 @@ public class PlaylistService {
 	  * @param userId
 	  * @return
 	  */
-	public List<PlayListStartDTO> readPlaylistByUserId(long userId) {
+	public List<PlayListStartDTO> readPlaylistByUserId(long userId, String playlist) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("userId", userId);
-		params.put("playlistName", Define.PLAYLIST_DEFAULT);
+		if(playlist == null) {
+			params.put("playlistName", Define.PLAYLIST_DEFAULT);
+		} else {
+			params.put("playlistName", playlist);
+		}
 		// default 플레이리스트 유무 확인
 		Playlist defaultPlaylist = playlistRepository.findByUserIdAndPlaylistName(params);
 		List<PlayListStartDTO> playList = new ArrayList<>();
