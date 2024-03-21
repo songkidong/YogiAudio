@@ -39,6 +39,21 @@
 .my-music-container-item:last-child {
 	border-bottom: none; /* 마지막 아이템의 하단 테두리 제거 */
 }
+
+.playing-music {
+	color: blue; /* 파란색 */
+	font-weight: bold; /* 굵은 글꼴 */
+	margin-left: 5px; /* 아이콘과 텍스트 사이의 간격 조절 */
+}
+
+.playing-music::before {
+	content: "\1F3B5"; /* 음악 노트 아이콘 */
+	font-family: "Font Awesome 5 Free"; /* Font Awesome 폰트 패밀리 */
+	margin-right: 5px; /* 아이콘과 텍스트 사이의 간격 조절 */
+}
+.highlight {
+	color: white; /* 글씨 색상을 하얀색으로 지정합니다. */
+}
 </style>
 </head>
 <body>
@@ -95,8 +110,10 @@
 				<p>유저 정보 들어가는 곳</p>
 			</div>
 			<div class="ui-music-btn">
-				<button type="button" class="my-music-close" id="my-music-close">MyMusic 닫기</button>
-				<button type="button" class="my-music-open" id="my-music-open">MyMusic 열기</button>
+				<button type="button" class="my-music-close" id="my-music-close">MyMusic
+					닫기</button>
+				<button type="button" class="my-music-open" id="my-music-open">MyMusic
+					열기</button>
 				<br>
 				<button type="button" id="deleteDuplicate">중복곡 삭제</button>
 			</div>
@@ -109,7 +126,8 @@
 						data-file-music="${play.fileMusic}"
 						data-music-title="${play.musicTitle}"
 						data-music-singer="${play.musicSinger}">${play.musicTitle}-
-						${play.musicSinger}<span class="delete-btn">❌</span>
+						${play.musicSinger} <span class="delete-btn">❌</span> <span
+							class="add-btn">➕</span>
 					</div>
 				</c:forEach>
 			</div>
