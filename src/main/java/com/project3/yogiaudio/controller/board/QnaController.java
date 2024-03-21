@@ -225,7 +225,7 @@ public class QnaController {
 
 		System.out.println("아이디 번호" + id);
 		
-		System.out.println("데이터jjjjjjjjjjjjjjjjjjjjjjj" + qnaUpdateDTO.toString());
+		System.out.println("데이터" + qnaUpdateDTO.toString());
 
 //		boolean result = qnaService.qnaUpdate(id, qnaUpdateDTO);
 //

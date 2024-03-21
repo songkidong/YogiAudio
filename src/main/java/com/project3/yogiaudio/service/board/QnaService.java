@@ -113,7 +113,7 @@ public class QnaService {
 	 * @Method Name : qnaUpdate
 	 * @작성일 : 2024. 3. 19.
 	 * @작성자 : 노수현
-	 * @변경이력 :
+	 * @변경이력 : 1. file서비스 새로 insert한 파일 saves로직 수행, 2. deletedHref uuid 잘라서 file서비스 삭제로직 수행
 	 * @Method 설명 : 문의하기 수정하기
 	 */
 	public boolean qnaUpdate(int id, QnaDTO qnaDTO) {

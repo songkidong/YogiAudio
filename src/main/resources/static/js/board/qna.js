@@ -55,13 +55,13 @@ function loadView() {
 }
 loadView();
 
-var deletedHref;
-var href;
 
-// qna view 출력
+//////////////////////////////////////////////////////////
 
 
-
+// deletedHref와 href 값을 담아둘 변수 선언
+var deletedHrefVList = [];
+var hrefValueList = [];
 
 // 첨부된 파일 삭제하기
 document.addEventListener('click', function(event) {
@@ -71,8 +71,10 @@ document.addEventListener('click', function(event) {
 		var listItem = event.target.closest('li');
 
 		// 삭제될 <a> 태그의 href 속성 값을 가져옵니다.
-		deletedHref = listItem.querySelector('a.uploadedFilePath').getAttribute('href');
+		var deletedHref = listItem.querySelector('a.uploadedFilePath').getAttribute('href');
 		console.log(deletedHref)
+
+		deletedHrefVList.push(deletedHref);
 
 		// 부모 요소인 <ul>을 찾습니다.
 		var fileListContainer = listItem.parentElement;
@@ -82,24 +84,16 @@ document.addEventListener('click', function(event) {
 	}
 });
 
+
 // 수정하기
 $("#btn-update-complete").on("click", function() {
 
 	alert("수정");
-	var a = deletedHref;
-	console.log(deletedHref.length);
 
 	// 수정된 데이터 가져오기
 	const updatedTitle = $("#updated-title").val(); // 수정된 제목
 	const updatedContent = $("#updated-content").val(); // 수정된 내용
 	const fileInputs = document.querySelectorAll('.files');
-
-
-	//const updatedFilePath = $(".files")[0].files[0];// 수정된 파일
-
-	//var pathpath = document.getElementsByClassName('files');
-	//console.log(pathpath);
-
 
 	// 부모 요소를 찾습니다.
 	var fileListContainer = document.getElementById('fileListContainer');
@@ -110,7 +104,9 @@ $("#btn-update-complete").on("click", function() {
 	// 각 a 태그의 href 속성을 가져와서 출력합니다.
 	anchorTags.forEach(function(anchorTag) {
 		href = anchorTag.getAttribute('href');
-		console.log('href:', href);
+		console.log('콘솔href:', href);
+
+		hrefValueList.push(href);
 	});
 
 
@@ -129,10 +125,16 @@ $("#btn-update-complete").on("click", function() {
 			formData.append("files", file); // 각 파일을 FormData에 추가
 		}
 	});
-	formData.append("deletedHref", deletedHref);
-	console.log(deletedHref);
-	formData.append("href", href);
-	console.log(href);
+
+	if (deletedHrefVList && deletedHrefVList.length > 0) { //1개라도 있으면
+		formData.append("deletedHref", deletedHrefVList);
+	}
+
+	if (hrefValueList && hrefValueList.length > 0) {
+		formData.append("href", hrefValueList);
+	}
+	console.log(deletedHrefVList);
+	console.log(hrefValueList);
 
 	console.log(formData);
 
