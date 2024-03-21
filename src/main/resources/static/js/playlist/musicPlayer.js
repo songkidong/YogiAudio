@@ -252,6 +252,63 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	});
 
+	const myMusicOpenBtn = document.getElementById('my-music-open');
+	const myMusicCloseBtn = document.getElementById('my-music-close');
+	// myMusic 창 닫기
+	myMusicCloseBtn.addEventListener("click", function() {
+		console.log("이거 크크크크릭리됨");
+		var myMusicContainer = document.getElementById("myMusicContainer");
+
+		// myMusicContainer의 자식 요소 중에서 p 태그를 제외한 모든 요소를 삭제합니다.
+		var children = myMusicContainer.children;
+		for (var i = children.length - 1; i >= 0; i--) {
+			if (children[i].tagName.toLowerCase() !== 'p') {
+				children[i].remove();
+			}
+		}
+
+		// 'active' 클래스를 제거하여 숨깁니다.
+		myMusicContainer.classList.remove("active");
+	});
+
+	// myMusic 창 열기
+	myMusicOpenBtn.addEventListener(
+		"click",
+		function() {
+			console.log("클릭되되되돔");
+			var myMusicContainer = document.getElementById("myMusicContainer");
+			// 플레이리스트가 비어 있는지 확인
+			if (!myMusicContainer.querySelector('.my-music-container-item')) {
+				myMusicContainer.classList.add("active");
+				// 1. ajax로 playlist 조회 - data 나온 값으로 플레이리스트에 추가.
+				$.ajax({
+					type: "POST",
+					url: "/readPlaylist",
+					data: JSON.stringify({
+						playlistName: "playlist",
+						userId: userId
+					}),
+					contentType: "application/json",
+					success: function(data) {
+						console.log(data);
+						alert(data);
+						// 2. 클릭 이벤트 시 addPlaylistItem에 추가하기
+						if (data.length === 0) {
+							alert("플레이리스트가 비어 있습니다.");
+						} else {
+							data.forEach(function(childData) {
+								addPlaylistItemToPlaylist(childData);
+							});
+						}
+					},
+					error: function(XMLHttpRequest, textStatus,
+						errorThrown) {
+						alert("통신 실패.")
+					}
+				});
+			}
+		});
+
 	const heartBtnImg = document.getElementById('heart');
 	// 좋아요 버튼 클릭 이벤트 리스너 추가
 	heartBtnImg.addEventListener('click', function() {
@@ -429,10 +486,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	function scrollToHighlightedElement() {
 		const highlightedElement = document.querySelector('.highlight');
 		if (highlightedElement) {
-			if(isExpanded) {
+			if (isExpanded) {
 				console.log("확장되었어요");
 				highlightedElement.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
-			} else{
+			} else {
 				console.log("확장 안됨");
 				highlightedElement.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
 			}
@@ -578,7 +635,58 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 		}
 	}
+	// 플레이리스트에 노래 추가
+	function addPlaylistItemToPlaylist(data) {
+		// 플레이리스트 아이템 생성
+		const playlistItem = document.createElement('div');
+		playlistItem.classList.add('my-music-container-item');
+		playlistItem.setAttribute('data-order-index', data.orderIndex);
+		playlistItem.setAttribute('data-playlist-name', data.playlistName);
+		playlistItem.setAttribute('data-music-no', data.musicNo);
+		playlistItem.setAttribute('data-music-title', data.musicTitle);
+		playlistItem.setAttribute('data-music-singer', data.musicSinger);
+		playlistItem.textContent = data.musicTitle + '- '
+			+ data.musicSinger;
+		// playlist배열에 추가
+		// 삭제 버튼 생성
+		const deleteButton = document.createElement('span');
+		deleteButton.classList.add('delete-btn');
+		deleteButton.textContent = '❌';
+		deleteButton.addEventListener('click', function() {
+			$.ajax({
+				type: "POST",
+				url: "/deletePlayList",
+				data: JSON.stringify({
+					playlistName: data.playlistName,
+					musicNo: data.musicNo,
+					orderIndex: data.orderIndex
+				}),
+				contentType: "application/json",
+				success: function(data) {
+					// 추가한 노래 playlist에 추가
+					console.log(data);
+					alert(data);
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					alert("통신 실패.")
+				}
+			});
+			playlistItem.remove();
+		});
 
+		// 플레이리스트 아이템에 삭제 버튼 추가
+		playlistItem.appendChild(deleteButton);
+
+		// 플레이리스트에 아이템 추가
+		document.querySelector('.my-music-container').appendChild(
+			playlistItem);
+
+		// 새로 추가된 아이템에 클릭 이벤트 추가
+		playlistItem.addEventListener('click', function() {
+			addPlaylistItem(data, "add");
+			console.log("클릭됨 ");
+		});
+	}
 	// 플레이리스트에 노래 추가
 	function addPlaylistItem(data, type) {
 		// 플레이리스트 아이템 생성
