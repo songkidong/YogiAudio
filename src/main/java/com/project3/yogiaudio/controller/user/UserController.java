@@ -1,5 +1,7 @@
 package com.project3.yogiaudio.controller.user;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.project3.yogiaudio.dto.playlist.PlayListStartDTO;
 import com.project3.yogiaudio.dto.user.GoogleProfile;
 import com.project3.yogiaudio.dto.user.KakaoProfile;
 import com.project3.yogiaudio.dto.user.NaverProfile;
@@ -26,7 +29,9 @@ import com.project3.yogiaudio.dto.user.UpdateUserDTO;
 import com.project3.yogiaudio.dto.user.UserDTO;
 import com.project3.yogiaudio.filedb.service.FiledbService;
 import com.project3.yogiaudio.repository.entity.User;
+import com.project3.yogiaudio.repository.entity.playlist.Playlist;
 import com.project3.yogiaudio.service.UserService;
+import com.project3.yogiaudio.service.playlist.PlaylistService;
 import com.project3.yogiaudio.util.Define;
 
 import jakarta.servlet.http.HttpSession;
@@ -36,6 +41,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private PlaylistService playlistService;
 	
 	@Autowired
 	private FiledbService filedbService;
@@ -80,6 +88,18 @@ public class UserController {
 	@GetMapping("/consent")
 	public String consentPage() {
 		return "user/consent";
+	}
+	
+
+	@GetMapping("/myPlaylist")
+	public String myPlaylistPage(Model model) {
+		User user = (User)httpsession.getAttribute(Define.PRINCIPAL);
+		
+		// playlist 조회
+		List<PlayListStartDTO> playlist = playlistService.readPlaylistByUserId(user.getId(), Define.PLAYLIST);
+		
+		model.addAttribute("playlist",playlist);
+		return "user/myPlaylist";
 	}
 
 	/**

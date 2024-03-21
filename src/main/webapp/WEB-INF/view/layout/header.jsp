@@ -101,7 +101,7 @@
                                         <a href="/signIn">
                                             <p>로그인</p>
                                         </a>
-                                        <a href="/signUp">
+                                        <a href="/consent">
                                             <p style="margin-left: 10px;">회원가입</p>
                                         </a>
                                     </c:when>

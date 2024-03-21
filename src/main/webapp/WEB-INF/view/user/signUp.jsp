@@ -13,7 +13,7 @@
 <div class="container sign--up--container">
 	<h1>SIGN UP</h1>
 	<ul class="links">
-		<li><a href="#" id="signup">SIGN UP</a></li>
+		<li><a href="/signUp" id="signup">SIGN UP</a></li>
 		<li><a href="/signIn" id="signin">SIGN IN</a></li>
 		<li><a href="#" id="reset">RESET</a></li>
 	</ul>
@@ -21,17 +21,21 @@
 		<div class="input__block">
 			<input type="email" placeholder="Email" class="input email"
 				id="email" />
-			<button type="button" id="sendVerificationButton">Send
-				Verification Email</button>
+			<button type="button" id="emailDuplicateCheckButton">중복검사</button>
+			<button type="button" id="sendVerificationButton">인증번호전송</button>
 		</div>
 		<div class="input__block" id="verificationForm">
 			<input type="text" placeholder="Verification Code" class="input"
 				id="verificationCode" name="verificationCode" />
-			<button type="button" id="verifyButton">Verify</button>
+			<button type="button" id="verifyButton">인증</button>
 		</div>
 		<div class="input__block">
 			<input type="password" placeholder="Password" class="input password"
 				id="password" name="password" />
+		</div>
+		<div class="input__block">
+			<input type="password" placeholder="checkPassword" class="input checkpassword"
+				id="checkpassword" name="checkpassword" />
 		</div>
 		<div class="input__block">
 			<input type="text" placeholder="name" class="input name" id="name"

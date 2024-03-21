@@ -33,9 +33,10 @@ ul {
   margin-bottom: 10px;
 }
 
-.logo__custom h1 {
+.logo__custom h2 {
   margin-top: 50px;
-  font-size: 50px;
+  font-size: 30px;
+  margin-bottom: 30px;
 }
 
 .contents__custom {
@@ -95,7 +96,7 @@ label.required::after {
   height: 40px;
   outline: none;
   cursor: pointer;
-  background-color: #242222;
+  background-color: skyblue;
   color: #ffffff;
   border: none;
   border-radius: 5px;
@@ -109,6 +110,7 @@ label.required::after {
 .next-button__custom:disabled {
   opacity: 0.2;
   cursor: not-allowed;
+  background-color: #0086ff;
 }
 
 @media (max-width: 768px) {
