@@ -150,13 +150,32 @@ function loadViewId() {
 	});
 
 }
-// 페이지 로드 시 데이터 로딩 함수 호출
+
+// loadViewId() 실행함수 --> noticeView.jsp 
+//페이지 로드 시 데이터 로딩 함수 호출
 $(document).ready(function() {
 	loadViewId();
 });
 
-
 // notice view에서 update를 위한 클릭 이벤트 
 updateBtn.on("click", function() {
 	window.location.href = "/board/notice/noticeUpdate/" + addressNum;
+});
+
+// 상위 3개 글(최신글) id대신 메가폰 아이콘 처리
+document.addEventListener("DOMContentLoaded", function() {
+	// 상위 3개의 행을 가져옵니다.
+	var topRows = document.querySelectorAll(".page-click:nth-child(-n+3)");
+
+	// 각 상위 3개의 행에 대해 아이콘을 변경합니다.
+	topRows.forEach(function(row) {
+		var idCell = row.querySelector("td:first-child"); // 첫 번째 td 셀을 가져옵니다.
+		var id = idCell.textContent.trim(); // 텍스트 내용을 가져옵니다.
+
+		// id 값이 있다면
+		if (id !== "") {
+			// 아이콘으로 대체합니다.
+			idCell.innerHTML = '<i class="bi bi-megaphone-fill text-danger"></i>';
+		}
+	});
 });

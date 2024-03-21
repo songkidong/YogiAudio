@@ -53,6 +53,7 @@
 </section>
 
 <script src="/js/board/notice.js"></script>
+
 <%@include file="/WEB-INF/view/layout/footer.jsp"%>
 
 
