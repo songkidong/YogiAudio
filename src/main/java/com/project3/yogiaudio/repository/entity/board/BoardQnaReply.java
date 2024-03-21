@@ -2,6 +2,8 @@ package com.project3.yogiaudio.repository.entity.board;
 
 import java.sql.Timestamp;
 
+import com.project3.yogiaudio.util.TimeUtils;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,5 +23,11 @@ public class BoardQnaReply {
 	private String content;
 	private Timestamp createdAt;
 	
+	// 조인 추가 필드
+	private String writerName;
 	
+	// 날짜 포멧 설정
+	public String formatCreatedAt() {
+		return TimeUtils.timestampToString(createdAt);
+	}
 }

@@ -54,6 +54,10 @@
 	text-decoration: none;
 	cursor: pointer;
 }
+#heart{
+	height: 40px;
+	width: 40px;
+}
 </style>
 
 <script>
@@ -149,6 +153,8 @@
 							onclick="likeMusic()">💗like</span>
 					</h2>
 					</a>
+					<!-- 하트 버튼 추가 -->
+					<img alt="" src="/img/music_like/unlike.png" id="heart">
 					<div>
 						<h3 class="product-name">${detail.musiccompany}<del
 								class="product-old-price"></del>
@@ -296,7 +302,8 @@
 	<div class="modal-content" id="mvmodal">
 		<span class="close">&times;</span>
 		<iframe id="videoFrame" width="800" height="400" frameborder="0"
-			allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"allowfullscreen></iframe>
+			allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+			allowfullscreen></iframe>
 	</div>
 </div>
 
@@ -389,8 +396,9 @@
 
 <script>
     var musicNo = '${detail.musicno}';
+	var userId = '${principal.id}';
 </script>
-
+<script src="/js/product/likeBtn.js"></script>
 <script src="/js/playlist/playlist.js"></script>
 
 <%@include file="/WEB-INF/view/layout/footer.jsp"%>

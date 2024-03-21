@@ -26,7 +26,7 @@
                         <th>작성자</th>
                         <th>제목</th>
                         <th>등록일</th>
-                        <th>수정 / 삭제</th>
+                        <th>삭제</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
@@ -39,7 +39,6 @@
 		            		  <td><a href="/admin/noticeView/${notice.id }">${notice.title}</a></td>
 		            		  <td>${notice.formatCreatedAt()}</td>
 		            		  <td>
-		            		  	<a class="btn btn-primary" href="" style="">수정</a>
 		            		  	<a data-id="${notice.id }" name="deleteButton" class="btn btn-primary" href="#" >삭제</a>
 		            		  </td>
 		                   	</tr>

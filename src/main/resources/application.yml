@@ -20,7 +20,27 @@ spring:
     multipart:
       max-file-size: 20MB
       max-request-size: 20MB   
-         
+
+  # Naver smtp server 사용
+  mail:
+    host: smtp.naver.com #smtp 서버 주소
+    port: 465 # 메일 인증서버 포트
+    username: ehdzl5464@naver.com #네이버 아이디
+    password: 30110rlehd #네이버 비밀번호
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+            required: true
+          auth: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+          ssl:
+            trust: smtp.naver.com
+            enable: true
+
   datasource:    
     url: jdbc:mysql://192.168.0.101:3306/yogi_audio?serverTimeZone=Asia/Seoul
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -67,23 +87,6 @@ spring:
 #      hibernate:
 #        format_sql: true
 #    defer-datasource-initialization: true
-
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: ehdzl5464@gmail.com
-    password: thmtlmpdadmuoakt
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-            required: true
-          connectiontimeout: 5000
-          timeout: 5000
-          writetimeout: 5000
-    auth-code-expiration-millis: 300000  # 5 * 60 * 1000 == 5분
 
 mybatis:
   mapper-locations:

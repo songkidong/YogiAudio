@@ -17,6 +17,7 @@ import com.project3.yogiaudio.repository.entity.board.BoardFree;
 import com.project3.yogiaudio.repository.entity.board.BoardFreeComment;
 import com.project3.yogiaudio.repository.entity.board.BoardNotice;
 import com.project3.yogiaudio.repository.entity.board.BoardQna;
+import com.project3.yogiaudio.repository.entity.board.BoardQnaReply;
 import com.project3.yogiaudio.service.AdminBoardService;
 import com.project3.yogiaudio.service.AdminService;
 
@@ -122,6 +123,16 @@ public class AdminController {
 		return "admin/noticeView";
 	}
 	
+	// 공지사항 수정하기
+	@GetMapping("/updateNotice/{id}")
+	public String updateNoticePage(@PathVariable("id") Integer id, Model model) {
+		
+		BoardNotice notice = adminBoardService.findNoticeById(id);
+		model.addAttribute("notice", notice);
+		
+		return "admin/updateNotice";
+	}
+	
 	// qna 목록
 	@GetMapping("/qnaList")
 	public String qnaListPage(AdminCriteria cri, Model model) {
@@ -135,6 +146,20 @@ public class AdminController {
 		model.addAttribute("pageVO", pageVO);
 		
 		return "admin/qnaList";
+	}
+	
+	// qna 글보기
+	@GetMapping("/qnaView/{id}")
+	public String qnaViewPage(@PathVariable("id") Integer id, Model model) {
+		
+		BoardQna qna = adminBoardService.findQnaById(id);
+		model.addAttribute("qna", qna);
+		
+		// 답변 목록
+		List<BoardQnaReply> replyList = adminBoardService.findAllReplyByBoardQnaId(id);
+		model.addAttribute("replyList", replyList);
+		
+		return "admin/qnaView";
 	}
 	
 	// 자유게시판 목록
