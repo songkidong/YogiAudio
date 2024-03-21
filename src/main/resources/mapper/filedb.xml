@@ -2,13 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper
-	namespace="com.project3.yogiaudio.filedb.repository.FiledbRepository">
+<mapper namespace="com.project3.yogiaudio.filedb.repository.FiledbRepository">
 
 	<insert id="saveFiledb">
 		insert into filedb
-		values(#{uuid},
-		#{originalFileName}, #{fileData});
+		values(#{uuid}, #{originalFileName}, #{fileData});
 	</insert>
 
 	<select id="findByUuid"
@@ -16,10 +14,8 @@
 		select * from filedb where uuid = #{uuid}
 	</select>
 
-	<update id="updateFiledb">
-		update filedb set 
-		originalFileName = #{originalFileName}, fileData = #{fileData}
-		WHERE uuid = #{uuid};
-	</update>
+	<delete id="deleteByUuid">
+		delete from filedb where uuid = #{uuid}
+	</delete>
 
 </mapper>

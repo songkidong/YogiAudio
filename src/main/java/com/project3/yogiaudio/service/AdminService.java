@@ -23,9 +23,6 @@ public class AdminService {
 	@Autowired
 	AdminRepository adminRepository;
 	
-	@Autowired
-	FiledbService fileDbService;
-	
 	/**
 	  * @Method Name : findAllUser
 	  * @작성일 : 2024. 3. 12.

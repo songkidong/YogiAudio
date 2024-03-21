@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.project3.yogiaudio.dto.playlist.PlayListAddDTO;
-import com.project3.yogiaudio.dto.playlist.PlayListDelteDTO;
+import com.project3.yogiaudio.dto.playlist.PlayListDeleteDTO;
 import com.project3.yogiaudio.dto.playlist.PlayListSaveDTO;
 import com.project3.yogiaudio.dto.playlist.PlayListStartDTO;
 import com.project3.yogiaudio.repository.entity.playlist.Playlist;
@@ -145,7 +145,7 @@ public class PlaylistService {
 	  * @return
 	  */
 	@Transactional
-	public int deletePlayList(PlayListDelteDTO input) {
+	public int deletePlayList(PlayListDeleteDTO input) {
 		Map<String, Object> playlistParams = new HashMap<>();
 		playlistParams.put("userId", input.getUserId());
 		playlistParams.put("playlistName", input.getPlaylistName());

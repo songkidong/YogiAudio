@@ -110,7 +110,7 @@ main {
 .ui-list {
 	background-color: #e0e0e0;
 	padding: 10px;
-	height: 90%;
+	height: 85%;
 	overflow-y: auto;
 }
 
@@ -124,6 +124,10 @@ main {
 }
 
 .ui-user {
+	background-color: #ffffff;
+	height: 5%;
+}
+.ui-music-btn {
 	background-color: #ffffff;
 	height: 10%;
 }
@@ -146,5 +150,35 @@ main {
 
 #volumeContainer:hover #volumeSlider {
     display: inline-block; /* 볼륨 아이콘에 마우스를 가져다 대면 볼륨 슬라이더 표시 */
+}
+.highlight {
+	background-color: yellow;
+}
+#heart {
+	width: 20px;
+	height: 20px;
+}
+.disabled {
+	color: #999; /* 회색으로 아이콘 색상 변경 */
+	opacity: 0.6;
+}
+/* 반복 없음 이미지 */
+.repeat-none-icon {
+	background-image: url('/img/musicPlayer/repeat-all.png');
+	opacity: 0.3;
+	color: #999; 
+	filter: grayscale(100%);
+}
+
+/* 한 곡 반복 이미지 */
+.repeat-one-icon {
+	background-image: url('/img/musicPlayer/repeat-one.png');
+	/* 필요에 따라 배경 이미지의 크기, 위치 등을 조정할 수 있습니다. */
+}
+
+/* 전체 반복 이미지 */
+.repeat-all-icon {
+	background-image: url('/img/musicPlayer/repeat-all.png');
+	/* 필요에 따라 배경 이미지의 크기, 위치 등을 조정할 수 있습니다. */
 }
 /* 추가된 부분 끝 */

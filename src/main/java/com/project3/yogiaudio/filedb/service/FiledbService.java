@@ -21,7 +21,8 @@ public class FiledbService {
 	@Autowired
 	FiledbRepository filedbRepository;
 	
-		
+	
+	
 	/**
 	 * 여러 파일 저장
 	 * @param uuid
@@ -63,9 +64,7 @@ public class FiledbService {
 			}
 		}
 
-		if (!filePath.isEmpty()) { // filePath가 비어있는 경우 실행안되게 코드 수정
-		    filePath = filePath.substring(0, filePath.length() - 1); // 마지막 , 제거
-		} 
+		filePath = filePath.substring(0, filePath.length() - 1); // 마지막 , 제거
 		return filePath;
 	}
 
@@ -110,6 +109,18 @@ public class FiledbService {
 	// 상세 조회
 	public Filedb findByUuid(String uuid) {
 		return filedbRepository.findByUuid(uuid);
+	}
+	
+	/**
+	  * @Method Name : deleteByUuid
+	  * @작성일 : 2024. 3. 20.
+	  * @작성자 : 최장호
+	  * @변경이력 : 
+	  * @Method 설명 : Uuide로 filedb 삭제
+	  */
+	@Transactional
+	public int deleteByUuid(String uuid) {
+		return filedbRepository.deleteByUuid(uuid);
 	}
 	
 }
