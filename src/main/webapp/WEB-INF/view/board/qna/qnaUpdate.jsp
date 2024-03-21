@@ -15,38 +15,61 @@
 	<div class="board-container">
 		<h2>나의 문의하기 수정하기</h2>
 
+
 		<form>
 			<div class="mb-3" style="padding-bottom: 30px;">
 				<label for="title">제목:</label> <input type="text"
-					class="form-control" id="updated-title" name="title">
+					class="form-control" id="updated-title" name="title"
+					value="${qnaDTO.title}">
 			</div>
 			<div class="mb-3" style="padding-bottom: 30px;">
 				<label for="content">내용:</label>
-				<textarea id="updated-content" name="content"></textarea>
+				<textarea id="updated-content" name="content"><p>${qnaDTO.content}</p></textarea>
 			</div>
+
 			<div class="file_list">
+				<!-- 기존 업로드된 파일 출력  -->
 				<div class="mb-3" style="padding-bottom: 30px;">
-					<div class="file_input" style="display: inline-block;">
+				<label for="insertFile">첨부된 파일: </label>
+					<ul id="fileListContainer">
+						<c:forEach var="fileList" items="${qnaDTO.boardFileDTOList}">
+							<li>
+							<a class="uploadedFilePath" href="${fileList.filePath}">${fileList.originFileName}</a>
+							<button button type="button" class="btn btn-secondary" id="btnDeleteFile">X</button>
+							</li>
+						</c:forEach>
+					</ul>
+				</div>
+
+				<!-- 새로 업로드 할 파일 추가 -->
+				<div class="mb-3" style="padding-bottom: 30px;">
+					<div class="file_input" style="display: inline-block;" id="pathpath">
 						<label for="formFileMultiple" class="form-label">파일첨부: </label> <input
-							class="form-control" type="file" id="formFileMultiple" multiple
+							class="form-control files" type="file" id="updated-file" multiple
 							name="filepath" onchange="selectFile(this);"
 							style="background-color: white;" />
 					</div>
+
 					<button type="button" onclick="removeFile(this);"
 						class="btn btn-danger">
 						<span>삭제</span>
 					</button>
-					<button type="button" onclick="addFile();"
-						class="btn btn-primary">
+					<button type="button" onclick="addFile();" class="btn btn-primary">
 						<span>파일 추가</span>
 					</button>
 				</div>
 			</div>
 		</form>
 
+
 		<div>
-			<button class="btn btn-info" onclick="history.back()" style="margin-right: 10px;"><i class="bi bi-arrow-return-left" style="padding-right: 5px;"></i>목록</button>
-			<button class="btn btn-success" id="btn-update-complete"><i class="bi bi-pencil-square" style="padding-right: 5px;"></i>수정완료</button>
+			<button class="btn btn-info" onclick="history.back()"
+				style="margin-right: 10px;">
+				<i class="bi bi-arrow-return-left" style="padding-right: 5px;"></i>목록
+			</button>
+			<button class="btn btn-success" id="btn-update-complete">
+				<i class="bi bi-pencil-square" style="padding-right: 5px;"></i>수정완료
+			</button>
 		</div>
 
 
@@ -54,6 +77,7 @@
 
 	</div>
 </section>
+
 <script type="text/javascript">
 // 파일 선택
 function selectFile(element) {
@@ -90,8 +114,8 @@ function addFile() {
 
         fileDiv.innerHTML = `
         	<div class="file_input" style="display: inline-block; ">
-			<label for="formFileMultiple" class="form-label">File: </label> <input
-			class="form-control" type="file" id="formFileMultiple" multiple
+			<label for="formFileMultiple" class="form-label">파일첨부: </label> <input
+			class="form-control files" type="file" id="updated-file" multiple
 			name="filepath" onchange="selectFile(this);" style="background-color: white;" />
 		</div>
         <button type="button" onclick="removeFile(this);" class="btn btn-danger"><span>삭제</span></button>
@@ -133,6 +157,8 @@ function removeFile(element) {
 				
 			});
 </script>
+
+<script src="/js/board/qna.js"></script>
 
 <%@include file="/WEB-INF/view/layout/footer.jsp"%>
 

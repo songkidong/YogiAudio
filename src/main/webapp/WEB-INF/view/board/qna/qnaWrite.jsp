@@ -12,12 +12,9 @@
 	<div class="board-container">
 		<h2>나의 문의하기 작성하기</h2>
 
-		<form method="post" action="/notice/insert"
-			enctype="multipart/form-data">
+		<form method="post" action="/board/qna/qnaWrite" enctype="multipart/form-data">
 			<div class="mb-3">
-				<label for="title">Title:</label> <input type="text"
-					class="form-control" id="title" name="title"
-					placeholder="Enter Title">
+				<label for="title">Title:</label> <input type="text" class="form-control" id="title" name="title" placeholder="Enter Title">
 			</div>
 			<div class="mb-3">
 				<label for="content">Content:</label>
@@ -28,7 +25,7 @@
 					<div class="file_input" style="display: inline-block;">
 						<label for="formFileMultiple" class="form-label">File: </label> <input
 							class="form-control" type="file" id="formFileMultiple" multiple
-							name="filepath" onchange="selectFile(this);"
+							name="files" onchange="selectFile(this);"
 							style="background-color: white;" />
 					</div>
 					<button type="button" onclick="removeFile(this);"
@@ -45,13 +42,10 @@
 				style="float: right;">작성하기</button>
 		</form>
 
-
-
-
 	</div>
 </section>
 <script type="text/javascript">
-// 파일 선택
+//파일 선택
 function selectFile(element) {
 
     const file = element.files[0];
@@ -88,7 +82,7 @@ function addFile() {
         	<div class="file_input" style="display: inline-block; ">
 			<label for="formFileMultiple" class="form-label">File: </label> <input
 			class="form-control" type="file" id="formFileMultiple" multiple
-			name="filepath" onchange="selectFile(this);" style="background-color: white;" />
+			name="files" onchange="selectFile(this);" style="background-color: white;" />
 		</div>
         <button type="button" onclick="removeFile(this);" class="btn btn-outline-danger"><span>삭제</span></button>
         `;
@@ -111,6 +105,7 @@ function removeFile(element) {
     }
     element.parentElement.remove();
 }
+
 
 </script>
 

@@ -3,17 +3,17 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper
-	namespace="com.project3.yogiaudio.repository.interfaces.board.NoticeRepository">
+	namespace="com.project3.yogiaudio.repository.interfaces.board.QnaRepository">
 
-	<insert id="insertNotice">
-		insert into board_notice (writer_id, title, content, file_path) <!-- db -->
+	<insert id="insertQna">
+		insert into board_qna (writer_id, title, content, file_path) <!-- db -->
 		values (#{writerId}, #{title}, #{content}, #{filePath}) <!--entity = 파라미터값과 
 			같아야 함 -->
 	</insert>
 
 	<select id="findAllByKeywordwithPasing"
-		resultType="com.project3.yogiaudio.repository.entity.board.BoardNotice">
-		select a.*, b.name as writerName from board_notice as a
+		resultType="com.project3.yogiaudio.repository.entity.board.BoardQna">
+		select a.*, b.name as writerName from board_qna as a
 		left join `user` as b
 		on a.writer_id = b.id
 		<if test="searchType == 'title'">
@@ -34,7 +34,7 @@
 
 	<select id="getAllPageCount" resultType="int">
 		select count(*) from
-		board_notice
+		board_qna
 		<if test="searchType == 'title'">
 			where title like CONCAT('%',#{searchInput},'%')
 		</if>
@@ -49,18 +49,18 @@
 		</if>
 	</select>
 
-	<select id="findAllById"
-		resultType="com.project3.yogiaudio.repository.entity.board.BoardNotice">
-		SELECT * FROM board_notice WHERE id = #{id};
+	<select id="findById"
+		resultType="com.project3.yogiaudio.repository.entity.board.BoardQna">
+		SELECT * FROM board_qna WHERE id = #{id};
 	</select>
 
-	<update id="noticeUpdate">
-		update board_notice set title = #{title}, content =
+	<update id="qnaUpdate">
+		update board_qna set title = #{title}, content =
 		#{content}, file_path = #{filePath} WHERE id = #{id};
 	</update>
 
-	<delete id="noticeDelete">
-		delete from board_notice WHERE id = #{id};
+	<delete id="qnaDelete">
+		delete from board_qna WHERE id = #{id};
 	</delete>
 
 </mapper>

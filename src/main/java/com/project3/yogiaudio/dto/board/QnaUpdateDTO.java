@@ -14,7 +14,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class QnaDTO {
+public class QnaUpdateDTO {
 
 	private long id;
 	private long writerId;
@@ -26,6 +26,10 @@ public class QnaDTO {
 	
 	// 추가 필드 - file(uuid, originName)
 	private List<BoardFileDTO> boardFileDTOList;
+	
+	// ajax
+	private List<String> deletedHref;
+	private List<String> href;
 	
 	
 }

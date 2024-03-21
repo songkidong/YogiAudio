@@ -1,10 +1,11 @@
 package com.project3.yogiaudio.service.board;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.project3.yogiaudio.dto.board.NoticeDTO;
 import com.project3.yogiaudio.dto.common.PageReq;
@@ -26,24 +27,27 @@ public class NoticeService {
 	private FiledbService filedbService;
 
 	/**
-	 * @Method Name : noticeWrite
+	 * @Method Name : saveNotice
 	 * @작성일 : 2024. 3. 13.
 	 * @작성자 : 노수현
 	 * @변경이력 :
 	 * @Method 설명 : 공지사항 작성하기
 	 */
 	public int saveNotice(NoticeDTO noticeDTO) {
+		
+		List<MultipartFile> validFiles = new ArrayList<>();
+		
+		// 빈 파일이 아닌 경우에만 유효한 파일 목록에 추가
+	    if (noticeDTO.getFiles() != null) {
+	        for (MultipartFile file : noticeDTO.getFiles()) {
+	            if (!file.isEmpty()) {
+	                validFiles.add(file);
+	            }
+	        }
+	    }
 
-		// form에서 넘어온 파일이 빈값이면 제거
-		if (noticeDTO.getFiles() != null) {
-			for (int i = 0; i < noticeDTO.getFiles().size(); i++) {
-				if (noticeDTO.getFiles().get(i).isEmpty()) {
-					noticeDTO.getFiles().remove(i);
-				}
-			}
-		}
 
-		String filePath = filedbService.saveFiles(noticeDTO.getFiles());
+		String filePath = filedbService.saveFiles(validFiles);
 
 		BoardNotice boardNotice = BoardNotice.builder().writerId(noticeDTO.getWriterId()).title(noticeDTO.getTitle())
 				.content(noticeDTO.getContent()).filePath(filePath).build();
@@ -59,7 +63,7 @@ public class NoticeService {
 	 * @작성일 : 2024. 3. 14.
 	 * @작성자 : 노수현
 	 * @변경이력 :
-	 * @Method 설명 : 검색&페이징 list 갯수
+	 * @Method 설명 : 공지사항 검색&페이징 list 갯수
 	 */
 	public int getAllPageCount() {
 		String searchType = null;
@@ -72,7 +76,7 @@ public class NoticeService {
 	 * @작성일 : 2024. 3. 14.
 	 * @작성자 : 노수현
 	 * @변경이력 :
-	 * @Method 설명 : 검색&페이징 list
+	 * @Method 설명 : 공지사항 검색&페이징 list
 	 */
 	public PageRes<BoardNotice> findAllByKeywordwithPasing(PageReq pageReq) {
 
@@ -84,7 +88,7 @@ public class NoticeService {
 
 		// 총 데이터 개수 조회
 		long totalElements = noticeRepository.getAllPageCount(searchType, searchInput);
-		System.out.println("총갯수말해줘봐보바ㅗ바ㅗ바봐보바 :" + totalElements);
+		System.out.println("총갯수 :" + totalElements);
 
 		// 페이징 처리된 목록 조회
 		List<BoardNotice> NoticeList = noticeRepository.findAllByKeywordwithPasing(offset, size, searchType,
@@ -136,16 +140,19 @@ public class NoticeService {
 	 */
 	public boolean noticeUpdate(int id, NoticeDTO noticeDTO) {
 
-		// form에서 넘어온 파일이 빈값이면 제거
-		if (noticeDTO.getFiles() != null) {
-			for (int i = 0; i < noticeDTO.getFiles().size(); i++) {
-				if (noticeDTO.getFiles().get(i).isEmpty()) {
-					noticeDTO.getFiles().remove(i);
-				}
-			}
-		}
+List<MultipartFile> validFiles = new ArrayList<>();
+		
+		// 빈 파일이 아닌 경우에만 유효한 파일 목록에 추가
+	    if (noticeDTO.getFiles() != null) {
+	        for (MultipartFile file : noticeDTO.getFiles()) {
+	            if (!file.isEmpty()) {
+	                validFiles.add(file);
+	            }
+	        }
+	    }
 
-		String filePath = filedbService.saveFiles(noticeDTO.getFiles());
+
+		String filePath = filedbService.saveFiles(validFiles);
 
 		BoardNotice boardNotice = BoardNotice.builder().title(noticeDTO.getTitle()).content(noticeDTO.getContent())
 				.filePath(filePath).id(id).build();

@@ -22,23 +22,30 @@
 		</div>
 
 		<div>
-			<form class="card">
-				<div class="card-header d-flex justify-content-between">
-					<label for="id">번호 : 1</label> <input type="hidden" id="id"
-						value="${posts.id}">
-				</div>
-				<div class="card-header d-flex justify-content-between">
-					<label for="writer">작성자 : user</label>
-				</div>
-				<div class="card-body">
-					<label for="title">제목</label> <input type="text"
-						class="form-control" id="title" value="${posts.title}" readonly>
-					<br /> <label for="content">내용</label>
-					<textarea rows="5" class="form-control" id="content" readonly>${posts.content}</textarea>
-					<br /> <label for="file">첨부파일</label> <input type="text"
-						class="form-control" id="file" value="" readonly>
-				</div>
-			</form>
+			<table class="table table-bordered table-hover">
+				<tbody>
+					<tr>
+						<td >번호</td>
+						<td id="id-display" style="text-align: left;"></td>
+					</tr>
+					<tr>
+						<td>작성일</td>
+						<td id="createdAt-display" style="text-align: left;"></td>
+					</tr>
+					<tr>
+						<td>제목</td>
+						<td id="title-display" style="text-align: left;"></td>
+					</tr>
+					<tr>
+						<td>내용</td>
+						<td id="content-display" style="text-align: left;"></td>
+					</tr>
+					<tr>
+						<td>첨부파일</td>
+						<td id="file-display" style="text-align: left;"></td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 
 		<div class="commentList" style="margin-top: 30px;">
@@ -74,6 +81,47 @@
 
 	</div>
 </section>
+
+<script>
+function loadViewId() {
+
+	console.log(typeof addressNum);
+
+	$.ajax({
+		type: "post",
+		url: "/board/qna/qnaView/" + addressNum,
+		data: {},
+		success: function(data) {
+
+			// id-display 엘리먼트에 데이터 출력
+			$("#id-display").html(data.id);
+
+			// title-display 엘리먼트에 데이터 출력
+			$("#createdAt-display").html(data.createdAt);
+
+			// title-display 엘리먼트에 데이터 출력
+			$("#title-display").html(data.title);
+
+			// content-display 엘리먼트에 데이터 출력
+			$("#content-display").html(data.content);
+
+			// file-display 엘리먼트에 데이터 출력
+			$("#file-display").html(data.filePath);
+
+		},
+		error: function() {
+			alert("Error!!!");
+		}
+	});
+}
+
+//페이지 로드 시 데이터 로딩 함수 호출
+$(document).ready(function() {
+	loadViewId();
+});
+</script>
+
+<script src="/js/board/qna.js"></script>
 
 <%@include file="/WEB-INF/view/layout/footer.jsp"%>
 
