@@ -54,7 +54,7 @@
 	</c:if>
               
               <!-- flex 속성으로 가운데정렬하기 -->
-              <ul class="pagination" style="display: flex; justify-content: center; padding-right: 10%;">
+              <ul class="pagination" style="display: flex; justify-content: center; padding-right: 10%;	margin-top: 5%;">
 				  
 				  <!-- pageVO.prev가 참(시작페이지가 1이 아닐 때)이면 이전버튼 li태그 생성 -->
 				  <c:if test="${pageVO.prev }">
