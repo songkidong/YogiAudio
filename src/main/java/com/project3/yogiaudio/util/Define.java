@@ -12,4 +12,5 @@ public class Define {
 
 	// 플레이리스트
 	public static final String PLAYLIST_DEFAULT = "default";
+	public static final String PLAYLIST = "playlist";
 }

@@ -38,3 +38,4 @@
             signUpButton.disabled = !(termsOfServiceChecked && privacyPolicyChecked);
         }
     });
+   

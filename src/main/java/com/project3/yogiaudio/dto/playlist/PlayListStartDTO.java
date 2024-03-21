@@ -20,4 +20,5 @@ public class PlayListStartDTO {
 	private String lyrics;
 	private String filePath;
 	private String fileMusic;
+	private String mvFile;
 }

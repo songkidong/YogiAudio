@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	const repeatModeBtn = document.querySelector('.fa-redo');
 	// 기존 업데이트 모드
 	updateRepeatModeUI(repeatModeBtn);
-
+	//
+	let isExpanded = false;
 	// 셔플 상태를 나타내는 변수
 	let isShuffled = false;
 
@@ -81,6 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		const currentTime = Math.floor(audioPlayer.currentTime);
 		// 가사 강조 함수
 		highlightLyrics(currentTime);
+		scrollToHighlightedElement();
 	});
 
 	// 시간 형식을 변환하는 함수
@@ -261,6 +263,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		likeBtnHandler(musicNo, heartBtnImg);
 	});
 
+	const lyricsContainer = document.getElementById('lyrics-container');
+	const uiCover = document.querySelector('.ui-cover');
+
+	let isCoverVisible = true; // UI 커버의 표시 여부를 추적하는 변수
+
 	const playController = document.querySelector('.ui-controls');
 	playController.addEventListener('click', function(e) {
 		if (e.target.classList.contains('fa-pause')) {
@@ -293,10 +300,29 @@ document.addEventListener('DOMContentLoaded', function() {
 			// UI 업데이트
 			updateRepeatModeUI(e.target);
 		}
+		if (e.target.classList.contains('fa-align-right')) {
+			const coverHeight = parseInt(window.getComputedStyle(uiCover).height);
+			const lyricsContainerHeight = parseInt(window.getComputedStyle(lyricsContainer).height);
+			let expandHeight = coverHeight + lyricsContainerHeight;
+			let expandHeightPx = expandHeight + 'px';
+			if (isCoverVisible) {
+				isExpanded = true;
+				// UI 커버를 숨기고 가사 컨테이너를 확장
+				uiCover.style.display = 'none';
+				lyricsContainer.style.maxHeight = expandHeightPx;
+				isCoverVisible = false; // UI 커버가 숨겨졌으므로 상태 변경
+			} else {
+				// 확장되면 center에 스크롤
+				isExpanded = false;
+				// UI 커버를 표시하고 가사 컨테이너를 축소
+				uiCover.style.display = 'flex';
+				lyricsContainer.style.maxHeight = '44px'; // 가사 컨테이너의 기본 높이
+				isCoverVisible = true; // UI 커버가 표시되었으므로 상태 변경
+			}
+		}
 	});
 
 	setFirstSong();
-
 
 	// 플레이리스트 처음곡 재생하는 함수
 	function setFirstSong() {
@@ -397,6 +423,19 @@ document.addEventListener('DOMContentLoaded', function() {
 		// 현재 재생 중인 가사만 강조
 		if (currentLyricIndex !== -1) {
 			lyrics[currentLyricIndex].classList.add('highlight');
+		}
+	}
+	// 강조 된 가사로 스크롤 되는 함수
+	function scrollToHighlightedElement() {
+		const highlightedElement = document.querySelector('.highlight');
+		if (highlightedElement) {
+			if(isExpanded) {
+				console.log("확장되었어요");
+				highlightedElement.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+			} else{
+				console.log("확장 안됨");
+				highlightedElement.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+			}
 		}
 	}
 	// 재생할 곡 세팅 함수
