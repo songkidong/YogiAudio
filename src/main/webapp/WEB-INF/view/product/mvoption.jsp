@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@include file="/WEB-INF/view/layout/header.jsp" %>    
+<%@include file="/WEB-INF/view/layout/header.jsp" %>
+
+    
+<title>국내음악리스트</title>
 
 
 <style>
-
-.modalmv{
+ .modalmv{
   display: none;
   position: fixed;
   z-index: 1;
@@ -47,41 +48,10 @@
   cursor: pointer;
 }
 
-
- 	
-
-
-
-
 </style>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
   <!-- SECTION -->
 		<div class="section" style="margin-left: 200px;">
 			<!-- container -->
@@ -90,12 +60,12 @@
 			
 			  
 					 <div style="display: flex; align-items: center; margin-bottom: 20px;">
-			            <h3 class="title" style="margin-right: 20px;">📺뮤직비디오</h3> 
+			            <h3 class="title" style="margin-right: 20px;">📺뮤직비디오(${param.searchOption})</h3> 
 			            
 			            
 			             <div class="section-nav">
 						    <ul class="section-tab-nav tab-nav">
-						        <li id="allOption"><a href="/mv/list">전체</a></li>
+						        <li id="allOption"><a href="/mv/mvlist-option">전체</a></li>
 						        <li id="balladOption"><a href="/mv/mvlist-option?searchOption=발라드">발라드</a></li>
 						        <li id="trotOption"><a href="/mv/mvlist-option?searchOption=트로트">트로트</a></li>
 						        <li id="hiphopOption"><a href="/mv/mvlist-option?searchOption=힙합">힙합</a></li>
@@ -123,18 +93,18 @@
 						 <div class="row">
 						 
 			<!-- product -->		
-				<c:forEach var="mvlist" items="${mvlist}">
+				<c:forEach var="mvoptionlist" items="${mvoptionlist}">
 					<!-- shop -->
 					<div class="col-md-4 col-xs-6">
 						<div class="shop">
-							  <a href="javascript:void(0)"  onclick="openModal('${mvlist.mvfile}/')" class="cta-btn">
+							  <a href="javascript:void(0)"  onclick="openModal('${mvoptionlist.mvfile}/')" class="cta-btn">
 								<div class="shop-img">
 									<img src="/main/img/IU1.jpg" style="width:360px; height: 240px;">
 								</div>
 							   </a>	
 							<div class="shop-body" id="mvInfo">
-								<h3>${mvlist.videosinger}<br>${mvlist.videotitle}</h3>
-								<a href="javascript:void(0)"  onclick="openModal('${mvlist.mvfile}/')" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
+								<h3>${mvoptionlist.videosinger}<br>${mvoptionlist.videotitle}</h3>
+								<a href="javascript:void(0)"  onclick="openModal('${mvoptionlist.mvfile}/')" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
 							</div>
 						</div>
 					</div>
@@ -154,7 +124,7 @@
 							
 						    <c:if test="${pageVO.prev }">
 								<li class="page-item">
-								  <a class="page-link" href="/mv/list?page=${pageVO.startPage - 1 }" aria-label="Previous">
+								  <a class="page-link" href="/mv/mvlist-option?page=${pageVO.startPage - 1 }" aria-label="Previous">
 								  	<i class="fa fa-angle-left"></i> 
 								  </a>
 								</li>
@@ -164,7 +134,7 @@
 							
 								<c:forEach var="i" begin="${pageVO.startPage }" end="${pageVO.endPage }" step="1">
 									<li class="page-item ${isActive ? 'active' : ''}">
-										<a class="page-link" href="/mv/list?page=${i}">
+										<a class="page-link" href="/mv/mvlist-option?page=${i}">
 										   ${i}
 										</a>
 									</li>
@@ -174,7 +144,7 @@
 								
 							<c:if test="${pageVO.next}">	
 								<li class="page-item">
-									<a href="/mv/list?page=${pageVO.endPage + 1}">
+									<a href="/mv/mvlist-option?page=${pageVO.endPage + 1}">
 										<i class="fa fa-angle-right"></i>
 									</a>
 								</li>
@@ -234,28 +204,74 @@
 		});
   </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 <%@include file="/WEB-INF/view/layout/footer.jsp" %>    
+	
+	

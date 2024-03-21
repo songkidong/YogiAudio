@@ -48,11 +48,11 @@
 		                    구매하기
 		                 </a>
 		              </c:if> 
-		              <c:if test="${principal.status eq 'Y' && principal.cancel eq 'N'}">
-		                 <p>
-		                   이미이용권구매를완료했습니다!
-		                 </p>
-		              </c:if>  
+ 		              <c:if test="${principal.status eq 'Y' && principal.cancel eq 'N'}">
+	                	   <p>
+		                  	 이미이용권구매를완료했습니다!
+ 		                   </p> 
+		              </c:if>   
 		              
 		                
                     </div>

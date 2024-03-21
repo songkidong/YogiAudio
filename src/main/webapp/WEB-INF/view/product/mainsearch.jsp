@@ -19,11 +19,10 @@
 			<!-- container -->
 			<div class="container">
 			
-			
-			  
+
 					 <div style="display: flex; align-items: center; margin-bottom: 20px;">
 			            <h3 class="title" style="margin-right: 20px;">통합검색결과(${param.searchOption})</h3>       
-			        </div>
+			         </div>
 					
 					
 					
@@ -68,8 +67,8 @@
 												${searchlist.musictitle}
 											</a>
 										</h3>
-										<h4 class="product-price">${searchlist.musiccompany}<del class="product-old-price"></del></h4>
-										
+											<h4 class="product-price">${searchlist.musiccompany}<del class="product-old-price"></del></h4>
+						
 									</div>
 								
 								</div>
