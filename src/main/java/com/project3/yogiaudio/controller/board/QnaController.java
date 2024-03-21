@@ -227,10 +227,9 @@ public class QnaController {
 		
 		System.out.println("데이터" + qnaUpdateDTO.toString());
 
-//		boolean result = qnaService.qnaUpdate(id, qnaUpdateDTO);
-//
-//		return result;
-		return true;
+		boolean result = qnaService.qnaUpdate(id, qnaUpdateDTO);
+
+		return result;
 	}
 
 	/**
@@ -243,6 +242,7 @@ public class QnaController {
 	@PostMapping("/qnaDelete/{id}")
 	@ResponseBody
 	public boolean qnaDelete(@PathVariable(value = "id") int id) {
+		
 		boolean result = qnaService.qnaDelete(id);
 
 		return result;

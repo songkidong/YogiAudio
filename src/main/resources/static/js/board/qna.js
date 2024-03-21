@@ -167,7 +167,8 @@ $("#btn-update-complete").on("click", function() {
 deleteBtn.on("click", function() {
 	console.log("타나여?");
 	console.log(addressNum);
-
+		
+	
 	$.ajax({
 		type: "post",
 		url: "/board/qna/qnaDelete/" + addressNum,
