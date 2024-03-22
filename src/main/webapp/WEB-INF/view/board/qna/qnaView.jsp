@@ -25,7 +25,7 @@
 			<table class="table table-bordered table-hover">
 				<tbody>
 					<tr>
-						<td >번호</td>
+						<td>번호</td>
 						<td id="id-display" style="text-align: left;"></td>
 					</tr>
 					<tr>
@@ -83,42 +83,42 @@
 </section>
 
 <script>
-function loadViewId() {
+	function loadViewId() {
 
-	console.log(typeof addressNum);
+		console.log(typeof addressNum);
 
-	$.ajax({
-		type: "post",
-		url: "/board/qna/qnaView/" + addressNum,
-		data: {},
-		success: function(data) {
+		$.ajax({
+			type : "post",
+			url : "/board/qna/qnaView/" + addressNum,
+			data : {},
+			success : function(data) {
 
-			// id-display 엘리먼트에 데이터 출력
-			$("#id-display").html(data.id);
+				// id-display 엘리먼트에 데이터 출력
+				$("#id-display").html(data.id);
 
-			// title-display 엘리먼트에 데이터 출력
-			$("#createdAt-display").html(data.createdAt);
+				// title-display 엘리먼트에 데이터 출력
+				$("#createdAt-display").html(data.createdAt);
 
-			// title-display 엘리먼트에 데이터 출력
-			$("#title-display").html(data.title);
+				// title-display 엘리먼트에 데이터 출력
+				$("#title-display").html(data.title);
 
-			// content-display 엘리먼트에 데이터 출력
-			$("#content-display").html(data.content);
+				// content-display 엘리먼트에 데이터 출력
+				$("#content-display").html(data.content);
 
-			// file-display 엘리먼트에 데이터 출력
-			$("#file-display").html(data.filePath);
+				// file-display 엘리먼트에 데이터 출력
+				$("#file-display").html(data.filePath);
 
-		},
-		error: function() {
-			alert("Error!!!");
-		}
+			},
+			error : function() {
+				alert("Error!!!");
+			}
+		});
+	}
+
+	//페이지 로드 시 데이터 로딩 함수 호출
+	$(document).ready(function() {
+		loadViewId();
 	});
-}
-
-//페이지 로드 시 데이터 로딩 함수 호출
-$(document).ready(function() {
-	loadViewId();
-});
 </script>
 
 <script src="/js/board/qna.js"></script>
