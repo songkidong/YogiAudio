@@ -57,8 +57,8 @@
 									<li class="nav-item"><a class="nav-link"
 										href="/account/${principal.id}"><i class="bx bx-user me-1"></i>
 											계정</a></li>
-									<li class="nav-item"><a class="nav-link"
-										href="/payment"><i class="bx bx-table me-1"></i> 결제 내역</a></li>
+									<li class="nav-item"><a class="nav-link" href="/payment"><i
+											class="bx bx-table me-1"></i> 결제 내역</a></li>
 									<li class="nav-item"><a class="nav-link"
 										href="/myPlaylist"><i class="bx bx-music me-1"></i> 플리</a></li>
 									<li class="nav-item"><a class="nav-link active"
@@ -84,16 +84,22 @@
 												<th>제목</th>
 												<th>가수</th>
 												<th>좋아요 한 날</th>
+												<th>좋아요</th>
 											</tr>
 										</thead>
 										<tbody class="table-border-bottom-0">
-											<c:forEach items="${likemusicList}" var="list" varStatus="loop">
-												<tr>
+											<c:forEach items="${likemusicList}" var="list"
+												varStatus="loop">
+												<tr data-music-no="${play.musicNo}">
 													<td>${loop.index + 1}</td>
 													<td><img src="${list.filePath}" width="75" height="75">
 													<td>${list.musicTitle}</td>
 													<td>${list.musicSinger}</td>
 													<td>${list.createdAt}</td>
+													<td><button id="likeCancelBtn" type="button"
+															class="likeCancelBtn">
+															<i class="bx bx-like"></i>
+														</button></td>
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -150,6 +156,38 @@
 
 	<!-- Core JS -->
 	<!-- build:js assets/vendor/js/core.js -->
+	<script>
+		var userId = '${principal.id}';
+		var musicNo;
+	    const likeCancelBtn = document.getElementById('likeCancelBtn');
+		const tableRows = document.querySelectorAll('.table tbody tr');
+		tableRows.forEach(row => {
+		    row.addEventListener('click', function(event) {
+		        event.stopPropagation(); // 부모 요소의 이벤트 전파 방지
+		        musicNo = row.getAttribute('data-music-no');
+		        console.log(musicNo);
+		    	if (event.target.classList.contains('likeCancelBtn')) {
+		    		  $.ajax({
+		  	            type: 'GET',
+		  	            url: '/deleteLikeMusic',
+		  	            data: {
+		  	                userId: userId,
+		  	                musicNo: musicNo
+		  	            },
+		  	            success: function(response) {
+		  	                console.log(response);
+		  	                alert("좋아요가 취소되었습니다.");
+		  	            },
+		  	            error: function(error) {
+		  	                console.error('Error saving markers:', error);
+		  	            }
+		  	        }); 
+				}
+		    });
+		});
+		
+
+	</script>
 
 	<script src="/assets/vendor/libs/jquery/jquery.js"></script>
 	<script src="/assets/vendor/libs/popper/popper.js"></script>

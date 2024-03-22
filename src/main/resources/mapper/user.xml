@@ -80,7 +80,7 @@
 	</select>
 
 	<select id="findAllLikeMusic"
-		resultType="com.project3.yogiaudio.dto.user.LikeMusicDTO">
+		resultType="com.project3.yogiaudio.dto.user.LikeMusicListDTO">
 		select c.file_path, c.music_no, c.music_title,
 		c.music_singer,a.created_at
 		from like_music a
