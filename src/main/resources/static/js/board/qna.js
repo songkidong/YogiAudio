@@ -14,7 +14,7 @@ window.onload = function() {
 
 	// 추가할 파라미터
 	let searchType = url.searchParams.get('searchType');
-	let search = url.searchParams.get('searchInput');
+	let searchInput = url.searchParams.get('searchInput');
 
 	// pagination 클래스를 가진 요소 찾기
 	let paginationLinks = document.querySelectorAll('#noticePage a');
@@ -24,9 +24,9 @@ window.onload = function() {
 		let linkUrl = new URL(link.href);
 
 		// 파라미터 추가
-		if (searchType && search) {
+		if (searchType && searchInput) {
 			linkUrl.searchParams.append('searchType', searchType);
-			linkUrl.searchParams.append('search', search);
+			linkUrl.searchParams.append('searchInput', searchInput);
 		}
 
 		// 변경된 URL을 href 속성에 설정
@@ -135,7 +135,6 @@ $("#btn-update-complete").on("click", function() {
 	}
 	console.log(deletedHrefVList);
 	console.log(hrefValueList);
-
 	console.log(formData);
 
 	// AJAX를 사용하여 서버로 수정된 데이터 전송
@@ -184,6 +183,29 @@ deleteBtn.on("click", function() {
 		}
 	});
 });
+
+// qna list에서 View qnaId 넘겨주기 상세보기
+function loadReplyViewId() {
+	console.log(addressNum);
+	
+	$.ajax({
+		type: "post",
+		url: "/qna/reply", 
+		data: {
+			qnaId: Number(addressNum)
+		},
+		success: function(data) {
+			// reply-display 엘리먼트에 데이터 출력
+			$("#reply-display").html(data.content);
+
+		},
+		error: function() {
+			alert("Error fetching data!");
+		}
+	});
+}
+// 페이지 로드 시 데이터 로딩 함수 호출
+loadReplyViewId();
 
 
 

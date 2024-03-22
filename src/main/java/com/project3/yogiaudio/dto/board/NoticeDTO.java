@@ -23,7 +23,8 @@ public class NoticeDTO {
 	private List<MultipartFile> files;
 	private Timestamp createdAt;
 	
-	
+	// 추가 필드 - file(uuid, originName)
+	private List<BoardFileDTO> boardFileDTOList;
 	
 	
 	

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.project3.yogiaudio.repository.entity.board.BoardQna;
+import com.project3.yogiaudio.repository.entity.board.BoardQnaReply;
 
 @Mapper
 public interface QnaRepository {
@@ -28,5 +29,8 @@ public interface QnaRepository {
 
 	// 문의하기 수정하기
 	public int qnaUpdate(BoardQna boardQna);
+
+	// 문의하기 답변 상세보기
+	public BoardQnaReply qnaReplyView(int boardQnaId);
 
 }
