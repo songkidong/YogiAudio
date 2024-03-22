@@ -65,12 +65,13 @@
 			            
 			             <div class="section-nav">
 						    <ul class="section-tab-nav tab-nav">
-						        <li id="allOption"><a href="/mv/mvlist-option">전체</a></li>
+						        <li id="allOption"><a href="/mv/mvlist">전체</a></li>
 						        <li id="balladOption"><a href="/mv/mvlist-option?searchOption=발라드">발라드</a></li>
 						        <li id="trotOption"><a href="/mv/mvlist-option?searchOption=트로트">트로트</a></li>
 						        <li id="hiphopOption"><a href="/mv/mvlist-option?searchOption=힙합">힙합</a></li>
+						        <li id="hiphopOption"><a href="/mv/mvlist-option?searchOption=클래식">클래식</a></li>
 						    </ul>
-						</div>  
+						 </div>  
 			          
 			            
 			         </div>
@@ -116,7 +117,7 @@
 					</div>
 						<!-- /store products -->
 
-						<!-- store bottom filter -->
+					<!-- store bottom filter -->
 						<div class="store-filter clearfix">
 							<ul class="store-pagination">
 							
@@ -124,7 +125,7 @@
 							
 						    <c:if test="${pageVO.prev }">
 								<li class="page-item">
-								  <a class="page-link" href="/mv/mvlist-option?page=${pageVO.startPage - 1 }" aria-label="Previous">
+								  <a class="page-link" href="/mv/mvlist-option?page=${pageVO.startPage - 1 }&searchOption=${pageVO.cri.searchOption}" aria-label="Previous">
 								  	<i class="fa fa-angle-left"></i> 
 								  </a>
 								</li>
@@ -134,7 +135,7 @@
 							
 								<c:forEach var="i" begin="${pageVO.startPage }" end="${pageVO.endPage }" step="1">
 									<li class="page-item ${isActive ? 'active' : ''}">
-										<a class="page-link" href="/mv/mvlist-option?page=${i}">
+										<a class="page-link" href="/mv/mvlist-option?page=${i}&searchOption=${pageVO.cri.searchOption}">
 										   ${i}
 										</a>
 									</li>
@@ -144,7 +145,7 @@
 								
 							<c:if test="${pageVO.next}">	
 								<li class="page-item">
-									<a href="/mv/mvlist-option?page=${pageVO.endPage + 1}">
+									<a href="/mv/mvlist-option?page=${pageVO.endPage + 1}&searchOption=${pageVO.cri.searchOption}">
 										<i class="fa fa-angle-right"></i>
 									</a>
 								</li>

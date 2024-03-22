@@ -1,5 +1,9 @@
 package com.project3.yogiaudio.dto.music;
 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,6 +24,8 @@ public class PurchaseDTO {
 	private Integer price;
 	private String paymentKey;
 	private String cancelYn;
+	private String filepath;
+	private List<MultipartFile> files; // 파일 url
 
 	
 }

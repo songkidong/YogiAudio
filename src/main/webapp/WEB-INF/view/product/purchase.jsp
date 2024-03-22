@@ -33,7 +33,7 @@
             <div class="col-md-3">
                 <!-- Card 1 -->
                 <div class="card">
-                    <img src="/banner/p1.png" class="card-img-top" alt="Card 1 Image" style="width:200px; height: 200px; margin-left: 30px;">
+                    <img src="/banner/${purchaselist.filepath}" class="card-img-top" alt="Card 1 Image" style="width:200px; height: 200px; margin-left: 30px;">
                     <div class="card-body" style="margin-left: 30px;">
                         <h5 class="card-title" style="margin-top: 5px;">${purchaselist.purchasename}</h5>
                         <p class="card-text">${purchaselist.price}</p>
@@ -50,16 +50,16 @@
 		              </c:if> 
  		              <c:if test="${principal.status eq 'Y' && principal.cancel eq 'N'}">
 	                	   <p>
-		                  	 이미이용권구매를완료했습니다!
+		                  	  이미이용권구매를완료했습니다!
  		                   </p> 
 		              </c:if>   
 		              
 		                
                     </div>
-                </div>
+                 </div>
                 <!-- End of Card 1 -->
             </div>
-           </c:forEach>
+          </c:forEach>
             
           
     

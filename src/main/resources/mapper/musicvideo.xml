@@ -45,11 +45,12 @@
 		            </when>
 				</choose>
 			</where>
+		limit #{startPage}, #{pageSize}
 	</select>
 	
 	<!-- 뮤비리스트(조건) 출력하기 -->
 	<select id="optionMVlistCount" resultType="Integer">
-		select count(*) from music
+		select count(*) from musicvideo
 		<where>
 	        <choose>
 	            <when test="searchOption == '발라드'">
