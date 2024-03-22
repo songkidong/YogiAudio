@@ -35,7 +35,17 @@ public class MusicVideoService {
 	}
 	
 	
+	// 뮤비리스트 조건출력하기
+	public List<MusicVideoDTO> optionMVlist(Criteria cri) throws Exception{
+		List<MusicVideoDTO> result = musicVideoRepository.optionMVlist(cri);
+		return result;
+	}
+
 	
+	//뮤비리스트 조건 카운팅하기
+	public Integer optionMVlistCount(Criteria cri) throws Exception{
+		return musicVideoRepository.optionMVlistCount(cri);
+	}
 	
 	
 	

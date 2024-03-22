@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@include file="/WEB-INF/view/layout/header.jsp" %>    
+<%@include file="/WEB-INF/view/layout/header.jsp" %>
+
+    
+<title>국내음악리스트</title>
 
 
 <style>
-
-.modalmv{
+ .modalmv{
   display: none;
   position: fixed;
   z-index: 1;
@@ -47,41 +48,10 @@
   cursor: pointer;
 }
 
-
- 	
-
-
-
-
 </style>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
   <!-- SECTION -->
 		<div class="section" style="margin-left: 200px;">
 			<!-- container -->
@@ -90,7 +60,7 @@
 			
 			  
 					 <div style="display: flex; align-items: center; margin-bottom: 20px;">
-			            <h3 class="title" style="margin-right: 20px;">📺뮤직비디오</h3> 
+			            <h3 class="title" style="margin-right: 20px;">📺뮤직비디오(${param.searchOption})</h3> 
 			            
 			            
 			             <div class="section-nav">
@@ -101,7 +71,7 @@
 						        <li id="hiphopOption"><a href="/mv/mvlist-option?searchOption=힙합">힙합</a></li>
 						        <li id="hiphopOption"><a href="/mv/mvlist-option?searchOption=클래식">클래식</a></li>
 						    </ul>
-						</div>  
+						 </div>  
 			          
 			            
 			         </div>
@@ -124,18 +94,18 @@
 						 <div class="row">
 						 
 			<!-- product -->		
-				<c:forEach var="mvlist" items="${mvlist}">
+				<c:forEach var="mvoptionlist" items="${mvoptionlist}">
 					<!-- shop -->
 					<div class="col-md-4 col-xs-6">
 						<div class="shop">
-							  <a href="javascript:void(0)"  onclick="openModal('${mvlist.mvfile}/')" class="cta-btn">
+							  <a href="javascript:void(0)"  onclick="openModal('${mvoptionlist.mvfile}/')" class="cta-btn">
 								<div class="shop-img">
 									<img src="/main/img/IU1.jpg" style="width:360px; height: 240px;">
 								</div>
 							   </a>	
 							<div class="shop-body" id="mvInfo">
-								<h3>${mvlist.videosinger}<br>${mvlist.videotitle}</h3>
-								<a href="javascript:void(0)"  onclick="openModal('${mvlist.mvfile}/')" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
+								<h3>${mvoptionlist.videosinger}<br>${mvoptionlist.videotitle}</h3>
+								<a href="javascript:void(0)"  onclick="openModal('${mvoptionlist.mvfile}/')" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
 							</div>
 						</div>
 					</div>
@@ -144,10 +114,10 @@
 			  <!-- /product -->						
 
 
-			</div>
-		<!-- /store products -->
+					</div>
+						<!-- /store products -->
 
-					 <!-- store bottom filter -->
+					<!-- store bottom filter -->
 						<div class="store-filter clearfix">
 							<ul class="store-pagination">
 							
@@ -155,7 +125,7 @@
 							
 						    <c:if test="${pageVO.prev }">
 								<li class="page-item">
-								  <a class="page-link" href="/mv/mvlist?page=${pageVO.startPage - 1 }" aria-label="Previous">
+								  <a class="page-link" href="/mv/mvlist-option?page=${pageVO.startPage - 1 }&searchOption=${pageVO.cri.searchOption}" aria-label="Previous">
 								  	<i class="fa fa-angle-left"></i> 
 								  </a>
 								</li>
@@ -165,7 +135,7 @@
 							
 								<c:forEach var="i" begin="${pageVO.startPage }" end="${pageVO.endPage }" step="1">
 									<li class="page-item ${isActive ? 'active' : ''}">
-										<a class="page-link" href="/mv/mvlist?page=${i}">
+										<a class="page-link" href="/mv/mvlist-option?page=${i}&searchOption=${pageVO.cri.searchOption}">
 										   ${i}
 										</a>
 									</li>
@@ -175,7 +145,7 @@
 								
 							<c:if test="${pageVO.next}">	
 								<li class="page-item">
-									<a href="/mv/mvlist?page=${pageVO.endPage + 1}">
+									<a href="/mv/mvlist-option?page=${pageVO.endPage + 1}&searchOption=${pageVO.cri.searchOption}">
 										<i class="fa fa-angle-right"></i>
 									</a>
 								</li>
@@ -235,28 +205,74 @@
 		});
   </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 <%@include file="/WEB-INF/view/layout/footer.jsp" %>    
+	
+	

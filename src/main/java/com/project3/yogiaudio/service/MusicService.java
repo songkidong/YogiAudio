@@ -29,7 +29,20 @@ public class MusicService {
 		return musicRepository.countdomesticListAll();
 
 	}
-
+	
+	//통합검색출력하기
+	public List<MusicDTO> MainSearch(Criteria cri) throws Exception{
+		List<MusicDTO> result = musicRepository.MainSearch(cri);
+		return result;
+	}
+	
+	
+	//통합검색카운팅하기
+	public Integer MainSearchCount(Criteria cri) throws Exception{
+		return musicRepository.MainSearchCount(cri);
+	}
+	
+	
 	
 	//국내음악리스트(조건) 출력하기
 	public List<MusicDTO> searchDmusicList(Criteria cri) throws Exception{
@@ -43,9 +56,16 @@ public class MusicService {
 		return musicRepository.countsearchDmusicList(cri);
 	}
 	
+	//국외음악리스트(조건) 출력하기
+	public List<MusicDTO> searchAmusicList(Criteria cri) throws Exception{
+		List<MusicDTO> result = musicRepository.searchAmusicList(cri);
+		return result;
+	}
 	
-	
-	
+	//국외음악리스트(조건) 카운팅하기
+	public int countsearchAmusicList(Criteria cri) throws Exception{
+		return musicRepository.countsearchAmusicList(cri);
+	}
 	
 	
 	//국외음악리스트 출력하기
@@ -68,9 +88,15 @@ public class MusicService {
 
 	
 	//국외음악 디테일
-	public MusicDTO aboardDetail(int musicno, String musicmajor) {
+	public MusicDTO aboardDetail(@Param(value = "musicno") int musicno, @Param(value = "musicmajor") String musicmajor) {
 		return musicRepository.aboardDetail(musicno, musicmajor);
 	}
+	
+	//최신음악 디테일
+	public MusicDTO newDetail(@Param(value = "musicno") int musicno) {
+		return musicRepository.newDetail(musicno);
+	}
+
 	
 	
 	//앨범자켓바꾸기
@@ -119,6 +145,32 @@ public class MusicService {
 	public List<MusicDTO> newMusicList(Criteria cri) throws Exception{
 		List<MusicDTO> result = musicRepository.newMusicList(cri);
 		return result;
+	}
+	
+	
+	//최신음악리스트 전부출력하기
+	public List<MusicDTO> newListAll(Criteria cri) throws Exception{
+		List<MusicDTO> result = musicRepository.newListAll(cri);
+		return result;
+	}
+
+	
+	//최신음악리스트 전부(카운팅) 하기
+	public Integer newListAllcount() throws Exception{
+		return musicRepository.newListAllcount();
+	}
+	
+	
+	//최신음악리스트 조건별출력하기
+	public List<MusicDTO> newlistSearch(Criteria cri) throws Exception{
+		List<MusicDTO> result = musicRepository.newlistSearch(cri);
+		return result;
+	}
+	
+	
+	//최신음악리스트 조건(카운팅)
+	public Integer newlistSearchCount(Criteria cri) throws Exception{
+		return musicRepository.newlistSearchCount(cri);
 	}
 	
 	
