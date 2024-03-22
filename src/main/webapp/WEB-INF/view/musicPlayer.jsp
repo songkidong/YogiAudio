@@ -101,21 +101,20 @@
 					<i class="fas fa-ellipsis-v"></i>
 					<div class="dropdown-content">
 						<div>
-							<a href="#">다운로드</a>
+							<a href="#" id=download>다운로드</a>
 						</div>
 						<div>
-							<a href="#">담기</a>
+							<a href="#" id=addMyMusicList>담기</a>
 						</div>
 						<div>
-							<a href="#">곡정보</a>
+							<a href="#" id=musicInfo>곡정보</a>
 						</div>
 					</div>
 				</div>
 			</div>
 
 			<div class="ui-actions">
-				<i class="fas fa-list-ul"></i> <img alt=""
-					src="/img/music_like/unlike.png" id="heart"> <i
+				<img alt="" src="/img/music_like/unlike.png" id="heart"> <i
 					class="fas fa-plus" id="add-playlist"></i>
 			</div>
 
@@ -172,10 +171,10 @@
 						data-file-music="${play.fileMusic}"
 						data-music-sample="${play.musicSample}"
 						data-music-title="${play.musicTitle}"
+						data-music-major="${play.musicMajor}"
 						data-music-singer="${play.musicSinger}">${play.musicTitle}-
-						${play.musicSinger} <span class="delete-btn">❌</span> 
-						<span class="add-btn">➕</span>
-						<span class="download-music">다운로드</span>
+						${play.musicSinger} <span class="delete-btn">❌</span> <span
+							class="add-btn">➕</span> <span class="download-music">다운로드</span>
 					</div>
 				</c:forEach>
 			</div>
