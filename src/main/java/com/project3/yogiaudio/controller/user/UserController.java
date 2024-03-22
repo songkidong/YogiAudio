@@ -41,10 +41,10 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private PlaylistService playlistService;
-	
+
 	@Autowired
 	private FiledbService filedbService;
 
@@ -89,16 +89,15 @@ public class UserController {
 	public String consentPage() {
 		return "user/consent";
 	}
-	
 
 	@GetMapping("/myPlaylist")
 	public String myPlaylistPage(Model model) {
-		User user = (User)httpsession.getAttribute(Define.PRINCIPAL);
-		
+		User user = (User) httpsession.getAttribute(Define.PRINCIPAL);
+
 		// playlist 조회
 		List<PlayListStartDTO> playlist = playlistService.readPlaylistByUserId(user.getId(), Define.PLAYLIST);
-		
-		model.addAttribute("playlist",playlist);
+
+		model.addAttribute("playlist", playlist);
 		return "user/myPlaylist";
 	}
 
@@ -157,7 +156,7 @@ public class UserController {
 		model.addAttribute("user", userEntity);
 		return "/user/account";
 	}
-	
+
 	/**
 	 * @Method Name : accountPage
 	 * @작성일 : 2024. 3. 19.
@@ -332,31 +331,31 @@ public class UserController {
 	}
 
 	/**
-	  * @Method Name : updateUser
-	  * @작성일 : 2024. 3. 20.
-	  * @작성자 : 송기동
-	  * @변경이력 : 
-	  * @Method 설명 : 회원정보 수정
-	  */
+	 * @Method Name : updateUser
+	 * @작성일 : 2024. 3. 20.
+	 * @작성자 : 송기동
+	 * @변경이력 :
+	 * @Method 설명 : 회원정보 수정
+	 */
 	@PostMapping("/updateUser/{id}")
 	public String updateUser(@PathVariable("id") Long id, @ModelAttribute UpdateUserDTO dto) {
-		
-	    String filePath;
-	    
-        User userUpload = userService.findById(id);
-        
-        String originPath = userUpload.getFilePath();
-        String[] parts = originPath.split("/");
-        String uuid = parts[parts.length -1];
-        filedbService.deleteByUuid(uuid);
 
-	    if(dto.getProfileFile() == null || dto.getProfileFile().isEmpty()) {
-	        // 기존 이미지의 경로를 가져와서 사용
-	        filePath = userUpload.getFilePath();
-	    } else {
-	        // dto의 프로필 파일이 null이 아닌 경우 새로운 파일 업로드
-	        filePath = filedbService.saveFiles(dto.getProfileFile());
-	    }
+		String filePath;
+
+		User userUpload = userService.findById(id);
+
+		String originPath = userUpload.getFilePath();
+		String[] parts = originPath.split("/");
+		String uuid = parts[parts.length - 1];
+		filedbService.deleteByUuid(uuid);
+
+		if (dto.getProfileFile() == null || dto.getProfileFile().isEmpty()) {
+			// 기존 이미지의 경로를 가져와서 사용
+			filePath = userUpload.getFilePath();
+		} else {
+			// dto의 프로필 파일이 null이 아닌 경우 새로운 파일 업로드
+			filePath = filedbService.saveFiles(dto.getProfileFile());
+		}
 
 		User user = new User();
 		user.setId(id);
@@ -364,30 +363,39 @@ public class UserController {
 		user.setNickname(dto.getNickname());
 		user.setPassword(dto.getPassword());
 		user.setFilePath(filePath);
-		
+
 		userService.updateUser(user);
 		User userSession = userService.findById(id);
 		httpsession.setAttribute(Define.PRINCIPAL, userSession);
-		
-	
+
 		return "redirect:/product/main";
 	}
-	
+
 	/**
-	  * @Method Name : deleteUser
-	  * @작성일 : 2024. 3. 20.
-	  * @작성자 : 송기동
-	  * @변경이력 : 
-	  * @Method 설명 : 회원 탈퇴
-	  */
+	 * @Method Name : deleteUser
+	 * @작성일 : 2024. 3. 20.
+	 * @작성자 : 송기동
+	 * @변경이력 :
+	 * @Method 설명 : 회원 탈퇴
+	 */
 	@PostMapping("/deleteUser/{id}")
 	public String deleteUser(@PathVariable("id") Long id, @ModelAttribute User user) {
-		
+
 		userService.deleteUser(user);
-		
+
 		httpsession.invalidate();
-		
+
 		return "redirect:/product/main";
 	}
-	
+
+	@GetMapping("/duplication/{email}")
+	public ResponseEntity<?> duplicationEmail(@PathVariable("email") String email) {
+		User result = userService.findUserByEmail(email);
+
+		if (result != null) {
+			return ResponseEntity.ok().body("이메일 중복");
+
+		}
+		return ResponseEntity.ok().body("이메일 사용가능");
+	}
 }

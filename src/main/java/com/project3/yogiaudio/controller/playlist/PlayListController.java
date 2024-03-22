@@ -24,6 +24,7 @@ import com.project3.yogiaudio.dto.playlist.PlayListStartDTO;
 import com.project3.yogiaudio.dto.playlist.PlaylistAddRspDTO;
 import com.project3.yogiaudio.filedb.service.FiledbService;
 import com.project3.yogiaudio.repository.entity.User;
+import com.project3.yogiaudio.repository.entity.playlist.Playlist;
 import com.project3.yogiaudio.service.MusicService;
 import com.project3.yogiaudio.service.playlist.PlaylistOrderService;
 import com.project3.yogiaudio.service.playlist.PlaylistService;
@@ -154,16 +155,17 @@ public class PlayListController {
 	 * @param input
 	 * @return
 	 */
-    @PostMapping("/deletePlayListBatch")
-    @ResponseBody
-    public List<PlayListDeleteDTO> deletePlayListBatch(@RequestBody String inputsJson) {
-        // gson
-    	Gson gson = new Gson();
-        Type type = new TypeToken<PlayListDeleteListDTO>() {}.getType();
-        PlayListDeleteListDTO deleteListDTO = gson.fromJson(inputsJson, type);
+	@PostMapping("/deletePlayListBatch")
+	@ResponseBody
+	public List<PlayListDeleteDTO> deletePlayListBatch(@RequestBody String inputsJson) {
+		// gson
+		Gson gson = new Gson();
+		Type type = new TypeToken<PlayListDeleteListDTO>() {
+		}.getType();
+		PlayListDeleteListDTO deleteListDTO = gson.fromJson(inputsJson, type);
 
-        // 삭제 로직 구현
-        List<PlayListDeleteDTO> inputs = deleteListDTO.getDeleteList();
+		// 삭제 로직 구현
+		List<PlayListDeleteDTO> inputs = deleteListDTO.getDeleteList();
 		User user = (User) httpSession.getAttribute(Define.PRINCIPAL);
 		if (user != null) {
 			// 1. 로그인 시 플레이리스트에 노래추가
@@ -172,8 +174,23 @@ public class PlayListController {
 				int result = playlistService.deletePlayList(input);
 			}
 		}
-        return inputs;
-    }
+		return inputs;
+	}
+
+	/**
+	  * @Method Name : readPlaylist
+	  * @작성일 : 2024. 3. 21.
+	  * @작성자 : 최장호
+	  * @변경이력 : playlist 조회 ajax
+	  * @Method 설명 :
+	  */
+	@PostMapping("/readPlaylist")
+	@ResponseBody
+	public List<PlayListStartDTO> readPlaylist(@RequestBody Playlist input) {
+		List<PlayListStartDTO> result = playlistService.readPlaylistByUserId(input.getUserId(),
+				input.getPlaylistName());
+		return result;
+	}
 
 	@Autowired
 	private FiledbService filedbService;

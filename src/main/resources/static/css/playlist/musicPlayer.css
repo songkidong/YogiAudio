@@ -1,4 +1,5 @@
 @charset "EUC-KR";
+
 @import
 	url('https://fonts.googleapis.com/css?family=Prompt&display=swap');
 
@@ -127,6 +128,7 @@ main {
 	background-color: #ffffff;
 	height: 5%;
 }
+
 .ui-music-btn {
 	background-color: #ffffff;
 	height: 10%;
@@ -137,28 +139,33 @@ main {
 	height: 500px;
 	position: relative;
 }
+
 #volumeContainer {
-    position: relative;
+	position: relative;
 }
 
 #volumeSlider {
-    position: absolute;
-    top: 0; /* 아이콘 위에 위치 */
-    left: 0;
-    width: 70px;
-    display: none; /* 초기에는 볼륨 슬라이더 숨김 */
+	position: absolute;
+	top: 0; /* 아이콘 위에 위치 */
+	left: 0;
+	width: 70px;
+	display: none; /* 초기에는 볼륨 슬라이더 숨김 */
 }
 
 #volumeContainer:hover #volumeSlider {
-    display: inline-block; /* 볼륨 아이콘에 마우스를 가져다 대면 볼륨 슬라이더 표시 */
+	display: inline-block; /* 볼륨 아이콘에 마우스를 가져다 대면 볼륨 슬라이더 표시 */
 }
+
 .highlight {
-	background-color: yellow;
+	font-weight: bold; /* 진하게 */
+	font-size: 1.2em; /* 폰트 사이즈를 원하는 크기로 조정합니다. */
 }
+
 #heart {
 	width: 20px;
 	height: 20px;
 }
+
 .disabled {
 	color: #999; /* 회색으로 아이콘 색상 변경 */
 	opacity: 0.6;
@@ -167,7 +174,7 @@ main {
 .repeat-none-icon {
 	background-image: url('/img/musicPlayer/repeat-all.png');
 	opacity: 0.3;
-	color: #999; 
+	color: #999;
 	filter: grayscale(100%);
 }
 
@@ -182,9 +189,9 @@ main {
 }
 /* 가사 컨테이너 스타일 */
 #lyrics-container {
-	max-height: 44px; 
-	overflow-y: auto; 
-	font-size: 14px; 
+	max-height: 44px;
+	overflow-y: auto;
+	font-size: 14px;
 	text-align: center;
 }
 
