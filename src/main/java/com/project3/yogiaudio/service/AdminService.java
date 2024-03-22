@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.project3.yogiaudio.dto.admin.AdminCriteria;
 import com.project3.yogiaudio.dto.admin.NoticeSaveFormDTO;
@@ -18,12 +19,16 @@ import com.project3.yogiaudio.repository.entity.board.BoardFreeComment;
 import com.project3.yogiaudio.repository.entity.board.BoardNotice;
 import com.project3.yogiaudio.repository.entity.board.BoardQna;
 import com.project3.yogiaudio.repository.interfaces.AdminRepository;
+import com.project3.yogiaudio.repository.interfaces.CancelRepository;
 
 @Service
 public class AdminService {
 
 	@Autowired
 	private AdminRepository adminRepository;
+	
+	@Autowired
+	private CancelRepository cancelRepository;
 	
 	/**
 	  * @Method Name : findAllUser
@@ -153,12 +158,15 @@ public class AdminService {
 	  * @변경이력 : 
 	  * @Method 설명 : 환불 승인
 	  */
-	public boolean updateRefund(Integer id) {
+	@Transactional
+	public boolean updateRefund(Integer id, Integer userId, Integer amount, Integer pNo) {
 		
-		// 결제 취소내역 등록하기
+		// 결제 취소내역 등록하기 / user id
+		cancelRepository.InsertCancel(userId, amount, pNo);
 		
+		// 유저 이용권 구매여부 변경하기
+		cancelRepository.refundStatus(userId);
 		
-		// 환불로직 완료되면
 		return adminRepository.updateRefund(id);
 	}
 }

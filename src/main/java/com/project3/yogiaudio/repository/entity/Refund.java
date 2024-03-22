@@ -27,10 +27,13 @@ public class Refund {
 	private String name;
 	private String nickname;
 	// history 테이블
+	private int pno; // cancel 테이블에 insert 하기 위해 필요한 칼럼(ajax로 전송할 때 파라미터로 사용하기 위함)
 	private String amount;
 	private Timestamp date; // DB datetime 타입 / Timestamp로 설정해도 되나요??
 	// purchase 테이블
 	private String purchaseName;
+	
+	
 	
 	// 날짜 포멧 설정
 	public String formatRefundReqDate() {

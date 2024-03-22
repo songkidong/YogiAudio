@@ -7,6 +7,9 @@ window.onload = function() {
 		
 		refundBtns[i].addEventListener('click', function() {
 		const id = refundBtns[i].getAttribute('data-id');
+		const userId = refundBtns[i].getAttribute('data-userId');
+		const pNo = refundBtns[i].getAttribute('data-pNo');
+		const amount = refundBtns[i].getAttribute('data-amount');
 		alert('id : ' + id);
 		
 		Swal.fire({
@@ -20,6 +23,11 @@ window.onload = function() {
 					$.ajax({
 						url : '/admin/refund/' + id,
 						type : 'post',
+						data : {
+							userId : userId,
+							pNo : pNo,
+							amount : amount
+							},
 						
 						success : function(data) {
 							if(data == true) {

@@ -143,9 +143,17 @@ public class AdminRestfulController {
 	
 	// 환불 승인
 	@PostMapping("/refund/{id}")
-	public ResponseEntity<?> updateRefund(@PathVariable("id") Integer id) {
+	public ResponseEntity<?> updateRefund(@PathVariable("id") Integer id,
+										@RequestParam("userId") Integer userId, 
+										@RequestParam("amount") Integer amount, 
+										@RequestParam("pNo") Integer pNo) {
 		
-		boolean result = adminService.updateRefund(id);
+		log.info("id : " + id);
+		log.info("userId : " + userId);
+		log.info("amount : " + amount);
+		log.info("pNo : " + pNo);
+		
+		boolean result = adminService.updateRefund(id, userId, amount, pNo);
 		
 		return new ResponseEntity<Boolean>(result, HttpStatus.OK);
 	}

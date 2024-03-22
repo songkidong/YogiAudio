@@ -62,7 +62,9 @@
 		            		  	<!-- 환불여부 Y이면 승인완료 표시하기 -->
 		            		  	<c:choose>
 		            		  	<c:when test="${refund.refundYn == 'N'}">
-		            		  		<a data-id="${refund.id }" name="refundButton" class="btn btn-primary" style="color: white">승인</a>
+		            		  		<a data-id="${refund.id }" data-userId="${refund.userId }" 
+		            		  		data-pNo="${refund.pno }" data-amount="${refund.amount }"
+		            		  		name="refundButton" class="btn btn-primary" style="color: white">승인</a>
 		            		  	</c:when>
 		            		  	<c:otherwise>
 		            		  		<a class="btn btn-primary" style="color: white; cursor: default;">승인완료</a>
