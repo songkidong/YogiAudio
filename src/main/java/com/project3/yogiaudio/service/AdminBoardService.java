@@ -23,13 +23,13 @@ import com.project3.yogiaudio.repository.interfaces.AdminBoardRepository;
 public class AdminBoardService {
 
 	@Autowired
-	AdminBoardRepository adminBoardRepository;
+	private AdminBoardRepository adminBoardRepository;
 	
 	@Autowired
-	FiledbService fileDbService;
+	private FiledbService fileDbService;
 	
 	@Autowired
-	FiledbRepository fileDbRepository;
+	private FiledbRepository fileDbRepository;
 	
 	/**
 	  * @Method Name : findAllNotice

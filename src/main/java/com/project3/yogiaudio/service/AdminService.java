@@ -23,7 +23,7 @@ import com.project3.yogiaudio.repository.interfaces.AdminRepository;
 public class AdminService {
 
 	@Autowired
-	AdminRepository adminRepository;
+	private AdminRepository adminRepository;
 	
 	/**
 	  * @Method Name : findAllUser
@@ -50,15 +50,15 @@ public class AdminService {
 	}
 	
 	/**
-	  * @Method Name : deleteUser
-	  * @작성일 : 2024. 3. 12.
+	  * @Method Name : withdrawUser
+	  * @작성일 : 2024. 3. 22.
 	  * @작성자 : 박한산
 	  * @변경이력 : 
-	  * @Method 설명 : 유저 삭제
+	  * @Method 설명 : 유저 탈퇴
 	  */
-	public boolean deleteUser(Long id) {
+	public boolean withdrawUser(Integer id) {
 		
-		return adminRepository.deleteUser(id);
+		return adminRepository.withdrawUser(id);
 	}
 	
 	/**
@@ -144,5 +144,21 @@ public class AdminService {
 	public int countAllRefund() {
 		
 		return adminRepository.countAllRefund();
+	}
+	
+	/**
+	  * @Method Name : updateRefund
+	  * @작성일 : 2024. 3. 22.
+	  * @작성자 : 박한산
+	  * @변경이력 : 
+	  * @Method 설명 : 환불 승인
+	  */
+	public boolean updateRefund(Integer id) {
+		
+		// 결제 취소내역 등록하기
+		
+		
+		// 환불로직 완료되면
+		return adminRepository.updateRefund(id);
 	}
 }

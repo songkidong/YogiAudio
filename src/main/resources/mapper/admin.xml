@@ -65,13 +65,17 @@
 	on c.pno = d.pno
 </select>
 	
-<delete id="deleteUser">
-	delete from user where id=#{id}
-</delete>
-	
 <delete id="deleteMusic">
 	delete from music where music_no = #{musicNo}
 </delete>
+
+<update id="withdrawUser">
+	update user set delete_yn = 'Y' where id=#{id}
+</update>
+
+<update id="updateRefund">
+	update refund set refund_yn = 'Y' where id = #{id}
+</update>
 	
 
 </mapper>

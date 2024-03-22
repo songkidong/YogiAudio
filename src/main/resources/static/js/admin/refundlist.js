@@ -1,31 +1,30 @@
 
-
 window.onload = function() {
 	
-	const withdrawBtns = document.getElementsByName('withdrawButton');
+	const refundBtns = document.getElementsByName('refundButton');
 	
-	for(let i=0 ; i<withdrawBtns.length ; i++) {
+	for(let i=0 ; i<refundBtns.length ; i++) {
 		
-		withdrawBtns[i].addEventListener('click', function() {
-			const id = withdrawBtns[i].getAttribute('data-id');
-			alert('id : ' + id);
-			
-			Swal.fire({
-				title : '탈퇴하시겠습니까?',
-				icon : 'warning',
+		refundBtns[i].addEventListener('click', function() {
+		const id = refundBtns[i].getAttribute('data-id');
+		alert('id : ' + id);
+		
+		Swal.fire({
+				title : '승인하시겠습니까?',
+				icon : 'question',
 				showCancelButton : true,
 				confirmButtonText : '확인',
 				cancelButtonText : '취소'
 			}).then((result) => {
 				if(result.isConfirmed) {
 					$.ajax({
-						url : '/admin/user/' + id,
+						url : '/admin/refund/' + id,
 						type : 'post',
 						
 						success : function(data) {
 							if(data == true) {
 								Swal.fire(
-									'탈퇴 완료입니다'
+									'승인 완료입니다'
 								).then((result) => {
 									if(result.isConfirmed) {
 										location.reload();
@@ -41,6 +40,8 @@ window.onload = function() {
 					})
 				}
 			})
-		})
+		
+	})
+		
 	}
 }
