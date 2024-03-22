@@ -27,14 +27,35 @@
 	</select>
 	
 	
+	<!-- 결제취소용출력문 -->
+	<select id="purchaseDetailCancel" resultType="com.project3.yogiaudio.dto.music.PurchaseDTO">
+		SELECT history.*, purchase.pno
+		FROM history
+		JOIN purchase ON history.pno = purchase.pno
+		WHERE history.id=#{id}
+	</select>
+	
+	
+	
 	<!-- 결제 후 상태업데이트하기 (추후 이용권구매후 유저상태 -> Y 업뎃으로 바꿔야함!!) -->
 	<update id="statusUpdate">
-		update user set status= 'Y'
+		update user set status = 'Y', cancel = 'N'
 		where id=#{id}
 	</update>
 	
-
-
+	
+	<!-- 결제내역등록하기 -->
+	<insert id="insertHistory">
+		insert into history(id,orderid,paymentkey,amount,pno)
+		values(#{id},#{orderId},#{paymentKey},#{amount},#{pno})
+	</insert>
+	
+	<!-- 결제상태 원상복귀하기 -->
+	<update id="resetUpdate">
+		update user set status = 'N', cancel = 'N'
+		where id=#{id}
+	</update>
+	
 	
 
 </mapper>

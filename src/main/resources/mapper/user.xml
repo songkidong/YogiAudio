@@ -14,16 +14,21 @@
 	</insert>
 
 	<!-- 회원 수정 -->
-	<update id="updateById">
+	<update id="updateById" parameterType="com.project3.yogiaudio.repository.entity.User">
 		UPDATE user SET
-		nickname = #{nickname},
-		email =
-		#{email},
+		name = #{name},
+		nickname =
+		#{nickname},
 		password = #{password},
 		file_path =
-		#{file_path}
+		#{filePath}
 		where id =
 		#{id};
+	</update>
+	
+	<!-- 회원 탈퇴 -->
+	<update id="deleteById" parameterType="com.project3.yogiaudio.repository.entity.User">
+	UPDATE user SET delete_yn = "Y", delete_at = now() WHERE id = #{id}
 	</update>
 
 	<!-- 이메일로 유저 조회 -->
@@ -35,5 +40,9 @@
 	<select id="findById" resultType="com.project3.yogiaudio.repository.entity.User">
 		select * from user where id =#{id}
 	</select>
-
+	
+	<!-- 이름으로 유저 조회 -->
+	<select id="findByName" resultType="com.project3.yogiaudio.repository.entity.User">
+		select * from user where name =#{name}
+	</select>
 </mapper>

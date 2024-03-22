@@ -13,6 +13,6 @@ import lombok.Data;
 @Data
 public class PlayListAddDTO {
 	private String playlistName;
-	private String userId;
-	private String musicNo;
+	private long userId;
+	private long musicNo;
 }

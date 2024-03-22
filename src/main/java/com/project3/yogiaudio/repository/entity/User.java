@@ -26,10 +26,16 @@ public class User {
 	private String deleteYn;
 	private Timestamp deleteAt;
 	private String status;
+	private String cancel;
 
 	
 	// 날짜 포멧 설정
 	public String formatCreatedAt() {
 		return TimeUtils.timestampToString(createdAt);
 	}
+	
+    // filePath 필드에 대한 getter 메서드
+    public String getFilePath() {
+        return this.filePath;
+    }
 }

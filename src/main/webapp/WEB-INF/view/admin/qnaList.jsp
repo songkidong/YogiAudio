@@ -11,7 +11,7 @@
 	
 	<!-- empty 키워드는 변수가 null이거나 비어있는 경우를 확인 -->
 	<c:if test="${empty qnaList }">
-		<h1 style="display: flex; justify-content: center;">QnA 글이 존재하지 않습니다</h1>
+		<h1 style="display: flex; justify-content: center;">QnA가 존재하지 않습니다</h1>
 	</c:if>
 	
 	<!-- qnaList가 비어있으면 테이블 자체가 보이지 않도록 함 -->
@@ -28,7 +28,7 @@
                         <th>제목</th>
                         <th>답변 여부</th>
                         <th>등록일</th>
-                        <th>수정 / 삭제</th>
+                        <th>삭제</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
@@ -37,12 +37,11 @@
 		                 	<tr>
 		            		  <td>${qna.id}</td>
 		            		  <td>${qna.writerName}</td>
-		            		  <td>${qna.title}</td>
+		            		  <td><a href="/admin/qnaView/${qna.id}">${qna.title}</a></td>
 		            		  <td>${qna.answerYn}</td>
 		            		  <td>${qna.formatCreatedAt()}</td>
 		            		  <td>
-		            		  	<a class="btn btn-primary" href="" style="">수정</a>
-		            		  	<a data-id="${qna.id }" name="deleteButton" class="btn btn-primary" href="#" >삭제</a>
+		            		  	<a data-id="${qna.id }" name="deleteButton" class="btn btn-primary" style="color: white">삭제</a>
 		            		  </td>
 		                   	</tr>
 	                  	</c:forEach>
@@ -55,7 +54,7 @@
 	</c:if>
               
               <!-- flex 속성으로 가운데정렬하기 -->
-              <ul class="pagination" style="display: flex; justify-content: center; padding-right: 10%;">
+              <ul class="pagination" style="display: flex; justify-content: center; padding-right: 10%; margin-top: 10px;">
 				  
 				  <!-- pageVO.prev가 참(시작페이지가 1이 아닐 때)이면 이전버튼 li태그 생성 -->
 				  <c:if test="${pageVO.prev }">

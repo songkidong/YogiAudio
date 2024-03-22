@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.project3.yogiaudio.dto.playlist.PlayListAddDTO;
 import com.project3.yogiaudio.dto.playlist.PlayListStartDTO;
 import com.project3.yogiaudio.repository.entity.playlist.Playlist;
 
@@ -13,6 +12,6 @@ import com.project3.yogiaudio.repository.entity.playlist.Playlist;
 public interface PlaylistRepository {
 	public List<PlayListStartDTO> findPlayListById(long id);
 	public int delete(long id);
-	public int insert(PlayListAddDTO input);
+	public int insert(Playlist input);
 	public Playlist findByUserIdAndPlaylistName(Map<String, Object> params);
 }

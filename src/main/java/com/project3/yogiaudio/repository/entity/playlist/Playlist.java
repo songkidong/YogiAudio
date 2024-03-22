@@ -1,6 +1,9 @@
 package com.project3.yogiaudio.repository.entity.playlist;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
   * @FileName : PlaylistOrder.java
@@ -11,6 +14,9 @@ import lombok.Data;
   * @프로그램 설명 : playlist_order 엔티티
   */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Playlist {
 	private long id;
 	private long userId;

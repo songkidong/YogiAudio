@@ -13,7 +13,9 @@
 
 	<select id="findAllByKeywordwithPasing"
 		resultType="com.project3.yogiaudio.repository.entity.board.BoardNotice">
-		select * from board_notice
+		select a.*, b.name as writerName from board_notice as a
+		left join `user` as b
+		on a.writer_id = b.id
 		<if test="searchType == 'title'">
 			where title like CONCAT('%',#{searchInput},'%')
 		</if>
@@ -21,7 +23,7 @@
 			where content like CONCAT('%',#{searchInput},'%')
 		</if>
 		<if test="searchType == 'createdAt'">
-			where createdAt like CONCAT('%',#{searchInput},'%')
+			where created_at like CONCAT('%',#{searchInput},'%')
 		</if>
 		<if test="searchType == null">
 			<!-- If no search type is specified, fetch all records -->
@@ -33,22 +35,32 @@
 	<select id="getAllPageCount" resultType="int">
 		select count(*) from
 		board_notice
-		<where>
-			<if test="searchType != null">
-				<choose>
-					<when test="searchType == 'title'">
-						AND title LIKE CONCAT('%', #{searchInput}, '%')
-					</when>
-					<when test="searchType == 'content'">
-						AND content LIKE CONCAT('%', #{searchInput}, '%')
-					</when>
-					<when test="searchType == 'createdAt'">
-						AND createdAt LIKE CONCAT('%', #{searchInput}, '%')
-					</when>
-				</choose>
-			</if>
-		</where>
+		<if test="searchType == 'title'">
+			where title like CONCAT('%',#{searchInput},'%')
+		</if>
+		<if test="searchType == 'content'">
+			where content like CONCAT('%',#{searchInput},'%')
+		</if>
+		<if test="searchType == 'createdAt'">
+			where created_at like CONCAT('%',#{searchInput},'%')
+		</if>
+		<if test="searchType == null">
+			<!-- If no search type is specified, fetch all records -->
+		</if>
 	</select>
 
+	<select id="findAllById"
+		resultType="com.project3.yogiaudio.repository.entity.board.BoardNotice">
+		SELECT * FROM board_notice WHERE id = #{id};
+	</select>
+
+	<update id="noticeUpdate">
+		update board_notice set title = #{title}, content =
+		#{content}, file_path = #{filePath} WHERE id = #{id};
+	</update>
+
+	<delete id="noticeDelete">
+		delete from board_notice WHERE id = #{id};
+	</delete>
 
 </mapper>

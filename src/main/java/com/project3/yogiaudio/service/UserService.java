@@ -2,7 +2,7 @@ package com.project3.yogiaudio.service;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.project3.yogiaudio.dto.user.SignUpFormDTO;
+import com.project3.yogiaudio.dto.user.UserDTO;
 import com.project3.yogiaudio.repository.entity.User;
 import com.project3.yogiaudio.repository.interfaces.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.project3.yogiaudio.dto.user.SignUpFormDTO;
+import com.project3.yogiaudio.dto.user.UserDTO;
 import com.project3.yogiaudio.repository.entity.User;
 import com.project3.yogiaudio.repository.interfaces.UserRepository;
 
@@ -32,9 +32,15 @@ public class UserService {
 		this.passwordEncoder = passwordEncoder;
 	}
 
+	/**
+	 * @Method Name : createUser
+	 * @작성일 : 2024. 3. 19.
+	 * @작성자 : 송기동
+	 * @변경이력 :
+	 * @Method 설명 : 회원가입 기능
+	 */
 	@Transactional
-	public User createUser(SignUpFormDTO dto) {
-		log.info("createUser 메서드 호출됨");
+	public User createUser(UserDTO dto) {
 		validateSignUpForm(dto);
 		checkExistingUser(dto.getEmail());
 		User newUser = buildUserEntity(dto);
@@ -43,7 +49,14 @@ public class UserService {
 		return newUser;
 	}
 
-	private void validateSignUpForm(SignUpFormDTO dto) {
+	/**
+	 * @Method Name : validateSignUpForm
+	 * @작성일 : 2024. 3. 18.
+	 * @작성자 : 송기동
+	 * @변경이력 :
+	 * @Method 설명 : 회원가입 유효성 검사
+	 */
+	private void validateSignUpForm(UserDTO dto) {
 		if (isEmpty(dto.getName()) || isEmpty(dto.getNickname()) || isEmpty(dto.getEmail())
 				|| isEmpty(dto.getPassword())) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "모든 필드를 입력하세요");
@@ -54,9 +67,8 @@ public class UserService {
 		return value == null || value.trim().isEmpty();
 	}
 
-	
-	//아이디로 유저조회
-	public User findById(@Param(value ="id") long id) {
+	// 아이디로 유저조회
+	public User findById(@Param(value = "id") long id) {
 		return userRepository.findById(id);
 	}
 
@@ -67,16 +79,19 @@ public class UserService {
 		}
 	}
 
-	private User buildUserEntity(SignUpFormDTO dto) {
+	private User buildUserEntity(UserDTO dto) {
 		return User.builder().name(dto.getName()).nickname(dto.getNickname()).email(dto.getEmail())
 				.password(passwordEncoder.encode(dto.getPassword())).build();
 	}
 
-	public User signIn(SignUpFormDTO dto) {
+	public User signIn(UserDTO dto) {
 		User userEntity = userRepository.findByEmail(dto.getEmail());
-		if (userEntity == null || !passwordEncoder.matches(dto.getPassword(), userEntity.getPassword())) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "유저가 존재하지 않거나 비밀번호가 일치하지 않습니다");
+		
+		if (userEntity == null || userEntity.getDeleteYn().equals("Y")
+				|| !passwordEncoder.matches(dto.getPassword(), userEntity.getPassword())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "탈퇴한 유저이거나 비밀번호가 일치하지 않습니다");
 		}
+		
 		return userEntity;
 	}
 
@@ -84,9 +99,20 @@ public class UserService {
 	public User findUserByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
-	
+
 	public User findUserById(Long id) {
 		return userRepository.findById(id);
 	}
-	
+
+	// 회원 수정
+	public int updateUser(User user) {
+
+		return userRepository.updateById(user);
+	}
+
+	// 회원 탈퇴
+	public int deleteUser(User user) {
+		return userRepository.deleteById(user);
+	}
+
 }

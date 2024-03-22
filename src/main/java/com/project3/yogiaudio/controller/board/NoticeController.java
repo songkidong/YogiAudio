@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project3.yogiaudio.dto.board.NoticeDTO;
 import com.project3.yogiaudio.dto.common.PageReq;
@@ -20,6 +21,7 @@ import com.project3.yogiaudio.util.Define;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
+
 
 @Slf4j
 @Controller
@@ -55,7 +57,7 @@ public class NoticeController {
 	 */
 	@GetMapping("/noticeList")
 	public String noticeList(PageReq pageReq, Model model) {
-
+		
 		// 페이징
 		if (pageReq.getPage() <= 0) {
 			pageReq.setPage(1); // 페이지가 0 이하일 경우 첫 페이지로 설정한다
@@ -70,6 +72,7 @@ public class NoticeController {
 
 		// 페이징 정보를 모델에 추가
 		model.addAttribute("noticeList", noticeList); // 프로젝트 마다 다른 코드
+		System.out.println("리스트 나와라!!!!!!!!!!!"+noticeList.toString());
 		// 공통 코드
 		model.addAttribute("page", pageReq.getPage());
 		model.addAttribute("size", pageRes.getSize());
@@ -87,11 +90,34 @@ public class NoticeController {
 	 * @변경이력 :
 	 * @Method 설명 : 공지사항 상세보기 화면
 	 */
-	@GetMapping("/noticeView")
-	public String noticeView() {
-
-		return "board/notice/noticeView";
+	
+	 @GetMapping("/noticeView/{id}") 
+	 public String noticeView() {
+	  
+	  return "board/notice/noticeView"; 
+	 }
+	 
+	 
+	/**
+	  * @Method Name : noticeView
+	  * @작성일 : 2024. 3. 18.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 공지사항 상세보기 출력 
+	  */
+	@PostMapping("/noticeView/{id}")
+	@ResponseBody
+	public BoardNotice noticeViewId(@PathVariable(value = "id") int id) {
+		System.out.println("아이디아이디 : " + id);
+		
+		BoardNotice boardNotice = noticeService.noticeView(id);
+	
+		System.out.println("엔티티엔티티 : " + boardNotice.toString());
+		
+		return boardNotice;
 	}
+	
+	
 
 	/**
 	 * @Method Name : noticeWrite
@@ -106,9 +132,7 @@ public class NoticeController {
 	}
 
 	/**
-	 * @param MultipartFile
-	 * @param file
-	 * @Method Name : noticeWrite
+	 * @Method Name : insertNotice
 	 * @작성일 : 2024. 3. 13.
 	 * @작성자 : 노수현
 	 * @변경이력 :
@@ -120,6 +144,8 @@ public class NoticeController {
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 
 		noticeDTO.setWriterId(principal.getId());
+		
+		System.out.println(noticeDTO.toString());
 
 		int result = noticeService.saveNotice(noticeDTO);
 
@@ -137,9 +163,48 @@ public class NoticeController {
 	 * @변경이력 :
 	 * @Method 설명 : 공지사항 수정하기 화면
 	 */
-	@GetMapping("/noticeUpdate")
+	@GetMapping("/noticeUpdate/{id}")
 	public String noticeUpdate() {
 		return "board/notice/noticeUpdate";
 	}
+	
+	
+	/**
+	  * @Method Name : noticeUpdate
+	  * @작성일 : 2024. 3. 18.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 공지사항 수정하기 출력
+	  */
+	@PostMapping("/noticeUpdate/{id}")
+	@ResponseBody
+	public boolean noticeUpdate(@PathVariable(value = "id") int id, NoticeDTO noticeDTO) {
+		
+		System.out.println("아이디 번호" + id);
+		System.out.println("데이터" + noticeDTO.toString());
+		System.out.println("files" + noticeDTO.toString());
+		
+		boolean result = noticeService.noticeUpdate(id, noticeDTO);
+		
+		return result;
+	}
+	
+	
+	/**
+	  * @Method Name : noticeDelete
+	  * @작성일 : 2024. 3. 18.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 공지사항 삭제하기
+	  */
+	@PostMapping("/noticeDelete/{id}")
+	@ResponseBody
+	public boolean noticeDelete(@PathVariable(value =  "id") int id) {
+		boolean result = noticeService.noticeDelete(id);
+		
+		return result;
+	}
+	
+	
 
 }

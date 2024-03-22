@@ -20,7 +20,7 @@
 	<div class="col-md-6 col-lg-4 col-xl-3" style="text-align: center;">
 	<div class="card" style="width:20rem;margin:20px 0 24px 0">
 	  <!-- img 경로 가져오기 -->	
-	  <img class="card-img-top" src="img_avatar3.png" alt="image" style="width:100%">
+	  <img class="card-img-top" src="${music.filePath }" alt="image" style="width:100%">
 	  <div class="card-body">
 	    <h4 class="card-title">제목 ${music.musicTitle}</h4>
 	    <h5 class="card-title">가수 ${music.musicSinger}</h5>
@@ -36,8 +36,8 @@
 	<!-- 반복문 끝--> 
 	</div>
 	
-    <%-- <!-- 반복문 시작 -->
-    <div class="row g-4">
+    <!-- 반복문 시작 -->
+    <%-- <div class="row g-4">
                                    <c:forEach var="music" items= "${musicList}">
                                    <!-- 한줄에 4개씩 차지해서 col-xl-3을 수정 -->
                        			   <div class="col-md-6 col-lg-4 col-xl-3">
@@ -45,18 +45,17 @@
                                                <div class="fruite-img">
                                                		<!-- 첨부 파일에 따라 이미지 크기가 달라져서 height 값 고정함 -->
                                                		<!-- img src는 WebMvcConfig 활용하기 -->
-                                                   <img src="" class="img-fluid w-100 rounded-top" style="height: 380px;" alt="">
+                                                   <img src="${music.filePath }" class="img-fluid w-100 rounded-top" style="height: 380px;" alt="">
                                                </div>
                                                <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                                                	   <!-- clubName 길이에 따라 카드 크기 달라져서 height 고정값 줌 --> 	
-                                                   <h4 style="height: 50px;">제목 ${music. }</h4>
+                                                   <h4 style="height: 50px;">제목 ${music.musicTitle}</h4>
                                                    <h6>가수</h6>
                                                    <!-- descript 길이에 따라 카드 크기 달라져서 height 고정값 줌 -->
-                                                   <p style="height: 60px;">회사</p>
-                                                   <p style="height: 60px;">발매일</p>
-                                                   <p style="height: 60px;">등록일</p>
+                                                   <p style="height: 60px;">가수 ${music.musicSinger}</p>
+                                                   <p style="height: 60px;">발매일 ${music.startdate}</p>
+                                                   <p style="height: 60px;">등록일 ${music.formatRegDate()}</p>
                                                    <div class="d-flex justify-content-between flex-lg-wrap">
-                                                   		<!-- Club의 cDate 타입이 Timestamp라 바로 출력이 안되서 포멧해줘야함(문자열로) -->
 					                                    <a class="btn border" href="">수정</a>
 					                                    <a class="btn border" href="">삭제</a>
 					                                    
@@ -66,8 +65,8 @@
                            		   </div>
                                    </c:forEach>
                                    
-    </div>
-	<!-- 반복문 끝 -->  --%>   
+    </div> --%>
+	<!-- 반복문 끝 -->
 
 	
 	

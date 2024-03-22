@@ -10,7 +10,7 @@
 	
 	<!-- empty 키워드는 변수가 null이거나 비어있는 경우를 확인 -->
 	<c:if test="${empty noticeList }">
-		<h1 style="display: flex; justify-content: center;">공지사항 글이 존재하지 않습니다</h1>
+		<h1 style="display: flex; justify-content: center;">공지사항이 존재하지 않습니다</h1>
 	</c:if>
 	
 	<!-- noticeList가 비어있으면 테이블 자체가 보이지 않도록 함 -->
@@ -26,7 +26,7 @@
                         <th>작성자</th>
                         <th>제목</th>
                         <th>등록일</th>
-                        <th>수정 / 삭제</th>
+                        <th>삭제</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
@@ -39,7 +39,6 @@
 		            		  <td><a href="/admin/noticeView/${notice.id }">${notice.title}</a></td>
 		            		  <td>${notice.formatCreatedAt()}</td>
 		            		  <td>
-		            		  	<a class="btn btn-primary" href="" style="">수정</a>
 		            		  	<a data-id="${notice.id }" name="deleteButton" class="btn btn-primary" href="#" >삭제</a>
 		            		  </td>
 		                   	</tr>
@@ -53,7 +52,7 @@
 	</c:if>
               
               <!-- flex 속성으로 가운데정렬하기 -->
-              <ul class="pagination" style="display: flex; justify-content: center; padding-right: 10%;">
+              <ul class="pagination" style="display: flex; justify-content: center; padding-right: 10%; margin-top: 10px;">
 				  
 				  <!-- pageVO.prev가 참(시작페이지가 1이 아닐 때)이면 이전버튼 li태그 생성 -->
 				  <c:if test="${pageVO.prev }">

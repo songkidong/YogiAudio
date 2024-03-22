@@ -24,14 +24,17 @@
 				
 					 <div style="display: flex; align-items: center; margin-bottom: 20px;">
 			            <h3 class="title" style="margin-right: 20px;">🛫국외음악</h3>
-			            <div class="section-nav" style="margin-left: 550px;">
-			                <select class="section-tab-select tab-select form-control">
-			                    <option value="#tab1">전체</option>
-			                    <option value="#tab2">발라드</option>
-			                    <option value="#tab3">트로트</option>
-			                    <option value="#tab4">힙합</option>
-			                </select>
-			            </div>
+			            
+			             
+			            <div class="section-nav">
+						    <ul class="section-tab-nav tab-nav">
+						        <li id="allOption"><a href="/product/aboard-music">전체</a></li>
+						        <li id="balladOption"><a href="/product/aboard-search?searchOption=발라드">발라드</a></li>
+						        <li id="classicOption"><a href="/product/aboard-search?searchOption=클래식">클래식</a></li>
+						        <li id="hiphopOption"><a href="/product/aboard-search?searchOption=힙합">힙합</a></li>
+						    </ul>
+						</div>
+			            
 			        </div>
 				
 				
@@ -56,20 +59,41 @@
 							 <div class="col-md-4 col-xs-6">
 								<div class="product">
 									<div class="product-img">
-										<img src="/album/default.png" alt="">
-										<div class="product-label">
-										</div>
-									</div>
+									 	 <c:choose>
+										    <c:when test="${not empty aboardlist.filepath}">
+										      <img src=" ${aboardlist.filepath}">
+										    </c:when>
+										  <c:otherwise>
+											  <img src="/album/default.png" >
+										  </c:otherwise>
+										 </c:choose>
+									 <div class="product-label">
+								   </div>
+								 </div>
+								 
+								 
 									<div class="product-body">
 										<p class="product-category">${aboardlist.musicmajor}</p>
+										<p class="product-category">${aboardlist.musicminor}</p>
 										<h3 class="product-name">
-											<a href="/product/aboard-detail?musicno=${aboardlist.musicno}&musicmajor=${aboardlist.musicmajor}">
-											  ${aboardlist.musictitle}
+											<c:url value="/product/aboard-detail" var="detailUrl">
+											    <c:param name="musicno" value="${aboardlist.musicno}" />
+											    <c:param name="musicmajor" value="${aboardlist.musicmajor}" />
+											    <c:choose>
+											        <c:when test="${not empty principal}">
+											            <c:param name="id" value="${principal.id}" />
+											        </c:when>
+											        <c:otherwise>
+											            <c:param name="id" value="" />
+											        </c:otherwise>
+											    </c:choose>
+											</c:url>
+											
+											<a href="${detailUrl}">
+											    ${aboardlist.musictitle}
 											</a>
 										</h3>
 										<h4 class="product-price">${aboardlist.musiccompany}<del class="product-old-price"></del></h4>
-										
-										
 									</div>
 									
 								</div>
@@ -86,7 +110,16 @@
 						<!-- store bottom filter -->
 						<div class="store-filter clearfix">
 							<ul class="store-pagination">
-							
+								
+							 <c:if test="${pageVO.prev }">
+									<li class="page-item">
+										<a class="page-link" href="/product/aboard-music?page=${pageVO.startPage - 1 }" aria-label="Previous">
+											 <i class="fa fa-angle-left"></i> 
+										</a>
+									</li>
+							  </c:if>
+								
+								
 								<c:forEach var="i" begin="${pageVO.startPage }" end="${pageVO.endPage }" step="1">
 									<li class="page-item ${isActive ? 'active' : ''}">
 										<a class="page-link" href="/product/aboard-music?page=${i}">

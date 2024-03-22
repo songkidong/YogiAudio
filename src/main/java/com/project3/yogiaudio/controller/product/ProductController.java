@@ -2,6 +2,7 @@ package com.project3.yogiaudio.controller.product;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,6 +46,7 @@ public class ProductController {
 	@GetMapping("/main")
 	public String productMainGET(HttpSession session,Model model,Criteria cri) throws Exception {
 		
+		
 		PageVO pageVO = new PageVO();
 		pageVO.setCri(cri);
 		pageVO.setTotalCount(musicService.countdomesticListAll());		
@@ -77,6 +79,45 @@ public class ProductController {
 		log.debug("메인페이지호출테스트");
 		return"product/main";
 	}
+	
+	
+	//메인페이지 검색페이지출력
+	@GetMapping("/main-search")
+	public String mainSearchPageGET(HttpServletRequest request, Criteria cri, Model model) throws Exception {
+		
+		String searchOption = request.getParameter("searchOption");
+		String searchKeyword = request.getParameter("searchKeyword");
+		
+		
+		if (searchOption != null && !searchOption.isEmpty()) {
+			cri.setSearchOption(searchOption);
+		}
+		
+		if (searchKeyword != null && !searchKeyword.isEmpty()) {
+			cri.setSearchKeyword(searchKeyword);
+		}
+		
+		PageVO pageVO = new PageVO();
+		pageVO.setCri(cri);
+		pageVO.setTotalCount(musicService.MainSearchCount(cri));
+		
+		model.addAttribute("pageVO", pageVO);
+
+		
+		List<MusicDTO> result = musicService.MainSearch(cri);
+		
+		model.addAttribute("searchlist", result);
+		
+		log.debug("admin-user관리 페이지 출력!");
+		
+		
+		
+		return "product/mainsearch";
+	}
+	
+	
+	
+	
 	
 	
 	
@@ -138,6 +179,36 @@ public class ProductController {
 	}
 	
 	
+		//국외음악리스트(조건) 출력하기
+		@GetMapping("/aboard-search")
+		public String searchAboardGET(HttpServletRequest request, Criteria cri, Model model) throws Exception{
+			
+			String searchOption = request.getParameter("searchOption");
+			
+			if (searchOption != null && !searchOption.isEmpty()) {
+				cri.setSearchOption(searchOption);
+			}
+			
+			PageVO pageVO = new PageVO();
+			pageVO.setCri(cri);
+			pageVO.setTotalCount(musicService.countsearchAmusicList(cri));
+			
+			model.addAttribute("pageVO", pageVO);
+
+			
+			List<MusicDTO> result = musicService.searchAmusicList(cri);
+			
+			model.addAttribute("aboardlist", result);
+			
+			log.debug("admin-user관리 페이지 출력!");
+			return "product/aboardsearch";
+			
+		}
+		
+	
+	
+	
+	
 	
 	
 	
@@ -162,34 +233,115 @@ public class ProductController {
 	}
 	
 	
+	
+	//최신음악리스트 전부 호출하기
+	@GetMapping("/new-music")
+	public String newmusicListAllGET(Model model, Criteria cri, MusicDTO dto) throws Exception {
+		
+		PageVO pageVO = new PageVO();
+		pageVO.setCri(cri);
+		pageVO.setTotalCount(musicService.newListAllcount());
+		
+		model.addAttribute("pageVO", pageVO);
+		
+		List<MusicDTO> result = musicService.newListAll(cri);
+		model.addAttribute("newlist", result);
+		
+		return "product/newmusic";
+		
+	}
+	
+	
+	//최신음악리스트(조건) 출력하기
+	@GetMapping("/new-search")
+	public String newSearchGET(HttpServletRequest request, Criteria cri, Model model) throws Exception {
+		
+		String searchOption = request.getParameter("searchOption");
+		
+		if (searchOption != null && !searchOption.isEmpty()) {
+			cri.setSearchOption(searchOption);
+		}
+		
+		PageVO pageVO = new PageVO();
+		pageVO.setCri(cri);
+		pageVO.setTotalCount(musicService.newlistSearchCount(cri));
+		
+		model.addAttribute("pageVO", pageVO);
+
+		
+		List<MusicDTO> result = musicService.newlistSearch(cri);
+		
+		model.addAttribute("newlist", result);
+		
+		log.debug("admin-user관리 페이지 출력!");
+		
+		return "product/newsearch";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//국내음악상세페이지
 	// http://localhost:80/product/domestic-detail?musicno=&musicmajor=
 	@GetMapping("/domestic-detail")
-	public String domesticDetailGET(@RequestParam(value = "musicno") int musicno, @RequestParam(value = "musicmajor") String musicmajor,@RequestParam(value = "id") long id,Model model) {
+	public String domesticDetailGET(@RequestParam(value = "musicno") int musicno, @RequestParam(value = "musicmajor") String musicmajor,@RequestParam(value = "id", required = false) Long id,Model model) {
 				
-		User udetail = userService.findById(id);
-		model.addAttribute("udetail", udetail);
-		
-		
-		MusicDTO result = musicService.domesticDetail(musicno,musicmajor);
-		model.addAttribute("detail", result);
-		
-		
-		
-	    System.out.println("musicno: " + musicno); 
-	    System.out.println("musicmajor: " + musicmajor);
-	    System.out.println("result + :" + result);
-		return"product/domesticdetail";
+
+		 if (id != null) {
+		        User udetail = userService.findById(id);
+		        model.addAttribute("udetail", udetail);
+		    }
+
+		    MusicDTO result = musicService.domesticDetail(musicno, musicmajor);
+		    model.addAttribute("detail", result);
+		    
+		    System.out.println("musicno: " + musicno); 
+		    System.out.println("musicmajor: " + musicmajor);
+		    return "product/domesticdetail";
 	}
 	
 	
 	//국외음악상세페이지
 	// http://localhost:80/product/aboard-detail?musicno=&musicmajor=
 	@GetMapping("/aboard-detail")
-	public String aboardDetailGET(@RequestParam(value = "musicno") int musicno, @RequestParam(value = "musicmajor") String musicmajor,Model model) {
-		 System.out.println("musicno: " + musicno); 
-		 System.out.println("musicmajor: " + musicmajor);
-		return"product/aboarddetail";
+	public String aboardDetailGET(@RequestParam(value = "musicno") int musicno, @RequestParam(value = "musicmajor") String musicmajor,@RequestParam(value = "id", required = false) Long id,Model model) {
+		
+		 if (id != null) {
+		        User udetail = userService.findById(id);
+		        model.addAttribute("udetail", udetail);
+		    }
+
+		    MusicDTO result = musicService.aboardDetail(musicno, musicmajor);
+		    model.addAttribute("detail", result);
+		    
+		    System.out.println("musicno: " + musicno); 
+		    System.out.println("musicmajor: " + musicmajor);
+		    return "product/aboarddetail";
+	}
+	
+	
+	//최신음악 디테일페이지 출력
+	@GetMapping("/new-detail")
+	public String newDetailGET(@RequestParam(value = "musicno") int musicno,@RequestParam(value = "id", required = false) Long id,Model model) {
+		
+		 if (id != null) {
+		        User udetail = userService.findById(id);
+		        model.addAttribute("udetail", udetail);
+		    }
+
+		    MusicDTO result = musicService.newDetail(musicno);
+		    model.addAttribute("detail", result);
+		
+
+		return"product/newdetail";
 	}
 	
 	

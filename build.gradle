@@ -22,9 +22,11 @@ repositories {
 }
 
 dependencies {
+	//Gson
+	implementation 'com.google.code.gson:gson:2.8.8'
+	
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
     implementation group: 'org.glassfish.web', name: 'jakarta.servlet.jsp.jstl', version: '2.0.0'
-	implementation group: 'javax.mail', name: 'mail', version: '1.4.7'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -37,6 +39,9 @@ dependencies {
 	//암호화
 	implementation 'org.springframework.security:spring-security-crypto'
 	implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1' // JSONObject
+	
+	// 이메일 인증
+ 	implementation 'org.springframework.boot:spring-boot-starter-mail'	
 	
 }
 

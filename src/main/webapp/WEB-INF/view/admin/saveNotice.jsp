@@ -13,7 +13,7 @@
 	<div class="col-md-6">
 	<form id="form" action="" enctype="multipart/form-data">
                   <div class="card mb-4">
-                    <h5 class="card-header">Form Controls</h5>
+                    <h5 class="card-header">공지사항</h5>
                     <div class="card-body">
                       <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">제목</label>

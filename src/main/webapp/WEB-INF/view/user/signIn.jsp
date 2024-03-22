@@ -4,7 +4,7 @@
 <div class="container sign--in--container">
     <h1>SIGN IN</h1>
     <ul class="links">
-        <li><a href="#" id="signin">SIGN IN</a></li>
+        <li><a href="/signIn" id="signin">SIGN IN</a></li>
         <li><a href="/signUp" id="signup">SIGN UP</a></li>
         <li><a href="#" id="reset">RESET</a></li>
     </ul>

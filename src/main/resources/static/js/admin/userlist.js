@@ -2,16 +2,16 @@
 
 window.onload = function() {
 	
-	const deleteBtns = document.getElementsByName('deleteButton');
+	const withdrawBtns = document.getElementsByName('withdrawButton');
 	
-	for(let i=0 ; i<deleteBtns.length ; i++) {
+	for(let i=0 ; i<withdrawBtns.length ; i++) {
 		
-		deleteBtns[i].addEventListener('click', function() {
-			const id = deleteBtns[i].getAttribute('data-id');
+		withdrawBtns[i].addEventListener('click', function() {
+			const id = withdrawBtns[i].getAttribute('data-id');
 			alert('id : ' + id);
 			
 			Swal.fire({
-				title : '삭제하시겠습니까?',
+				title : '탈퇴하시겠습니까?',
 				icon : 'warning',
 				showCancelButton : true,
 				confirmButtonText : '확인',
@@ -20,12 +20,12 @@ window.onload = function() {
 				if(result.isConfirmed) {
 					$.ajax({
 						url : '/admin/user/' + id,
-						type : 'delete',
+						type : 'post',
 						
 						success : function(data) {
 							if(data == true) {
 								Swal.fire(
-									'삭제 완료입니다'
+									'탈퇴 완료입니다'
 								).then((result) => {
 									if(result.isConfirmed) {
 										location.reload();

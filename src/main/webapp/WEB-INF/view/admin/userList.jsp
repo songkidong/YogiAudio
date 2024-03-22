@@ -27,7 +27,9 @@
                         <th>이메일</th>
                         <th>등급</th>
                         <th>가입일</th>
-                        <th>수정/삭제</th>
+                        <th>이용권 구매</th>
+                        <th>탈퇴 여부</th>
+                        <th>탈퇴</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
@@ -40,9 +42,19 @@
 		            		  <td>${user.email}</td>
 		            		  <td>${user.role}</td>
 		            		  <td>${user.formatCreatedAt()}</td>
+		            		  <td style="padding-left: 50px;">${user.status}</td>
+		            		  <td style="padding-left: 40px;">${user.deleteYn}</td>
 		            		  <td>
-		            		  	<a class="btn btn-primary" href="" style="">수정</a>
-		            		  	<a data-id="${user.id}" name="deleteButton" class="btn btn-primary" href="#" >삭제</a>
+		            		  	<!-- 탈퇴여부 N이면 탈퇴 버튼 -->
+		            		  	<c:choose>
+		            		  	<c:when test="${user.deleteYn == 'N'}">
+		            		  		<a data-id="${user.id}" name="withdrawButton" class="btn btn-primary" style="color: white">탈퇴</a>
+		            		  	</c:when>
+		            		  	<c:otherwise>
+		            		  		<a class="btn btn-primary" style="color: white; cursor: default;">탈퇴 완료</a>
+		            		  	</c:otherwise>
+		            		  	</c:choose>
+		            		  	
 		            		  </td>
 		                   	</tr>
 	                  	</c:forEach>
@@ -55,7 +67,7 @@
 	</c:if>
               
               <!-- flex 속성으로 가운데정렬하기 -->
-              <ul class="pagination" style="display: flex; justify-content: center; padding-right: 10%;">
+              <ul class="pagination" style="display: flex; justify-content: center; padding-right: 10%; margin-top: 10px;">
 				  
 				  <!-- pageVO.prev가 참(시작페이지가 1이 아닐 때)이면 이전버튼 li태그 생성 -->
 				  <c:if test="${pageVO.prev }">

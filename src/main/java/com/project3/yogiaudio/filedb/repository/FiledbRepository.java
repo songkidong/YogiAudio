@@ -9,6 +9,7 @@ public interface FiledbRepository {
 	
 	public int saveFiledb(Filedb filedb);
 	public Filedb findByUuid(String uuid);
+	public int deleteByUuid(String uuid);
 	
 	
 }

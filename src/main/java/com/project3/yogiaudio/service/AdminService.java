@@ -4,25 +4,31 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.project3.yogiaudio.dto.admin.AdminCriteria;
 import com.project3.yogiaudio.dto.admin.NoticeSaveFormDTO;
 import com.project3.yogiaudio.dto.board.NoticeDTO;
 import com.project3.yogiaudio.filedb.service.FiledbService;
+import com.project3.yogiaudio.repository.entity.History;
 import com.project3.yogiaudio.repository.entity.Music;
+import com.project3.yogiaudio.repository.entity.Refund;
 import com.project3.yogiaudio.repository.entity.User;
+import com.project3.yogiaudio.repository.entity.board.BoardFree;
+import com.project3.yogiaudio.repository.entity.board.BoardFreeComment;
 import com.project3.yogiaudio.repository.entity.board.BoardNotice;
 import com.project3.yogiaudio.repository.entity.board.BoardQna;
 import com.project3.yogiaudio.repository.interfaces.AdminRepository;
+import com.project3.yogiaudio.repository.interfaces.CancelRepository;
 
 @Service
 public class AdminService {
 
 	@Autowired
-	AdminRepository adminRepository;
+	private AdminRepository adminRepository;
 	
 	@Autowired
-	FiledbService fileDbService;
+	private CancelRepository cancelRepository;
 	
 	/**
 	  * @Method Name : findAllUser
@@ -49,15 +55,15 @@ public class AdminService {
 	}
 	
 	/**
-	  * @Method Name : deleteUser
-	  * @작성일 : 2024. 3. 12.
+	  * @Method Name : withdrawUser
+	  * @작성일 : 2024. 3. 22.
 	  * @작성자 : 박한산
 	  * @변경이력 : 
-	  * @Method 설명 : 유저 삭제
+	  * @Method 설명 : 유저 탈퇴
 	  */
-	public boolean deleteUser(Long id) {
+	public boolean withdrawUser(Integer id) {
 		
-		return adminRepository.deleteUser(id);
+		return adminRepository.withdrawUser(id);
 	}
 	
 	/**
@@ -98,112 +104,69 @@ public class AdminService {
 	}
 	
 	/**
-	  * @Method Name : findAllNotice
-	  * @작성일 : 2024. 3. 13.
+	  * @Method Name : findAllHistory
+	  * @작성일 : 2024. 3. 22.
 	  * @작성자 : 박한산
 	  * @변경이력 : 
-	  * @Method 설명 : 공지사항 목록
+	  * @Method 설명 : 결제 내역
 	  */
-	public List<BoardNotice> findAllNotice(AdminCriteria cri) {
+	public List<History> findAllHistory(AdminCriteria cri) {
 		
-		return adminRepository.findAllNotice(cri);
+		return adminRepository.findAllHistory(cri);
 	}
 	
 	/**
-	  * @Method Name : countAllNotice
-	  * @작성일 : 2024. 3. 13.
+	  * @Method Name : countAllHistory
+	  * @작성일 : 2024. 3. 22.
 	  * @작성자 : 박한산
 	  * @변경이력 : 
-	  * @Method 설명 : 공지사항 카운팅
+	  * @Method 설명 : 결제 내역 카운팅
 	  */
-	public int countAllNotice() {
+	public int countAllHistory() {
 		
-		return adminRepository.countAllNotice();
+		return adminRepository.countAllHistory();
 	}
 	
 	/**
-	  * @Method Name : deleteNotice
-	  * @작성일 : 2024. 3. 13.
+	  * @Method Name : selectAllRefund
+	  * @작성일 : 2024. 3. 22.
 	  * @작성자 : 박한산
 	  * @변경이력 : 
-	  * @Method 설명 : 공지사항 삭제
+	  * @Method 설명 : 환불 내역
 	  */
-	public boolean deleteNotice(Integer id) {
+	public List<Refund> findAllRefund(AdminCriteria cri) {
 		
-		return adminRepository.deleteNotice(id);
+		return adminRepository.findAllRefund(cri);
 	}
 	
 	/**
-	  * @Method Name : findAllQna
-	  * @작성일 : 2024. 3. 14.
+	  * @Method Name : countAllRefund
+	  * @작성일 : 2024. 3. 22.
 	  * @작성자 : 박한산
 	  * @변경이력 : 
-	  * @Method 설명 : qna 목록
+	  * @Method 설명 : 환불 내역 카운팅
 	  */
-	public List<BoardQna> findAllQna(AdminCriteria cri) {
+	public int countAllRefund() {
 		
-		return adminRepository.findAllQna(cri);
+		return adminRepository.countAllRefund();
 	}
 	
 	/**
-	  * @Method Name : countAllQna
-	  * @작성일 : 2024. 3. 14.
+	  * @Method Name : updateRefund
+	  * @작성일 : 2024. 3. 22.
 	  * @작성자 : 박한산
 	  * @변경이력 : 
-	  * @Method 설명 : qna 카운팅
+	  * @Method 설명 : 환불 승인
 	  */
-	public int countAllQna() {
+	@Transactional
+	public boolean updateRefund(Integer id, Integer userId, Integer amount, Integer pNo) {
 		
-		return adminRepository.countAllQna();
-	}
-	
-	/**
-	  * @Method Name : deleteQna
-	  * @작성일 : 2024. 3. 14.
-	  * @작성자 : 박한산
-	  * @변경이력 : 
-	  * @Method 설명 : qna 삭제
-	  */
-	public boolean deleteQna(Integer id) {
+		// 결제 취소내역 등록하기 / user id
+		cancelRepository.InsertCancel(userId, amount, pNo);
 		
-		return adminRepository.deleteQna(id);
-	}
-	
-	/**
-	  * @Method Name : insertNotice
-	  * @작성일 : 2024. 3. 14.
-	  * @작성자 : 박한산
-	  * @변경이력 : 
-	  * @Method 설명 : 공지사항 등록
-	  */
-	public boolean insertNotice(NoticeSaveFormDTO dto) {
+		// 유저 이용권 구매여부 변경하기
+		cancelRepository.refundStatus(userId);
 		
-		
-		
-		// 단일 파일 업로드
-		//String filePath = fileDbService.saveFiles(dto.getFilePath());
-		// 다중 파일 업로드
-		String filePath = fileDbService.saveFiles(dto.getFiles());
-		
-		BoardNotice notice = BoardNotice.builder()
-						.writerId(100) // 작성자 아이디 임시번호
-						.title(dto.getTitle())
-						.content(dto.getContent())
-						.filePath(filePath) // 타입 String
-						.build();
-		
-		return adminRepository.insertNotice(notice);
-	}
-	
-	/**
-	  * @Method Name : findNoticeById
-	  * @작성일 : 2024. 3. 15.
-	  * @작성자 : 박한산
-	  * @변경이력 : 
-	  * @Method 설명 : 공지사항 글보기
-	  */
-	public BoardNotice findNoticeById(Integer id) {
-		
-		return adminRepository.findNoticeById(id);
+		return adminRepository.updateRefund(id);
 	}
 }

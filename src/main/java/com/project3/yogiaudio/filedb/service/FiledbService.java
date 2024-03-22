@@ -17,21 +17,20 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class FiledbService {
-		
+
 	@Autowired
 	FiledbRepository filedbRepository;
-	
-	
-	
+
 	/**
 	 * 여러 파일 저장
+	 * 
 	 * @param uuid
 	 * @param files
 	 * @return String filePath
 	 */
 	@Transactional
 	public String saveFiles(List<MultipartFile> files) {
-	
+
 		String filePath = ""; // filePath 에 넣을 String 값
 
 		for (MultipartFile file : files) {
@@ -56,7 +55,6 @@ public class FiledbService {
 
 				// 저장하기
 				int result = filedbRepository.saveFiledb(filedb);
-				
 
 				filePath += fileDownloadUri + ",";
 			} catch (Exception e) {
@@ -69,13 +67,13 @@ public class FiledbService {
 	}
 
 	/**
-	 * 단일 파일 
+	 * 단일 파일
+	 * 
 	 * @param file
 	 * @return
 	 */
 	@Transactional
 	public String saveFiles(MultipartFile file) {
-		
 
 		String filePath = ""; // filePath 에 넣을 String 값
 		// 저장 실행
@@ -98,7 +96,7 @@ public class FiledbService {
 
 			// 저장하기
 			int result = filedbRepository.saveFiledb(filedb);
-			
+
 			filePath = fileDownloadUri;
 		} catch (Exception e) {
 			log.debug(e.getMessage());
@@ -110,7 +108,17 @@ public class FiledbService {
 	public Filedb findByUuid(String uuid) {
 		return filedbRepository.findByUuid(uuid);
 	}
-	
-	
-	
+
+	/**
+	 * @Method Name : deleteByUuid
+	 * @작성일 : 2024. 3. 20.
+	 * @작성자 : 최장호
+	 * @변경이력 :
+	 * @Method 설명 : Uuide로 filedb 삭제
+	 */
+	@Transactional
+	public int deleteByUuid(String uuid) {
+		return filedbRepository.deleteByUuid(uuid);
+	}
+
 }

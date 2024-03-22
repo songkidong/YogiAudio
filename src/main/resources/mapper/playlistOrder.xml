@@ -11,4 +11,16 @@
 		values(#{playlistId},#{musicNo},#{orderIndex});
 	</insert>
 
+	<select id="findLastByPlaylistId" resultType="com.project3.yogiaudio.repository.entity.playlist.PlaylistOrder">
+		select * from playlist_order where playlist_id = #{playlistId} order by order_index desc
+		limit 1;
+	</select>
+	
+	<select id="findByPlaylistIdAndIndex" parameterType="map" resultType="com.project3.yogiaudio.repository.entity.playlist.PlaylistOrder">
+		select * from playlist_order where playlist_id = #{playlistId} and music_no = #{musicNo} and order_index = #{orderIndex};
+	</select>
+	
+	<delete id="deleteById">
+		delete from playlist_order where id = #{id};
+	</delete>
 </mapper>

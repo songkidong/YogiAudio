@@ -14,5 +14,8 @@
 		select * from filedb where uuid = #{uuid}
 	</select>
 
+	<delete id="deleteByUuid">
+		delete from filedb where uuid = #{uuid}
+	</delete>
 
 </mapper>
