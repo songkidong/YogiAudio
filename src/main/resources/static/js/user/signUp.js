@@ -45,7 +45,6 @@ $("#verifyButton").click(function() {
             number: verificationCode
         },
         success: function(response) {
-            console.log(response);
             if (response == true) {
                 alert("이메일이 성공적으로 인증되었습니다.");
                 // 이메일 인증 성공 시 이메일 인증 성공 변수를 true로 변경
@@ -60,6 +59,27 @@ $("#verifyButton").click(function() {
             alert("인증 요청에 실패하였습니다.");
             // 인증 요청 실패 시 이메일 인증 성공 변수를 false로 유지
             setEmailVerification(false);
+        }
+    });
+});
+
+// 중복검사 버튼 클릭 이벤트
+$("#emailDuplicateCheckButton").click(function() {
+    var email = $("#email").val();
+    
+    $.ajax({
+        type: "GET",
+        url: "duplication/" + email,
+        success: function(response) {
+            if (response === "이메일 중복") {
+                alert("중복된 이메일입니다.");
+            setEmailVerification(false);   
+            } else {
+                alert("사용 가능한 이메일입니다.");
+
+             setEmailVerification(true);
+
+            }
         }
     });
 });
