@@ -39,6 +39,21 @@
 .my-music-container-item:last-child {
 	border-bottom: none; /* 마지막 아이템의 하단 테두리 제거 */
 }
+
+.playing-music {
+	color: blue; /* 파란색 */
+	font-weight: bold; /* 굵은 글꼴 */
+	margin-left: 5px; /* 아이콘과 텍스트 사이의 간격 조절 */
+}
+
+.playing-music::before {
+	content: "\1F3B5"; /* 음악 노트 아이콘 */
+	font-family: "Font Awesome 5 Free"; /* Font Awesome 폰트 패밀리 */
+	margin-right: 5px; /* 아이콘과 텍스트 사이의 간격 조절 */
+}
+.highlight {
+	color: white; /* 글씨 색상을 하얀색으로 지정합니다. */
+}
 </style>
 </head>
 <body>
@@ -95,8 +110,10 @@
 				<p>유저 정보 들어가는 곳</p>
 			</div>
 			<div class="ui-music-btn">
-				<button type="button" class="my-music-close">MyMusic 닫기</button>
-				<button type="button" class="my-music-open">MyMusic 열기</button>
+				<button type="button" class="my-music-close" id="my-music-close">MyMusic
+					닫기</button>
+				<button type="button" class="my-music-open" id="my-music-open">MyMusic
+					열기</button>
 				<br>
 				<button type="button" id="deleteDuplicate">중복곡 삭제</button>
 			</div>
@@ -109,107 +126,18 @@
 						data-file-music="${play.fileMusic}"
 						data-music-title="${play.musicTitle}"
 						data-music-singer="${play.musicSinger}">${play.musicTitle}-
-						${play.musicSinger}<span class="delete-btn">❌</span>
+						${play.musicSinger} <span class="delete-btn">❌</span> <span
+							class="add-btn">➕</span>
 					</div>
 				</c:forEach>
 			</div>
 			<div class="my-music-container" id="myMusicContainer">
-				<p>여기에는 플레이리스트가 들어갑니다.</p>
+				<p>플레이리스트</p>
 			</div>
 		</div>
 	</main>
 	<script>
 		var userId = '${principal.id}';
-	</script>
-	<script>
-		document.addEventListener("DOMContentLoaded", function() {
-			document.querySelector(".my-music-close").addEventListener(
-					"click",
-					function() {
-						document.getElementById("myMusicContainer").classList
-								.remove("active");
-					});
-
-			document.querySelector(".my-music-open").addEventListener(
-					"click",
-					function() {
-						document.getElementById("myMusicContainer").classList
-								.add("active");
-						// 1. ajax로 playlist 조회 - data 나온 값으로 플레이리스트에 추가.
-						// 2. 클릭 이벤트 시 addPlaylistItem에 추가하기
-						// addPlaylistItem(data, type)
-						addPlaylistItem();
-					});
-		});
-		
-		
-		// 플레이리스트에 노래 추가
-//		function addPlaylistItem(data, type) {
-		function addPlaylistItem() {
-			// ajax로 플레이리스트 추가함
-			
-			// 플레이리스트 아이템 생성
-			const playlistItem = document.createElement('div');
-			playlistItem.classList.add('my-music-container-item');
-/* 			playlistItem.setAttribute('data-lyrics', data.lyrics);
-			playlistItem.setAttribute('data-order-index', data.orderIndex);
-			playlistItem.setAttribute('data-playlist-name', data.playlistName);
-			playlistItem.setAttribute('data-music-no', data.musicNo);
-			playlistItem.setAttribute('data-file-img', data.filepath);
-			playlistItem.setAttribute('data-file-music', data.filemusic);
-			playlistItem.setAttribute('data-music-title', data.musictitle);
-			playlistItem.setAttribute('data-music-singer', data.musicsinger);
-			playlistItem.textContent = data.musictitle + '- ' + data.musicsinger; */
-			playlistItem.textContent = '안녕하세요 - 여기입니다';
-			// playlist배열에 추가
-			// 삭제 버튼 생성
-			const deleteButton = document.createElement('span');
-			deleteButton.classList.add('delete-btn');
-			deleteButton.textContent = '❌';
-/*			deleteButton.addEventListener('click', function() {
-				const index = playListItems.indexOf(playlistItem);
-				console.log('Deleted item index:', index);
-				//ajax로 playlistname, musicno, index 넘겨주면 playlist 조회 후 해당 id로 playlist_order 삭제하기
- 				$.ajax({
-					type: "POST",
-					url: "/deletePlayList",
-					data: JSON.stringify({
-						playlistName: data.playlistName,
-						musicNo: data.musicNo,
-						orderIndex: data.orderIndex
-					}), // JSON 형식의 데이터
-					contentType: "application/json",  // 데이터 형식을 JSON으로 명시한다.
-					success: function(data) {
-						// 추가한 노래 playlist에 추가
-						console.log(data);
-						alert(data);
-					},
-					error: function(XMLHttpRequest, textStatus, errorThrown) {
-						alert("통신 실패.")
-					}
-				});
-				playlistItem.remove();
-				playListItems.splice(index, 1);
-			}); */
-
-			// 플레이리스트 아이템에 삭제 버튼 추가
-			playlistItem.appendChild(deleteButton);
-
-			// 플레이리스트에 아이템 추가
-			document.querySelector('.my-music-container').appendChild(playlistItem);
-
-/* 			// 새로 추가된 아이템에 클릭 이벤트 추가
-			playlistItem.addEventListener('click', function() {
-				const lyrics = this.getAttribute('data-lyrics');
-				const musicNo = this.getAttribute('data-music-no');
-				const musicUrl = this.getAttribute('data-file-music');
-				const musicTitle = this.getAttribute('data-music-title');
-				const musicSinger = this.getAttribute('data-music-singer');
-				const albumImg = this.getAttribute('data-file-img');
-
-				setCurrentMusic(albumImg, lyrics, musicTitle, musicSinger, musicUrl, musicNo);
-			}); */
-		}
 	</script>
 </body>
 </html>

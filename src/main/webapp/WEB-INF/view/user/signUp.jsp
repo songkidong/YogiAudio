@@ -17,7 +17,7 @@
 		<li><a href="/signIn" id="signin">SIGN IN</a></li>
 		<li><a href="#" id="reset">RESET</a></li>
 	</ul>
-	<form id="signupForm" action="/signUp" method="post">
+	<form id="signupForm" action="/signUp" method="post" id="email">
 		<div class="input__block">
 			<input type="email" placeholder="Email" class="input email"
 				id="email" />
