@@ -204,7 +204,7 @@
 	
 	<!-- 음원파일등록하기 -->
 	<update id="musicUpdate">
-		update music set file_music=#{filemusic}
+		update music set file_music=#{filemusic},music_sample=#{musicsample}
 		where music_no=#{musicno}
 	</update>
 	

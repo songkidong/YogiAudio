@@ -147,8 +147,7 @@
 			<div class="col-md-5">
 				<div class="product-details">
 					<h2 class="product-price">${detail.musictitle}&nbsp;&nbsp;&nbsp;
-						<a
-							href="/product/domestic-detail?musicno=${detail.musicno}&musicmajor=${detail.musicmajor}&id=${principal.id}">
+						<a href="/product/domestic-detail?musicno=${detail.musicno}&musicmajor=${detail.musicmajor}&id=${principal.id}">
 							<span style="color: black; font-size: medium;" id="likeButton"
 							onclick="likeMusic()">💗like</span>
 					</h2>
@@ -156,8 +155,7 @@
 					<!-- 하트 버튼 추가 -->
 					<img alt="" src="/img/music_like/unlike.png" id="heart">
 					<div>
-						<h3 class="product-name">${detail.musiccompany}<del
-								class="product-old-price"></del>
+						<h3 class="product-name">${detail.musiccompany}<del class="product-old-price"></del>
 						</h3>
 					</div>
 					<br>
@@ -176,7 +174,7 @@
 					<button id="musicBtn" type="button">Music Player</button>
 					<!-- 음악 플레이어 추가 종료 -->
 					<audio id="audioPlayer" controls>
-						<source src="${detail.musicsample}" type="audio/wav">
+						<source src=" ${detail.musicsample}" type="audio/wav">
 					</audio>
 					<br>
 

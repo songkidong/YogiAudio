@@ -380,7 +380,8 @@ public class ProductController {
 	public String musicUpdatePOST(MusicDTO dto) {
 		
 		String fileMusic = filedbService.saveFiles(dto.getFiles());
-		musicService.musicUpdate(dto, fileMusic);
+		String musicSample = filedbService.saveFiles(dto.getFiles());
+		musicService.musicUpdate(dto, fileMusic, musicSample);
 		
 		return "redirect:/product/domestic-music";
 		
