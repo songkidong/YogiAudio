@@ -176,7 +176,7 @@
 					<button id="musicBtn" type="button">Music Player</button>
 					<!-- 음악 플레이어 추가 종료 -->
 					<audio id="audioPlayer" controls>
-						<source src="/music/${detail.musicsample}" type="audio/wav">
+						<source src="${detail.musicsample}" type="audio/wav">
 					</audio>
 					<br>
 
