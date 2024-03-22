@@ -10,8 +10,8 @@
 	<h2>Now Playing: Song Title</h2>
 
 
-	<button id="addBtn" type="button">Add to Playlist</button>
-	<button id="playBtn" type="button">Play Music</button>
+	<button id="addBtn" type="button"  class="addPlayerBtn">Add to Playlist</button>
+	<button id="playBtn" type="button"  class="playBtn">Play Music</button>
 	<button id="musicBtn" type="button">Music Player</button>
 
 <script>

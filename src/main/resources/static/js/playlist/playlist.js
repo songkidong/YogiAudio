@@ -36,12 +36,18 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 	// 이하 이벤트 리스너 등록
-	document.getElementById('addBtn').addEventListener('click', function() {
-		sendDataToChild('add');
+	const addButtons = document.querySelectorAll('.addPlayerBtn');
+	addButtons.forEach(button => {
+		button.addEventListener('click', function() {
+			sendDataToChild('add');
+		});
 	});
-
-	document.getElementById('playBtn').addEventListener('click', function() {
-		sendDataToChild('play');
+	// playBtn을 클래스로 변경하여 모든 버튼에 적용
+	const playButtons = document.querySelectorAll('.playBtn');
+	playButtons.forEach(button => {
+		button.addEventListener('click', function() {
+			sendDataToChild('play');
+		});
 	});
 
 	document.getElementById('musicBtn').addEventListener('click', function() {

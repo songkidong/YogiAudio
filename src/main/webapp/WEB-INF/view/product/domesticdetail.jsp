@@ -171,8 +171,8 @@
 					<br>
 					<p>샘플듣기</p>
 					<!-- 음악 플레이어 추가 -->
-					<button id="addBtn" type="button">Add to Playlist</button>
-					<button id="playBtn" type="button">Play Music</button>
+					<button id="addBtn" type="button" class="addPlayerBtn">Add to Playlist</button>
+					<button id="playBtn" type="button" class="playBtn">Play Music</button>
 					<button id="musicBtn" type="button">Music Player</button>
 					<!-- 음악 플레이어 추가 종료 -->
 					<audio id="audioPlayer" controls>

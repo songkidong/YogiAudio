@@ -82,11 +82,12 @@
 												<th>제목</th>
 												<th>가수</th>
 												<th>뮤비</th>
+												<th>듣기</th>
 											</tr>
 										</thead>
 										<tbody class="table-border-bottom-0">
 											<c:forEach items="${playlist}" var="play" varStatus="loop">
-												<tr>
+												<tr data-music-no="${play.musicNo}">
 													<td>${loop.index + 1}</td>
 													<td><img src="${play.filePath}" width="75" height="75">
 													<td>${play.musicTitle}</td>
@@ -94,6 +95,9 @@
 													<td><a href="${play.mvFile}"> <span
 															class="bi bi-youtube "></span>
 													</a></td>
+													<td><button id="playBtn" type="button" class="playBtn">
+														<i class="bi bi-play"></i>
+													</button></td>
 												</tr>
 											</c:forEach>
 
@@ -101,11 +105,8 @@
 										</tbody>
 									</table>
 								</div>
-								<button id="addBtn" type="button">
+								<button id="addBtn" type="button" class="addPlayerBtn">
 									<i class="bi bi-plus-circle"></i>
-								</button>
-								<button id="playBtn" type="button">
-									<i class="bi bi-play"></i>
 								</button>
 								<button id="musicBtn" type="button">Music Player</button>
 							</div>
@@ -131,6 +132,15 @@
 	<!--  playlist 스크립트 시작 -->
 	<script>
 		var userId = '${principal.id}';
+		var musicNo;
+		const tableRows = document.querySelectorAll('.table tbody tr');
+		tableRows.forEach(row => {
+		    row.addEventListener('click', function(event) {
+		        event.stopPropagation(); // 부모 요소의 이벤트 전파 방지
+		        musicNo = row.getAttribute('data-music-no');
+		        console.log(musicNo);
+		    });
+		});
 	</script>
 	<script src="/js/playlist/playlist.js"></script>
 	<!--  playlist 스크립트 종료 -->

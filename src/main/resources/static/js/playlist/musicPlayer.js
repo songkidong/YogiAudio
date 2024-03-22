@@ -1029,7 +1029,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			setCurrentMusic(albumImg, lyrics, musicTitle, musicSinger, musicUrl, musicNo, musicMajor);
 		});
-		if (type == 'play') {
+		if (type === 'play') {
 			playlistItem.click();
 		}
 	}
