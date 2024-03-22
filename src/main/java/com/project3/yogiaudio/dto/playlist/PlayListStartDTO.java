@@ -22,4 +22,5 @@ public class PlayListStartDTO {
 	private String musicSample;
 	private String fileMusic;
 	private String mvFile;
+	private String musicMajor;
 }
