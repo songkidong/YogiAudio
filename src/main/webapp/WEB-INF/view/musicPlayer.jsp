@@ -104,9 +104,6 @@
 							<a href="#" id=download>다운로드</a>
 						</div>
 						<div>
-							<a href="#" id=addMyMusicList>담기</a>
-						</div>
-						<div>
 							<a href="#" id=musicInfo>곡정보</a>
 						</div>
 					</div>
@@ -152,7 +149,9 @@
 		</div>
 		<div class="container">
 			<div class="ui-user">
-				<p>유저 정보 들어가는 곳</p>
+				<c:if test="${not empty principal.nickname}">
+					<p>${principal.nickname} 님</p>
+				</c:if>
 			</div>
 			<div class="ui-music-btn">
 				<button type="button" class="my-music-close" id="my-music-close">MyMusic
@@ -191,24 +190,6 @@
 				payment_yn = null;
 			}
 		}
-	</script>
-	<script>
-		document.addEventListener("DOMContentLoaded",
-				function() {
-					const dropdown = document.querySelector('.dropdown');
-					const dropdownContent = dropdown
-							.querySelector('.dropdown-content');
-
-					dropdownContent.style.display = 'none'; // 페이지 로드시 숨김
-
-					dropdown.addEventListener('click', function() {
-						if (dropdownContent.style.display === 'none') {
-							dropdownContent.style.display = 'block';
-						} else {
-							dropdownContent.style.display = 'none';
-						}
-					});
-				});
 	</script>
 </body>
 </html>

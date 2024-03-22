@@ -369,9 +369,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 		});
+	const dropdown = document.querySelector('.dropdown');
+	const dropdownContent = dropdown
+		.querySelector('.dropdown-content');
+
+	dropdownContent.style.display = 'none'; // 페이지 로드시 숨김
+
+	dropdown.addEventListener('click', function() {
+		if (dropdownContent.style.display === 'none') {
+			dropdownContent.style.display = 'block';
+		} else {
+			dropdownContent.style.display = 'none';
+		}
+	});
 
 	const downloadLink = document.getElementById('download');
-	const addMyMusicListLink = document.getElementById('addMyMusicList');
 	const musicInfoLink = document.getElementById('musicInfo');
 
 	// 다운로드 링크 클릭 이벤트 처리
@@ -395,13 +407,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 		// 다운로드 기능 수행
 		console.log('다운로드 기능 수행');
-	});
-
-	// 담기 링크 클릭 이벤트 처리
-	addMyMusicListLink.addEventListener('click', function(event) {
-		event.preventDefault(); // 링크의 기본 동작 방지
-		// 담기 기능 수행
-		console.log('담기 기능 수행');
 	});
 
 	// 곡정보 링크 클릭 이벤트 처리
@@ -862,7 +867,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		// 새로 추가된 아이템에 클릭 이벤트 추가
 		playlistItem.addEventListener('click', function() {
-			addPlaylistItem(data, "add");
+			var playItemData = {
+				lyrics: data.lyrics,
+				orderIndex: data.orderIndex,
+				playlistName: data.playlistName,
+				musicNo: data.musicNo,
+				filepath: data.filePath,
+				filemusic: data.fileMusic,
+				musicsample: data.musicSample,
+				musictitle: data.musicTitle,
+				musicsinger: data.musicSinger,
+				musicmajor: data.musicMajor
+			};
+			console.log(playItemData.lyrics);
+			console.log(playItemData.orderIndex);
+			console.log(playItemData.playlistName);
+			console.log(playItemData.musicNo);
+			console.log(playItemData.filepath);
+			console.log(playItemData.filemusic);
+			console.log(playItemData.musicsample);
+			console.log(playItemData.musictitle);
+			console.log(playItemData.musicsinger);
+			console.log(playItemData.musicmajor);
+			addPlaylistItem(playItemData, "play");
 			console.log("클릭됨 ");
 		});
 	}
