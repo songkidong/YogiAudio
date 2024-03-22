@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>결제 내역</title>
+<title>좋아요</title>
 <!-- CSS -->
 
 <!-- Fonts -->
@@ -48,7 +48,7 @@
 
 					<div class="container-xxl flex-grow-1 container-p-y">
 						<h4 class="py-3 mb-4">
-							<span class="text-muted fw-light">마이페이지 /</span> 결제 내역
+							<span class="text-muted fw-light">마이페이지 /</span> 좋아요
 						</h4>
 
 						<div class="row">
@@ -57,42 +57,43 @@
 									<li class="nav-item"><a class="nav-link"
 										href="/account/${principal.id}"><i class="bx bx-user me-1"></i>
 											계정</a></li>
-									<li class="nav-item"><a class="nav-link active"
+									<li class="nav-item"><a class="nav-link"
 										href="/payment"><i class="bx bx-table me-1"></i> 결제 내역</a></li>
 									<li class="nav-item"><a class="nav-link"
 										href="/myPlaylist"><i class="bx bx-music me-1"></i> 플리</a></li>
-									<li class="nav-item"><a class="nav-link" href="/likemusic"><i
-											class="bx bx-like me-1"></i> 좋아요</a></li>
+									<li class="nav-item"><a class="nav-link active"
+										href="/likemusic"><i class="bx bx-like me-1"></i> 좋아요</a></li>
 								</ul>
 
 							</div>
 						</div>
-						<c:if test="${empty paymentList}">
-							<h1 style="display: flex; justify-content: center;">결제 내역이
-								존재하지 않습니다</h1>
+						<c:if test="${empty likemusicList}">
+							<h1 style="display: flex; justify-content: center;">좋아요가 없어요</h1>
 						</c:if>
 
 						<!-- Basic Bootstrap Table -->
-						<c:if test="${not empty paymentList}">
+						<c:if test="${not empty likemusicList}">
 							<div class="card">
-								<h5 class="card-header">결제 내역</h5>
+								<h5 class="card-header">좋아요</h5>
 								<div class="table-responsive text-nowrap">
 									<table class="table">
 										<thead>
 											<tr>
-												<th>결제번호</th>
-												<th>상품</th>
-												<th>가격</th>
-												<th>구매일시</th>
+												<th>번호</th>
+												<th>앨범</th>
+												<th>제목</th>
+												<th>가수</th>
+												<th>좋아요 한 날</th>
 											</tr>
 										</thead>
 										<tbody class="table-border-bottom-0">
-											<c:forEach items="${paymentList}" var="pay">
+											<c:forEach items="${likemusicList}" var="list" varStatus="loop">
 												<tr>
-													<td>${pay.hno}</td>
-													<td>${pay.purchaseName}</td>
-													<td>${pay.amount}</td>
-													<td>${pay.date}</td>
+													<td>${loop.index + 1}</td>
+													<td><img src="${list.filePath}" width="75" height="75">
+													<td>${list.musicTitle}</td>
+													<td>${list.musicSinger}</td>
+													<td>${list.createdAt}</td>
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -113,7 +114,7 @@
 					<!-- pageVO.prev가 참(시작페이지가 1이 아닐 때)이면 이전버튼 li태그 생성 -->
 					<c:if test="${pageVO.prev }">
 						<li class="page-item"><a class="page-link"
-							href="/payment?page=${pageVO.startPage - 1 }"><i
+							href="/likemusic?page=${pageVO.startPage - 1 }"><i
 								class="fas fa-chevron-left"></i></a></li>
 					</c:if>
 
@@ -123,7 +124,7 @@
 						<!-- 페이지 번호 클릭했을 때 Controller에서 pageVO.setCri(cri) 메서드를 통해, 현재 페이지 값 가져올 수 있음 -->
 						<li class="page-item ${pageVO.cri.page eq i ? 'active' : ''}">
 							<!-- Controller에서 Criteria가 매개변수로 있어서, 여기서 page값 파라미터로 보낼때 받을 수 있음 -->
-							<a class="page-link" href="/payment?page=${i }">${i }</a>
+							<a class="page-link" href="/likemusic?page=${i }">${i }</a>
 						</li>
 					</c:forEach>
 					<!-- 반복문 끝 -->
@@ -131,7 +132,7 @@
 					<!-- pageVO.nexr가 참(끝페이지 * 페이지당 게시글 수가 총 갯수보다 작으면)이면 다음버튼 li태그 생성 -->
 					<c:if test="${pageVO.next }">
 						<li class="page-item"><a class="page-link"
-							href="/payment?page=${pageVO.endPage + 1 }"><i
+							href="/likemusic?page=${pageVO.endPage + 1 }"><i
 								class="fas fa-chevron-right"></i></a></li>
 					</c:if>
 

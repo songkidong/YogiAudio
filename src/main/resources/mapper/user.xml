@@ -54,7 +54,7 @@
 
 	<!-- 결제 내역 -->
 	<select id="findAllHistory"
-		resultType="com.project3.yogiaudio.repository.entity.History">
+		resultType="com.project3.yogiaudio.dto.user.HistoryListDTO">
 		select a.hno, a.amount, a.date, c.purchasename from
 		history
 		as a
@@ -64,15 +64,40 @@
 		on a.pno = c.pno
 		where a.id = #{userId}
 		order by a.hno desc
-		limit #{cri.offset}, #{cri.pageSize}
+		limit #{cri.offset},
+		#{cri.pageSize}
 	</select>
 
 	<select id="countAllHistory" resultType="int">
-		select count(*) from history as a
+		select count(*) from
+		history as a
 		join user as b
 		on a.id = b.id
 		join purchase as c
-		on a.pno = c.pno
+		on a.pno =
+		c.pno
 		where a.id = #{userId}
+	</select>
+
+	<select id="findAllLikeMusic"
+		resultType="com.project3.yogiaudio.dto.user.LikeMusicDTO">
+		select c.file_path, c.music_no, c.music_title,
+		c.music_singer,a.created_at
+		from like_music a
+		join user b on a.user_id =
+		b.id
+		join music c on a.music_no = c.music_no
+		where b.id = #{userId}
+		limit #{cri.offset},
+		#{cri.pageSize}
+	</select>
+
+	<select id="countAllLikeMusic" resultType="int">
+		select count(*) from
+		like_music a
+		join user b on a.user_id = b.id
+		join music c on a.music_no
+		= c.music_no
+		where b.id = #{userId}
 	</select>
 </mapper>

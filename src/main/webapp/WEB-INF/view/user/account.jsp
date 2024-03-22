@@ -58,11 +58,12 @@
 									<li class="nav-item"><a class="nav-link active"
 										href="/account/${principal.id}"><i class="bx bx-user me-1"></i>
 											계정</a></li>
-									<li class="nav-item"><a class="nav-link"
-										href="/payment"><i
+									<li class="nav-item"><a class="nav-link" href="/payment"><i
 											class="bx bx-table me-1"></i> 결제 내역</a></li>
 									<li class="nav-item"><a class="nav-link"
 										href="/myPlaylist"><i class="bx bx-music me-1"></i> 플리</a></li>
+									<li class="nav-item"><a class="nav-link" href="/likemusic"><i
+											class="bx bx-like me-1"></i> 좋아요</a></li>
 								</ul>
 								<div class="card mb-4">
 									<h5 class="card-header">나의 정보</h5>

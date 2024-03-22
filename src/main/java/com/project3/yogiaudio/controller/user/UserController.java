@@ -26,7 +26,9 @@ import com.project3.yogiaudio.dto.common.Criteria;
 import com.project3.yogiaudio.dto.common.PageVO;
 import com.project3.yogiaudio.dto.playlist.PlayListStartDTO;
 import com.project3.yogiaudio.dto.user.GoogleProfile;
+import com.project3.yogiaudio.dto.user.HistoryListDTO;
 import com.project3.yogiaudio.dto.user.KakaoProfile;
+import com.project3.yogiaudio.dto.user.LikeMusicListDTO;
 import com.project3.yogiaudio.dto.user.NaverProfile;
 import com.project3.yogiaudio.dto.user.OAuthToken;
 import com.project3.yogiaudio.dto.user.UpdateUserDTO;
@@ -35,6 +37,7 @@ import com.project3.yogiaudio.filedb.service.FiledbService;
 import com.project3.yogiaudio.repository.entity.History;
 import com.project3.yogiaudio.repository.entity.User;
 import com.project3.yogiaudio.repository.entity.playlist.Playlist;
+import com.project3.yogiaudio.repository.entity.product.LikeMusic;
 import com.project3.yogiaudio.service.UserService;
 import com.project3.yogiaudio.service.playlist.PlaylistService;
 import com.project3.yogiaudio.util.Define;
@@ -175,7 +178,7 @@ public class UserController {
 	public String paymentPage(AdminCriteria cri, Model model) {
 		
 		User user = (User) httpsession.getAttribute(Define.PRINCIPAL);
-		List<History> paymentList = userService.findAllHistory(cri, user.getId());
+		List<HistoryListDTO> paymentList = userService.findAllHistory(cri, user.getId());
 		model.addAttribute("paymentList", paymentList);
 		
 		AdminPageVO pageVO = new AdminPageVO();
@@ -184,6 +187,28 @@ public class UserController {
 		model.addAttribute("pageVO",pageVO);
 		
 		return "/user/payment";
+	}
+	
+	/**
+	  * @Method Name : likemusicPage
+	  * @작성일 : 2024. 3. 22.
+	  * @작성자 : 송기동
+	  * @변경이력 : 
+	  * @Method 설명 : 좋아요 페이지
+	  */
+	@GetMapping("/likemusic")
+	public String likemusicPage(AdminCriteria cri, Model model) {
+		
+		User user = (User) httpsession.getAttribute(Define.PRINCIPAL);
+		List<LikeMusicListDTO> likemusicList = userService.findAllLikeMusic(cri, user.getId());
+		model.addAttribute("likemusicList", likemusicList);
+		
+		AdminPageVO pageVO = new AdminPageVO();
+		pageVO.setCri(cri);
+		pageVO.setTotalCount(userService.countAllLikeMusic(user.getId()));
+		model.addAttribute("pageVO",pageVO);
+		
+		return "/user/likemusic";
 	}
 
 	/**

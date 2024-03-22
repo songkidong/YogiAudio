@@ -12,9 +12,12 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.project3.yogiaudio.dto.admin.AdminCriteria;
 import com.project3.yogiaudio.dto.common.Criteria;
+import com.project3.yogiaudio.dto.user.HistoryListDTO;
+import com.project3.yogiaudio.dto.user.LikeMusicListDTO;
 import com.project3.yogiaudio.dto.user.UserDTO;
 import com.project3.yogiaudio.repository.entity.History;
 import com.project3.yogiaudio.repository.entity.User;
+import com.project3.yogiaudio.repository.entity.product.LikeMusic;
 import com.project3.yogiaudio.repository.interfaces.UserRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -116,12 +119,18 @@ public class UserService {
 	}
 
 	// 결제 내역 조회
-	public List<History> findAllHistory(AdminCriteria cri, Long userId) {
+	public List<HistoryListDTO> findAllHistory(AdminCriteria cri, Long userId) {
 		return userRepository.findAllHistory(cri, userId);
 	}
-
 	public int countAllHistory(Long userId) {
-
 		return userRepository.countAllHistory(userId);
+	}
+	
+	// 좋아요 내역 조회
+	public List<LikeMusicListDTO> findAllLikeMusic(AdminCriteria cri, Long userId) {
+		return userRepository.findAllLikeMusic(cri, userId);
+	}
+	public int countAllLikeMusic(Long userId) {
+		return userRepository.countAllLikeMusic(userId);
 	}
 }

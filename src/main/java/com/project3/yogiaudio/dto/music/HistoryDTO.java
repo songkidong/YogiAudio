@@ -1,7 +1,5 @@
 package com.project3.yogiaudio.dto.music;
 
-import com.project3.yogiaudio.repository.entity.History;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
