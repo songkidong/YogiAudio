@@ -16,6 +16,7 @@ import com.project3.yogiaudio.filedb.service.FiledbService;
 import com.project3.yogiaudio.repository.entity.User;
 import com.project3.yogiaudio.service.CancelService;
 import com.project3.yogiaudio.service.PurchaseService;
+import com.project3.yogiaudio.service.UserService;
 import com.project3.yogiaudio.util.Define;
 import com.project3.yogiaudio.util.Scheduler;
 
@@ -35,6 +36,10 @@ public class PurchaseController {
 	private Scheduler scheduler;
 	@Autowired
 	private CancelService cancelService;
+	@Autowired
+	HttpSession session;
+	@Autowired
+	private UserService userService;
 	
 	// http://localhost:80/purchase/main
 	
@@ -90,6 +95,10 @@ public class PurchaseController {
 	public String paymentSuccessGET(@RequestParam(value = "id") int id,@RequestParam(value="orderId") String orderId, @RequestParam(value="paymentKey") String paymentKey, @RequestParam(value="amount") int amount,@RequestParam(value="pno") int pno) {
 		purchaseService.insertHistory(id, orderId, paymentKey, amount,pno);
 	    purchaseService.statusUpdate(id);
+	    
+	    // session update
+	    User user = userService.findById((long)id);
+	    session.setAttribute(Define.PRINCIPAL, user);
 	    
 	    //업데이트될때 pno 값에따라서 기간정해지는 업데이트 메서드 호출!
 	    // 1개월 -> pno = 1 , 3개월 -> pno =2  , 6개월 -> pno =3 , 12개월 -> pno=4 
