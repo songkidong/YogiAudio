@@ -27,16 +27,16 @@ import lombok.extern.log4j.Log4j2;
 public class AdminRestfulController {
 
 	@Autowired
-	AdminService adminService;
+	private AdminService adminService;
 	
 	@Autowired
-	AdminBoardService adminBoardService;
+	private AdminBoardService adminBoardService;
 	
-	// 유저 삭제
-	@DeleteMapping("/user/{id}")
-	public ResponseEntity<?> deleteUser(@PathVariable("id") Long id) {
+	// 유저 탈퇴
+	@PostMapping("/user/{id}")
+	public ResponseEntity<?> withdrawUser(@PathVariable("id") Integer id) {
 		
-		boolean result = adminService.deleteUser(id);
+		boolean result = adminService.withdrawUser(id);
 		
 		return new ResponseEntity<Boolean>(result, HttpStatus.OK);
 	}
@@ -140,6 +140,23 @@ public class AdminRestfulController {
 		return new ResponseEntity<Filedb>(file, HttpStatus.OK);
 	}
 	
+	
+	// 환불 승인
+	@PostMapping("/refund/{id}")
+	public ResponseEntity<?> updateRefund(@PathVariable("id") Integer id,
+										@RequestParam("userId") Integer userId, 
+										@RequestParam("amount") Integer amount, 
+										@RequestParam("pNo") Integer pNo) {
+		
+		log.info("id : " + id);
+		log.info("userId : " + userId);
+		log.info("amount : " + amount);
+		log.info("pNo : " + pNo);
+		
+		boolean result = adminService.updateRefund(id, userId, amount, pNo);
+		
+		return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+	}
 	
 	
 }

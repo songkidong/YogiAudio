@@ -32,10 +32,10 @@ public class AdminController {
 
 	// Autowired에 final 선언
 	@Autowired
-	AdminService adminService;
+	private AdminService adminService;
 	
 	@Autowired
-	AdminBoardService adminBoardService;
+	private AdminBoardService adminBoardService;
 
 	// 인덱스
 	@GetMapping("/index")

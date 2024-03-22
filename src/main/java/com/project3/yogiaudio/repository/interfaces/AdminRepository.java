@@ -23,8 +23,8 @@ public interface AdminRepository {
 	public List<User> findAllUser(AdminCriteria cri);
 	// 유저 카운팅
 	public int countAllUser();
-	// 유저 삭제 / 타입 long
-	public boolean deleteUser(Long id);
+	// 유저 탈퇴
+	public boolean withdrawUser(Integer id);
 	
 	// 음악 목록
 	public List<Music> findAllMusic(AdminCriteria cri);
@@ -42,5 +42,6 @@ public interface AdminRepository {
 	public List<Refund> findAllRefund(AdminCriteria cri);
 	// 환불 내역 카운팅
 	public int countAllRefund();
-	
+	// 환불 승인
+	public boolean updateRefund(Integer id);
 }
