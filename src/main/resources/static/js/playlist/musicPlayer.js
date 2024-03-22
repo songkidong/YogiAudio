@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			const playlistName = this.getAttribute('data-playlist-name');
 			const lyrics = this.getAttribute('data-lyrics');
 			const musicNo = this.getAttribute('data-music-no');
-			const musicUrl = this.getAttribute('data-file-music');
+			const musicUrl = (payment_yn == null || payment_yn == '') ? this.getAttribute('data-music-sample') : this.getAttribute('data-file-music');
 			const musicTitle = this.getAttribute('data-music-title');
 			const musicSinger = this.getAttribute('data-music-singer');
 			const albumImg = this.getAttribute('data-file-img');
@@ -361,6 +361,41 @@ document.addEventListener('DOMContentLoaded', function() {
 		// 좋아요 버튼 클릭 이벤트 처리 함수 호출
 		likeBtnHandler(musicNo, heartBtnImg);
 	});
+	const addCurrentMusicToPlaylist = document.getElementById('add-playlist');
+	let currentMusicNo;
+	addCurrentMusicToPlaylist.addEventListener('click', function(event) {
+		if (userId == null || userId == '') {
+			if (confirm("로그인 하시겠습니까?")) {
+				window.opener.location.href = '/signIn'; // 메인 페이지 URL로 리다이렉트
+				return;
+			}
+		} else {
+			// AJAX 요청을 보냅니다.
+			if (currentMusicNo == null || currentMusicNo == '') {
+				alert("재생된 노래가 없습니다");
+			} else {
+				$.ajax({
+					type: 'POST',
+					url: '/addPlayList',
+					data: JSON.stringify({
+						userId: userId,
+						playlistName: "playlist",
+						musicNo: currentMusicNo
+					}),
+					contentType: 'application/json',
+					success: function(response) {
+						alert(response);
+						alert("플레이리스트에 추가 되었습니다");
+					},
+					error: function(error) {
+						console.error('Error adding music to playlist:', error);
+						// 실패한 경우 사용자에게 알립니다.
+						alert('Failed to add music to playlist.');
+					}
+				});
+			}
+		}
+	});
 
 	const lyricsContainer = document.getElementById('lyrics-container');
 	const uiCover = document.querySelector('.ui-cover');
@@ -434,7 +469,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		const firstPlaylistName = firstSong.getAttribute('data-playlist-name');
 		const firstLyrics = this.getAttribute('data-lyrics');
 		const firstMusicNo = firstSong.getAttribute('data-music-no');
-		const firstMusicUrl = firstSong.getAttribute('data-file-music');
+		const firstMusicUrl = (payment_yn == null || payment_yn == '') ? firstSong.getAttribute('data-music-sample') : firstSong.getAttribute('data-file-music');
 		const firstMusicTitle = firstSong.getAttribute('data-music-title');
 		const firstMusicSinger = firstSong.getAttribute('data-music-singer');
 		const firstAlbumImg = firstSong.getAttribute('data-file-img');
@@ -558,6 +593,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 	// 재생할 곡 세팅 함수
 	function setCurrentMusic(albumImg, lyrics, musicTitle, musicSinger, musicUrl, musicNo) {
+		currentMusicNo = musicNo;
 		// 좋아요 체크
 		likeCheck(musicNo, heartBtnImg);
 		// ui-actions 요소에 추가
@@ -761,6 +797,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		playlistItem.setAttribute('data-music-no', data.musicNo);
 		playlistItem.setAttribute('data-file-img', data.filepath);
 		playlistItem.setAttribute('data-file-music', data.filemusic);
+		playlistItem.setAttribute('data-music-sample', data.musicsample);
 		playlistItem.setAttribute('data-music-title', data.musictitle);
 		playlistItem.setAttribute('data-music-singer', data.musicsinger);
 		playlistItem.textContent = data.musictitle + '- ' + data.musicsinger;
@@ -846,7 +883,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		playlistItem.addEventListener('click', function() {
 			const lyrics = this.getAttribute('data-lyrics');
 			const musicNo = this.getAttribute('data-music-no');
-			const musicUrl = this.getAttribute('data-file-music');
+			const musicUrl = (payment_yn == null || payment_yn == '') ? this.getAttribute('data-music-sample') : this.getAttribute('data-file-music');
 			const musicTitle = this.getAttribute('data-music-title');
 			const musicSinger = this.getAttribute('data-music-singer');
 			const albumImg = this.getAttribute('data-file-img');
