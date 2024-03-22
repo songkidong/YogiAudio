@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.project3.yogiaudio.repository.interfaces.product.LikeMusicRepository">
+	<insert id="insert">
+		insert into like_music(user_id, music_no)
+		values(#{userId}, #{musicNo});
+	</insert>
+
+	<delete id="delete">
+		delete from like_music where id = #{id};
+	</delete>
+
+	<select id="findByUseIdAndMusicNo" resultType="com.project3.yogiaudio.repository.entity.product.LikeMusic">
+		select * from like_music where user_id= #{userId} and music_no = #{musicNo};
+	</select>
+</mapper>

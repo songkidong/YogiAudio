@@ -10,4 +10,7 @@ public class Define {
 	// 로그인 세션
 	public static final String PRINCIPAL = "principal";
 
+	// 플레이리스트
+	public static final String PLAYLIST_DEFAULT = "default";
+	public static final String PLAYLIST = "playlist";
 }

@@ -1,0 +1,229 @@
+#board {
+	display: flex;
+	flex-direction: column;
+	padding-top: 5%;
+	padding-bottom: 5%;
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+.board-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.title-container {
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+}
+
+h2 {
+	padding-bottom: 55px;
+	padding-right: 10px;
+}
+
+#board>div>table>thead>tr>th {
+	font-weight: bold;
+	text-align: center;
+}
+
+#board>div>nav {
+	margin-top: 40px;
+}
+
+#board>div>div>div {
+	float: right;
+	display: flex;
+	padding-bottom: 20px;
+}
+
+nav {
+	display: flex;
+	justify-content: center;
+	margin-top: 20px; /* Adjust the margin as needed */
+}
+
+/* Container styles */
+.board-container {
+	margin-top: 20px;
+}
+
+/* Search input styles */
+.input-group {
+	margin-bottom: 20px;
+}
+
+/* Table styles */
+.table {
+	width: 100%;
+	margin-bottom: 20px;
+	border-collapse: collapse;
+	background-color: #fff;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.table th, .table td {
+	padding: 10px;
+	text-align: center;
+}
+
+/* Table header styles */
+.table tbody tr {
+	height: 50px; /* Adjust the height as needed */
+}
+
+.thead-light th {
+	background-color: #f8f9fa;
+}
+
+/* Megaphone and file icon styles */
+.bi-megaphone-fill, .bi-file-earmark-text-fill {
+	font-size: 1.5em;
+	color: #f0ad4e
+}
+
+/* Pagination styles */
+.pagination {
+	margin-top: 20px;
+}
+
+.page-item.disabled .page-link {
+	color: #6c757d;
+	pointer-events: none;
+	cursor: not-allowed;
+}
+
+.page-item a {
+	text-decoration: none;
+	color: #007bff;
+}
+
+/* Pagination styles */
+.pagination {
+	margin-top: 20px;
+}
+
+.pagination ul {
+	list-style: none;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.pagination a, .pagination span {
+	display: block;
+	padding: 10px;
+	border: 1px solid #007bff;
+	border-radius: 5px;
+	text-decoration: none;
+	color: #007bff;
+}
+
+.pagination .page-item.disabled a, .pagination .page-item.disabled span
+	{
+	color: #6c757d;
+	pointer-events: none;
+	cursor: not-allowed;
+}
+
+/* Search container styles */
+.input-group {
+	margin-bottom: 20px;
+}
+
+/* Search input styles */
+.searchType, .searchInput, .searchButton {
+	height: 40px;
+}
+
+.form-outline {
+	flex: 1;
+}
+
+.searchType, .searchInput {
+	border: 1px solid #ced4da;
+	border-radius: 5px;
+	padding: 8px;
+}
+
+/* Search button styles */
+.searchButton {
+	border: 1px solid #f0ad4e;
+	border-radius: 5px;
+	color: white;
+	cursor: pointer;
+}
+
+#btnInsert:after {
+	content: "등록"; /* Display "등록" text after the button */
+	margin-left: 5px; /* Adjust spacing as needed */
+}
+
+.pagination {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.page-item {
+	list-style-type: none;
+}
+
+.page-link {
+	text-decoration: none;
+	padding: 5px 10px;
+	color: #333;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	transition: all 0.3s ease;
+}
+
+.page-link:hover {
+	background-color: #f0f0f0;
+}
+
+.page-item.active .page-link {
+	background-color: #f0ad4e;
+	color: #fff;
+	border-color: #eea236;
+}
+
+#board>div>form>div>div {
+	float: right;
+	display: flex;
+}
+
+#board>div>div.title-container>h2>a:hover {
+	color: inherit;
+}
+
+.form-select {
+	position: relative;
+	background-color: transparent;
+	border: none; /* 선택 상자 주변의 테두리 제거 */
+	color: inherit; /* 폰트 색상 유지 */
+	padding: 0; /* 내부 여백 제거 */
+	-webkit-appearance: none; /* 웹킷 브라우저에서 기본 UI 제거 */
+	-moz-appearance: none; /* 모질라 브라우저에서 기본 UI 제거 */
+	appearance: none; /* 기본 UI 제거 */
+	position: relative;
+	z-index: 1;
+	
+}
+
+.form-select::after {
+    content: "\25BC";
+    font-family: Arial, sans-serif;
+    position: absolute;
+    top: 50%;
+    right: 0.5rem;
+    transform: translateY(-50%);
+    pointer-events: none; /* 화살표 아이콘에 대한 이벤트 처리 방지 */
+}
+
+/* 선택 상자 호버 상태 스타일링 */
+.form-select:hover {
+	cursor: pointer;
+}

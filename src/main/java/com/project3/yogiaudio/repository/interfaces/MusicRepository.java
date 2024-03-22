@@ -87,6 +87,9 @@ public interface MusicRepository {
 
 	//좋아요업데이트하기
 	public int likeit(MusicDTO dto,@Param(value = "musicno") int musicno, @Param(value = "musicmajor") String musicmajor);
+
+	//musicno로 음악 찾기
+	public MusicDTO findByMusicNo(int musicNo);
 	
 	
 	

@@ -1,5 +1,7 @@
 package com.project3.yogiaudio.dto.user;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +13,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class SignUpFormDTO {
+public class UpdateUserDTO {
 	
 	private long id;
 	private String name;
@@ -19,5 +21,5 @@ public class SignUpFormDTO {
 	private String email;
 	private String password;
 	private String status;
-	private String cancel;
+	private MultipartFile profileFile;
 }

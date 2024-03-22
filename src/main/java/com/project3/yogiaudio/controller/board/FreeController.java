@@ -8,14 +8,58 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@RequestMapping("/board/free")
 public class FreeController {
 
-	public String boardFree() {
+	// http://localhost:80/board/free/freeList
+	/**
+	 * @Method Name : freeList
+	 * @작성일 : 2024. 3. 12.
+	 * @작성자 : 노수현
+	 * @변경이력 :
+	 * @Method 설명 : 자유게시판 목록 화면
+	 */
+	@GetMapping("/freeList")
+	public String freeList() {
+
+		return "board/free/freeList";
+	}
+
+	/**
+	  * @Method Name : freeView
+	  * @작성일 : 2024. 3. 13.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 자유게시판 상세보기 화면
+	  */
+	@GetMapping("/freeView")
+	public String freeView() {
 		
-		return"";
+		return "board/free/freeView";
 	}
 	
+	/**
+	  * @Method Name : freeWrite
+	  * @작성일 : 2024. 3. 13.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 자유게시판 작성하기 화면
+	  */
+	@GetMapping("/freeWrite")
+	public String freeWrite() {
+		return "board/free/freeWrite";
+	}
 	
-	
+	/**
+	  * @Method Name : freeUpdate
+	  * @작성일 : 2024. 3. 13.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 자유게시판 수정하기 화면
+	  */
+	@GetMapping("/freeUpdate")
+	public String freeUpdate() {
+		return "board/free/freeUpdate";
+	}
 	
 }

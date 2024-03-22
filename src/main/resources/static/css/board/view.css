@@ -1,0 +1,139 @@
+#board {
+	display: flex;
+	flex-direction: column;
+	padding-top: 5%;
+	padding-bottom: 5%;
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+.board-container {
+	display: flex;
+	flex-direction: column;
+}
+
+h2 {
+	padding-bottom: 55px;
+}
+
+#board>div>div:nth-child(2) {
+	display: flex;
+}
+
+.card {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.card-header {
+  margin-bottom: 10px;
+}
+
+.card-body {
+  margin-top: 20px;
+}
+
+label {
+  font-weight: bold;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 5px;
+}
+
+p#content-display {
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+#formComment>div>a {
+	margin-right: 5px;
+}
+
+#btnComment {
+	margin-right: 19px;
+}
+
+.button-container {
+	display: flex;
+	justify-content: flex-end; /* 버튼을 오른쪽 끝에 배치합니다. */
+}
+
+.button-container button {
+	margin-left: 5px; /* 버튼들 사이의 간격을 조정합니다. */
+}
+
+#board>div>div:nth-child(2)>form>div:nth-child(1) {
+	border-radius: 5px 5px 0 0;
+}
+
+#board>div>div.button-container.d-flex.justify-content-end {
+	margin-bottom: 20px;
+}
+
+#board>div>div:nth-child(3)>form>div:nth-child(1) {
+	border-radius: 5px 5px 0 0;
+}
+
+#board>div>div.card>div {
+	border-radius: 5px 5px 0 0;
+}
+
+
+
+
+
+/* Style for the table */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for table cells */
+.table td {
+  padding: 12px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+/* Style for table header */
+.table thead {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+}
+
+/* Style for table header cells */
+.table th {
+  padding: 12px;
+  font-weight: bold;
+  text-align: left;
+}
+
+/* Style for odd rows */
+.table tbody td:nth-child(1) {
+  text-align: center;	
+  width: 10%;
+  background-color: #f2f2f2;
+}
+
+/* Style for cells with content */
+.table td[id$="-display"] {
+  padding-left: 16px; /* Adjust as needed */
+  font-style: italic;
+}
+
+/* Additional style for first column */
+.table td:first-child {
+  font-weight: bold;
+  color: #333333;
+}

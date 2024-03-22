@@ -1,6 +1,9 @@
 package com.project3.yogiaudio.dto.board;
 
 import java.sql.Timestamp;
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +20,7 @@ public class NoticeDTO {
 	private long writerId;
 	private String title;
 	private String content;
-	private String filePath;
+	private List<MultipartFile> files;
 	private Timestamp createdAt;
 	
 	
