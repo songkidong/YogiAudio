@@ -1,8 +1,13 @@
 package com.project3.yogiaudio.repository.interfaces;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.project3.yogiaudio.dto.admin.AdminCriteria;
+import com.project3.yogiaudio.dto.common.Criteria;
+import com.project3.yogiaudio.repository.entity.History;
 import com.project3.yogiaudio.repository.entity.User;
 
 @Mapper
@@ -25,4 +30,9 @@ public interface UserRepository {
 	
 	// id 조회
 	public User findById(Long id);
+	
+	// 결제 내역 조회
+	public List<History> findAllHistory(@Param("cri") AdminCriteria cri, @Param("userId") Long userId);
+	public int countAllHistory(Long userId);
+
 }

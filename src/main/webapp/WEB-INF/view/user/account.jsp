@@ -59,7 +59,7 @@
 										href="/account/${principal.id}"><i class="bx bx-user me-1"></i>
 											계정</a></li>
 									<li class="nav-item"><a class="nav-link"
-										href="/payment/${principal.id}"><i
+										href="/payment"><i
 											class="bx bx-table me-1"></i> 결제 내역</a></li>
 									<li class="nav-item"><a class="nav-link"
 										href="/myPlaylist"><i class="bx bx-music me-1"></i> 플리</a></li>

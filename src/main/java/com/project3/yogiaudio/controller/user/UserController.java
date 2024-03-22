@@ -20,6 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.project3.yogiaudio.dto.admin.AdminCriteria;
+import com.project3.yogiaudio.dto.admin.AdminPageVO;
+import com.project3.yogiaudio.dto.common.Criteria;
+import com.project3.yogiaudio.dto.common.PageVO;
 import com.project3.yogiaudio.dto.playlist.PlayListStartDTO;
 import com.project3.yogiaudio.dto.user.GoogleProfile;
 import com.project3.yogiaudio.dto.user.KakaoProfile;
@@ -28,6 +32,7 @@ import com.project3.yogiaudio.dto.user.OAuthToken;
 import com.project3.yogiaudio.dto.user.UpdateUserDTO;
 import com.project3.yogiaudio.dto.user.UserDTO;
 import com.project3.yogiaudio.filedb.service.FiledbService;
+import com.project3.yogiaudio.repository.entity.History;
 import com.project3.yogiaudio.repository.entity.User;
 import com.project3.yogiaudio.repository.entity.playlist.Playlist;
 import com.project3.yogiaudio.service.UserService;
@@ -35,8 +40,10 @@ import com.project3.yogiaudio.service.playlist.PlaylistService;
 import com.project3.yogiaudio.util.Define;
 
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j
 public class UserController {
 
 	@Autowired
@@ -158,17 +165,24 @@ public class UserController {
 	}
 
 	/**
-	 * @Method Name : accountPage
-	 * @작성일 : 2024. 3. 19.
+	 * @Method Name : paymentPage
+	 * @작성일 : 2024. 3. 22.
 	 * @작성자 : 송기동
 	 * @변경이력 :
-	 * @Method 설명 : 내정보 페이지
+	 * @Method 설명 : 결제내역 페이지
 	 */
-	@GetMapping("/payment/{id}")
-	public String paymentPage(@PathVariable("id") Long id, Model model) {
-
-		User userEntity = userService.findUserById(id);
-		model.addAttribute("user", userEntity);
+	@GetMapping("/payment")
+	public String paymentPage(AdminCriteria cri, Model model) {
+		
+		User user = (User) httpsession.getAttribute(Define.PRINCIPAL);
+		List<History> paymentList = userService.findAllHistory(cri, user.getId());
+		model.addAttribute("paymentList", paymentList);
+		
+		AdminPageVO pageVO = new AdminPageVO();
+		pageVO.setCri(cri);
+		pageVO.setTotalCount(userService.countAllHistory(user.getId()));
+		model.addAttribute("pageVO",pageVO);
+		
 		return "/user/payment";
 	}
 
@@ -398,4 +412,5 @@ public class UserController {
 		}
 		return ResponseEntity.ok().body("이메일 사용가능");
 	}
+	
 }

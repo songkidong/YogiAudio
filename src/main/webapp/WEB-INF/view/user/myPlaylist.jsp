@@ -15,7 +15,9 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
 	rel="stylesheet" />
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"
+	rel="stylesheet">
 
 <link rel="stylesheet" href="/assets/vendor/fonts/boxicons.css" />
 
@@ -59,12 +61,15 @@
 									<li class="nav-item"><a class="nav-link"
 										href="/account/${principal.id}"><i class="bx bx-user me-1"></i>
 											계정</a></li>
-									<li class="nav-item"><a class="nav-link"
-										href="/payment/${principal.id}"><i
+									<li class="nav-item"><a class="nav-link" href="/payment"><i
 											class="bx bx-table me-1"></i> 결제 내역</a></li>
 									<li class="nav-item"><a class="nav-link active"
 										href="/myPlaylist"><i class="bx bx-music me-1"></i> 플리</a></li>
 								</ul>
+								<c:if test="${empty playlist}">
+									<h1 style="display: flex; justify-content: center;">플레이리스트 내역이
+										존재하지 않습니다</h1>
+								</c:if>
 
 								<div class="table-responsive text-nowrap">
 									<table class="table card-table">
@@ -94,8 +99,12 @@
 										</tbody>
 									</table>
 								</div>
-								<button id="addBtn" type="button"><i class="bi bi-plus-circle"></i></button>
-								<button id="playBtn" type="button"><i class="bi bi-play"></i></button>
+								<button id="addBtn" type="button">
+									<i class="bi bi-plus-circle"></i>
+								</button>
+								<button id="playBtn" type="button">
+									<i class="bi bi-play"></i>
+								</button>
 								<button id="musicBtn" type="button">Music Player</button>
 							</div>
 						</div>
@@ -121,7 +130,7 @@
 	<script>
 		var userId = '${principal.id}';
 	</script>
-	<!-- 	<script src="/js/playlist/playlist.js"></script> -->
+	<script src="/js/playlist/playlist.js"></script>
 	<!--  playlist 스크립트 종료 -->
 
 	<script src="/assets/vendor/libs/jquery/jquery.js"></script>
