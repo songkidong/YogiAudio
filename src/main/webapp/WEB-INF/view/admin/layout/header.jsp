@@ -153,13 +153,13 @@
             </li>
             <li class="menu-item">
               <a href="/admin/userList" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <i class="menu-icon tf-icons bx bx-user-circle"></i>
                 <div data-i18n="Analytics">유저 관리</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="/admin/musicList" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <i class="menu-icon tf-icons bx bx-music"></i>
                 <div data-i18n="Analytics">음악 관리</div>
               </a>
             </li>
@@ -167,7 +167,7 @@
             <!-- Layouts -->
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-layout"></i>
+                <i class="menu-icon tf-icons bx bx-message-square-detail"></i>
                 <div data-i18n="Layouts">게시판 관리</div>
               </a>
 
@@ -197,15 +197,30 @@
             </li>
             <li class="menu-item">
               <a href="/admin/index" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <i class="menu-icon tf-icons bx bx-flag"></i>
                 <div data-i18n="Analytics">광고 관리</div>
               </a>
             </li>
             <li class="menu-item">
-              <a href="/admin/index" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">결제 관리</div>
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-credit-card"></i>
+                <div data-i18n="Layouts">결제 관리</div>
               </a>
+
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="/admin/historyList" class="menu-link">
+                    <div data-i18n="Without menu">결제 내역</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="/admin/refundList" class="menu-link">
+                    <div data-i18n="Without menu">환불 내역</div>
+                  </a>
+                </li>
+                
+                
+              </ul>
             </li>
             
 

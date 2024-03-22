@@ -9,7 +9,9 @@ import com.project3.yogiaudio.dto.admin.AdminCriteria;
 import com.project3.yogiaudio.dto.admin.NoticeSaveFormDTO;
 import com.project3.yogiaudio.dto.board.NoticeDTO;
 import com.project3.yogiaudio.filedb.service.FiledbService;
+import com.project3.yogiaudio.repository.entity.History;
 import com.project3.yogiaudio.repository.entity.Music;
+import com.project3.yogiaudio.repository.entity.Refund;
 import com.project3.yogiaudio.repository.entity.User;
 import com.project3.yogiaudio.repository.entity.board.BoardFree;
 import com.project3.yogiaudio.repository.entity.board.BoardFreeComment;
@@ -96,9 +98,51 @@ public class AdminService {
 		return adminRepository.deleteMusic(musicNo);
 	}
 	
+	/**
+	  * @Method Name : findAllHistory
+	  * @작성일 : 2024. 3. 22.
+	  * @작성자 : 박한산
+	  * @변경이력 : 
+	  * @Method 설명 : 결제 내역
+	  */
+	public List<History> findAllHistory(AdminCriteria cri) {
+		
+		return adminRepository.findAllHistory(cri);
+	}
 	
+	/**
+	  * @Method Name : countAllHistory
+	  * @작성일 : 2024. 3. 22.
+	  * @작성자 : 박한산
+	  * @변경이력 : 
+	  * @Method 설명 : 결제 내역 카운팅
+	  */
+	public int countAllHistory() {
+		
+		return adminRepository.countAllHistory();
+	}
 	
+	/**
+	  * @Method Name : selectAllRefund
+	  * @작성일 : 2024. 3. 22.
+	  * @작성자 : 박한산
+	  * @변경이력 : 
+	  * @Method 설명 : 환불 내역
+	  */
+	public List<Refund> findAllRefund(AdminCriteria cri) {
+		
+		return adminRepository.findAllRefund(cri);
+	}
 	
-	
-	
+	/**
+	  * @Method Name : countAllRefund
+	  * @작성일 : 2024. 3. 22.
+	  * @작성자 : 박한산
+	  * @변경이력 : 
+	  * @Method 설명 : 환불 내역 카운팅
+	  */
+	public int countAllRefund() {
+		
+		return adminRepository.countAllRefund();
+	}
 }
