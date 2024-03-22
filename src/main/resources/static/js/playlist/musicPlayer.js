@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// 노래 끝나면 다음 곡으로 넘어가는 이벤트리스너
 	audioPlayer.addEventListener('ended', function() {
-		if (isRepeatMode === 1) {
+		if (isRepeatMode === 2) {
 			audioPlayer.play();
 		} else {
 			playNextSong();
@@ -354,12 +354,16 @@ document.addEventListener('DOMContentLoaded', function() {
 	const heartBtnImg = document.getElementById('heart');
 	// 좋아요 버튼 클릭 이벤트 리스너 추가
 	heartBtnImg.addEventListener('click', function() {
-		// 클릭한 곡의 musicNo 가져오기
-		const currentSongIndex = getCurrentSongIndex();
-		const musicNo = playListItems[currentSongIndex].getAttribute('data-music-no');
+		if (currentMusicNo == null || currentMusicNo == '') {
+			alert("재생된 노래가 없습니다");
+		} else {
+			// 클릭한 곡의 musicNo 가져오기
+			const currentSongIndex = getCurrentSongIndex();
+			const musicNo = playListItems[currentSongIndex].getAttribute('data-music-no');
 
-		// 좋아요 버튼 클릭 이벤트 처리 함수 호출
-		likeBtnHandler(musicNo, heartBtnImg);
+			// 좋아요 버튼 클릭 이벤트 처리 함수 호출
+			likeBtnHandler(musicNo, heartBtnImg);
+		}
 	});
 	const addCurrentMusicToPlaylist = document.getElementById('add-playlist');
 	let currentMusicNo;
