@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.project3.yogiaudio.dto.admin.AdminCriteria;
 import com.project3.yogiaudio.dto.admin.AdminPageVO;
+import com.project3.yogiaudio.repository.entity.History;
 import com.project3.yogiaudio.repository.entity.Music;
+import com.project3.yogiaudio.repository.entity.Refund;
 import com.project3.yogiaudio.repository.entity.User;
 import com.project3.yogiaudio.repository.entity.board.BoardFree;
 import com.project3.yogiaudio.repository.entity.board.BoardFreeComment;
@@ -199,7 +201,35 @@ public class AdminController {
 		return "admin/saveNotice";
 	}
 	
+	// 결제 내역
+	@GetMapping("/historyList")
+	public String historyListPage(AdminCriteria cri, Model model) {
+		
+		List<History> historyList = adminService.findAllHistory(cri);
+		log.info("historyList : " + historyList);
+		model.addAttribute("historyList", historyList);
+		
+		AdminPageVO pageVO = new AdminPageVO();
+		pageVO.setCri(cri);
+		pageVO.setTotalCount(adminService.countAllHistory());
+		model.addAttribute("pageVO", pageVO);
+		
+		return "admin/historyList";
+	}
 	
-	
+	// 환불 내역
+	@GetMapping("/refundList")
+	public String refundListPage(AdminCriteria cri, Model model) {
+		
+		List<Refund> refundList = adminService.findAllRefund(cri);
+		model.addAttribute("refundList", refundList);
+		
+		AdminPageVO pageVO = new AdminPageVO();
+		pageVO.setCri(cri);
+		pageVO.setTotalCount(adminService.countAllRefund());
+		model.addAttribute("pageVO", pageVO);
+		
+		return "admin/refundList";
+	}
 	
 }
