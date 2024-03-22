@@ -65,6 +65,9 @@ public class FiledbService {
 		}
 
 		filePath = filePath.substring(0, filePath.length() - 1); // 마지막 , 제거
+		if (!filePath.isEmpty()) { // filePath가 비어있는 경우 실행안되게 코드 수정
+		    filePath = filePath.substring(0, filePath.length() - 1); // 마지막 , 제거
+		} 
 		return filePath;
 	}
 
