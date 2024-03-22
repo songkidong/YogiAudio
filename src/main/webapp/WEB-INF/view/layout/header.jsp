@@ -109,33 +109,30 @@
 						</div>
 						<!-- 로그인 -->
 						<div class="col-md-6">
-							<div class="login-container"
-								style="display: flex; align-items: center; margin-top: 10px;">
+							<div class="login-container" style="display: flex; align-items: center; margin-top: 10px;">
 								<c:choose>
 									<c:when test="${empty principal}">
-										<a href="/signIn">
+										<a href="/signIn" style="margin-left: 10px; width: 50px;">
 											<p>로그인</p>
 										</a>
-										<a href="/consent">
-											<p style="margin-left: 10px;">회원가입</p>
+										<a href="/consent" style="margin-left: 15px; width: 60px;">
+											<p>회원가입</p>
 										</a>
 									</c:when>
 									<c:otherwise>
-										<a href="/logout">
+										<a href="/logout" style="margin-left: 15px; width: 60px;">
 											<p>로그아웃</p>
 										</a>
 
-										<a href="/account/${principal.id}">
-
-											<p style="margin-left: 10px;">마이페이지</p>
+										<a href="/account/${principal.id}" style="margin-left: 15px; width: 70px;">
+											<p>마이페이지</p>
 										</a>
 									</c:otherwise>
 								</c:choose>
 								<c:choose>
 									<c:when test="${principal.role == 'ADMIN'}">
-										<a href="/admin/index">
-
-											<p style="margin-left: 10px;">관리자</p>
+										<a href="/admin/index" style="margin-left: 15px;">
+											<p>관리자</p>
 										</a>
 									</c:when>
 								</c:choose>
