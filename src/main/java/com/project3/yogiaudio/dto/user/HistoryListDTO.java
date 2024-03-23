@@ -24,6 +24,7 @@ public class HistoryListDTO {
 	private String name;
 	private String nickname;
 	private String purchaseName;
+	private String refundYn;
 
 	// 날짜 포멧 설정
 	public String formatCreatedAt() {

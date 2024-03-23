@@ -1,6 +1,7 @@
 package com.project3.yogiaudio.controller.user;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -191,18 +193,21 @@ public class UserController {
 	}
 
 	@PostMapping("/refund")
-	public ResponseEntity<String> handleRefundRequest(@RequestParam("hno") int hno, @RequestParam("id") int id) {
-		// 다른 처리 결과에 따라 ResponseEntity의 상태 코드를 변경할 수 있습니다.
-		try {
-			// 환불 요청을 처리하는 비즈니스 로직을 작성합니다.
-			 userService.refund(hno, id);
+	@ResponseBody
+	public ResponseEntity<String> handleRefundRequest(@RequestBody Map<String, Integer> requestData) {
+	    int hno = requestData.get("hno");
+	    int id = requestData.get("id");
 
-			// 성공적으로 처리되었을 때의 응답을 반환합니다.
-			return ResponseEntity.ok("환불 요청이 성공적으로 처리되었습니다.");
-		} catch (Exception e) {
-			// 처리 중 예외가 발생하였을 때의 응답을 반환합니다.
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("환불 요청 처리 중 오류가 발생하였습니다.");
-		}
+	    try {
+	        // 환불 요청을 처리하는 비즈니스 로직을 작성합니다.
+	        userService.refund(hno, id);
+
+	        // 성공적으로 처리되었을 때의 응답을 반환합니다.
+	        return ResponseEntity.ok("success");
+	    } catch (Exception e) {
+	        // 처리 중 예외가 발생하였을 때의 응답을 반환합니다.
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("환불 요청 처리 중 오류가 발생하였습니다.");
+	    }
 	}
 
 	/**

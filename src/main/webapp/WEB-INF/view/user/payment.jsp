@@ -84,21 +84,28 @@
 												<th>상품</th>
 												<th>가격</th>
 												<th>구매일시</th>
+												<th></th>
 											</tr>
 										</thead>
 										<tbody class="table-border-bottom-0">
 											<c:forEach items="${paymentList}" var="pay">
-												<tr>
+												<tr >
 													<td>${pay.hno}</td>
 													<td>${pay.purchaseName}</td>
 													<td>${pay.amount}</td>
 													<td>${pay.date}</td>
-													<td>
-														<button class="btn btn-primary refund-btn"
-															onclick="requestRefund(this)" data-id="${pay.id}">환불
-															요청</button>
-
-													</td>
+                            <td>
+                                <input type="hidden" class="payment-id" value="${pay.id}">
+                                <c:if test="${pay.refundYn == null}">
+                                    <button class="btn btn-primary refund-btn" onclick="requestRefund(this)">환불 요청</button>
+                                </c:if>
+                                <c:if test="${pay.refundYn == 'N'}">
+                                    <button class="btn btn-primary refund-btn" disabled>환불 요청 완료</button>
+                                </c:if>
+                                <c:if test="${pay.refundYn == 'Y'}">
+                                    <button class="btn btn-primary refund-btn" disabled>환불 완료</button>
+                                </c:if>
+                            </td>
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -153,21 +160,23 @@
 	</div>
 	<!-- / Layout wrapper -->
 	<script>
+
+		// 결제 항목의 환불 요청을 처리하는 함수
 		function requestRefund(button) {
 			var row = $(button).closest('tr');
 			var hno = row.find('td:first').text();
-			var id = $(button).data('id');
-
+			var id = row.find('.payment-id').val();
 			$.ajax({
 				type : 'POST',
 				url : '/refund',
-				data : {
+				contentType : 'application/json',
+				data : JSON.stringify({
 					hno : hno,
 					id : id
-				},
+				}),
 				success : function(response) {
 					alert('환불 요청이 성공적으로 전송되었습니다.');
-					$(button).text('환불요청완료');
+					$(button).text('환불 요청 완료');
 					$(button).prop('disabled', true);
 				},
 				error : function(xhr, status, error) {
