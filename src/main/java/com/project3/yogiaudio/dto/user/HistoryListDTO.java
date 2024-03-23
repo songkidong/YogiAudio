@@ -17,12 +17,8 @@ public class HistoryListDTO {
 
 	private int hno;
 	private int id;
-	private int pNo;
-	private String orderId;
 	private String amount;
 	private Timestamp date;
-	private String name;
-	private String nickname;
 	private String purchaseName;
 	private String refundYn;
 

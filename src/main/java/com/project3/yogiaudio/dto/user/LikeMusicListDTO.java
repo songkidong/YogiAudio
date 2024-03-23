@@ -16,6 +16,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 public class LikeMusicListDTO {
+	private int userId;
 	private String filePath;
 	private int musicNo;
 	private String musicTitle;

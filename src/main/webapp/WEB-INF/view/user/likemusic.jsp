@@ -90,15 +90,14 @@
 										<tbody class="table-border-bottom-0">
 											<c:forEach items="${likemusicList}" var="list"
 												varStatus="loop">
-												<tr data-music-no="${play.musicNo}">
+												<tr data-music-no="${list.musicNo}">
 													<td>${loop.index + 1}</td>
 													<td><img src="${list.filePath}" width="75" height="75">
 													<td>${list.musicTitle}</td>
 													<td>${list.musicSinger}</td>
 													<td>${list.createdAt}</td>
-													<td><button id="likeCancelBtn" type="button"
-															class="likeCancelBtn">
-															<i class="bx bx-like"></i>
+													<td><button type="button" class="btn btn-primarylikeCancelBtn">
+														<i class="bx bx-heart"></i>
 														</button></td>
 												</tr>
 											</c:forEach>
@@ -156,40 +155,31 @@
 
 	<!-- Core JS -->
 	<!-- build:js assets/vendor/js/core.js -->
-	<script>
-		var userId = '${principal.id}';
-		var musicNo;
-	    const likeCancelBtn = document.getElementById('likeCancelBtn');
-		const tableRows = document.querySelectorAll('.table tbody tr');
-		tableRows.forEach(row => {
-		    row.addEventListener('click', function(event) {
-		        event.stopPropagation(); // 부모 요소의 이벤트 전파 방지
-		        musicNo = row.getAttribute('data-music-no');
-		        console.log(musicNo);
-		    	if (event.target.classList.contains('likeCancelBtn')) {
-		    		  $.ajax({
-		  	            type: 'GET',
-		  	            url: '/deleteLikeMusic',
-		  	            data: {
-		  	                userId: userId,
-		  	                musicNo: musicNo
-		  	            },
-		  	            success: function(response) {
-		  	                console.log(response);
-		  	                alert("좋아요가 취소되었습니다.");
-		  	            },
-		  	            error: function(error) {
-		  	                console.error('Error saving markers:', error);
-		  	            }
-		  	        }); 
-				}
-		    });
-		});
-		
+	<script src="/assets/vendor/libs/jquery/jquery.js"></script>
 
+	<script>
+		$(document).on('click', '.likeCancelBtn', function() {
+			var userId = '${principal.id}';
+			var musicNo = $(this).closest('tr').data('music-no');
+
+			$.ajax({
+				type : 'GET',
+				url : '/deleteLikeMusic',
+				data : {
+					userId : userId,
+					musicNo : musicNo
+				},
+				success : function(response) {
+					console.log(response);
+					alert("좋아요가 취소되었습니다.");
+				},
+				error : function(error) {
+					console.error('Error saving markers:', error);
+				}
+			});
+		});
 	</script>
 
-	<script src="/assets/vendor/libs/jquery/jquery.js"></script>
 	<script src="/assets/vendor/libs/popper/popper.js"></script>
 	<script src="/assets/vendor/js/bootstrap.js"></script>
 	<script
