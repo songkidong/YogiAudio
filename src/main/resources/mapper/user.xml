@@ -10,7 +10,7 @@
 		INSERT INTO user (name, nickname, email, password,
 		created_at)
 		VALUES (#{name}, #{nickname}, #{email}, #{password},
-		now());
+		now())
 	</insert>
 
 	<!-- 회원 수정 -->
@@ -24,7 +24,7 @@
 		file_path =
 		#{filePath}
 		where id =
-		#{id};
+		#{id}
 	</update>
 
 	<!-- 회원 탈퇴 -->
@@ -67,6 +67,12 @@
 		limit #{cri.offset},
 		#{cri.pageSize}
 	</select>
+	
+	<!-- 환불 요청 -->
+	<insert id="refund">
+		INSERT INTO refund (hno, user_id)
+		VALUES (#{hno}, #{userId})
+	</insert>
 
 	<select id="countAllHistory" resultType="int">
 		select count(*) from

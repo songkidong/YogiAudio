@@ -126,6 +126,11 @@ public class UserService {
 		return userRepository.countAllHistory(userId);
 	}
 	
+	// 환불 요청
+	public int refund(int hno, int id) {
+		return userRepository.refund(hno, id);
+	}
+	
 	// 좋아요 내역 조회
 	public List<LikeMusicListDTO> findAllLikeMusic(AdminCriteria cri, Long userId) {
 		return userRepository.findAllLikeMusic(cri, userId);

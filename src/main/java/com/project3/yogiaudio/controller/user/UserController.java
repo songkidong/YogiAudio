@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -176,38 +177,53 @@ public class UserController {
 	 */
 	@GetMapping("/payment")
 	public String paymentPage(AdminCriteria cri, Model model) {
-		
+
 		User user = (User) httpsession.getAttribute(Define.PRINCIPAL);
 		List<HistoryListDTO> paymentList = userService.findAllHistory(cri, user.getId());
 		model.addAttribute("paymentList", paymentList);
-		
+
 		AdminPageVO pageVO = new AdminPageVO();
 		pageVO.setCri(cri);
 		pageVO.setTotalCount(userService.countAllHistory(user.getId()));
-		model.addAttribute("pageVO",pageVO);
-		
+		model.addAttribute("pageVO", pageVO);
+
 		return "/user/payment";
 	}
-	
+
+	@PostMapping("/refund")
+	public ResponseEntity<String> handleRefundRequest(@RequestParam("hno") int hno, @RequestParam("id") int id) {
+		// 다른 처리 결과에 따라 ResponseEntity의 상태 코드를 변경할 수 있습니다.
+		try {
+			// 환불 요청을 처리하는 비즈니스 로직을 작성합니다.
+			 userService.refund(hno, id);
+
+			// 성공적으로 처리되었을 때의 응답을 반환합니다.
+			return ResponseEntity.ok("환불 요청이 성공적으로 처리되었습니다.");
+		} catch (Exception e) {
+			// 처리 중 예외가 발생하였을 때의 응답을 반환합니다.
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("환불 요청 처리 중 오류가 발생하였습니다.");
+		}
+	}
+
 	/**
-	  * @Method Name : likemusicPage
-	  * @작성일 : 2024. 3. 22.
-	  * @작성자 : 송기동
-	  * @변경이력 : 
-	  * @Method 설명 : 좋아요 페이지
-	  */
+	 * @Method Name : likemusicPage
+	 * @작성일 : 2024. 3. 22.
+	 * @작성자 : 송기동
+	 * @변경이력 :
+	 * @Method 설명 : 좋아요 페이지
+	 */
 	@GetMapping("/likemusic")
 	public String likemusicPage(AdminCriteria cri, Model model) {
-		
+
 		User user = (User) httpsession.getAttribute(Define.PRINCIPAL);
 		List<LikeMusicListDTO> likemusicList = userService.findAllLikeMusic(cri, user.getId());
 		model.addAttribute("likemusicList", likemusicList);
-		
+
 		AdminPageVO pageVO = new AdminPageVO();
 		pageVO.setCri(cri);
 		pageVO.setTotalCount(userService.countAllLikeMusic(user.getId()));
-		model.addAttribute("pageVO",pageVO);
-		
+		model.addAttribute("pageVO", pageVO);
+
 		return "/user/likemusic";
 	}
 
@@ -437,5 +453,5 @@ public class UserController {
 		}
 		return ResponseEntity.ok().body("이메일 사용가능");
 	}
-	
+
 }

@@ -93,6 +93,12 @@
 													<td>${pay.purchaseName}</td>
 													<td>${pay.amount}</td>
 													<td>${pay.date}</td>
+													<td>
+														<button class="btn btn-primary refund-btn"
+															onclick="requestRefund(this)" data-id="${pay.id}">환불
+															요청</button>
+
+													</td>
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -146,6 +152,32 @@
 		<div class="layout-overlay layout-menu-toggle"></div>
 	</div>
 	<!-- / Layout wrapper -->
+	<script>
+		function requestRefund(button) {
+			var row = $(button).closest('tr');
+			var hno = row.find('td:first').text();
+			var id = $(button).data('id');
+
+			$.ajax({
+				type : 'POST',
+				url : '/refund',
+				data : {
+					hno : hno,
+					id : id
+				},
+				success : function(response) {
+					alert('환불 요청이 성공적으로 전송되었습니다.');
+					$(button).text('환불요청완료');
+					$(button).prop('disabled', true);
+				},
+				error : function(xhr, status, error) {
+					console.error(xhr.responseText);
+					alert('환불 요청 전송 중 오류가 발생했습니다.');
+				}
+			});
+		}
+	</script>
+
 
 	<!-- Core JS -->
 	<!-- build:js assets/vendor/js/core.js -->

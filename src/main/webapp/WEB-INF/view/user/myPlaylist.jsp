@@ -68,10 +68,6 @@
 									<li class="nav-item"><a class="nav-link" href="/likemusic"><i
 											class="bx bx-hart me-1"></i> 좋아요</a></li>
 								</ul>
-								<c:if test="${empty playlist}">
-									<h1 style="display: flex; justify-content: center;">플레이리스트
-										내역이 존재하지 않습니다</h1>
-								</c:if>
 
 								<div class="table-responsive text-nowrap">
 									<table class="table card-table">

@@ -37,6 +37,9 @@ public interface UserRepository {
 	// 결제 내역 조회
 	public List<HistoryListDTO> findAllHistory(@Param("cri") AdminCriteria cri, @Param("userId") Long userId);
 	public int countAllHistory(Long userId);
+	
+	// 환불 요청
+	public int refund(@Param("hno") int hno, @Param("userId") int id);
 
 	// 좋아요 내역 조회
 	public List<LikeMusicListDTO> findAllLikeMusic(@Param("cri") AdminCriteria cri, @Param("userId") Long userId);
