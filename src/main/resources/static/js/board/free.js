@@ -17,7 +17,7 @@ window.onload = function() {
 	let searchInput = url.searchParams.get('searchInput');
 
 	// pagination 클래스를 가진 요소 찾기
-	let paginationLinks = document.querySelectorAll('#qnaPage a');
+	let paginationLinks = document.querySelectorAll('#freePage a');
 
 	// 각 링크에 추가 파라미터 추가
 	paginationLinks.forEach(function(link) {
@@ -35,31 +35,27 @@ window.onload = function() {
 };
 
 
-// qna list에서 insert 위한 클릭 이벤트
+// free list에서 insert 위한 클릭 이벤트
 function loadInsert() {
 	const insertClick = $("#btnInsert");
 	insertClick.on("click", function() {
-		window.location.href = "/board/qna/qnaWrite";
+		window.location.href = "/board/free/freeWrite";
 	});
 }
 loadInsert();
 
 
-// qna list에서 View 위한 클릭 이벤트
+// free list에서 View 위한 클릭 이벤트
 function loadView() {
 	const pageClick = $(".page-click");
 	pageClick.on("click", function() {
-		window.location.href = "/board/qna/qnaView/" + $(this).attr("id");
+		window.location.href = "/board/free/freeView/" + $(this).attr("id");
 
 	});
 }
 loadView();
-////////////////////////////////////////////////////
-
-
 
 //////////////////////////////////////////////////////////
-
 
 // deletedHref와 href 값을 담아둘 변수 선언
 var deletedHrefVList = [];
@@ -85,13 +81,9 @@ document.addEventListener('click', function(event) {
 		fileListContainer.removeChild(listItem);
 	}
 });
-
-
 // 수정하기
 $("#btn-update-complete").on("click", function() {
-
 	alert("수정");
-
 	// 수정된 데이터 가져오기
 	const updatedTitle = $("#updated-title").val(); // 수정된 제목
 	const updatedContent = $("#updated-content").val(); // 수정된 내용
@@ -110,7 +102,6 @@ $("#btn-update-complete").on("click", function() {
 
 		hrefValueList.push(href);
 	});
-
 
 	// FormData 객체 생성
 	const formData = new FormData();
@@ -142,14 +133,14 @@ $("#btn-update-complete").on("click", function() {
 	// AJAX를 사용하여 서버로 수정된 데이터 전송
 	$.ajax({
 		type: "post",
-		url: "/board/qna/qnaUpdate/" + addressNum,
+		url: "/board/free/freeUpdate/" + addressNum,
 		data: formData,
 		contentType: false,
 		processData: false,
 		success: function(data) {
 			if (data === true) {
 				// 수정이 성공했을 때, 목록 페이지로 이동
-				window.location.href = "/board/qna/qnaList";
+				window.location.href = "/board/free/freeList";
 			} else {
 				// 수정이 실패했을 때의 처리
 				alert("데이터 수정에 실패했습니다.");
@@ -168,14 +159,13 @@ $("#btn-update-complete").on("click", function() {
 deleteBtn.on("click", function() {
 	console.log("타나여?");
 	console.log(addressNum);
-		
-	
+
 	$.ajax({
 		type: "post",
-		url: "/board/qna/qnaDelete/" + addressNum,
+		url: "/board/free/freeDelete/" + addressNum,
 		success: function(data) {
 			if (data == true) {
-				window.location.href = "/board/qna/qnaList";
+				window.location.href = "/board/free/freeList";
 			} else {
 				alert("데이터 삭제에 실패했습니다.");
 			}
@@ -188,31 +178,10 @@ deleteBtn.on("click", function() {
 
 
 
-// loadViewId() 실행함수 --> qnaView.jsp 
+// loadViewId() 실행함수 --> freeView.jsp 
 
 
-// qna view에서 update를 위한 클릭 이벤트 
+// free view에서 update를 위한 클릭 이벤트 
 updateBtn.on("click", function() {
-	window.location.href = "/board/qna/qnaUpdate/" + addressNum;
-});
-
-// 작성자이름 마스킹 처리
-document.addEventListener("DOMContentLoaded", function() {
-	var writerElements = document.querySelectorAll('.mask-writer');
-
-	writerElements.forEach(function(element) {
-		var writerName = element.textContent;
-		var maskedName = maskMiddleCharacters(writerName);
-		element.textContent = maskedName;
-	});
-
-	function maskMiddleCharacters(name) {
-		if (name.length <= 2) {
-			return name;
-		} else {
-			var middleCharacters = name.substring(1, name.length - 1);
-			var maskedCharacters = '*'.repeat(middleCharacters.length);
-			return name[0] + maskedCharacters + name[name.length - 1];
-		}
-	}
+	window.location.href = "/board/free/freeUpdate/" + addressNum;
 });

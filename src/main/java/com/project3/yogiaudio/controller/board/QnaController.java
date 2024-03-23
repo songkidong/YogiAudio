@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -116,9 +115,7 @@ public class QnaController {
 	@ResponseBody
 	public BoardQna qnaViewId(@PathVariable(value = "id") int id) {
 		System.out.println("아이디아이디 : " + id);
-
 		BoardQna boardQna = qnaService.qnaReadById(id);
-
 		System.out.println("엔티티엔티티 : " + boardQna.toString());
 
 		return boardQna;
@@ -195,16 +192,22 @@ public class QnaController {
 
 			String uuid = url.replace("http://localhost/filedb/get-file/", "");
 			Filedb filedb = filedbService.findByUuid(uuid);
-			String originFileName = filedb.getOriginalFileName();
-			System.out.println("originFileName추출" + originFileName);
-			System.out.println("uuid추출" + uuid);
+			if (filedb != null) { // filedb가 null이 아닌 경우에만 처리
+				String originFileName = filedb.getOriginalFileName();
+				System.out.println("originFileName추출" + originFileName);
+				System.out.println("uuid추출" + uuid);
 
-			boardFileDTO.setFilePath(url);
-			boardFileDTO.setOriginFileName(originFileName);
-			boardFileDTOList.add(boardFileDTO);
-			System.out.println("url추출" + url);
-			System.out.println("boardFileDTO추출" + boardFileDTO);
-			System.out.println("boardFileDTOList추출" + boardFileDTOList);
+				boardFileDTO.setFilePath(url);
+				boardFileDTO.setOriginFileName(originFileName);
+				boardFileDTOList.add(boardFileDTO);
+				System.out.println("url추출" + url);
+				System.out.println("boardFileDTO추출" + boardFileDTO);
+				System.out.println("boardFileDTOList추출" + boardFileDTOList);
+			} else {
+				// filedb가 null일 경우 처리
+				System.out.println("filedb가 null입니다. uuid: " + uuid);
+				// 원하는 예외 처리를 추가하세요.
+			}
 		}
 
 		qnaDTO.setBoardFileDTOList(boardFileDTOList);
@@ -248,23 +251,6 @@ public class QnaController {
 		boolean result = qnaService.qnaDelete(id);
 
 		return result;
-	}
-
-	/**
-	  * @Method Name : qnaReplyView
-	  * @작성일 : 2024. 3. 22.
-	  * @작성자 : 노수현
-	  * @변경이력 : 
-	  * @Method 설명 : QnaReply 상세보기
-	  */
-	@PostMapping("/qna/reply")
-	@ResponseBody
-	public BoardQnaReply qnaReplyView(int boardQnaId) {
-
-		BoardQnaReply boardQnaReply = qnaService.qnaReplyView(boardQnaId);
-		System.out.println("여기는 컨트롤러 " + boardQnaReply);
-
-		return boardQnaReply;
 	}
 
 }

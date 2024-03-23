@@ -193,16 +193,22 @@ public class NoticeController {
 
 			String uuid = url.replace("http://localhost/filedb/get-file/", "");
 			Filedb filedb = filedbService.findByUuid(uuid);
-			String originFileName = filedb.getOriginalFileName();
-			System.out.println("originFileName추출" + originFileName);
-			System.out.println("uuid추출" + uuid);
+			if (filedb != null) { // filedb가 null이 아닌 경우에만 처리
+				String originFileName = filedb.getOriginalFileName();
+				System.out.println("originFileName추출" + originFileName);
+				System.out.println("uuid추출" + uuid);
 
-			boardFileDTO.setFilePath(url);
-			boardFileDTO.setOriginFileName(originFileName);
-			boardFileDTOList.add(boardFileDTO);
-			System.out.println("url추출" + url);
-			System.out.println("boardFileDTO추출" + boardFileDTO);
-			System.out.println("boardFileDTOList추출" + boardFileDTOList);
+				boardFileDTO.setFilePath(url);
+				boardFileDTO.setOriginFileName(originFileName);
+				boardFileDTOList.add(boardFileDTO);
+				System.out.println("url추출" + url);
+				System.out.println("boardFileDTO추출" + boardFileDTO);
+				System.out.println("boardFileDTOList추출" + boardFileDTOList);
+			} else {
+				// filedb가 null일 경우 처리
+				System.out.println("filedb가 null입니다. uuid: " + uuid);
+				// 원하는 예외 처리를 추가하세요.
+			}
 		}
 
 		noticeDTO.setBoardFileDTOList(boardFileDTOList);

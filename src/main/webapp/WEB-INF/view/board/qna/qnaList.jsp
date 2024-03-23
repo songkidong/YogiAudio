@@ -76,7 +76,7 @@
 		</table>
 
 		<!-- 페이징 처리 -->
-		<div class="notice pagination" id="noticePage">
+		<div class="qna pagination" id="qnaPage">
 			<c:if test="${page > 1}">
 				<li class="page-item"><a href="?page=1&size=${size}"
 					class="page-link">&laquo; 첫 페이지</a></li>

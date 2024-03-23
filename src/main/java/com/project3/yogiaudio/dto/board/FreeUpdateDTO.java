@@ -14,7 +14,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class FreeDTO {
+public class FreeUpdateDTO {
 
 	private long id;
 	private long writerId;
@@ -23,8 +23,13 @@ public class FreeDTO {
 	private long hit;
 	private List<MultipartFile> files;
 	private Timestamp createdAt;
-
+	
 	// 추가 필드 - file(uuid, originName)
 	private List<BoardFileDTO> boardFileDTOList;
-
+	
+	// ajax
+	private List<String> deletedHref;
+	private List<String> href;
+	
+	
 }

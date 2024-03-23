@@ -53,11 +53,9 @@
 
 			<div class="commentCard">
 				<div class="info">
-					<span class="nick"></span> <span class="date"></span>
+					<span class="nick">nick</span> <span class="date">2024-03-23</span>
 				</div>
-				<div class="form-group"
-					style="width: -webkit-fill-available; margin-bottom: 20px;">
-					<textarea class="form-control" id="reply-display" rows="3" readonly></textarea>
+					<textarea class="form-control" id="reply-display" rows="3" readonly>sdf</textarea>
 				</div>
 			</div>
 
@@ -66,6 +64,7 @@
 	</div>
 </section>
 
+<script src="/js/board/qna.js"></script>
 <script>
 	function loadViewId() {
 
@@ -124,6 +123,9 @@
 						alert("Error!!!");
 					}
 				});
+		
+		
+
 	}
 
 	// 날짜를 원하는 형식으로 포맷팅하는 함수
@@ -139,9 +141,11 @@
 	$(document).ready(function() {
 		loadViewId();
 	});
+
+	
 </script>
 
-<script src="/js/board/qna.js"></script>
+
 
 <%@include file="/WEB-INF/view/layout/footer.jsp"%>
 

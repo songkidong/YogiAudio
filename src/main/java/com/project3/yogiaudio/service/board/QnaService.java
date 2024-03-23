@@ -169,18 +169,20 @@ public class QnaService {
 
 		int deleteResult = 0;
 
-		for (String deleteFilePath : deleteList) {
-			// "get-file/" 다음의 부분을 추출합니다.
-			int index = deleteFilePath.lastIndexOf("/get-file/"); // 마지막 '/get-file/'의 위치를 찾음
-			if (index != -1) { // '/get-file/'을 찾았을 경우
-				String uuid = deleteFilePath.substring(index + "/get-file/".length()); // '/get-file/' 다음의 문자열을 추출하여
-																						// uuid로 저장
-				deleteResult += filedbService.deleteByUuid(uuid);
-			}
+		if (deleteList != null) {
+			for (String deleteFilePath : deleteList) {
+				// "get-file/" 다음의 부분을 추출합니다.
+				int index = deleteFilePath.lastIndexOf("/get-file/"); // 마지막 '/get-file/'의 위치를 찾음
+				if (index != -1) { // '/get-file/'을 찾았을 경우
+					String uuid = deleteFilePath.substring(index + "/get-file/".length()); // '/get-file/' 다음의 문자열을 추출하여
+																							// uuid로 저장
+					deleteResult += filedbService.deleteByUuid(uuid);
+				}
 
+			}
 		}
 
-		if (deleteResult != deleteList.size()) {
+		if (deleteList != null && deleteResult != deleteList.size()) {
 			return false;
 		}
 
@@ -254,20 +256,6 @@ public class QnaService {
 		}
 
 		return false;
-	}
-
-	/**
-	  * @Method Name : qnaReplyView
-	  * @작성일 : 2024. 3. 22.
-	  * @작성자 : 노수현
-	  * @변경이력 : 
-	  * @Method 설명 : QnaReply 상세보기
-	  */
-	public BoardQnaReply qnaReplyView(int boardQnaId) {
-		
-		System.out.println(" 서비스 " + boardQnaId);
-		
-		return qnaRepository.qnaReplyView(boardQnaId);
 	}
 
 }

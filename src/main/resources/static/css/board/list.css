@@ -228,3 +228,8 @@ nav {
 .form-select:hover {
 	cursor: pointer;
 }
+
+#board > div > div:nth-child(2) > form > div{
+	display: flex;
+	float: right;
+}
