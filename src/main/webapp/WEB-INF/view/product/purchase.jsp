@@ -8,10 +8,20 @@
 <!-- Banner Section -->
 <div class="section">
     <div class="container">
+      <h3 class="title" style="margin-left: 10px; margin-bottom: 30px; margin-top: 10px;">📀YogiAudio 이용권구매</h3>	
         <div class="row">
             <div class="col-md-12">
                 <div style="display: flex; justify-content: center; align-items: center;">
-                    <img src="/banner/purchase.png" style="width: 1200px; height: 300px; margin-bottom: 80px;" alt="Purchase Banner">
+                    <img src="/banner/purchase2.gif" style="width: 1200px; height: 300px; margin-bottom: 50px;" alt="Purchase Banner">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div style="display: flex; justify-content: center; align-items: center;">
+                    <img src="/banner/purchase.png" style="width: 1200px; height: 200px;" alt="Purchase Banner">
                 </div>
             </div>
         </div>
@@ -23,8 +33,8 @@
 
 <!-- Card Section -->
 <div class="section">
-    <div class="container" style="margin-bottom: 70px;">
-	<h3 class="title" style="margin-left: 30px; margin-bottom: 30px;">👉이용권 리스트</h3>
+    <div class="container" style="margin-bottom: 50px;">
+	<h3 class="title" style="margin-left: 30px; margin-bottom: 30px; margin-top: 30px;">👉이용권 리스트</h3>
     
         <div class="row">
          	

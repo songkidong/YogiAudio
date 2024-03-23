@@ -131,7 +131,7 @@
 								</c:choose>
 								<c:choose>
 									<c:when test="${principal.role == 'ADMIN'}">
-										<a href="/admin/index" style="margin-left: 15px;">
+										<a href="/admin/index" style="margin-left: 15px; width: 70px;">
 											<p>관리자</p>
 										</a>
 									</c:when>

@@ -96,6 +96,9 @@ public class ProductController {
 		if (searchKeyword != null && !searchKeyword.isEmpty()) {
 			cri.setSearchKeyword(searchKeyword);
 		}
+			
+		
+		
 		
 		PageVO pageVO = new PageVO();
 		pageVO.setCri(cri);

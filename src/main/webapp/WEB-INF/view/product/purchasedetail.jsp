@@ -23,6 +23,8 @@
 						</div>
 					</div>
 					<!-- /Product main img -->
+					
+					
 
 					<!-- Product thumb imgs -->
 					<div class="col-md-2 col-md-pull-5">
@@ -39,13 +41,12 @@
 							
 						  <div>
 							
-								<h3 class="product-price">${detail.price}<del class="product-old-price"></del></h3>
+						    <h3 class="product-price">${detail.price}<del class="product-old-price"></del></h3>
 								
-							      <a href="/purchase/cancel?amount=${detail.price}&pno=${detail.pno}&id=${principal.id}">
-									 <button class="btn btn-danger" id="cancel-button" style="margin-top:30px; margin-left: 50px;">취소하기</button>
-								  </a>
-								
-								 
+							  <a href="/purchase/cancel?amount=${detail.price}&pno=${detail.pno}&id=${principal.id}">
+								<button class="btn btn-danger" id="cancel-button" style="margin-top:30px; margin-left: 50px;">취소하기</button>
+							  </a>
+					
 						  </div>
 						
 							
