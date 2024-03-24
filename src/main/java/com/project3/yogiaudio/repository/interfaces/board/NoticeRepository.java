@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.project3.yogiaudio.repository.entity.board.BoardNotice;
+import com.project3.yogiaudio.repository.entity.board.BoardQna;
 
 @Mapper
 public interface NoticeRepository {

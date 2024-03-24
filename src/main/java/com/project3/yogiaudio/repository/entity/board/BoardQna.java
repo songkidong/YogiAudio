@@ -1,6 +1,7 @@
 package com.project3.yogiaudio.repository.entity.board;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import com.project3.yogiaudio.util.TimeUtils;
 
@@ -27,6 +28,7 @@ public class BoardQna {
 	
 	// 조인 추가 필드
 	private String writerName;
+	private List<String> originFileName;
 	
 	// 날짜 포멧 설정
 	public String formatCreatedAt() {

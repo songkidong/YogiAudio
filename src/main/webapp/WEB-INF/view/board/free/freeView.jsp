@@ -9,7 +9,7 @@
 
 		<div class="button-container d-flex justify-content-end">
 			<button class="btn btn-info rounded-pill shadow-sm"
-				onclick="history.back()">
+				onclick="goBack()">
 				<i class="bi bi-arrow-return-left" style="padding-right: 5px;"></i>목록
 			</button>
 			<button class="btn btn-success rounded-pill shadow-sm"
@@ -22,62 +22,123 @@
 		</div>
 
 		<div>
-			<form class="card">
-				<div class="card-header d-flex justify-content-between">
-					<label for="id">번호 : 1</label> <input type="hidden" id="id"
-						value="${posts.id}"> <label for="createdDate"
-						style="float: right;">2024-03-13</label>
-				</div>
-				<div class="card-header d-flex justify-content-between">
-					<label for="writer">작성자 : user</label> <label for="view"
-						style="float: right;"><i class="bi bi-hand-index-thumb">&nbsp55</i></label>
-					<!-- 조회수 -->
-				</div>
-				<div class="card-body">
-					<label for="title">제목</label> <input type="text"
-						class="form-control" id="title" value="" readonly> <br />
-					<label for="content">내용</label>
-					<textarea rows="7" class="form-control" id="content" readonly></textarea>
-					<br /> <label for="file">첨부파일</label> <input type="text"
-						class="form-control" id="file" value="" readonly>
-				</div>
-			</form>
+			<table class="table table-bordered table-hover">
+				<tbody>
+					<tr>
+						<td>번호</td>
+						<td id="id-display" style="text-align: left;"></td>
+					</tr>
+					<tr>
+						<td>작성일</td>
+						<td id="createdAt-display" style="text-align: left;"></td>
+					</tr>
+					<!-- 작성자?????????????? -->
+					<tr>
+						<td>제목</td>
+						<td id="title-display" style="text-align: left;"></td>
+					</tr>
+					<tr>
+						<td>내용</td>
+						<td id="content-display" style="text-align: left;"></td>
+					</tr>
+					<tr>
+						<td>첨부파일</td>
+						<td style="text-align: left;"><a id="file-display"></a></td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 
-		<div class="commentList" style="margin-top: 30px;">
-			<h3>댓글목록</h3>
-			<div class="commentCard">
-				<div class="info">
-					<span class="nick">user</span> <span class="date">2024-03-13</span>
-				</div>
-				<p class="content" >댓글입니다.</p>
-				<div class="actions">
-
-					<!--내가쓴댓글만 수정삭제  -->
-					<a href="#" class="remove" data-no="${comment.no}">삭제</a> <input
-						type="hidden" name="commentParent" value="${comment.parent}" /> <a
-						href="#" class="modify">수정</a>
-
-				</div>
-			</div>
-		</div>
-
-		<div class="commentForm" style="margin-top: 30px;">
-			<h3>댓글쓰기</h3>
-			<form id="formComment" action="#" method="post">
-				<input type="hidden" name="parent" value="${no}" /> <input
-					type="hidden" name="writer" value="${sessUser.uid}" />
-				<textarea name="content"></textarea>
-				<div style="float:  right;">
-					<a href="#" class="btn btnCancel">취소</a> 
-					<input type="submit" id="btnComment" value="작성" class="btn btnComplete" />
-				</div>
-			</form>
-		</div>
 
 	</div>
 </section>
 
+<script src="/js/board/free.js"></script>
+<script>
+	function loadViewId() {
+
+		console.log(typeof addressNum);
+
+		$
+				.ajax({
+					type : "post",
+					url : "/board/free/freeView/" + addressNum,
+					data : {},
+					success : function(data) {
+
+						// id-display 엘리먼트에 데이터 출력
+						$("#id-display").html(data.id);
+
+						// 받은 날짜 문자열을 Date 객체로 파싱
+						var createdAtDate = new Date(data.createdAt);
+
+						// 날짜를 원하는 형식으로 포맷팅
+						var formattedDate = formatDate(createdAtDate);
+
+						// createdAt-display 엘리먼트에 포맷팅된 날짜 출력
+						$("#createdAt-display").html(formattedDate);
+
+						// title-display 엘리먼트에 데이터 출력
+						$("#title-display").html(data.title);
+
+						// content-display 엘리먼트에 데이터 출력
+						$("#content-display").html(data.content);
+
+						// 파일 경로를 쉼표로 분할하여 배열로 만듭니다
+						var filePaths = data.filePath.split(',');
+
+						// file-display 엘리먼트에 데이터 출력
+						if (filePaths.length > 0) {
+							var fileDisplayHTML = ""; // 파일을 보여줄 HTML
+
+							for (var i = 0; i < filePaths.length; i++) {
+								if (data.originFileName
+										&& data.originFileName[i]) { // originFileName이 정의되어 있을 때만 출력
+									fileDisplayHTML += "<a href='" + filePaths[i] + "' download>"
+											+ data.originFileName[i]
+											+ " <i class='bi bi-file-earmark-arrow-down-fill'></i></a><br>";
+									console.log("originFileName:",
+											data.originFileName[i]);
+								}
+							}
+
+							$("#file-display").html(fileDisplayHTML);
+						} else {
+							$("#file-display").html("첨부 파일이 없습니다.");
+						}
+
+					},
+					error : function() {
+						alert("Error!!!");
+					}
+				});
+
+	}
+
+	// 날짜를 원하는 형식으로 포맷팅하는 함수
+	function formatDate(date) {
+		var year = date.getFullYear();
+		var month = (date.getMonth() + 1).toString().padStart(2, '0');
+		var day = date.getDate().toString().padStart(2, '0');
+
+		return year + '년 ' + month + '월 ' + day + '일';
+	}
+
+	//페이지 로드 시 데이터 로딩 함수 호출
+	$(document).ready(function() {
+		loadViewId();
+	});
+</script>
+<script>
+	// 뒤로가기 버튼 조회수 반영 새로고침
+	function goBack() {
+        // 이전 페이지의 URL 가져오기
+        var previousPageUrl = "/board/free/freeList";
+        
+        // 이전 페이지로 이동
+        window.location.href = previousPageUrl;
+    }
+</script>
 <%@include file="/WEB-INF/view/layout/footer.jsp"%>
 
 

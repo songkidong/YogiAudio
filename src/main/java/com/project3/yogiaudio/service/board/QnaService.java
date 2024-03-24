@@ -11,8 +11,10 @@ import com.project3.yogiaudio.dto.board.QnaDTO;
 import com.project3.yogiaudio.dto.board.QnaUpdateDTO;
 import com.project3.yogiaudio.dto.common.PageReq;
 import com.project3.yogiaudio.dto.common.PageRes;
+import com.project3.yogiaudio.filedb.entity.Filedb;
 import com.project3.yogiaudio.filedb.service.FiledbService;
 import com.project3.yogiaudio.repository.entity.board.BoardQna;
+import com.project3.yogiaudio.repository.entity.board.BoardQnaReply;
 import com.project3.yogiaudio.repository.interfaces.board.QnaRepository;
 
 @Service
@@ -104,7 +106,37 @@ public class QnaService {
 	 */
 	public BoardQna qnaReadById(int id) {
 
-		return qnaRepository.findById(id);
+		BoardQna boardQna = qnaRepository.findById(id);
+		String filePathList = boardQna.getFilePath();
+		System.out.println("파일패스리스트야??????? " + filePathList);
+
+		String[] filePaths = filePathList.split(",");
+
+		List<String> uuids = new ArrayList<>();
+		for (String filePath : filePaths) {
+			int index = filePath.lastIndexOf("/get-file/"); // 마지막 '/get-file/'의 위치를 찾음
+			if (index != -1) { // '/get-file/'을 찾았을 경우
+				String uuid = filePath.substring(index + "/get-file/".length()); // '/get-file/' 다음의 문자열을 추출하여 uuid로 저장
+				uuids.add(uuid); // 추출된 uuid를 리스트에 추가
+				System.out.println("유유아이디들들들들??" + uuids);
+				System.out.println("유유아이디야???" + uuid);
+			}
+		}
+
+		Filedb filedb = null;
+
+		List<String> originalFileNames = new ArrayList<>();
+
+		for (String uuid : uuids) {
+			// uuid로 첨부된 파일 원래 이름 찾기
+			filedb = filedbService.findByUuid(uuid);
+			System.out.println("원래이름나오는리스트야??????? " + filedb);
+			originalFileNames.add(filedb.getOriginalFileName()); // 파일 이름을 리스트에 추가
+		}
+
+		boardQna.setOriginFileName(originalFileNames); // 리스트를 BoardNotice 객체에 설정
+
+		return boardQna;
 	}
 
 	/**
@@ -116,7 +148,7 @@ public class QnaService {
 	 * @Method 설명 : 문의하기 수정하기
 	 */
 	public boolean qnaUpdate(int id, QnaUpdateDTO qnaUpdateDTO) {
-		//////////////////////새로업로드 할 파일이 없을 경우 에러남///////////
+
 		List<MultipartFile> validFiles = new ArrayList<>();
 
 		// 빈 파일이 아닌 경우에만 유효한 파일 목록에 추가
@@ -128,26 +160,29 @@ public class QnaService {
 			}
 		}
 		String filePath = "";
-		
-		if(validFiles != null && validFiles.isEmpty() == false) {
+
+		if (validFiles != null && validFiles.isEmpty() == false) {
 			filePath = filedbService.saveFiles(validFiles);
 		}
-		
+
 		List<String> deleteList = qnaUpdateDTO.getDeletedHref();
 
 		int deleteResult = 0;
 
-		for (String deleteFilePath : deleteList) {
-			// "get-file/" 다음의 부분을 추출합니다.
-			int index = deleteFilePath.lastIndexOf("/get-file/"); // 마지막 '/get-file/'의 위치를 찾음
-			if (index != -1) { // '/get-file/'을 찾았을 경우
-				String uuid = deleteFilePath.substring(index + "/get-file/".length()); // '/get-file/' 다음의 문자열을 추출하여 uuid로 저장
-				deleteResult += filedbService.deleteByUuid(uuid);
+		if (deleteList != null) {
+			for (String deleteFilePath : deleteList) {
+				// "get-file/" 다음의 부분을 추출합니다.
+				int index = deleteFilePath.lastIndexOf("/get-file/"); // 마지막 '/get-file/'의 위치를 찾음
+				if (index != -1) { // '/get-file/'을 찾았을 경우
+					String uuid = deleteFilePath.substring(index + "/get-file/".length()); // '/get-file/' 다음의 문자열을 추출하여
+																							// uuid로 저장
+					deleteResult += filedbService.deleteByUuid(uuid);
+				}
+
 			}
-			
 		}
 
-		if (deleteResult != deleteList.size()) {
+		if (deleteList != null && deleteResult != deleteList.size()) {
 			return false;
 		}
 

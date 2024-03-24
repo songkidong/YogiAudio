@@ -7,7 +7,7 @@
 	<div class="board-container">
 		<div class="title-container">
 			<h2>
-				<a href="/board/notice/noticeList">공지사항</a>
+				<a href="/board/notice/noticeList" style="font-weight: bold;">공지사항</a>
 			</h2>
 			<!-- 검색 후 페이지 고침 -->
 			<button type="button" class="btn btn-warning" id="btnInsert">

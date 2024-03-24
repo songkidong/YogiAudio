@@ -60,7 +60,7 @@
 		<!-- 답변출력 -->
 		<div class="commentList" style="margin-top: 30px;">
 			<h3>답변 목록</h3>
-			<c:forEach var="reply" items="${replyList }">
+			<c:forEach var="reply" items="${replyList}">
 			<div class="commentCard">
 				<div class="info">
 					<span class="nick">${reply.writerName }</span> <span class="date">${reply.formatCreatedAt() }</span>

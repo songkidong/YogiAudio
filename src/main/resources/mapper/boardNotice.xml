@@ -23,7 +23,7 @@
 			where content like CONCAT('%',#{searchInput},'%')
 		</if>
 		<if test="searchType == 'createdAt'">
-			where created_at like CONCAT('%',#{searchInput},'%')
+			 where DATE_FORMAT(a.created_at, '%Y-%m-%d') like CONCAT('%',#{searchInput},'%')
 		</if>
 		<if test="searchType == null">
 			<!-- If no search type is specified, fetch all records -->
@@ -42,7 +42,7 @@
 			where content like CONCAT('%',#{searchInput},'%')
 		</if>
 		<if test="searchType == 'createdAt'">
-			where created_at like CONCAT('%',#{searchInput},'%')
+			where DATE_FORMAT(created_at, '%Y-%m-%d') like CONCAT('%',#{searchInput},'%')
 		</if>
 		<if test="searchType == null">
 			<!-- If no search type is specified, fetch all records -->

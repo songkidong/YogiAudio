@@ -14,18 +14,11 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class NoticeDTO {
-	
+public class FreeCommentDTO {
+
 	private long id;
 	private long writerId;
-	private String title;
-	private String content;
-	private List<MultipartFile> files;
+	private long boardFreeId;
+	private String content;	
 	private Timestamp createdAt;
-	
-	// 추가 필드 - file(uuid, originName)
-	private List<BoardFileDTO> boardFileDTOList;
-	
-	
-	
 }
