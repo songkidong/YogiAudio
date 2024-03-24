@@ -41,6 +41,7 @@ spring:
             trust: smtp.naver.com
             enable: true
 
+
 #  datasource:    
 #    url: jdbc:mysql://192.168.0.101:3306/yogi_audio?serverTimeZone=Asia/Seoul
 #    driver-class-name: com.mysql.cj.jdbc.Driver
