@@ -36,7 +36,6 @@ public class FreeCommentController {
 
 		freeCommentDTO.setWriterId(principal.getId());
 
-
 		int result = freeCommentService.insertComment(freeCommentDTO);
 
 		if (result != 1) {
