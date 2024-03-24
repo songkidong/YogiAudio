@@ -1,11 +1,13 @@
 package com.project3.yogiaudio.controller.user;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,26 +19,37 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.project3.yogiaudio.dto.admin.AdminCriteria;
+import com.project3.yogiaudio.dto.admin.AdminPageVO;
+import com.project3.yogiaudio.dto.common.Criteria;
+import com.project3.yogiaudio.dto.common.PageVO;
 import com.project3.yogiaudio.dto.playlist.PlayListStartDTO;
 import com.project3.yogiaudio.dto.user.GoogleProfile;
+import com.project3.yogiaudio.dto.user.HistoryListDTO;
 import com.project3.yogiaudio.dto.user.KakaoProfile;
+import com.project3.yogiaudio.dto.user.LikeMusicListDTO;
 import com.project3.yogiaudio.dto.user.NaverProfile;
 import com.project3.yogiaudio.dto.user.OAuthToken;
 import com.project3.yogiaudio.dto.user.UpdateUserDTO;
 import com.project3.yogiaudio.dto.user.UserDTO;
 import com.project3.yogiaudio.filedb.service.FiledbService;
+import com.project3.yogiaudio.repository.entity.History;
 import com.project3.yogiaudio.repository.entity.User;
 import com.project3.yogiaudio.repository.entity.playlist.Playlist;
+import com.project3.yogiaudio.repository.entity.product.LikeMusic;
 import com.project3.yogiaudio.service.UserService;
 import com.project3.yogiaudio.service.playlist.PlaylistService;
 import com.project3.yogiaudio.util.Define;
 
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j
 public class UserController {
 
 	@Autowired
@@ -88,17 +101,6 @@ public class UserController {
 	@GetMapping("/consent")
 	public String consentPage() {
 		return "user/consent";
-	}
-
-	@GetMapping("/myPlaylist")
-	public String myPlaylistPage(Model model) {
-		User user = (User) httpsession.getAttribute(Define.PRINCIPAL);
-
-		// playlist 조회
-		List<PlayListStartDTO> playlist = playlistService.readPlaylistByUserId(user.getId(), Define.PLAYLIST);
-
-		model.addAttribute("playlist", playlist);
-		return "user/myPlaylist";
 	}
 
 	/**
@@ -158,18 +160,83 @@ public class UserController {
 	}
 
 	/**
-	 * @Method Name : accountPage
-	 * @작성일 : 2024. 3. 19.
+	 * @Method Name : paymentPage
+	 * @작성일 : 2024. 3. 22.
 	 * @작성자 : 송기동
 	 * @변경이력 :
-	 * @Method 설명 : 내정보 페이지
+	 * @Method 설명 : 결제내역 페이지
 	 */
-	@GetMapping("/payment/{id}")
-	public String paymentPage(@PathVariable("id") Long id, Model model) {
+	@GetMapping("/payment")
+	public String paymentPage(AdminCriteria cri, Model model) {
 
-		User userEntity = userService.findUserById(id);
-		model.addAttribute("user", userEntity);
+		User user = (User) httpsession.getAttribute(Define.PRINCIPAL);
+		List<HistoryListDTO> paymentList = userService.findAllHistory(cri, user.getId());
+		model.addAttribute("paymentList", paymentList);
+
+		AdminPageVO pageVO = new AdminPageVO();
+		pageVO.setCri(cri);
+		pageVO.setTotalCount(userService.countAllHistory(user.getId()));
+		model.addAttribute("pageVO", pageVO);
+
 		return "/user/payment";
+	}
+
+	@PostMapping("/refund")
+	@ResponseBody
+	public ResponseEntity<String> handleRefundRequest(@RequestBody Map<String, Integer> requestData) {
+	    int hno = requestData.get("hno");
+	    int id = requestData.get("id");
+
+	    try {
+	        // 환불 요청을 처리하는 비즈니스 로직을 작성합니다.
+	        userService.refund(hno, id);
+
+	        // 성공적으로 처리되었을 때의 응답을 반환합니다.
+	        return ResponseEntity.ok("success");
+	    } catch (Exception e) {
+	        // 처리 중 예외가 발생하였을 때의 응답을 반환합니다.
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("환불 요청 처리 중 오류가 발생하였습니다.");
+	    }
+	}
+	
+	/**
+	 * @Method Name : myPlaylistPage
+	 * @작성일 : 2024. 3. 24.
+	 * @작성자 : 송기동
+	 * @변경이력 :
+	 * @Method 설명 : 플레이리스트 페이지
+	 */
+	@GetMapping("/myPlaylist")
+	public String myPlaylistPage(Model model) {
+		User user = (User) httpsession.getAttribute(Define.PRINCIPAL);
+
+		// playlist 조회
+		List<PlayListStartDTO> playlist = playlistService.readPlaylistByUserId(user.getId(), Define.PLAYLIST);
+
+		model.addAttribute("playlist", playlist);
+		return "user/myPlaylist";
+	}
+
+	/**
+	 * @Method Name : likemusicPage
+	 * @작성일 : 2024. 3. 22.
+	 * @작성자 : 송기동
+	 * @변경이력 :
+	 * @Method 설명 : 좋아요 페이지
+	 */
+	@GetMapping("/likemusic")
+	public String likemusicPage(AdminCriteria cri, Model model) {
+
+		User user = (User) httpsession.getAttribute(Define.PRINCIPAL);
+		List<LikeMusicListDTO> likemusicList = userService.findAllLikeMusic(cri, user.getId());
+		model.addAttribute("likemusicList", likemusicList);
+
+		AdminPageVO pageVO = new AdminPageVO();
+		pageVO.setCri(cri);
+		pageVO.setTotalCount(userService.countAllLikeMusic(user.getId()));
+		model.addAttribute("pageVO", pageVO);
+
+		return "/user/likemusic";
 	}
 
 	/**
@@ -398,4 +465,5 @@ public class UserController {
 		}
 		return ResponseEntity.ok().body("이메일 사용가능");
 	}
+
 }

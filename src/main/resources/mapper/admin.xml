@@ -21,14 +21,60 @@
 <select id="countAllMusic" resultType="int">
 	select count(*) from music
 </select>
-	
-<delete id="deleteUser">
-	delete from user where id=#{id}
-</delete>
+
+<select id="findAllHistory" resultType="com.project3.yogiaudio.repository.entity.History">
+	select a.hno, a.amount, a.date, b.name, b.nickname, c.purchasename from history as a
+	join user as b
+	on a.id = b.id
+	join purchase as c
+	on a.pno = c.pno
+	order by a.hno desc
+	limit #{offset}, #{pageSize} 
+</select>
+
+<select id="countAllHistory" resultType="int">
+	select count(*) from history as a
+	join user as b
+	on a.id = b.id
+	join purchase as c
+	on a.pno = c.pno
+</select>
+
+<select id="findAllRefund" resultType="com.project3.yogiaudio.repository.entity.Refund">
+	select a.*, b.name, b.nickname, 
+	c.pno, c.amount, c.date, d.purchasename 
+	from refund as a
+	join user as b
+	on a.user_id = b.id
+	join history as c
+	on a.hno = c.hno
+	join purchase as d
+	on c.pno = d.pno
+	order by a.id desc
+	limit #{offset}, #{pageSize} 
+</select>
+
+<select id="countAllRefund" resultType="int">
+	select count(*) from refund as a
+	join user as b
+	on a.user_id = b.id
+	join history as c
+	on a.hno = c.hno
+	join purchase as d
+	on c.pno = d.pno
+</select>
 	
 <delete id="deleteMusic">
 	delete from music where music_no = #{musicNo}
 </delete>
+
+<update id="withdrawUser">
+	update user set delete_yn = 'Y' where id=#{id}
+</update>
+
+<update id="updateRefund">
+	update refund set refund_yn = 'Y' where id = #{id}
+</update>
 	
 
 </mapper>

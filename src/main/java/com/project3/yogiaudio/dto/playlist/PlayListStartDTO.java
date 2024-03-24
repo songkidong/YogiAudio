@@ -19,6 +19,8 @@ public class PlayListStartDTO {
 	private String musicSinger;
 	private String lyrics;
 	private String filePath;
+	private String musicSample;
 	private String fileMusic;
 	private String mvFile;
+	private String musicMajor;
 }

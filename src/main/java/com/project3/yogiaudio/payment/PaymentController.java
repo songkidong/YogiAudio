@@ -14,6 +14,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -75,11 +76,15 @@ public class PaymentController {
 	    Reader reader = new InputStreamReader(responseStream, StandardCharsets.UTF_8);
 	    JSONObject jsonObject = (JSONObject) parser.parse(reader);
 	    responseStream.close();
-	    
 	    return ResponseEntity.status(code).body(jsonObject);
 	  }
 	
-	
+	  
+	   
+	  
+	  
+	  
+	 
 	
 	
 }
