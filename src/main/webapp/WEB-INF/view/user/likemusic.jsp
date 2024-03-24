@@ -48,7 +48,8 @@
 
 					<div class="container-xxl flex-grow-1 container-p-y">
 						<h4 class="py-3 mb-4">
-							<span class="text-muted fw-light">마이페이지 /</span> 좋아요
+							<a class="nav-link" href="/product/main"><i
+								class="bx bx-home me-1"></i> Home</a>
 						</h4>
 
 						<div class="row">
@@ -58,11 +59,11 @@
 										href="/account/${principal.id}"><i class="bx bx-user me-1"></i>
 											계정</a></li>
 									<li class="nav-item"><a class="nav-link" href="/payment"><i
-											class="bx bx-table me-1"></i> 결제 내역</a></li>
+											class="bx bx-credit-card me-1"></i> 결제 내역</a></li>
 									<li class="nav-item"><a class="nav-link"
 										href="/myPlaylist"><i class="bx bx-music me-1"></i> 플리</a></li>
 									<li class="nav-item"><a class="nav-link active"
-										href="/likemusic"><i class="bx bx-like me-1"></i> 좋아요</a></li>
+										href="/likemusic"><i class="bx bxs-heart me-1"></i> 좋아요</a></li>
 								</ul>
 
 							</div>
@@ -74,7 +75,7 @@
 						<!-- Basic Bootstrap Table -->
 						<c:if test="${not empty likemusicList}">
 							<div class="card">
-								<h5 class="card-header">좋아요</h5>
+								<h5 class="card-header">좋아요 내역</h5>
 								<div class="table-responsive text-nowrap">
 									<table class="table">
 										<thead>
@@ -96,8 +97,9 @@
 													<td>${list.musicTitle}</td>
 													<td>${list.musicSinger}</td>
 													<td>${list.createdAt}</td>
-													<td><button type="button" class="btn btn-primarylikeCancelBtn">
-														<i class="bx bx-heart"></i>
+													<td><button type="button"
+															class="btn btn-primarylikeCancelBtn">
+															<i class="bx bxs-heart"></i>
 														</button></td>
 												</tr>
 											</c:forEach>

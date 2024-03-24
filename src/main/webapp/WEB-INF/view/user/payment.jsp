@@ -48,7 +48,8 @@
 
 					<div class="container-xxl flex-grow-1 container-p-y">
 						<h4 class="py-3 mb-4">
-							<span class="text-muted fw-light">마이페이지 /</span> 결제 내역
+							<a class="nav-link" href="/product/main"><i
+								class="bx bx-home me-1"></i> Home</a>
 						</h4>
 
 						<div class="row">
@@ -58,11 +59,12 @@
 										href="/account/${principal.id}"><i class="bx bx-user me-1"></i>
 											계정</a></li>
 									<li class="nav-item"><a class="nav-link active"
-										href="/payment"><i class="bx bx-table me-1"></i> 결제 내역</a></li>
+										href="/payment"><i class="bx bx-credit-card me-1"></i> 결제 내역</a></li>
 									<li class="nav-item"><a class="nav-link"
 										href="/myPlaylist"><i class="bx bx-music me-1"></i> 플리</a></li>
 									<li class="nav-item"><a class="nav-link" href="/likemusic"><i
-											class="bx bx-like me-1"></i> 좋아요</a></li>
+											class="bx bxs-heart me-1"></i> 좋아요</a></li>
+
 								</ul>
 
 							</div>
@@ -89,23 +91,23 @@
 										</thead>
 										<tbody class="table-border-bottom-0">
 											<c:forEach items="${paymentList}" var="pay">
-												<tr >
+												<tr>
 													<td>${pay.hno}</td>
 													<td>${pay.purchaseName}</td>
 													<td>${pay.amount}</td>
 													<td>${pay.date}</td>
-                            <td>
-                                <input type="hidden" class="payment-id" value="${pay.id}">
-                                <c:if test="${pay.refundYn == null}">
-                                    <button class="btn btn-primary refund-btn" onclick="requestRefund(this)">환불 요청</button>
-                                </c:if>
-                                <c:if test="${pay.refundYn == 'N'}">
-                                    <button class="btn btn-primary refund-btn" disabled>환불 요청 완료</button>
-                                </c:if>
-                                <c:if test="${pay.refundYn == 'Y'}">
-                                    <button class="btn btn-primary refund-btn" disabled>환불 완료</button>
-                                </c:if>
-                            </td>
+													<td><input type="hidden" class="payment-id"
+														value="${pay.id}"> <c:if
+															test="${pay.refundYn == null}">
+															<button class="btn btn-primary refund-btn"
+																onclick="requestRefund(this)">환불 요청</button>
+														</c:if> <c:if test="${pay.refundYn == 'N'}">
+															<button class="btn btn-primary refund-btn" disabled>환불
+																요청 완료</button>
+														</c:if> <c:if test="${pay.refundYn == 'Y'}">
+															<button class="btn btn-primary refund-btn" disabled>환불
+																완료</button>
+														</c:if></td>
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -160,7 +162,6 @@
 	</div>
 	<!-- / Layout wrapper -->
 	<script>
-
 		// 결제 항목의 환불 요청을 처리하는 함수
 		function requestRefund(button) {
 			var row = $(button).closest('tr');

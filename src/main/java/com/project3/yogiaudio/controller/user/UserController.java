@@ -103,17 +103,6 @@ public class UserController {
 		return "user/consent";
 	}
 
-	@GetMapping("/myPlaylist")
-	public String myPlaylistPage(Model model) {
-		User user = (User) httpsession.getAttribute(Define.PRINCIPAL);
-
-		// playlist 조회
-		List<PlayListStartDTO> playlist = playlistService.readPlaylistByUserId(user.getId(), Define.PLAYLIST);
-
-		model.addAttribute("playlist", playlist);
-		return "user/myPlaylist";
-	}
-
 	/**
 	 * @Method Name : signUp
 	 * @작성일 : 2024. 3. 18.
@@ -208,6 +197,24 @@ public class UserController {
 	        // 처리 중 예외가 발생하였을 때의 응답을 반환합니다.
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("환불 요청 처리 중 오류가 발생하였습니다.");
 	    }
+	}
+	
+	/**
+	 * @Method Name : myPlaylistPage
+	 * @작성일 : 2024. 3. 24.
+	 * @작성자 : 송기동
+	 * @변경이력 :
+	 * @Method 설명 : 플레이리스트 페이지
+	 */
+	@GetMapping("/myPlaylist")
+	public String myPlaylistPage(Model model) {
+		User user = (User) httpsession.getAttribute(Define.PRINCIPAL);
+
+		// playlist 조회
+		List<PlayListStartDTO> playlist = playlistService.readPlaylistByUserId(user.getId(), Define.PLAYLIST);
+
+		model.addAttribute("playlist", playlist);
+		return "user/myPlaylist";
 	}
 
 	/**
