@@ -22,16 +22,16 @@ document.addEventListener('DOMContentLoaded', function() {
 			};
 			playerWindow.postMessage(dataToSend, '*'); // 데이터를 자식 창으로 전달
 		} else {
-			alert('자식 창이 아직 열리지 않았거나 이미 닫혔습니다. 자식 창을 다시 열었습니다.');
 			playerWindow = window.open('/musicPlayer', 'musicPlayerWindow', 'width=1000,height=700');
-			// setTimeout을 사용하여 자식 창이 열린 후에 postMessage 호출
-			setTimeout(function() {
+
+			// 자식 창이 준비된 후에 postMessage 함수를 호출합니다.
+			playerWindow.addEventListener('load', function() {
 				const dataToSend = {
 					musicNo: musicNo,
 					type: type
 				};
 				playerWindow.postMessage(dataToSend, '*'); // 데이터를 자식 창으로 전달
-			}, 100); // 1초 후에 호출하도록 설정 (필요에 따라 시간 조정 가능)
+			});
 		}
 	}
 

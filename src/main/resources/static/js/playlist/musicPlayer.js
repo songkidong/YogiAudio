@@ -1,9 +1,26 @@
 document.addEventListener('DOMContentLoaded', function() {
 	const logo = document.getElementById('logo');
-	logo.addEventListener("click", function(){
+	logo.addEventListener("click", function() {
 		window.opener.location.href = '/product/main';
 	});
-	
+
+	window.addEventListener('message', function(event) {
+		let type = event.data.type;
+		// ajax사용해서 playlist에 저장하기.
+		$.ajax({
+			type: "POST",
+			url: "/addPlayList",
+			data: JSON.stringify({ musicNo: event.data.musicNo }), // JSON 형식의 데이터
+			contentType: "application/json",  // 데이터 형식을 JSON으로 명시한다.
+			success: function(data) {
+				// 추가한 노래 playlist에 추가
+				addPlaylistItem(data, type);
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alert("통신 실패.")
+			}
+		});
+	});
 	// 반복재생 상태를 나타내는 변수 0. 반복x 1. 전체 반복, 2. 1곡 반복
 	let isRepeatMode = 0;
 	// 랜덤 버튼
@@ -128,25 +145,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	// audioPlayer.autoplay = true;
 	let playListItems = Array.from(document.querySelectorAll('.ui-list-item'));
 
-	window.addEventListener('message', function(event) {
-		let type = event.data.type;
-		// ajax사용해서 playlist에 저장하기.
-		$.ajax({
-			type: "POST",
-			url: "/addPlayList",
-			data: JSON.stringify({ musicNo: event.data.musicNo }), // JSON 형식의 데이터
-			contentType: "application/json",  // 데이터 형식을 JSON으로 명시한다.
-			success: function(data) {
-				// 추가한 노래 playlist에 추가
-				alert(data);
-				addPlaylistItem(data, type);
-			},
-			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				alert("통신 실패.")
-			}
-		});
-	});
-
 	// 현재 재생 중인 곡의 인덱스를 저장하는 변수
 	let currentSongIndex = 0;
 
@@ -195,7 +193,6 @@ document.addEventListener('DOMContentLoaded', function() {
 					}),
 					contentType: 'application/json',
 					success: function(response) {
-						alert(response);
 						alert("플레이리스트에 추가 되었습니다");
 					},
 					error: function(error) {
@@ -250,7 +247,6 @@ document.addEventListener('DOMContentLoaded', function() {
 				success: function(data) {
 					// 추가한 노래 playlist에 추가
 					console.log(data);
-					alert(data);
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
 					alert("통신 실패.")
@@ -301,7 +297,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			contentType: "application/json",
 			success: function(data) {
 				console.log(data);
-				alert(data);
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				alert("통신 실패.")
@@ -355,7 +350,6 @@ document.addEventListener('DOMContentLoaded', function() {
 					contentType: "application/json",
 					success: function(data) {
 						console.log(data);
-						alert(data);
 						myMusicOpenBtn.style.backgroundColor = "#ffffff";
 						myMusicCloseBtn.style.backgroundColor = "#e0e0e0";
 						// 2. 클릭 이벤트 시 addPlaylistItem에 추가하기
@@ -465,7 +459,6 @@ document.addEventListener('DOMContentLoaded', function() {
 						}),
 						contentType: 'application/json',
 						success: function(response) {
-							alert(response);
 							alert("플레이리스트에 추가 되었습니다");
 							myMusicOpenBtn.click();
 						},
@@ -568,7 +561,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	}
 	document.querySelector('#lyrics-container').addEventListener('wheel', preventScroll);
-	setFirstSong();
+	//	setFirstSong();
 
 	// 플레이리스트 처음곡 재생하는 함수
 	function setFirstSong() {
@@ -884,7 +877,6 @@ document.addEventListener('DOMContentLoaded', function() {
 				success: function(data) {
 					// 추가한 노래 playlist에 추가
 					console.log(data);
-					alert(data);
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
 					alert("통신 실패.")
@@ -969,7 +961,6 @@ document.addEventListener('DOMContentLoaded', function() {
 					}),
 					contentType: 'application/json',
 					success: function(response) {
-						alert(response);
 						alert("플레이리스트에 추가 되었습니다");
 					},
 					error: function(error) {
@@ -1043,7 +1034,6 @@ document.addEventListener('DOMContentLoaded', function() {
 				success: function(data) {
 					// 추가한 노래 playlist에 추가
 					console.log(data);
-					alert(data);
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
 					alert("통신 실패.")
