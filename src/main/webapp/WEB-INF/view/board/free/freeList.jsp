@@ -136,7 +136,8 @@
 
 	// 페이징 업데이트 함수
 	function updatePagination(data) {
-	    var pagination = $('.pagination');
+		
+	    var pagination = $('.free pagination');
 	    pagination.empty();
 
 	    // 현재 정렬 기준 가져오기
@@ -166,6 +167,8 @@
 	//정렬된 데이터를 요청하는 함수
 	function sortBoard(type) {
 		sortType = type; // 전역 변수 sortType 업데이트
+		
+		console.log(sortType);
 
 		var currentPage = parseInt($('.pagination .active .page-link').text()); // 현재 페이지 번호 가져오기
 		var pageSize = parseInt($('.pagination .page-link').not('.disabled')
