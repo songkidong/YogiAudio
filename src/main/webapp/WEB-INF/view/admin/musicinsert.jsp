@@ -9,17 +9,35 @@
 	        <div class="row justify-content-center"> <!-- 중앙 정렬 -->
 	            <div class="col-md-4"> <!-- 중간 폭 설정 -->
 	                <div class="mb-3">
-	                    <label for="exampleFormControlInput1" class="form-label">음원번호</label>
-	                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+	                    <label for="exampleFormControlInput1" class="form-label">제목</label>
+	                    <input type="email" class="form-control" name="musictitle" >
 	                </div>
-	                <div class="mb-3">
-	                    <label for="exampleFormControlInput2" class="form-label"></label>
-	                    <input type="email" class="form-control" id="exampleFormControlInput2" placeholder="name@example.com">
+	                 <div class="mb-3">
+	                    <label for="exampleFormControlInput1" class="form-label">제목</label>
+	                    <input type="email" class="form-control" name="musictitle" >
+	                </div>
+	                 <div class="mb-3">
+	                    <label for="exampleFormControlInput1" class="form-label">제목</label>
+	                    <input type="email" class="form-control" name="musictitle" >
 	                </div>
 	                <div class="mb-3">
 	                    <label for="exampleFormControlTextarea1" class="form-label"></label>
 	                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
 	                </div>
+	                 <div class="mb-3">
+	                    <label for="exampleFormControlInput1" class="form-label">제목</label>
+	                    <input type="email" class="form-control" name="musictitle" >
+	                </div>
+	                <div class="mb-3">
+	                    <label for="exampleFormControlTextarea1" class="form-label"></label>
+	                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+	                </div>
+	                 <div class="mb-3">
+	                    <label for="exampleFormControlInput1" class="form-label">제목</label>
+	                    <input type='file' id='btnAtt' multiple='multiple' name="files">
+	                </div>
+	                
+	                
 	            </div>
 	        </div>
 	    </div>
