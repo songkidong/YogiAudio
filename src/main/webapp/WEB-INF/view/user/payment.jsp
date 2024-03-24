@@ -7,9 +7,8 @@
 <meta charset="UTF-8">
 <title>결제 내역</title>
 <!-- CSS -->
-<!--     <link href="/css/user/mypage.css" rel="stylesheet"> ->   
 
-    <!-- Fonts -->
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
@@ -49,7 +48,8 @@
 
 					<div class="container-xxl flex-grow-1 container-p-y">
 						<h4 class="py-3 mb-4">
-							<span class="text-muted fw-light">마이페이지 /</span> 결제 내역
+							<a class="nav-link" href="/product/main"><i
+								class="bx bx-home me-1"></i> Home</a>
 						</h4>
 
 						<div class="row">
@@ -59,205 +59,100 @@
 										href="/account/${principal.id}"><i class="bx bx-user me-1"></i>
 											계정</a></li>
 									<li class="nav-item"><a class="nav-link active"
-										href="/payment/${principal.id}"><i
-											class="bx bx-table me-1"></i> 결제 내역</a></li>
+										href="/payment"><i class="bx bx-credit-card me-1"></i> 결제 내역</a></li>
 									<li class="nav-item"><a class="nav-link"
 										href="/myPlaylist"><i class="bx bx-music me-1"></i> 플리</a></li>
+									<li class="nav-item"><a class="nav-link" href="/likemusic"><i
+											class="bx bxs-heart me-1"></i> 좋아요</a></li>
+
 								</ul>
 
 							</div>
 						</div>
+						<c:if test="${empty paymentList}">
+							<h1 style="display: flex; justify-content: center;">결제 내역이
+								존재하지 않습니다</h1>
+						</c:if>
 
 						<!-- Basic Bootstrap Table -->
-						<div class="card">
-							<h5 class="card-header">결제 내역</h5>
-							<div class="table-responsive text-nowrap">
-								<table class="table">
-									<thead>
-										<tr>
-											<th>Project</th>
-											<th>Client</th>
-											<th>Users</th>
-											<th>Status</th>
-											<th>Actions</th>
-										</tr>
-									</thead>
-									<tbody class="table-border-bottom-0">
-										<tr>
-											<td><i class="bx bxl-angular bx-sm text-danger me-3"></i>
-												<span class="fw-medium">Angular Project</span></td>
-											<td>Albert Cook</td>
-											<td>
-												<ul
-													class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-													<li data-bs-toggle="tooltip" data-popup="tooltip-custom"
-														data-bs-placement="top" class="avatar avatar-xs pull-up"
-														title="Lilian Fuller"><img
-														src="../assets/img/avatars/5.png" alt="Avatar"
-														class="rounded-circle" /></li>
-													<li data-bs-toggle="tooltip" data-popup="tooltip-custom"
-														data-bs-placement="top" class="avatar avatar-xs pull-up"
-														title="Sophia Wilkerson"><img
-														src="../assets/img/avatars/6.png" alt="Avatar"
-														class="rounded-circle" /></li>
-													<li data-bs-toggle="tooltip" data-popup="tooltip-custom"
-														data-bs-placement="top" class="avatar avatar-xs pull-up"
-														title="Christina Parker"><img
-														src="../assets/img/avatars/7.png" alt="Avatar"
-														class="rounded-circle" /></li>
-												</ul>
-											</td>
-											<td><span class="badge bg-label-primary me-1">Active</span></td>
-											<td>
-												<div class="dropdown">
-													<button type="button"
-														class="btn p-0 dropdown-toggle hide-arrow"
-														data-bs-toggle="dropdown">
-														<i class="bx bx-dots-vertical-rounded"></i>
-													</button>
-													<div class="dropdown-menu">
-														<a class="dropdown-item" href="javascript:void(0);"><i
-															class="bx bx-edit-alt me-1"></i> Edit</a> <a
-															class="dropdown-item" href="javascript:void(0);"><i
-															class="bx bx-trash me-1"></i> Delete</a>
-													</div>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td><i class="bx bxl-react bx-sm text-info me-3"></i> <span
-												class="fw-medium">React Project</span></td>
-											<td>Barry Hunter</td>
-											<td>
-												<ul
-													class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-													<li data-bs-toggle="tooltip" data-popup="tooltip-custom"
-														data-bs-placement="top" class="avatar avatar-xs pull-up"
-														title="Lilian Fuller"><img
-														src="../assets/img/avatars/5.png" alt="Avatar"
-														class="rounded-circle" /></li>
-													<li data-bs-toggle="tooltip" data-popup="tooltip-custom"
-														data-bs-placement="top" class="avatar avatar-xs pull-up"
-														title="Sophia Wilkerson"><img
-														src="../assets/img/avatars/6.png" alt="Avatar"
-														class="rounded-circle" /></li>
-													<li data-bs-toggle="tooltip" data-popup="tooltip-custom"
-														data-bs-placement="top" class="avatar avatar-xs pull-up"
-														title="Christina Parker"><img
-														src="../assets/img/avatars/7.png" alt="Avatar"
-														class="rounded-circle" /></li>
-												</ul>
-											</td>
-											<td><span class="badge bg-label-success me-1">Completed</span></td>
-											<td>
-												<div class="dropdown">
-													<button type="button"
-														class="btn p-0 dropdown-toggle hide-arrow"
-														data-bs-toggle="dropdown">
-														<i class="bx bx-dots-vertical-rounded"></i>
-													</button>
-													<div class="dropdown-menu">
-														<a class="dropdown-item" href="javascript:void(0);"><i
-															class="bx bx-edit-alt me-2"></i> Edit</a> <a
-															class="dropdown-item" href="javascript:void(0);"><i
-															class="bx bx-trash me-2"></i> Delete</a>
-													</div>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td><i class="bx bxl-vuejs bx-sm text-success me-3"></i>
-												<span class="fw-medium">VueJs Project</span></td>
-											<td>Trevor Baker</td>
-											<td>
-												<ul
-													class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-													<li data-bs-toggle="tooltip" data-popup="tooltip-custom"
-														data-bs-placement="top" class="avatar avatar-xs pull-up"
-														title="Lilian Fuller"><img
-														src="../assets/img/avatars/5.png" alt="Avatar"
-														class="rounded-circle" /></li>
-													<li data-bs-toggle="tooltip" data-popup="tooltip-custom"
-														data-bs-placement="top" class="avatar avatar-xs pull-up"
-														title="Sophia Wilkerson"><img
-														src="../assets/img/avatars/6.png" alt="Avatar"
-														class="rounded-circle" /></li>
-													<li data-bs-toggle="tooltip" data-popup="tooltip-custom"
-														data-bs-placement="top" class="avatar avatar-xs pull-up"
-														title="Christina Parker"><img
-														src="../assets/img/avatars/7.png" alt="Avatar"
-														class="rounded-circle" /></li>
-												</ul>
-											</td>
-											<td><span class="badge bg-label-info me-1">Scheduled</span></td>
-											<td>
-												<div class="dropdown">
-													<button type="button"
-														class="btn p-0 dropdown-toggle hide-arrow"
-														data-bs-toggle="dropdown">
-														<i class="bx bx-dots-vertical-rounded"></i>
-													</button>
-													<div class="dropdown-menu">
-														<a class="dropdown-item" href="javascript:void(0);"><i
-															class="bx bx-edit-alt me-2"></i> Edit</a> <a
-															class="dropdown-item" href="javascript:void(0);"><i
-															class="bx bx-trash me-2"></i> Delete</a>
-													</div>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td><i class="bx bxl-bootstrap bx-sm text-primary me-3"></i>
-												<span class="fw-medium">Bootstrap Project</span></td>
-											<td>Jerry Milton</td>
-											<td>
-												<ul
-													class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-													<li data-bs-toggle="tooltip" data-popup="tooltip-custom"
-														data-bs-placement="top" class="avatar avatar-xs pull-up"
-														title="Lilian Fuller"><img
-														src="../assets/img/avatars/5.png" alt="Avatar"
-														class="rounded-circle" /></li>
-													<li data-bs-toggle="tooltip" data-popup="tooltip-custom"
-														data-bs-placement="top" class="avatar avatar-xs pull-up"
-														title="Sophia Wilkerson"><img
-														src="../assets/img/avatars/6.png" alt="Avatar"
-														class="rounded-circle" /></li>
-													<li data-bs-toggle="tooltip" data-popup="tooltip-custom"
-														data-bs-placement="top" class="avatar avatar-xs pull-up"
-														title="Christina Parker"><img
-														src="../assets/img/avatars/7.png" alt="Avatar"
-														class="rounded-circle" /></li>
-												</ul>
-											</td>
-											<td><span class="badge bg-label-warning me-1">Pending</span></td>
-											<td>
-												<div class="dropdown">
-													<button type="button"
-														class="btn p-0 dropdown-toggle hide-arrow"
-														data-bs-toggle="dropdown">
-														<i class="bx bx-dots-vertical-rounded"></i>
-													</button>
-													<div class="dropdown-menu">
-														<a class="dropdown-item" href="javascript:void(0);"><i
-															class="bx bx-edit-alt me-2"></i> Edit</a> <a
-															class="dropdown-item" href="javascript:void(0);"><i
-															class="bx bx-trash me-2"></i> Delete</a>
-													</div>
-												</div>
-											</td>
-										</tr>
-									</tbody>
-								</table>
+						<c:if test="${not empty paymentList}">
+							<div class="card">
+								<h5 class="card-header">결제 내역</h5>
+								<div class="table-responsive text-nowrap">
+									<table class="table">
+										<thead>
+											<tr>
+												<th>결제번호</th>
+												<th>상품</th>
+												<th>가격</th>
+												<th>구매일시</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody class="table-border-bottom-0">
+											<c:forEach items="${paymentList}" var="pay">
+												<tr>
+													<td>${pay.hno}</td>
+													<td>${pay.purchaseName}</td>
+													<td>${pay.amount}</td>
+													<td>${pay.date}</td>
+													<td><input type="hidden" class="payment-id"
+														value="${pay.id}"> <c:if
+															test="${pay.refundYn == null}">
+															<button class="btn btn-primary refund-btn"
+																onclick="requestRefund(this)">환불 요청</button>
+														</c:if> <c:if test="${pay.refundYn == 'N'}">
+															<button class="btn btn-primary refund-btn" disabled>환불
+																요청 완료</button>
+														</c:if> <c:if test="${pay.refundYn == 'Y'}">
+															<button class="btn btn-primary refund-btn" disabled>환불
+																완료</button>
+														</c:if></td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
 							</div>
-						</div>
+						</c:if>
 						<!--/ Basic Bootstrap Table -->
 					</div>
 					<!-- / Content -->
 
 					<div class="content-backdrop fade"></div>
 				</div>
+				<!-- flex 속성으로 가운데정렬하기 -->
+				<ul class="pagination"
+					style="display: flex; justify-content: center; padding-right: 10%; margin-top: 10px;">
+
+					<!-- pageVO.prev가 참(시작페이지가 1이 아닐 때)이면 이전버튼 li태그 생성 -->
+					<c:if test="${pageVO.prev }">
+						<li class="page-item"><a class="page-link"
+							href="/payment?page=${pageVO.startPage - 1 }"><i
+								class="fas fa-chevron-left"></i></a></li>
+					</c:if>
+
+					<!-- 반복문 -->
+					<c:forEach var="i" begin="${pageVO.startPage }"
+						end="${pageVO.endPage }" step="1">
+						<!-- 페이지 번호 클릭했을 때 Controller에서 pageVO.setCri(cri) 메서드를 통해, 현재 페이지 값 가져올 수 있음 -->
+						<li class="page-item ${pageVO.cri.page eq i ? 'active' : ''}">
+							<!-- Controller에서 Criteria가 매개변수로 있어서, 여기서 page값 파라미터로 보낼때 받을 수 있음 -->
+							<a class="page-link" href="/payment?page=${i }">${i }</a>
+						</li>
+					</c:forEach>
+					<!-- 반복문 끝 -->
+
+					<!-- pageVO.nexr가 참(끝페이지 * 페이지당 게시글 수가 총 갯수보다 작으면)이면 다음버튼 li태그 생성 -->
+					<c:if test="${pageVO.next }">
+						<li class="page-item"><a class="page-link"
+							href="/payment?page=${pageVO.endPage + 1 }"><i
+								class="fas fa-chevron-right"></i></a></li>
+					</c:if>
+
+				</ul>
 				<!-- Content wrapper -->
+
 			</div>
 			<!-- / Layout page -->
 		</div>
@@ -266,8 +161,33 @@
 		<div class="layout-overlay layout-menu-toggle"></div>
 	</div>
 	<!-- / Layout wrapper -->
+	<script>
+		// 결제 항목의 환불 요청을 처리하는 함수
+		function requestRefund(button) {
+			var row = $(button).closest('tr');
+			var hno = row.find('td:first').text();
+			var id = row.find('.payment-id').val();
+			$.ajax({
+				type : 'POST',
+				url : '/refund',
+				contentType : 'application/json',
+				data : JSON.stringify({
+					hno : hno,
+					id : id
+				}),
+				success : function(response) {
+					alert('환불 요청이 성공적으로 전송되었습니다.');
+					$(button).text('환불 요청 완료');
+					$(button).prop('disabled', true);
+				},
+				error : function(xhr, status, error) {
+					console.error(xhr.responseText);
+					alert('환불 요청 전송 중 오류가 발생했습니다.');
+				}
+			});
+		}
+	</script>
 
-	<script src="/js/user/account.js"></script>
 
 	<!-- Core JS -->
 	<!-- build:js assets/vendor/js/core.js -->

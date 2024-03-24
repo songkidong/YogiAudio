@@ -11,7 +11,7 @@
 	
 	<!-- empty 키워드는 변수가 null이거나 비어있는 경우를 확인 -->
 	<c:if test="${empty qnaList }">
-		<h1 style="display: flex; justify-content: center;">QnA 글이 존재하지 않습니다</h1>
+		<h1 style="display: flex; justify-content: center;">QnA가 존재하지 않습니다</h1>
 	</c:if>
 	
 	<!-- qnaList가 비어있으면 테이블 자체가 보이지 않도록 함 -->

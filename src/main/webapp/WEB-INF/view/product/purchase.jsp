@@ -28,22 +28,38 @@
     
         <div class="row">
          	
-             <c:forEach var="purchaselist" items="${purchaselist}">
+         	
+           <c:forEach var="purchaselist" items="${purchaselist}">
             <div class="col-md-3">
                 <!-- Card 1 -->
                 <div class="card">
-                    <img src="/banner/p1.png" class="card-img-top" alt="Card 1 Image" style="width:200px; height: 200px; margin-left: 30px;">
+                    <img src="/banner/${purchaselist.filepath}" class="card-img-top" alt="Card 1 Image" style="width:200px; height: 200px; margin-left: 30px;">
                     <div class="card-body" style="margin-left: 30px;">
                         <h5 class="card-title" style="margin-top: 5px;">${purchaselist.purchasename}</h5>
                         <p class="card-text">${purchaselist.price}</p>
-                        <a href="/purchase/detail?pno=${purchaselist.pno}" class="btn btn-primary">
-                        	구매하기
-                        </a>
+                      
+                      <c:if test="${principal.status eq 'N' && principal.cancel eq 'N'}">
+		                 <a href="/purchase/detail?pno=${purchaselist.pno}" class="btn btn-primary">
+		                    구매하기
+		                 </a>
+		              </c:if>  
+		              <c:if test="${principal.status eq 'N' && principal.cancel eq 'Y'}">
+		                 <a href="/purchase/detail?pno=${purchaselist.pno}" class="btn btn-primary">
+		                    구매하기
+		                 </a>
+		              </c:if> 
+ 		              <c:if test="${principal.status eq 'Y' && principal.cancel eq 'N'}">
+	                	   <p>
+		                  	  이미이용권구매를완료했습니다!
+ 		                   </p> 
+		              </c:if>   
+		              
+		                
                     </div>
-                </div>
+                 </div>
                 <!-- End of Card 1 -->
             </div>
-                </c:forEach>
+          </c:forEach>
             
           
     

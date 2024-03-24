@@ -22,26 +22,32 @@ document.addEventListener('DOMContentLoaded', function() {
 			};
 			playerWindow.postMessage(dataToSend, '*'); // 데이터를 자식 창으로 전달
 		} else {
-			alert('자식 창이 아직 열리지 않았거나 이미 닫혔습니다. 자식 창을 다시 열었습니다.');
 			playerWindow = window.open('/musicPlayer', 'musicPlayerWindow', 'width=1000,height=700');
-			// setTimeout을 사용하여 자식 창이 열린 후에 postMessage 호출
-			setTimeout(function() {
+
+			// 자식 창이 준비된 후에 postMessage 함수를 호출합니다.
+			playerWindow.addEventListener('load', function() {
 				const dataToSend = {
 					musicNo: musicNo,
 					type: type
 				};
 				playerWindow.postMessage(dataToSend, '*'); // 데이터를 자식 창으로 전달
-			}, 100); // 1초 후에 호출하도록 설정 (필요에 따라 시간 조정 가능)
+			});
 		}
 	}
 
 	// 이하 이벤트 리스너 등록
-	document.getElementById('addBtn').addEventListener('click', function() {
-		sendDataToChild('add');
+	const addButtons = document.querySelectorAll('.addPlayerBtn');
+	addButtons.forEach(button => {
+		button.addEventListener('click', function() {
+			sendDataToChild('add');
+		});
 	});
-
-	document.getElementById('playBtn').addEventListener('click', function() {
-		sendDataToChild('play');
+	// playBtn을 클래스로 변경하여 모든 버튼에 적용
+	const playButtons = document.querySelectorAll('.playBtn');
+	playButtons.forEach(button => {
+		button.addEventListener('click', function() {
+			sendDataToChild('play');
+		});
 	});
 
 	document.getElementById('musicBtn').addEventListener('click', function() {
