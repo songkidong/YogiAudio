@@ -54,6 +54,56 @@ function loadView() {
 	});
 }
 loadView();
+//////////////////////////////////////////////////////////
+
+// 댓글 작성
+let commentObject = {
+	init: function() {
+		$("#btn-save-reply").on("click", () => {
+			this.insertComment();
+		});
+	},
+
+	insertComment: function() {
+
+		alert("댓글 등록 요청됨");
+
+		const commentContent = $("#reply-content").val();
+
+		if (commentContent === "") {
+            // If empty, show an alert and return early to prevent further execution
+            alert("댓글을 입력해 주세요.");
+            return;
+        }
+		// AJAX 요청을 보냅니다.
+		$.ajax({
+			type: "POST",
+			url: "/board/free/freeComment/" + addressNum,
+			contentType: "application/json",  // Content-Type을 JSON으로 설정
+			data: JSON.stringify({
+				boardFreeId: addressNum,
+				content: commentContent
+			}),
+			success: function(data) {
+				console.log(data);
+				if (data === true) {
+					// 성공적으로 데이터가 저장되었을 때.
+					location.reload();
+				} else {
+					// 실패했을 때 처리할 내용을 작성하세요.
+					alert("데이터 저장에 실패했습니다.");
+				}
+			},
+			error: function() {
+				// 에러가 발생했을 때 처리할 내용을 작성하세요.
+				alert("서버와의 통신 중 에러가 발생했습니다.");
+			}
+		});
+	}
+};
+
+commentObject.init();
+
 
 //////////////////////////////////////////////////////////
 
@@ -155,31 +205,37 @@ $("#btn-update-complete").on("click", function() {
 
 
 
-// 삭제하기
+// 삭제하기 버튼 클릭 시
 deleteBtn.on("click", function() {
-	console.log("타나여?");
-	console.log(addressNum);
+    // 사용자에게 확인 메시지 표시
+    if (confirm("정말로 삭제하시겠습니까?")) {
+        // 확인을 누르면 삭제 진행
+        console.log("타나여?");
+        console.log(addressNum);
 
-	$.ajax({
-		type: "post",
-		url: "/board/free/freeDelete/" + addressNum,
-		success: function(data) {
-			if (data == true) {
-				window.location.href = "/board/free/freeList";
-			} else {
-				alert("데이터 삭제에 실패했습니다.");
-			}
-		},
-		error: function() {
-			alert("서버와의 통신 중 에러가 발생했습니다.");
-		}
-	});
+        $.ajax({
+            type: "post",
+            url: "/board/free/freeDelete/" + addressNum,
+            success: function(data) {
+                if (data == true) {
+                    window.location.href = "/board/free/freeList";
+                } else {
+                    alert("데이터 삭제에 실패했습니다.");
+                }
+            },
+            error: function() {
+                alert("서버와의 통신 중 에러가 발생했습니다.");
+            }
+        });
+    } else {
+        // 취소를 누르면 아무 동작도 하지 않음
+        return false;
+    }
 });
 
 
 
 // loadViewId() 실행함수 --> freeView.jsp 
-
 
 // free view에서 update를 위한 클릭 이벤트 
 updateBtn.on("click", function() {

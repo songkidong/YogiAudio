@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/view/layout/header.jsp"%>
 <link href="/css/board/view.css" rel="stylesheet">
+<link href="/css/board/freeView.css" rel="stylesheet">
 
 <section id="board">
 	<div class="board-container">
@@ -29,6 +30,10 @@
 						<td id="id-display" style="text-align: left;"></td>
 					</tr>
 					<tr>
+						<td>작성자</td>
+						<td id="writerName-display" style="text-align: left;"></td>
+					</tr>
+					<tr>
 						<td>작성일</td>
 						<td id="createdAt-display" style="text-align: left;"></td>
 					</tr>
@@ -49,11 +54,37 @@
 			</table>
 		</div>
 
+		<!-- 댓글 작성 -->
+		<div class="commentWrite" style="margin-top: 30px;">
+			<div style="display: flex; align-items: center;">
+				<h3 style="margin-right: 10px;">댓글 등록</h3>
+				<!-- Adjust margin-right for spacing -->
+				<button class="btn btn-primary rounded-pill shadow-sm"
+					id="btn-save-reply" style="margin-bottom: 11px;">+</button>
+			</div>
+			<div class="form-group" style="margin-bottom: 20px;">
+				<textarea class="form-control" id="reply-content" rows="3"></textarea>
+			</div>
+		</div>
 
-	</div>
+		<!-- 댓글 출력 -->
+        <div class="commentList" style="margin-top: 30px;">
+            <h3>댓글 목록</h3>
+            <!-- 수정 가능한 댓글 -->
+            <div class="commentCard">
+                <div class="info">
+                    <span id="reply-writerName-display">작성자</span>
+                    <span id="reply-createdAt-display" style="float: right;">작성일</span>
+                </div>
+                <div class="comment-content" style="display: block;">댓글 내용</div>
+                <!-- 삭제 버튼 -->
+                <button class="btn btn-danger btn-sm" style="margin-top: 5px;" onclick="deleteComment(commentId)">삭제</button>
+            </div>
+        </div>
+    </div>
 </section>
 
-<script src="/js/board/free.js"></script>
+
 <script>
 	function loadViewId() {
 
@@ -65,9 +96,12 @@
 					url : "/board/free/freeView/" + addressNum,
 					data : {},
 					success : function(data) {
-
+						
 						// id-display 엘리먼트에 데이터 출력
 						$("#id-display").html(data.id);
+						
+						// writerName-display 엘리먼트에 데이터 출력
+						$("#writerName-display").html(data.writerName);
 
 						// 받은 날짜 문자열을 Date 객체로 파싱
 						var createdAtDate = new Date(data.createdAt);
@@ -130,15 +164,95 @@
 	});
 </script>
 <script>
+	// 댓글 목록 불러오기
+	function loadCommentList() {
+		let addressNum = window.location.pathname.split("/")[4]; // 게시글 번호 가져오기
+
+		$.ajax({
+			type : "GET",
+			url : "/board/free/freeCommentList/" + addressNum, // 댓글 목록을 가져오는 API 엔드포인트 URL
+			success : function(response) {
+				// 댓글 목록을 받아서 화면에 출력
+				displayCommentList(response);
+			},
+			error : function(xhr, status, error) {
+				console.error("Error fetching comment list:", error);
+			}
+		});
+	}
+
+	// 댓글 목록을 화면에 출력하는 함수
+	function displayCommentList(comments) {
+	    var commentListHTML = ""; // 댓글 목록을 담을 HTML 문자열
+
+	    // 각 댓글에 대해 HTML 생성
+	    for (var i = 0; i < comments.length; i++) {
+	        var comment = comments[i];
+
+	        // 받은 날짜 문자열을 Date 객체로 파싱
+	        var createdAtDate = new Date(comment.createdAt);
+
+	        // 날짜를 원하는 형식으로 포맷팅
+	        var formattedDate = formatDate(createdAtDate);
+
+	        commentListHTML += "<div class='commentCard' style='overflow: auto;'>"; // 스타일 추가
+	        commentListHTML += "<div class='info'>";
+	        commentListHTML += "<span>" + comment.writerName + "</span>"; // 작성자 이름
+	        commentListHTML += "<span style='float: right;'>" + formattedDate + "</span>"; // 작성일
+	        commentListHTML += "</div>";
+	        commentListHTML += "<div>"; // 댓글 내용과 수정 버튼을 담을 컨테이너
+	        commentListHTML += "<textarea class='form-control' id='comment-content-" + comment.id + "' rows='3' readonly>" + comment.content + "</textarea>"; // 댓글 내용
+	        commentListHTML += "<button style='float: right;' class='btn btn-danger' onclick='deleteComment(" + comment.id + ")'>삭제</button>"; // 삭제 버튼
+	        commentListHTML += "</div>";
+	        commentListHTML += "</div>";
+	    }
+
+	    // 댓글 목록을 출력할 엘리먼트에 HTML 삽입
+	    $(".commentList").html(commentListHTML);
+	}
+
+	// 페이지 로드 시 댓글 목록을 가져오는 함수 호출
+	$(document).ready(function() {
+		loadCommentList();
+	});
+
+	// 댓글 삭제 함수
+	function deleteComment(id) {
+	    // 사용자에게 확인 메시지 표시
+	    if (confirm("정말로 삭제하시겠습니까?")) {
+	        // 확인을 누르면 AJAX 요청으로 댓글 삭제 처리
+	        $.ajax({
+	            type: "DELETE",
+	            url: "/board/free/freeComment/" + id, // 댓글 삭제 엔드포인트 URL
+	            success: function(response) {
+	                // 성공적으로 삭제되면 페이지 새로고침 또는 댓글 목록 갱신
+	                // 여기서는 페이지 새로고침을 예시로 했습니다.
+	                location.reload();
+	            },
+	            error: function(xhr, status, error) {
+	                console.error("Error deleting comment:", error);
+	            }
+	        });
+	    } else {
+	        // 취소를 누르면 아무 동작도 하지 않음
+	        return false;
+	    }
+	}
+</script>
+
+<script>
 	// 뒤로가기 버튼 조회수 반영 새로고침
 	function goBack() {
-        // 이전 페이지의 URL 가져오기
-        var previousPageUrl = "/board/free/freeList";
-        
-        // 이전 페이지로 이동
-        window.location.href = previousPageUrl;
-    }
+		// 이전 페이지의 URL 가져오기
+		var previousPageUrl = "/board/free/freeList";
+
+		// 이전 페이지로 이동
+		window.location.href = previousPageUrl;
+	}
 </script>
+
+<script src="/js/board/free.js"></script>
+
 <%@include file="/WEB-INF/view/layout/footer.jsp"%>
 
 

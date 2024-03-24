@@ -55,10 +55,8 @@
 				<div class="info">
 					<span class="nick">nick</span> <span class="date">2024-03-23</span>
 				</div>
-					<textarea class="form-control" id="reply-display" rows="3" readonly>sdf</textarea>
-				</div>
+				<textarea class="form-control" id="reply-display" rows="3" readonly>sdf</textarea>
 			</div>
-
 		</div>
 
 	</div>
@@ -123,8 +121,6 @@
 						alert("Error!!!");
 					}
 				});
-		
-		
 
 	}
 
@@ -141,8 +137,6 @@
 	$(document).ready(function() {
 		loadViewId();
 	});
-
-	
 </script>
 
 

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.project3.yogiaudio.repository.interfaces.board.FreeCommentRepository">
+
+	<select id="selectFreeCommentList"
+		resultType="com.project3.yogiaudio.repository.entity.board.BoardFreeComment">
+		select a.*, b.name as writerName from board_free_comment as
+		a left join `user` as b on a.writer_id = b.id
+		where board_free_id = #{boardFreeId}
+		order by id desc;
+	</select>
+
+	<insert id="freeCommentSave">
+		INSERT INTO board_free_comment (writer_id,
+		board_free_id, content)
+		VALUES (#{writerId}, #{boardFreeId},
+		#{content});
+	</insert>
+
+	<delete id="freeCommentDelete" parameterType="int">
+		delete from board_free_comment where id =
+		#{id};
+	</delete>
+
+	<select id="freeCommentView"
+		resultType="com.project3.yogiaudio.repository.entity.board.BoardFreeComment">
+		select a.*, b.name as writerName from board_free_comment as
+		a left join `user` as b on a.writer_id = b.id
+		where board_free_id = #{boardFreeId};
+	</select>
+</mapper>
