@@ -4,10 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.project3.yogiaudio.dto.admin.AdminCriteria;
 import com.project3.yogiaudio.dto.admin.NoticeSaveFormDTO;
 import com.project3.yogiaudio.dto.board.NoticeDTO;
+import com.project3.yogiaudio.dto.music.MusicDTO;
+import com.project3.yogiaudio.dto.music.MusicVideoDTO;
 import com.project3.yogiaudio.filedb.service.FiledbService;
 import com.project3.yogiaudio.repository.entity.History;
 import com.project3.yogiaudio.repository.entity.Music;
@@ -24,6 +27,7 @@ public class AdminService {
 
 	@Autowired
 	AdminRepository adminRepository;
+	
 	
 	/**
 	  * @Method Name : findAllUser
@@ -145,4 +149,52 @@ public class AdminService {
 		
 		return adminRepository.countAllRefund();
 	}
+	
+	
+	
+	//음원등록
+	@Transactional
+	public void insertMusic(MusicDTO dto,String filePath,String fileMusic,String musicSample) {
+		
+		MusicDTO music = MusicDTO.builder()
+			.musictitle(dto.getMusictitle())
+			.musicsinger(dto.getMusicsinger())
+			.musiccontent(dto.getMusiccontent())
+			.musiccompany(dto.getMusiccompany())
+			.lyrics(dto.getLyrics())
+			.startdate(dto.getStartdate())
+			.filepath(filePath)
+			.filemusic(fileMusic)
+			.musicsample(musicSample)
+			.build();
+		
+		Integer result = adminRepository.insertMusic(music);
+		
+		
+	}
+	
+	
+	
+	//뮤비등록
+	@Transactional
+	public void insertMusicVideo(MusicVideoDTO dto,String filePath) {
+		
+		MusicVideoDTO mv = MusicVideoDTO.builder()
+				.musicno(dto.getMusicno())
+				.videotitle(dto.getVideotitle())
+				.videosinger(dto.getVideosinger())
+				.filepath(filePath)
+				.mvfile(dto.getMvfile())
+				.videocontent(dto.getVideocontent())
+				.musicmajor(dto.getMusicmajor())
+				.musicminor(dto.getMusicminor())
+				.build();
+		
+		Integer result = adminRepository.insertMusicVideo(mv);
+		
+		
+	}
+	
+	
+	
 }

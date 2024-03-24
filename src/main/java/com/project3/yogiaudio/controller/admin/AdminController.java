@@ -7,10 +7,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.project3.yogiaudio.dto.admin.AdminCriteria;
 import com.project3.yogiaudio.dto.admin.AdminPageVO;
+import com.project3.yogiaudio.dto.music.MusicDTO;
+import com.project3.yogiaudio.dto.music.MusicVideoDTO;
+import com.project3.yogiaudio.filedb.service.FiledbService;
 import com.project3.yogiaudio.repository.entity.History;
 import com.project3.yogiaudio.repository.entity.Music;
 import com.project3.yogiaudio.repository.entity.Refund;
@@ -46,6 +50,8 @@ public class AdminController {
 	@Autowired
 	private MusicVideoService musicVideoService;
 	
+	@Autowired
+	private FiledbService filedbService;
 
 	// 인덱스
 	@GetMapping("/index")
@@ -246,8 +252,7 @@ public class AdminController {
 	// 음악등록(GET)
 	@GetMapping("/music-insert")
 	public String musicInsertGET() {
-		
-		
+		log.debug("음원등록페이지(관리자)실행!");
 		return"admin/musicinsert";
 	}
 	
@@ -255,19 +260,40 @@ public class AdminController {
 	// 뮤비등록(GET)
 	@GetMapping("/mv-insert")
 	public String mvInsertGET() {
-		
-		
+		log.debug("뮤비등록페이지(관리자)실행!");
 		return "admin/mvinsert";
 	}
 	
 	
 	
 	// 음악등록(POST)
+	@PostMapping("/music-insert")
+	public String musicInsertPOST(MusicDTO dto) {
+
+		String filePath = filedbService.saveFiles(dto.getFiles());
+		String fileMusic = filedbService.saveFiles(dto.getFiles());
+		String musicSample = filedbService.saveFiles(dto.getFiles());
+		
+		adminService.insertMusic(dto, filePath, fileMusic, musicSample);
+		
+		
+		log.debug("음악등록완료!");
+		
+		return "redirect:/admin/musicList";
+	}
 	
 	
 	// 뮤비등록(POST)
-	
-	
+	@PostMapping("/mv-insert")
+	public String mvinsertPOST(MusicVideoDTO dto) {
+		
+		String filePath = filedbService.saveFiles(dto.getFiles());
+		adminService.insertMusicVideo(dto, filePath);
+		
+		log.debug("뮤비등록완료!");
+		
+		return "redirect:/admin/musicList";
+	}
 	
 	
 	

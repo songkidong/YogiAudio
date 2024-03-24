@@ -76,6 +76,7 @@
 
 	<!-- 진수작성 -->
 
+	
 	<!-- 음원등록하기 -->
 	<insert id="insertMusic">
 		insert into music
@@ -85,6 +86,7 @@
 		,#{musicmajor},#{musicminor},#{musicprice})
 	</insert>
 		
+	
 	
 	<!--  뮤비등록하기 -->
 	<insert id="insertMusicVideo">

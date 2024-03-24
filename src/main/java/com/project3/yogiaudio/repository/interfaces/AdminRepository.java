@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.project3.yogiaudio.dto.admin.AdminCriteria;
+import com.project3.yogiaudio.dto.music.MusicDTO;
+import com.project3.yogiaudio.dto.music.MusicVideoDTO;
 import com.project3.yogiaudio.repository.entity.History;
 import com.project3.yogiaudio.repository.entity.Music;
 import com.project3.yogiaudio.repository.entity.Refund;
@@ -42,5 +44,11 @@ public interface AdminRepository {
 	public List<Refund> findAllRefund(AdminCriteria cri);
 	// 환불 내역 카운팅
 	public int countAllRefund();
+	
+	//음원등록
+	public Integer insertMusic(MusicDTO dto);
+	//뮤비등록
+	public Integer insertMusicVideo(MusicVideoDTO dto);
+	
 	
 }
