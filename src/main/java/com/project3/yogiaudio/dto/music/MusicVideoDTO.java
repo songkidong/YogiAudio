@@ -16,7 +16,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 public class MusicVideoDTO {
-
+	
+	private Integer musicno;
 	private Integer videono;
 	private String videotitle;
 	private String videosinger;

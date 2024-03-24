@@ -78,19 +78,29 @@
 
 	<!-- 음원등록하기 -->
 	<insert id="insertMusic">
-		insert into music()
-		values()
+		insert into music
+		(music_title,music_singer,music_content,music_company,lyrics,startdate,file_path,file_music,music_sample,
+		music_major,music_minor,music_price)
+		values(#{musictitle},#{musicsinger},#{musiccontent},#{musiccompany},#{lyrics},#{startdate},#{filepath},#{filemusic},#{musicsample}
+		,#{musicmajor},#{musicminor},#{musicprice})
 	</insert>
 		
 	
-	
-	
-	
 	<!--  뮤비등록하기 -->
 	<insert id="insertMusicVideo">
-		insert into musicvideo()
-		values()
+		insert into musicvideo(musicno,videotitle,videosinger,file_path,mv_file,videocontent,music_minor,music_major)
+		values(#{musicno},#{videotitle},#{videosinger},#{filepath},#{mvfile},#{videocontent},#{musicminor},#{musicmajor})
 	</insert>
+
+
+
+
+
+
+
+
+
+
 
 
 

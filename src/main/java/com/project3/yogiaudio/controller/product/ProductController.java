@@ -370,7 +370,7 @@ public class ProductController {
 	
 	
 	
-	//음원등록하기 GET
+	//국내음원등록하기 GET
 	@GetMapping("/dmusic-update")
 	public String musicUpdateGET() {
 		log.debug("음원등록페이지modal 실행");
@@ -378,7 +378,7 @@ public class ProductController {
 	}
 	
 	
-	//음원등록하기 POST
+	//국내음원등록하기 POST
 	@PostMapping("/dmusic-update")
 	public String musicUpdatePOST(MusicDTO dto) {
 		
@@ -389,6 +389,19 @@ public class ProductController {
 		return "redirect:/product/domestic-music";
 		
 	}
+	
+	
+	
+	//국외음원등록하기 GET
+	
+	
+	
+	
+	
+	
+	//국외음원등록하기 POST
+	
+	
 	
 	//좋아요 get
 	@GetMapping("/likeit")
