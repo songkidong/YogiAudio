@@ -21,6 +21,7 @@ import com.project3.yogiaudio.repository.entity.User;
 import com.project3.yogiaudio.service.MusicService;
 import com.project3.yogiaudio.service.MusicVideoService;
 import com.project3.yogiaudio.service.UserService;
+import com.project3.yogiaudio.service.product.LikeMusicService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -39,6 +40,8 @@ public class ProductController {
 	private UserService userService;
 	@Autowired
 	private MusicVideoService musicVideoService;
+	@Autowired
+	private LikeMusicService likeMusicService;
 	
 	
 	// http://localhost:80/product/main
@@ -64,15 +67,18 @@ public class ProductController {
 		//국외음악 최신 , 인기순 출력
 		List<MusicDTO> anewlist = musicService.newAboardMusicList();
 		model.addAttribute("anewlist", anewlist);
+		// 인기순 Top10
+		List<MusicDTO> alikelist = likeMusicService.readMusicListOrderByLikeCount("국외", 10);
+		model.addAttribute("alikelist", alikelist);
 		
 		
 		
 		//국내음악 최신 , 인기순 출력
 		List<MusicDTO> dnewresult = musicService.newMusicList(cri);
 		model.addAttribute("dnewlist", dnewresult);
-		
-		List<MusicDTO> dlikeresult = musicService.likeMusicList(cri);
-		model.addAttribute("dlikelist",dlikeresult);
+		// 인기순 Top10
+		List<MusicDTO> dlikelist = likeMusicService.readMusicListOrderByLikeCount("국내", 10);
+		model.addAttribute("dlikelist",dlikelist);
 		
 		
 		
@@ -280,9 +286,46 @@ public class ProductController {
 	
 	
 	
+	////////////
 	
+	//인기음악리스트 전부 호출하기
+	/**
+	  * @Method Name : likeMusicListAllGET
+	  * @작성일 : 2024. 3. 25.
+	  * @작성자 : 최장호
+	  * @변경이력 : 
+	  * @Method 설명 : 좋아요 페이지
+	  * @param model
+	  * @param cri
+	  * @param major
+	  * @return
+	  * @throws Exception
+	  */
+	@GetMapping("/like-music")
+	public String likeMusicListAllGET(Model model, Criteria cri,@RequestParam(name = "major", required = false) String major) throws Exception {
+			
+			String searchOption = major;
+			
+			if (searchOption != null && !searchOption.isEmpty()) {
+				cri.setSearchOption(searchOption);
+			}
+			
+			PageVO pageVO = new PageVO();
+			pageVO.setCri(cri);
+			pageVO.setTotalCount(likeMusicService.allCountMusicByMajor(major));
+			
+			model.addAttribute("pageVO", pageVO);
+			
+			List<MusicDTO> result = likeMusicService.musicListOrderByLikeCountPaging(cri);
+			
+			model.addAttribute("likeList", result);
+			model.addAttribute("major", major);
+		
+		return "product/likeMusicListPage";
+		
+	}
 	
-	
+	///////////////
 	
 	
 	
