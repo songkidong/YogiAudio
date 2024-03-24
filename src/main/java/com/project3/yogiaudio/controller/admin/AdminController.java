@@ -22,8 +22,11 @@ import com.project3.yogiaudio.repository.entity.board.BoardQna;
 import com.project3.yogiaudio.repository.entity.board.BoardQnaReply;
 import com.project3.yogiaudio.service.AdminBoardService;
 import com.project3.yogiaudio.service.AdminService;
+import com.project3.yogiaudio.service.MusicService;
+import com.project3.yogiaudio.service.MusicVideoService;
 
 import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 @Log4j2
 @Controller
@@ -36,6 +39,13 @@ public class AdminController {
 	
 	@Autowired
 	AdminBoardService adminBoardService;
+	
+	@Autowired
+	private MusicService musicService;
+	
+	@Autowired
+	private MusicVideoService musicVideoService;
+	
 
 	// 인덱스
 	@GetMapping("/index")
@@ -231,5 +241,44 @@ public class AdminController {
 		
 		return "admin/refundList";
 	}
+	
+	
+	// 음악등록(GET)
+	@GetMapping("/music-insert")
+	public String musicInsertGET() {
+		
+		
+		return"admin/musicinsert";
+	}
+	
+	
+	// 뮤비등록(GET)
+	@GetMapping("/mv-insert")
+	public String mvInsertGET() {
+		
+		
+		return "admin/mvinsert";
+	}
+	
+	
+	
+	// 음악등록(POST)
+	
+	
+	// 뮤비등록(POST)
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

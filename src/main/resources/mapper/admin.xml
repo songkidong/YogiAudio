@@ -74,4 +74,26 @@
 </delete>
 	
 
+	<!-- 진수작성 -->
+
+	<!-- 음원등록하기 -->
+	<insert id="insertMusic">
+		insert into music()
+		values()
+	</insert>
+		
+	
+	
+	
+	
+	<!--  뮤비등록하기 -->
+	<insert id="insertMusicVideo">
+		insert into musicvideo()
+		values()
+	</insert>
+
+
+
+
+
 </mapper>
