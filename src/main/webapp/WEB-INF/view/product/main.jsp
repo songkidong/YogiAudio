@@ -95,11 +95,16 @@
 					<!-- shop -->
 					<div class="col-md-4 col-xs-6">
 						<div class="shop">
-						  <a href="javascript:void(0)"  onclick="openModal('${mvlist.mvfile}/')" class="cta-btn">
-							<div class="shop-img">
-								<img src="/main/img/IU1.jpg" style="width:360px; height: 240px;">
-							</div>
-						  </a>	
+						     <a href="javascript:void(0)"  onclick="openModal('${mvlist.mvfile}/')" class="cta-btn">
+								 <c:choose>
+							         <c:when test="${not empty mvlist.filepath}">
+							                <img src="${mvlist.filepath}" style="width:360px; height: 240px;">
+							         </c:when>
+							         <c:otherwise>
+							                <img src="/album/default.png" style="width:360px; height: 240px;">
+							         </c:otherwise>
+							     </c:choose>
+						      </a>	
 							<div class="shop-body">
 								<h3>${mvlist.videosinger}<br>${mvlist.videotitle}</h3>
 								<a href="javascript:void(0)"  onclick="openModal('${mvlist.mvfile}/')" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
