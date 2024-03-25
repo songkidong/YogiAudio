@@ -239,7 +239,7 @@
 		var month = (date.getMonth() + 1).toString().padStart(2, '0');
 		var day = date.getDate().toString().padStart(2, '0');
 
-		return year + '-' + month + '-' + day ;
+		return year + '년 ' + month + '월 ' + day + '일';
 	}
 
 	//페이지 로드 시 데이터 로딩 함수 호출
@@ -295,7 +295,8 @@
 	            commentListHTML += "<button class='btn btn-primary btn-sm save-button edit-button' id='save-button-" + comment.id + "' style='display: none;'>수정 완료</button>"; // 수정 완료 버튼
 	            commentListHTML += "</div>";
 	        }
-	        commentListHTML += "<button type='button' class='btn btn-secondary rounded-pill shadow-sm report-button' style='margin-left: auto;' data-toggle='modal' data-target='#commentModal' data-comment-id='" + comment.id + "'>";
+	        commentListHTML += "<button type='button' class='btn btn-secondary rounded-pill shadow-sm report-button' style='margin-left: auto;' data-target='#commentModal' data-comment-id='" + comment.id 
+	        + "' onclick='reportComment(" + comment.id + "," + comment.writerId + ")'>";
 	        commentListHTML += "<i class='bi bi-emoji-angry' style='padding-right: 5px;'></i>신고";
 	        commentListHTML += "</button>";
 	        commentListHTML += "</div>";
@@ -387,8 +388,99 @@
 	        }
 	    });
 	}
+	
+	let commentId = "";
+	let writeUserId = "";
+	
+	// 댓글 수정 함수
+	function reportComment(id, writerId) {
+		
+		// 모달을 열 때 닫기 버튼 동작 추가
+	    $('#commentModal').on('show.bs.modal', function (e) {
+	        // 모달이 열릴 때 동작할 코드
+	        // 닫기 버튼을 눌렀을 때 모달 닫기
+	        $(this).find('.close').click(function() {
+	            $('#commentModal').modal('hide');
+	        });
+	    });
+		
+		if(currentUserID == null || currentUserID == ""){
+			if (confirm("로그인 하시겠습니까?")) {
+	            window.location.href = '/signIn'; // 메인 페이지 URL로 리다이렉트
+	            return;
+	        }
+		}else{
+			$.ajax({
+			       type: "POST",
+			       url: "/board/free/checkReport", 
+			       data: {
+			           targetType: "comment",
+			           targetId: id,
+			           userId: currentUserID
+			       },
+			       success: function(data) {
+			           // 성공적으로 신고 여부를 확인한 경우에만 모달 창을 엽니다.
+			           if (data !== "success") { // 여기서 "success"는 서버에서 성공적으로 처리했을 때의 응답을 가정한 것입니다.
+			        	   commentId = Number(id);
+			        	   writeUserId = Number(writerId);
+			               $('#commentModal').modal('show');
+			           } else {
+			               alert("이미 신고한 댓글입니다");
+			           }
+			       },
+			       error: function() {
+			           // 에러가 발생했을 때 처리할 내용을 작성합니다.
+			           alert("서버와의 통신 중 에러가 발생했습니다.");
+			       }
+			   });
+		}
+	}
+	 var commentReportBtn = document.getElementById("commentReportBtn");
+	commentReportBtn.addEventListener("click", function(){
+		let addressNum = commentId; // 게시글 번호 가져오기
+		alert("댓글 신고 요청");
+
+		const commentReportContent = $("#commentReportContent").val();
+		
+		console.log("댓글신고내용 : "+commentReportContent);
+
+		if (commentReportContent === "") {
+            // If empty, show an alert and return early to prevent further execution
+            alert("신고 이유를 적어주세요.");
+            return;
+        }
+		
+		const targetUserId = Number(writeUserId);
+		console.log("신고대상id : "+targetUserId);
+		// AJAX 요청을 보냅니다.
+		$.ajax({
+			type: "POST",
+			url: "/board/free/boardFreeReport", 
+			data: {
+				targetType: "comment",
+				targetId: addressNum,
+				targetUserId: targetUserId, // 게시글 작성자
+				reportReason: commentReportContent
+			},
+			success: function(data) {
+				console.log(data);
+ 				if (data === 1) {
+					// 성공적으로 데이터가 저장되었을 때.
+					location.reload();
+				} else {
+					// 실패했을 때 처리할 내용을 작성하세요.
+					alert("데이터 저장에 실패했습니다.");
+				} 
+			},
+			error: function() {
+				// 에러가 발생했을 때 처리할 내용을 작성하세요.
+				alert("서버와의 통신 중 에러가 발생했습니다.");
+			}
+		});
+	});
 </script>
 <script>
+
 let userId = Number("${principal.id}");
 let typeBoard = "board";
 let typeComment = "comment";
@@ -396,13 +488,13 @@ let typeComment = "comment";
 $("#reportBtn").on("click", () => {
 	
 	// 모달을 열 때 닫기 버튼 동작 추가
-	$('#myModal').on('show.bs.modal', function (e) {
-	    // 모달이 열릴 때 동작할 코드
-	    // 닫기 버튼을 눌렀을 때 모달 닫기
-	    $(this).find('.close').click(function() {
-	        $('#myModal').modal('hide');
-	    });
-	});
+    $('#myModal').on('show.bs.modal', function (e) {
+        // 모달이 열릴 때 동작할 코드
+        // 닫기 버튼을 눌렀을 때 모달 닫기
+        $(this).find('.close').click(function() {
+            $('#myModal').modal('hide');
+        });
+    });
 	
 	if(userId == null || userId == ""){
 		if (confirm("로그인 하시겠습니까?")) {
@@ -506,5 +598,3 @@ boardReportObject.init();
 <script src="/js/board/free.js"></script>
 
 <%@include file="/WEB-INF/view/layout/footer.jsp"%>
-
-
