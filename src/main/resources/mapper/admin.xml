@@ -32,12 +32,6 @@
 </select>
 
 
-<select id="countAllMusicVideo" resultType="int">
-	select count(*) from musicvideo
-</select>
-
-
-
 
 <select id="findAllHistory" resultType="com.project3.yogiaudio.repository.entity.History">
 	select a.hno, a.amount, a.date, b.name, b.nickname, c.purchasename from history as a
