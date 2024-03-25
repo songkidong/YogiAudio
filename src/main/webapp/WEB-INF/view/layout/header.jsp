@@ -49,9 +49,7 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
-
+<link rel="icon" type="image/png" href="/favicon/android-icon-72x72.png" sizes="72x72">
 
 <!-- j쿼리 -->
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
