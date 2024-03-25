@@ -174,6 +174,7 @@
 				success : function(response) {
 					console.log(response);
 					alert("좋아요가 취소되었습니다.");
+					location.reload();
 				},
 				error : function(error) {
 					console.error('Error saving markers:', error);
