@@ -16,6 +16,9 @@
 
 
 <style>
+.product-details .product-price{
+color: black;
+}
 .modalmv {
 	display: none;
 	position: fixed;
@@ -54,9 +57,22 @@
 	text-decoration: none;
 	cursor: pointer;
 }
-#heart{
+
+#heart {
 	height: 40px;
 	width: 40px;
+}
+
+.addPlayerBtn, .playBtn {
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+	color: #8b8b8b;
+	padding: none;
+}
+
+.addPlayerBtn:hover i, .playBtn:hover i {
+	color: #3c7cdb; 
 }
 </style>
 
@@ -146,15 +162,24 @@
 			<!-- Product details -->
 			<div class="col-md-5">
 				<div class="product-details">
-					<h2 class="product-price">${detail.musictitle}&nbsp;&nbsp;&nbsp;
-						<a
-							href="/product/domestic-detail?musicno=${detail.musicno}&musicmajor=${detail.musicmajor}&id=${principal.id}">
-							<span style="color: black; font-size: medium;" id="likeButton"
-							onclick="likeMusic()">💗like</span>
-					</h2>
-					</a>
+					<div>
+					<h2 class="product-price">${detail.musictitle}&nbsp;</h2>
+
 					<!-- 하트 버튼 추가 -->
-					<img alt="" src="/img/music_like/unlike.png" id="heart">
+					<i class="bi bi-suit-heart" style="font-size: 25px;" id="heart"></i>
+					<i class="bi bi-suit-heart-fill"
+						style="font-size: 25px; color: red;" id="fillHeart"></i>
+					<!-- 음악 플레이어 추가 -->
+						<button id="addBtn" type="button" class="addPlayerBtn">
+							<i class="bi bi-plus-circle" style="font-size: 20px;"></i>
+						</button>
+						<button id="playBtn" type="button" class="playBtn">
+							<i class="bi bi-play-circle" style="font-size: 20px; margin-left: -10px;"></i>
+						</button>
+						<!-- <button id="musicBtn" type="button"><i class="bi bi-music-note-list" style="font-size: 30px;"></i></button> -->
+					</div>
+					<!-- 음악 플레이어 추가 종료 -->	
+						
 					<div>
 						<h3 class="product-name">${detail.musiccompany}<del
 								class="product-old-price"></del>
@@ -170,17 +195,15 @@
 					<p>발매일 : ${detail.startdate}</p>
 					<br>
 					<p>샘플듣기</p>
-					<!-- 음악 플레이어 추가 -->
-					<button id="addBtn" type="button" class="addPlayerBtn">Add to Playlist</button>
-					<button id="playBtn" type="button" class="playBtn">Play Music</button>
-					<button id="musicBtn" type="button">Music Player</button>
-					<!-- 음악 플레이어 추가 종료 -->
+
 					<audio id="audioPlayer" controls>
 						<source src="${detail.musicsample}" type="audio/wav">
 					</audio>
+
+		
 					<br>
 
-					<p>
+					<%-- 					<p>
 						<c:choose>
 							<c:when test="${udetail.status eq 'Y'}">
 								<button id="downloadButton" type="button"
@@ -190,7 +213,7 @@
 								<button id="paymentcheck" type="button" class="btn btn-danger">다운로드불가능</button>
 							</c:otherwise>
 						</c:choose>
-					</p>
+					</p> --%>
 
 
 
@@ -395,7 +418,7 @@
 
 
 <script>
-    var musicNo = '${detail.musicno}';
+	var musicNo = '${detail.musicno}';
 	var userId = '${principal.id}';
 </script>
 <script src="/js/product/likeBtn.js"></script>
