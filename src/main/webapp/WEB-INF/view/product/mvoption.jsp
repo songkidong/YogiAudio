@@ -65,11 +65,11 @@
 			            
 			             <div class="section-nav">
 						    <ul class="section-tab-nav tab-nav">
-						        <li id="allOption"><a href="/mv/mvlist">전체</a></li>
-						        <li id="balladOption"><a href="/mv/mvlist-option?searchOption=발라드">발라드</a></li>
-						        <li id="trotOption"><a href="/mv/mvlist-option?searchOption=트로트">트로트</a></li>
-						        <li id="hiphopOption"><a href="/mv/mvlist-option?searchOption=힙합">힙합</a></li>
-						        <li id="hiphopOption"><a href="/mv/mvlist-option?searchOption=클래식">클래식</a></li>
+						        <li id="allOption"><a href="/mv/mvoptionlist">전체</a></li>
+						        <li id="balladOption"><a href="/mv/mvoptionlist-option?searchOption=발라드">발라드</a></li>
+						        <li id="trotOption"><a href="/mv/mvoptionlist-option?searchOption=트로트">트로트</a></li>
+						        <li id="hiphopOption"><a href="/mv/mvoptionlist-option?searchOption=힙합">힙합</a></li>
+						        <li id="hiphopOption"><a href="/mv/mvoptionlist-option?searchOption=클래식">클래식</a></li>
 						    </ul>
 						 </div>  
 			          
@@ -98,11 +98,36 @@
 					<!-- shop -->
 					<div class="col-md-4 col-xs-6">
 						<div class="shop">
-							  <a href="javascript:void(0)"  onclick="openModal('${mvoptionlist.mvfile}/')" class="cta-btn">
-								<div class="shop-img">
-									<img src="/main/img/IU1.jpg" style="width:360px; height: 240px;">
-								</div>
-							   </a>	
+							   <c:choose>
+							    <c:when test="${principal.role eq 'ADMIN'}">
+							        <a href="/mv/mv-update" data-toggle="modal" data-target="#mvModal" class="cta-btn">
+							            <div class="shop-img">
+							                <c:choose>
+							                    <c:when test="${not empty mvoptionlist.filepath}">
+							                        <img src="${mvoptionlist.filepath}" style="width:360px; height: 240px;">
+							                    </c:when>
+							                    <c:otherwise>
+							                        <img src="/album/default.png" style="width:360px; height: 240px;">
+							                    </c:otherwise>
+							                </c:choose>
+							            </div>
+							        </a>
+							    </c:when>
+							    <c:otherwise>
+							        <a href="javascript:void(0)" onclick="openModal('${mvoptionlist.mvfile}/')" class="cta-btn">
+							            <div class="shop-img">
+							                <c:choose>
+							                    <c:when test="${not empty mvoptionlist.filepath}">
+							                        <img src="${mvoptionlist.filepath}" style="width:360px; height: 240px;">
+							                    </c:when>
+							                    <c:otherwise>
+							                        <img src="/album/default.png" style="width:360px; height: 240px;">
+							                    </c:otherwise>
+							                </c:choose>
+							            </div>
+							        </a>
+							    </c:otherwise>
+							</c:choose>
 							<div class="shop-body" id="mvInfo">
 								<h3>${mvoptionlist.videosinger}<br>${mvoptionlist.videotitle}</h3>
 								<a href="javascript:void(0)"  onclick="openModal('${mvoptionlist.mvfile}/')" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
@@ -176,7 +201,16 @@
 	    <iframe id="videoFrame" width="800" height="400" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	  </div>
 	</div>
-
+	
+	
+	<!-- Modal 뮤비업뎃 -->
+	<div class="modal fade" id="mvModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content"></div>
+		</div>
+	</div>
+	
 		
 	<!-- 뮤비열기 JS -->
 	<script>

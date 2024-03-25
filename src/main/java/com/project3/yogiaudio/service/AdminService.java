@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.project3.yogiaudio.dto.admin.AdminCriteria;
 import com.project3.yogiaudio.dto.admin.NoticeSaveFormDTO;
 import com.project3.yogiaudio.dto.board.NoticeDTO;
+import com.project3.yogiaudio.dto.music.MusicDTO;
+import com.project3.yogiaudio.dto.music.MusicVideoDTO;
 import com.project3.yogiaudio.filedb.service.FiledbService;
 import com.project3.yogiaudio.repository.entity.History;
 import com.project3.yogiaudio.repository.entity.Music;
@@ -29,6 +31,7 @@ public class AdminService {
 	
 	@Autowired
 	private CancelRepository cancelRepository;
+	
 	
 	/**
 	  * @Method Name : findAllUser
@@ -91,6 +94,13 @@ public class AdminService {
 	}
 	
 	
+	// 뮤비리스트
+	public List<MusicVideoDTO> findAllMusicVideo(AdminCriteria cri){
+		return adminRepository.findAllMusicVideo(cri);
+	}
+	
+	
+	
 	/**
 	  * @Method Name : countAllMusic
 	  * @작성일 : 2024. 3. 13.
@@ -102,6 +112,13 @@ public class AdminService {
 		
 		return adminRepository.countAllMusic();
 	}
+	
+	
+	//뮤비리스트카운팅
+	public int countAllMusicVideo() {
+		return adminRepository.countAllMusicVideo();
+	}
+	
 	
 	/**
 	  * @Method Name : deleteMusic
@@ -201,8 +218,56 @@ public class AdminService {
 	  * @변경이력 : 
 	  * @Method 설명 : 뮤직비디오 수
 	  */
-	public int countAllMusicVideo() {
+
+	
+	
+	
+	//음원등록
+	@Transactional
+	public void insertMusic(MusicDTO dto,String filePath,String fileMusic,String musicSample) {
 		
-		return adminRepository.countAllMusicVideo();
+		MusicDTO music = MusicDTO.builder()
+			.musictitle(dto.getMusictitle())
+			.musicsinger(dto.getMusicsinger())
+			.musiccontent(dto.getMusiccontent())
+			.musiccompany(dto.getMusiccompany())
+			.musicmajor(dto.getMusicmajor())
+			.musicminor(dto.getMusicminor())
+			.musicprice(dto.getMusicprice())
+			.lyrics(dto.getLyrics())
+			.startdate(dto.getStartdate())
+			.filepath(filePath)
+			.filemusic(fileMusic)
+			.musicsample(musicSample)
+			.build();
+		
+		Integer result = adminRepository.insertMusic(music);
+		
+		
 	}
+	
+	
+	
+	//뮤비등록
+	@Transactional
+	public void insertMusicVideo(MusicVideoDTO dto,String filePath) {
+		
+		MusicVideoDTO mv = MusicVideoDTO.builder()
+				.musicno(dto.getMusicno())
+				.videotitle(dto.getVideotitle())
+				.videosinger(dto.getVideosinger())
+				.filepath(filePath)
+				.mvfile(dto.getMvfile())
+				.videocontent(dto.getVideocontent())
+				.musicmajor(dto.getMusicmajor())
+				.musicminor(dto.getMusicminor())
+				.build();
+		
+		Integer result = adminRepository.insertMusicVideo(mv);
+		
+		
+	}
+	
+	
+	
 }

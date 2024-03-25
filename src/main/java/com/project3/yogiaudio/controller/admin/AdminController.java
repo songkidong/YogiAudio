@@ -7,11 +7,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.project3.yogiaudio.dto.admin.AdminCriteria;
 import com.project3.yogiaudio.dto.admin.AdminPageVO;
 import com.project3.yogiaudio.dto.board.BoardFileDTO;
+import com.project3.yogiaudio.dto.music.MusicDTO;
+import com.project3.yogiaudio.dto.music.MusicVideoDTO;
+import com.project3.yogiaudio.filedb.service.FiledbService;
 import com.project3.yogiaudio.repository.entity.History;
 import com.project3.yogiaudio.repository.entity.Music;
 import com.project3.yogiaudio.repository.entity.Refund;
@@ -23,6 +27,8 @@ import com.project3.yogiaudio.repository.entity.board.BoardQna;
 import com.project3.yogiaudio.repository.entity.board.BoardQnaReply;
 import com.project3.yogiaudio.service.AdminBoardService;
 import com.project3.yogiaudio.service.AdminService;
+import com.project3.yogiaudio.service.MusicService;
+import com.project3.yogiaudio.service.MusicVideoService;
 import com.project3.yogiaudio.util.Define;
 
 import jakarta.servlet.http.HttpSession;
@@ -42,6 +48,16 @@ public class AdminController {
 	
 	@Autowired
 	private HttpSession session;
+	
+	@Autowired
+	private MusicService musicService;
+	
+	@Autowired
+	private MusicVideoService musicVideoService;
+	
+	@Autowired
+	private FiledbService filedbService;
+
 
 	// 인덱스
 	@GetMapping("/index")
@@ -126,6 +142,30 @@ public class AdminController {
 		
 		return "admin/musicList";
 	}
+	
+	//뮤비리스트
+	@GetMapping("/musicvideoList")
+	public String mvListPage(AdminCriteria cri, Model model) {
+		
+		cri.setPageSize(12);
+		List<MusicVideoDTO> musicvideoList = adminService.findAllMusicVideo(cri);
+		
+		if(musicvideoList.isEmpty()) {
+			model.addAttribute("musicvideoList", null);
+		}else {
+			model.addAttribute("musicvideoList", musicvideoList);
+		}
+		
+		AdminPageVO pageVO = new AdminPageVO();
+		pageVO.setCri(cri);
+		pageVO.setTotalCount(adminService.countAllMusicVideo());
+		model.addAttribute("pageVO", pageVO);
+		
+		
+		return "admin/mvList";
+	}
+	
+	
 	
 	// 공지사항 목록
 	@GetMapping("/noticeList")
@@ -283,5 +323,64 @@ public class AdminController {
 		
 		return "admin/refundList";
 	}
+	
+	
+	// 음악등록(GET)
+	@GetMapping("/music-insert")
+	public String musicInsertGET() {
+		log.debug("음원등록페이지(관리자)실행!");
+		return"admin/musicinsert";
+	}
+	
+	
+	// 뮤비등록(GET)
+	@GetMapping("/mv-insert")
+	public String mvInsertGET() {
+		log.debug("뮤비등록페이지(관리자)실행!");
+		return "admin/mvinsert";
+	}
+	
+	
+	
+	// 음악등록(POST)
+	@PostMapping("/music-insert")
+	public String musicInsertPOST(MusicDTO dto) {
+		
+		String fileMusic = filedbService.saveFiles(dto.getFiles());
+		String musicSample = filedbService.saveFiles(dto.getFiles());
+		String filePath = filedbService.saveFiles(dto.getFiles2());
+		
+		adminService.insertMusic(dto, filePath, fileMusic, musicSample);
+		
+		
+		log.debug("음악등록완료!");
+		
+		return "redirect:/admin/musicList";
+	}
+	
+	
+	// 뮤비등록(POST)
+	@PostMapping("/mv-insert")
+	public String mvinsertPOST(MusicVideoDTO dto) {
+		
+		String filePath = filedbService.saveFiles(dto.getFiles());
+		adminService.insertMusicVideo(dto, filePath);
+		
+		log.debug("뮤비등록완료!");
+		
+		return "redirect:/admin/musicvideoList";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

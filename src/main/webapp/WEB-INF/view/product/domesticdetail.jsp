@@ -132,13 +132,14 @@
 			<!-- Product thumb imgs -->
 			<div class="col-md-2 col-md-pull-5">
 				<div id="product-imgs">
-					<a href="/product/dalbum-update" data-toggle="modal"
-						data-target="#photoModal">
+				<c:if test="${principal.role eq 'ADMIN'}">
+					<a href="/product/dalbum-update" data-toggle="modal" data-target="#photoModal">
 						<p>사진변경</p>
-					</a> <a href="/product/dmusic-update" data-toggle="modal"
-						data-target="#musicModal">
+					</a> 
+					<a href="/product/dmusic-update" data-toggle="modal" data-target="#musicModal">
 						<p>음원등록</p>
 					</a>
+				</c:if>
 				</div>
 			</div>
 			<!-- /Product thumb imgs -->
@@ -147,8 +148,7 @@
 			<div class="col-md-5">
 				<div class="product-details">
 					<h2 class="product-price">${detail.musictitle}&nbsp;&nbsp;&nbsp;
-						<a
-							href="/product/domestic-detail?musicno=${detail.musicno}&musicmajor=${detail.musicmajor}&id=${principal.id}">
+						<a href="/product/domestic-detail?musicno=${detail.musicno}&musicmajor=${detail.musicmajor}&id=${principal.id}">
 							<span style="color: black; font-size: medium;" id="likeButton"
 							onclick="likeMusic()">💗like</span>
 					</h2>
@@ -156,8 +156,7 @@
 					<!-- 하트 버튼 추가 -->
 					<img alt="" src="/img/music_like/unlike.png" id="heart">
 					<div>
-						<h3 class="product-name">${detail.musiccompany}<del
-								class="product-old-price"></del>
+						<h3 class="product-name">${detail.musiccompany}<del class="product-old-price"></del>
 						</h3>
 					</div>
 					<br>
@@ -176,7 +175,7 @@
 					<button id="musicBtn" type="button">Music Player</button>
 					<!-- 음악 플레이어 추가 종료 -->
 					<audio id="audioPlayer" controls>
-						<source src="${detail.musicsample}" type="audio/wav">
+						<source src=" ${detail.musicsample}" type="audio/wav">
 					</audio>
 					<br>
 
