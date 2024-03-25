@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.project3.yogiaudio.repository.interfaces.board.FreeReportRepository">
+
+	<insert id="insertFreeBoardReport">
+		insert into board_free_report (target_type, target_id, target_user_id, user_id, report_reason)
+		values (#{targetType}, #{targetId}, #{targetUserId}, #{userId}, #{reportReason})
+	</insert>
+	
+	<insert id="insertFreeCommentReport">
+		insert into board_free_report (target_type, target_id, target_user_id, user_id, report_reason)
+		values (#{targetType}, #{targetId}, #{targetUserId}, #{userId}, #{reportReason})
+	</insert>
+	
+	<select id="checkReport" resultType="com.project3.yogiaudio.repository.entity.board.BoardFreeReport">
+		select * from board_free_report where target_id = #{targetId} and user_id = #{userId};
+	</select>
+
+</mapper>

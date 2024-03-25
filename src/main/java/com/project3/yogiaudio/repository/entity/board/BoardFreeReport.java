@@ -13,10 +13,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BoardReport {
+public class BoardFreeReport {
 
 	private long id;
-	private long targetType;
+	private String targetType;
 	private long targetId;
 	private long targetUserId;
 	private long userId;
