@@ -8,9 +8,10 @@
 
 
 	<form action="/admin/mv-insert" method="post" enctype="multipart/form-data">
-	    <div class="container-insertmusic">
+	    <div class="container-insertmusic" style="margin-top: 100px;">
 	        <div class="row justify-content-center"> <!-- 중앙 정렬 -->
 	            <div class="col-md-4"> <!-- 중간 폭 설정 -->
+	            		<h3 class="title">📺뮤비등록</h3>
 	                <div class="mb-3">
 	                    <label for="exampleFormControlInput1" class="form-label">음원번호</label>
 	                    <input type="text" class="form-control" id="exampleFormControlInput1" name="musicno">
@@ -25,11 +26,19 @@
 	                </div>
 	                <div class="mb-3">
 	                    <label for="exampleFormControlInput2" class="form-label">국가분류</label>
-	                    <input type="text" class="form-control" id="exampleFormControlInput2" name="musicmajor">
+	                     <select class="form-select" name="musicmajor">
+					        <option value="국내">국내</option>
+					        <option value="국외">국외</option>
+					    </select>
 	                </div>
 	                <div class="mb-3">
 	                    <label for="exampleFormControlInput2" class="form-label">장르</label>
-	                    <input type="text" class="form-control" id="exampleFormControlInput2" name="musicminor">
+	                     <select class="form-select" name="musicminor">
+					        <option value="발라드">발라드</option>
+					        <option value="힙합">힙합</option>
+					        <option value="클래식">클래식</option>
+					        <option value="트로트">트로트</option>
+					    </select>
 	                </div>
 	                <div class="mb-3">
 	                    <label for="exampleFormControlInput2" class="form-label">뮤비경로</label>

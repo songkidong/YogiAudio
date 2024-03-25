@@ -111,6 +111,30 @@ public class AdminController {
 		return "admin/musicList";
 	}
 	
+	//뮤비리스트
+	@GetMapping("/musicvideoList")
+	public String mvListPage(AdminCriteria cri, Model model) {
+		
+		cri.setPageSize(12);
+		List<MusicVideoDTO> musicvideoList = adminService.findAllMusicVideo(cri);
+		
+		if(musicvideoList.isEmpty()) {
+			model.addAttribute("musicvideoList", null);
+		}else {
+			model.addAttribute("musicvideoList", musicvideoList);
+		}
+		
+		AdminPageVO pageVO = new AdminPageVO();
+		pageVO.setCri(cri);
+		pageVO.setTotalCount(adminService.countAllMusicVideo());
+		model.addAttribute("pageVO", pageVO);
+		
+		
+		return "admin/mvList";
+	}
+	
+	
+	
 	// 공지사항 목록
 	@GetMapping("/noticeList")
 	public String noticeListPage(AdminCriteria cri, Model model) {

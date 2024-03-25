@@ -135,7 +135,7 @@
 								            <img src="${mvlist.filepath}" style="width:360px; height: 240px;">
 								        </c:when>
 								        <c:otherwise>
-								            <img src="/main/img/IU1.jpg" style="width:360px; height: 240px;">
+								            <img src="/album/default.png" style="width:360px; height: 240px;">
 								        </c:otherwise>
 								    </c:choose>
 								</div>

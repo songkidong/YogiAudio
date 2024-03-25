@@ -2,12 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="/WEB-INF/view/admin/layout/header.jsp" %>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
 	<form action="/admin/music-insert" method="post" enctype="multipart/form-data">
-	    <div class="container-insertmusic">
+	    <div class="container-insertmusic" style="margin-top: 50px;">
 	        <div class="row justify-content-center"> <!-- 중앙 정렬 -->
 	            <div class="col-md-4"> <!-- 중간 폭 설정 -->
+	        		<h3 class="title">🔊음원등록</h3>
 	                <div class="mb-3">
 	                    <label for="exampleFormControlInput1" class="form-label">제목</label>
 	                    <input type="text" class="form-control" name="musictitle" >
@@ -18,16 +18,24 @@
 	                </div>
 	                <div class="mb-3">
 	                    <label for="exampleFormControlInput1" class="form-label">국가분류</label>
-	                    <input type="text" class="form-control" name="musicmajor" >
+	                     <select class="form-select" name="musicmajor">
+					        <option value="국내">국내</option>
+					        <option value="국외">국외</option>
+					    </select>
 	                </div>
-	                   <div class="mb-3">
+	                <div class="mb-3">
 	                    <label for="exampleFormControlInput1" class="form-label">장르</label>
-	                    <input type="text" class="form-control" name="musicminor" >
+	                     <select class="form-select" name="musicminor">
+					        <option value="발라드">발라드</option>
+					        <option value="힙합">힙합</option>
+					        <option value="클래식">클래식</option>
+					        <option value="트로트">트로트</option>
+					    </select>
 	                </div>
 	                 <div class="mb-3">
 	                    <label for="exampleFormControlInput1" class="form-label">소속사</label>
 	                    <input type="text" class="form-control" name="musiccompany" >
-	                </div>
+	                 </div>
 	                 <div class="mb-3">
 	                    <label for="exampleFormControlInput1" class="form-label">발매일</label>
 	                    <input type="text" class="form-control" name="startdate">
@@ -110,5 +118,4 @@
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <%@ include file="/WEB-INF/view/admin/layout/footer.jsp" %>

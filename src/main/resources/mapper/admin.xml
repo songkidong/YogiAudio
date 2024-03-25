@@ -22,6 +22,19 @@
 	select count(*) from music
 </select>
 
+
+<select id="findAllMusicVideo" resultType="com.project3.yogiaudio.dto.music.MusicVideoDTO">
+	select * from musicvideo order by videono desc limit ${offset}, #{pageSize} 
+</select>
+
+
+<select id="countAllMusicVideo" resultType="int">
+	select count(*) from musicvideo
+</select>
+
+
+
+
 <select id="findAllHistory" resultType="com.project3.yogiaudio.repository.entity.History">
 	select a.hno, a.amount, a.date, b.name, b.nickname, c.purchasename from history as a
 	join user as b
@@ -72,7 +85,7 @@
 <delete id="deleteMusic">
 	delete from music where music_no = #{musicNo}
 </delete>
-	
+
 
 	<!-- 진수작성 -->
 

@@ -32,6 +32,13 @@ public interface AdminRepository {
 	public List<Music> findAllMusic(AdminCriteria cri);
 	// 음악 카운팅
 	public int countAllMusic();
+	
+	//뮤비목록
+	public List<MusicVideoDTO> findAllMusicVideo(AdminCriteria cri);
+	
+	//뮤비카운팅
+	public int countAllMusicVideo();
+	
 	// 음악 삭제
 	public boolean deleteMusic(Integer musicNo);
 	

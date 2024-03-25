@@ -78,6 +78,13 @@ public class AdminService {
 	}
 	
 	
+	// 뮤비리스트
+	public List<MusicVideoDTO> findAllMusicVideo(AdminCriteria cri){
+		return adminRepository.findAllMusicVideo(cri);
+	}
+	
+	
+	
 	/**
 	  * @Method Name : countAllMusic
 	  * @작성일 : 2024. 3. 13.
@@ -89,6 +96,13 @@ public class AdminService {
 		
 		return adminRepository.countAllMusic();
 	}
+	
+	
+	//뮤비리스트카운팅
+	public int countAllMusicVideo() {
+		return adminRepository.countAllMusicVideo();
+	}
+	
 	
 	/**
 	  * @Method Name : deleteMusic

@@ -158,14 +158,24 @@
               </a>
             </li>
             
-            <li class="menu-item">
-              <a href="/admin/musicList" class="menu-link menu-toggle">
+            <li class="menu-item" class="menu-link menu-toggle">
+              <a href="#" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-music"></i>
                 <div data-i18n="Analytics">음악 관리</div>
               </a>
               
               
               <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="/admin/musicList" class="menu-link">
+                    <div data-i18n="Without menu">음악리스트</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="/admin/musicvideoList" class="menu-link">
+                    <div data-i18n="Without menu">뮤비리스트</div>
+                  </a>
+                </li>
                 <li class="menu-item">
                   <a href="/admin/music-insert" class="menu-link">
                     <div data-i18n="Without menu">음악등록</div>
