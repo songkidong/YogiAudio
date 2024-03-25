@@ -4,6 +4,8 @@
 
 <%@ include file="/WEB-INF/view/admin/layout/header.jsp" %>
 
+
+
 <!-- Content -->
 	
 	<hr class="my-5" />
@@ -13,6 +15,7 @@
 	</c:if>
 	
 	<div class="row g-4">
+	<h2 style="margin-left: 100px">음원 리스트</h2>
 	<!-- 반복문 -->
 	
 	<c:forEach var="music" items= "${musicList}">
@@ -23,8 +26,8 @@
 	  <!-- img 경로 가져오기 -->	
 	  <img class="card-img-top" src="${music.filePath }" alt="image" style="width:100%">
 	  <div class="card-body">
-	    <h4 class="card-title">제목 : ${music.musicTitle}</h4>
-	    <h5 class="card-title">가수 : ${music.musicSinger}</h5>
+	    <h4 class="card-title">${music.musicTitle}</h4>
+	    <h5 class="card-title">${music.musicSinger}</h5>
 	    <p class="card-text">발매일 ${music.startdate}</p>
 	    <p class="card-text">등록일 ${music.formatRegDate()}</p>
 	    <a data-id="${music.musicNo }" name="deleteButton" href="#" class="btn btn-primary">삭제</a>

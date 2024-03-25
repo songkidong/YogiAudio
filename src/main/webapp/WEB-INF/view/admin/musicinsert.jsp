@@ -3,6 +3,12 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="/WEB-INF/view/admin/layout/header.jsp" %>
 
+<style>
+.btn-success {
+	width: 100%;
+}
+</style>
+
 	<form action="/admin/music-insert" method="post" enctype="multipart/form-data">
 	    <div class="container-insertmusic" style="margin-top: 50px;">
 	        <div class="row justify-content-center"> <!-- 중앙 정렬 -->
