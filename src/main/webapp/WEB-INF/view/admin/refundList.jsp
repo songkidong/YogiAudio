@@ -17,7 +17,7 @@
 	<!-- qnaList가 비어있으면 테이블 자체가 보이지 않도록 함 -->
 	<c:if test="${not empty refundList }">
 	<!-- Hoverable Table rows -->
-              <div class="card">
+              <div class="card" style="margin: 0px 20px;">
                 <h5 class="card-header">환불 내역</h5>
                 <div class="table-responsive text-nowrap">
                   <table class="table table-hover">

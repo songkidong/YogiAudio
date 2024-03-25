@@ -23,7 +23,9 @@ import com.project3.yogiaudio.repository.entity.board.BoardQna;
 import com.project3.yogiaudio.repository.entity.board.BoardQnaReply;
 import com.project3.yogiaudio.service.AdminBoardService;
 import com.project3.yogiaudio.service.AdminService;
+import com.project3.yogiaudio.util.Define;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -37,11 +39,40 @@ public class AdminController {
 	
 	@Autowired
 	private AdminBoardService adminBoardService;
+	
+	@Autowired
+	private HttpSession session;
 
 	// 인덱스
 	@GetMapping("/index")
-	public String indexPage() {
-
+	public String indexPage(Model model) {
+		
+		//User principal = (User) session.getAttribute(Define.PRINCIPAL);
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+		model.addAttribute("principal", principal);
+		
+		
+		// qna 목록 최신 10개
+		AdminCriteria cri = new AdminCriteria();
+		List<BoardQna> qnaList = adminBoardService.findAllQna(cri);
+		model.addAttribute("qnaList", qnaList);
+		
+		// 회원 수
+		int userCountByUserRole = adminService.countAllUserByUserRole();
+		model.addAttribute("userCountByUserRole", userCountByUserRole);
+		
+		// 음악 수
+		int musicCount = adminService.countAllMusic();
+		model.addAttribute("musicCount", musicCount);
+		
+		// 뮤직비디오 수
+		int musicvideoCount = adminService.countAllMusicVideo();
+		model.addAttribute("musicvideoCount", musicvideoCount);
+		
+		// 환불 내역 수
+		int incompletedRefundCount = adminService.countAllIncompletedRefund();
+		model.addAttribute("incompletedRefundCount", incompletedRefundCount);
+		
 		return "admin/index";
 	}
 
@@ -75,7 +106,7 @@ public class AdminController {
 	public String musicListPage(AdminCriteria cri, Model model) {
 		
 		// 한 페이징 당 게시글 수 변경
-		cri.setPageSize(12);
+		cri.setPageSize(8);
 		// Criteria의 page값을 1로 정해놓는 이유가 있다 -> 처음 목록페이지 들어올 때 1페이지, offset은 0
 		List<Music> musicList = adminService.findAllMusic(cri);
 		

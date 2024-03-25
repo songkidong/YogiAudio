@@ -25,6 +25,8 @@ public interface AdminRepository {
 	public int countAllUser();
 	// 유저 탈퇴
 	public boolean withdrawUser(Integer id);
+	// 회원수
+	public int countAllUserByUserRole();
 	
 	// 음악 목록
 	public List<Music> findAllMusic(AdminCriteria cri);
@@ -44,4 +46,9 @@ public interface AdminRepository {
 	public int countAllRefund();
 	// 환불 승인
 	public boolean updateRefund(Integer id);
+	// 환불 내역 미승인건 카운팅
+	public int countAllIncompletedRefund();
+	
+	// 뮤직비디오 수
+	public int countAllMusicVideo();
 }

@@ -67,6 +67,18 @@ public class AdminService {
 	}
 	
 	/**
+	  * @Method Name : countAllUserByUserRole
+	  * @작성일 : 2024. 3. 25.
+	  * @작성자 : 박한산
+	  * @변경이력 : 
+	  * @Method 설명 : 회원수
+	  */
+	public int countAllUserByUserRole() {
+		
+		return adminRepository.countAllUserByUserRole();
+	}
+	
+	/**
 	  * @Method Name : findAllMusic
 	  * @작성일 : 2024. 3. 13.
 	  * @작성자 : 박한산
@@ -168,5 +180,29 @@ public class AdminService {
 		cancelRepository.refundStatus(userId);
 		
 		return adminRepository.updateRefund(id);
+	}
+	
+	/**
+	  * @Method Name : countAllIncompletedRefund
+	  * @작성일 : 2024. 3. 25.
+	  * @작성자 : 박한산
+	  * @변경이력 : 
+	  * @Method 설명 : 환불 내역 미승인건 수
+	  */
+	public int countAllIncompletedRefund() {
+		
+		return adminRepository.countAllIncompletedRefund();
+	}
+	
+	/**
+	  * @Method Name : countAllMusicVideo
+	  * @작성일 : 2024. 3. 25.
+	  * @작성자 : 박한산
+	  * @변경이력 : 
+	  * @Method 설명 : 뮤직비디오 수
+	  */
+	public int countAllMusicVideo() {
+		
+		return adminRepository.countAllMusicVideo();
 	}
 }

@@ -117,7 +117,8 @@ public class AdminRestfulController {
 	// qna 답변 수정
 	@PostMapping("/reply/{id}")
 	public ResponseEntity<?> updateReply(@PathVariable("id") Integer id, QnaReplySaveFormDTO dto) {
-		
+
+		log.info("dto : " + dto);
 		boolean result = adminBoardService.updateReply(id, dto);
 		
 		return new ResponseEntity<Boolean>(result, HttpStatus.OK);
