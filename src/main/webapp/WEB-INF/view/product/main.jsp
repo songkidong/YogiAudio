@@ -51,6 +51,20 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+.like-rank {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	background-color: #ff9800; /* 배경색 */
+	color: #fff; /* 텍스트 색상 */
+	font-size: 16px; /* 폰트 크기 */
+	border-radius: 50%; /* 원형 모양으로 만들기 */
+	width: 30px; /* 너비 */
+	height: 30px; /* 높이 */
+	text-align: center; /* 가운데 정렬 */
+	line-height: 30px; /* 수직 가운데 정렬 */
+}
 </style>
 
 
@@ -71,7 +85,7 @@
 						<li><a href="/product/domestic-music">국내</a></li>
 						<li><a href="/product/aboard-music">국외</a></li>
 						<li><a href="/product/new-music">최신음악</a></li>
-						<li><a href="#">인기음악</a></li>
+						<li><a href="/product/like-music">인기음악</a></li>
 						<li><a href="/mv/mvlist">뮤비</a></li>
 					</ul>
 					<!-- /NAV -->
@@ -258,77 +272,114 @@
 		<!-- /HOT DEAL SECTION -->
 
 		<!-- SECTION -->
-		<div class="section">
-			<!-- container -->
-			<div class="container">
-				<!-- row -->
-				<div class="row">
+<div class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
 
-					<!-- section title -->
-					<div class="col-md-12">
-						<div class="section-title">
-							<h3 class="title">👍인기곡</h3>
-							<div class="section-nav">
-								<ul class="section-tab-nav tab-nav">
-									<li class="active"><a data-toggle="tab" href="#tab3">국내</a></li>
-									<li><a data-toggle="tab" href="#tab4">국외</a></li>
-								</ul>
-							</div>
-						</div>
+			<!-- section title -->
+			<div class="col-md-12">
+				<div class="section-title">
+					<h3 class="title">👍인기곡</h3>
+					<div class="section-nav">
+						<ul class="section-tab-nav tab-nav">
+							<li class="active"><a data-toggle="tab" href="#tab3">국내</a></li>
+							<li><a data-toggle="tab" href="#tab4">국외</a></li>
+						</ul>
 					</div>
-					<!-- /section title -->
-
-					<!-- Products tab & slick -->
-					<div class="col-md-12">
-						<div class="row">
-							<div class="products-tabs">
-								<!-- tab -->
-								<div id="tab3" class="tab-pane fade in active">
-									<div class="products-slick" data-nav="#slick-nav-3">
-									
-										<!-- product -->
-									 <c:forEach var="dlikelist" items="${dlikelist}">
-										<div class="product">
-											<div class="product-img">
-												<c:choose>
-												    <c:when test="${not empty dlikelist.filepath}">
-												      <img src=" ${dlikelist.filepath}">
-												    </c:when>
-												  <c:otherwise>
-													  <img src="/album/default.png" >
-												  </c:otherwise>
-												 </c:choose>
-												<div class="product-label">
-												</div>
-											</div>
-											<div class="product-body">
-												<p class="product-category">${dlikelist.musicminor}</p>
-												<h3 class="product-name">
-													<a href="/product/domestic-detail?musicno=${dlikelist.musicno}&musicmajor=${dlikelist.musicmajor}&id=${principal.id}">
-													  ${dlikelist.musictitle}
-													</a>
-												</h3>
-												<h4 class="product-price">${dlikelist.musiccompany}</h4>
-										   </div>
-										  </div>
-										 </c:forEach>
-										<!-- /product -->
-
-										
-									</div>
-									<div id="slick-nav-3" class="products-slick-nav"></div>
-								</div>
-								<!-- /tab -->
-							</div>
-						</div>
-					</div>
-					<!-- /Products tab & slick -->
 				</div>
-				<!-- /row -->
 			</div>
-			<!-- /container -->
+			<!-- /section title -->
+
+			<!-- Products tab & slick -->
+			<div class="col-md-12">
+				<div class="row">
+					<div class="products-tabs">
+						<!-- tab -->
+						<div id="tab3" class="tab-pane fade in active">
+							<div class="products-slick" data-nav="#slick-nav-3">
+
+								<!-- product -->
+								<c:forEach var="dlikelist" items="${dlikelist}" varStatus="rank">
+									<div class="product">
+										<div class="product-img">
+											<c:choose>
+												<c:when test="${not empty dlikelist.filepath}">
+													<img src=" ${dlikelist.filepath}">
+												</c:when>
+												<c:otherwise>
+													<img src="/album/default.png">
+												</c:otherwise>
+											</c:choose>
+											<div class="product-label like-rank">${rank.index + 1}</div>
+											<!-- 순위 표시 -->
+										</div>
+										<div class="product-body">
+											<p class="product-category">${dlikelist.musicminor}</p>
+											<h3 class="product-name">
+												<a
+													href="/product/domestic-detail?musicno=${dlikelist.musicno}&musicmajor=${dlikelist.musicmajor}&id=${principal.id}">
+													${dlikelist.musictitle} </a>
+											</h3>
+											<h4 class="product-price">${dlikelist.musiccompany}</h4>
+										</div>
+									</div>
+								</c:forEach>
+								<!-- /product -->
+
+
+							</div>
+							<div id="slick-nav-3" class="products-slick-nav"></div>
+						</div>
+						<!-- /tab -->
+						<!-- tab -->
+						<div id="tab4" class="tab-pane">
+							<div class="products-slick" data-nav="#slick-nav-4">
+
+								<!-- product -->
+								<c:forEach var="alikelist" items="${alikelist}" varStatus="rank">
+									<div class="product">
+										<div class="product-img">
+											<c:choose>
+												<c:when test="${not empty alikelist.filepath}">
+													<img src=" ${alikelist.filepath}">
+												</c:when>
+												<c:otherwise>
+													<img src="/album/default.png">
+												</c:otherwise>
+											</c:choose>
+											<div class="product-label like-rank">${rank.index + 1}</div>
+											<!-- 순위 표시 -->
+										</div>
+										<div class="product-body">
+											<p class="product-category">${alikelist.musicminor}</p>
+											<h3 class="product-name">
+												<a
+													href="/product/domestic-detail?musicno=${alikelist.musicno}&musicmajor=${alikelist.musicmajor}&id=${principal.id}">
+													${alikelist.musictitle} </a>
+											</h3>
+											<h4 class="product-price">${alikelist.musiccompany}</h4>
+										</div>
+									</div>
+								</c:forEach>
+								<!-- /product -->
+
+
+							</div>
+							<div id="slick-nav-4" class="products-slick-nav"></div>
+						</div>
+						<!-- /tab -->
+					</div>
+				</div>
+			</div>
+			<!-- /Products tab & slick -->
 		</div>
-		<!-- /SECTION -->
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /SECTION -->
 
 		<!-- SECTION -->
 		<div class="section">
