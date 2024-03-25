@@ -45,7 +45,7 @@
 	                    <input type="text" class="form-control" name="musicprice">
 	                </div>
 	                <div class="mb-3">
-	                    <label for="exampleFormControlTextarea1" class="form-label">음원설명</label>
+	                    <label for="exampleFormControlTextarea1" class="form-label">가사</label>
 	                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="lyrics"></textarea>
 	                </div>
 	                <div class="mb-3">
