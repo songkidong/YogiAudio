@@ -3,7 +3,19 @@
 <%@include file="/WEB-INF/view/layout/header.jsp"%>
 <link href="/css/board/view.css" rel="stylesheet">
 <link href="/css/board/freeView.css" rel="stylesheet">
+<style>
+/* 수정 버튼 기본 스타일 */
+.commentList .edit-button {
+	margin-left: 1px;
+	background-color: #28a745; /* 수정 버튼의 배경 색상을 초록색으로 지정 */
+	transition: background-color 0.3s ease; /* 배경색 전환 효과 추가 */
+}
 
+/* 수정 버튼에 hover 효과 추가 */
+.commentList .edit-button:hover {
+	background-color: #218838; /* hover 됐을 때 배경 색상을 더 진한 초록색으로 변경 */
+}
+</style>
 <section id="board">
 	<div class="board-container">
 		<h2>자유게시판 상세보기</h2>
@@ -253,37 +265,45 @@
 		});
 	}
 
-	// 댓글 목록을 화면에 출력하는 함수
+	// 현재 로그인한 사용자의 아이디
+	let currentUserID = Number("${principal.id}");
+
 	function displayCommentList(comments) {
-		var commentListHTML = ""; // 댓글 목록을 담을 HTML 문자열
+	    var commentListHTML = ""; // 댓글 목록을 담을 HTML 문자열
 
-		// 각 댓글에 대해 HTML 생성
-		for (var i = 0; i < comments.length; i++) {
-			var comment = comments[i];
+	    // 각 댓글에 대해 HTML 생성
+	    for (var i = 0; i < comments.length; i++) {
+	        var comment = comments[i];
 
-			// 받은 날짜 문자열을 Date 객체로 파싱
-			var createdAtDate = new Date(comment.createdAt);
+	        // 받은 날짜 문자열을 Date 객체로 파싱
+	        var createdAtDate = new Date(comment.createdAt);
 
-			// 날짜를 원하는 형식으로 포맷팅
-			var formattedDate = formatDate(createdAtDate);
+	        // 날짜를 원하는 형식으로 포맷팅
+	        var formattedDate = formatDate(createdAtDate);
 
-			commentListHTML += "<div class='commentCard' style='overflow: auto;'>"; // 스타일 추가
-			commentListHTML += "<div class='info'>";
-			commentListHTML += "<span>" + comment.writerName + "</span>"; // 작성자 이름
-			commentListHTML += "<span style='float: right;'>" + formattedDate
-					+ "</span>"; // 작성일
-			commentListHTML += "</div>";
-			commentListHTML += "<div style='display: flex;'>"; // 댓글 내용과 수정 버튼을 담을 컨테이너
-			commentListHTML += "<textarea class='form-control' id='comment-content-" + comment.id + "' rows='3' readonly>"
-					+ comment.content + "</textarea>"; // 댓글 내용
-			commentListHTML += "<button style='float: right;' class='btn btn-danger' onclick='deleteComment("
-					+ comment.id + ")'>삭제</button>"; // 삭제 버튼
-			commentListHTML += "<button type='button' class='btn btn-secondary rounded-pill shadow-sm report-button' data-toggle='modal' data-target='#commentModal' data-comment-id='" + comment.id + "'>";
-			commentListHTML += "<i class='bi bi-emoji-angry' style='padding-right: 5px;'></i>신고";
-			commentListHTML += "</button>";
-			commentListHTML += "</div>";
-			commentListHTML += "</div>";
-		}
+	        commentListHTML += "<div class='commentCard' style='overflow: auto;'>"; // 스타일 추가
+	        commentListHTML += "<div class='info'>";
+	        commentListHTML += "<span>" + comment.writerName + "</span>"; // 작성자 이름
+	        commentListHTML += "<span style='float: right;'>" + formattedDate
+	                + "</span>"; // 작성일
+	        commentListHTML += "</div>";
+	        commentListHTML += "<div style='display: flex;'>"; // 댓글 내용과 버튼을 수평으로 정렬
+	        if (comment.writerId === currentUserID) {
+	            commentListHTML += "<div>"; // 수정 및 삭제 버튼을 담을 컨테이너
+	            commentListHTML += "<button class='btn btn-danger btn-sm' onclick='deleteComment(" + comment.id + ")'>삭제</button>"; // 삭제 버튼
+	            commentListHTML += "<button class='btn btn-success btn-sm edit-button' id='edit-button-" + comment.id + "' onclick='updateComment(" + comment.id + ")'>수정</button>"; // 수정 버튼
+	            commentListHTML += "<button class='btn btn-primary btn-sm save-button edit-button' id='save-button-" + comment.id + "' style='display: none;'>수정 완료</button>"; // 수정 완료 버튼
+	            commentListHTML += "</div>";
+	        }
+	        commentListHTML += "<button type='button' class='btn btn-secondary rounded-pill shadow-sm report-button' style='margin-left: auto;' data-toggle='modal' data-target='#commentModal' data-comment-id='" + comment.id + "'>";
+	        commentListHTML += "<i class='bi bi-emoji-angry' style='padding-right: 5px;'></i>신고";
+	        commentListHTML += "</button>";
+	        commentListHTML += "</div>";
+	        commentListHTML += "<textarea class='form-control' id='comment-content-" + comment.id + "' rows='3' readonly>"
+	                + comment.content + "</textarea>"; // 댓글 내용
+	        commentListHTML += "</div>";
+	    }
+
 
 		// 댓글 목록을 출력할 엘리먼트에 HTML 삽입
 		$(".commentList").html(commentListHTML);
@@ -315,6 +335,57 @@
 			// 취소를 누르면 아무 동작도 하지 않음
 			return false;
 		}
+	}
+	// 댓글 수정 함수
+	function updateComment(id) {
+	    // 해당 댓글의 textarea를 수정 가능하도록 변경
+	    var commentTextarea = document.getElementById(`comment-content-` + id);
+	    commentTextarea.removeAttribute('readonly');
+		
+	    // 커서를 내용 맨 뒤로 이동
+	    commentTextarea.selectionStart = commentTextarea.selectionEnd = commentTextarea.value.length;
+	    commentTextarea.focus();
+	    
+	    // 해당 댓글의 수정 버튼을 숨기고 수정 완료 버튼을 생성
+	   var editButton = document.getElementById(`edit-button-` + id);
+	    editButton.style.display = 'none';
+
+	    // 해당 댓글의 수정 완료 버튼을 표시
+	    var saveButton = document.getElementById(`save-button-` + id);
+	    saveButton.style.display = 'inline-block';
+	    saveButton.onclick = function() {
+	    	  var updatedComment = commentTextarea.value;
+	          saveComment(id, updatedComment); // 수정된 댓글을 저장하는 함수 호출
+	    };
+
+	    var parentDiv = editButton.parentNode;
+	    parentDiv.insertBefore(saveButton, editButton.nextSibling);
+	}
+	
+	function saveComment(id, comment) {
+	    $.ajax({
+	        type: "POST",
+	        url: "/board/free/freeComment/update",
+	        data: {
+	            id: id,
+	            comment: comment
+	        },
+	        success: function(response) {
+	            // 서버에서 응답을 받았을 때의 처리
+	            var commentTextarea = document.getElementById(`comment-content-` + id);
+	            commentTextarea.setAttribute('readonly', 'readonly'); // 수정 완료 후 textarea를 읽기 전용으로 변경
+	            var editButton = document.getElementById(`edit-button-` + id);
+	            editButton.style.display = 'inline-block'; // 수정 버튼 다시 표시
+	            var saveButton = document.getElementById(`save-button-` + id);
+	            saveButton.style.display = 'none'; // 수정 완료 버튼 숨기기
+	            alert("수정 되었습니다");
+	        },
+	        error: function(xhr, status, error) {
+	            // 에러 발생 시의 처리
+	            console.error("Error updating comment:", error);
+	            alert("수정 중 오류가 발생했습니다.");
+	        }
+	    });
 	}
 </script>
 <script>

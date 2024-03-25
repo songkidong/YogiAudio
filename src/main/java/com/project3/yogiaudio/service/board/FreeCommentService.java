@@ -1,6 +1,8 @@
 package com.project3.yogiaudio.service.board;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,6 +58,26 @@ public class FreeCommentService {
 
 		int result = freeCommentRepository.freeCommentDelete(id);
 
+		if (result == 1) {
+			return true;
+		}
+
+		return false;
+	}
+	
+	/**
+	  * @Method Name : freeCommentUpdate
+	  * @작성일 : 2024. 3. 25.
+	  * @작성자 : 최장호
+	  * @변경이력 : 
+	  * @Method 설명 : 댓글 수정
+	  */
+	public boolean freeCommentUpdate(int id, String comment) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("id", id);
+		params.put("comment", comment);
+		int result = freeCommentRepository.freeCommentUpdate(params);
+	
 		if (result == 1) {
 			return true;
 		}
