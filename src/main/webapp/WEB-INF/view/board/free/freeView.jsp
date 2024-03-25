@@ -598,5 +598,3 @@ boardReportObject.init();
 <script src="/js/board/free.js"></script>
 
 <%@include file="/WEB-INF/view/layout/footer.jsp"%>
-
-
