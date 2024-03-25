@@ -12,8 +12,8 @@
 			<!-- Button to Open the Modal -->
 			<!-- 게시글 신고 버튼 start -->
 			<button type="button"
-				class="btn btn-secondary rounded-pill shadow-sm" data-toggle="modal"
-				data-target="#myModal">
+				class="btn btn-secondary rounded-pill shadow-sm"
+				data-target="#myModal" id="reportBtn">
 				<i class="bi bi-emoji-angry" style="padding-right: 5px;"></i>신고
 			</button>
 			<!-- 게시글 신고 버튼 end -->
@@ -33,14 +33,14 @@
 						<div class="modal-body">
 							<div class="form-group">
 								<label for="comment">신고내용:</label>
-								<textarea class="form-control" rows="5" id="reportFreeContent"></textarea>
+								<textarea class="form-control" rows="5" id="boardReportContent"></textarea>
 							</div>
 						</div>
 
 						<!-- Modal footer -->
 						<div class="modal-footer">
 							<button type="submit" class="btn btn-primary"
-								data-dismiss="modal" id="reportFreeBtn">신고 완료</button>
+								data-dismiss="modal" id="boardReportBtn">신고 완료</button>
 						</div>
 
 					</div>
@@ -62,14 +62,15 @@
 						<div class="modal-body">
 							<div class="form-group">
 								<label for="comment">신고내용:</label>
-								<textarea class="form-control" rows="5" id="comment"></textarea>
+								<textarea class="form-control" rows="5"
+									id="commentReportContent"></textarea>
 							</div>
 						</div>
 
 						<!-- Modal footer -->
 						<div class="modal-footer">
 							<button type="submit" class="btn btn-primary"
-								data-dismiss="modal" id="reportCommentBtn">신고 완료</button>
+								data-dismiss="modal" id="commentReportBtn">신고 완료</button>
 						</div>
 
 					</div>
@@ -91,6 +92,7 @@
 		</div>
 
 		<div>
+			<input type="hidden" id="writerId-display"></input>
 			<table class="table table-bordered table-hover">
 				<tbody>
 					<tr>
@@ -152,7 +154,6 @@
 	</div>
 </section>
 
-
 <script>
 	function loadViewId() {
 
@@ -170,6 +171,9 @@
 
 						// writerName-display 엘리먼트에 데이터 출력
 						$("#writerName-display").html(data.writerName);
+						
+						// hidden - 게시글 신고하기 기능 넣어주려고
+						$("#writerId-display").val(data.writerId);
 
 						// 받은 날짜 문자열을 Date 객체로 파싱
 						var createdAtDate = new Date(data.createdAt);
@@ -314,36 +318,81 @@
 	}
 </script>
 <script>
-let reportObject = {
+
+let userId = Number("${principal.id}");
+let typeBoard = "board";
+let typeComment = "comment";
+
+$("#reportBtn").on("click", () => {
+	if(userId == null || userId == ""){
+		if (confirm("로그인 하시겠습니까?")) {
+            window.location.href = '/signIn'; // 메인 페이지 URL로 리다이렉트
+            return;
+        }
+	}else{
+    // 서버에 신고 여부를 확인하는 AJAX 요청을 보냅니다.
+	    $.ajax({
+	        type: "POST",
+	        url: "/board/free/checkReport", 
+	        data: {
+	            targetType: typeBoard,
+	            targetId: addressNum,
+	            userId: userId
+	        },
+	        success: function(data) {
+	            // 성공적으로 신고 여부를 확인한 경우에만 모달 창을 엽니다.
+	            if (data !== "success") { // 여기서 "success"는 서버에서 성공적으로 처리했을 때의 응답을 가정한 것입니다.
+	                $('#myModal').modal('show');
+	            } else {
+	                alert("이미 신고한 게시글입니다");
+	            }
+	        },
+	        error: function() {
+	            // 에러가 발생했을 때 처리할 내용을 작성합니다.
+	            alert("서버와의 통신 중 에러가 발생했습니다.");
+	        }
+	    });
+	}
+});
+
+
+let boardReportObject = {
 		init: function() {
-			$("#reportFreeBtn").on("click", () => {
-				this.reportFree();
+			$("#boardReportBtn").on("click", () => {
+				alert(addressNum);
+				this.boardReport();
 			});
 		},
 
-		reportFree: function() {
-
+		boardReport: function() {
+			let addressNum = window.location.pathname.split("/")[4]; // 게시글 번호 가져오기
 			alert("게시글 신고 요청");
 
-			const reportFreeContent = $("#reportFreeContent").val();
+			const boardReportContent = $("#boardReportContent").val();
+			
+			console.log("게시글신고내용 : "+boardReportContent);
 
-			if (reportFreeContent === "") {
+			if (boardReportContent === "") {
 	            // If empty, show an alert and return early to prevent further execution
 	            alert("신고 이유를 적어주세요.");
 	            return;
 	        }
+			
+			const targetUserId = $("#writerId-display").val();
+			console.log("신고대상id : "+targetUserId);
 			// AJAX 요청을 보냅니다.
 			$.ajax({
 				type: "POST",
-				url: "/board/free/freeComment/" + addressNum,
-				contentType: "application/json",  // Content-Type을 JSON으로 설정
-				data: JSON.stringify({
-					boardFreeId: addressNum,
-					content: commentContent
-				}),
+				url: "/board/free/boardFreeReport", 
+				data: {
+					targetType: typeBoard,
+					targetId: addressNum,
+					targetUserId: targetUserId, // 게시글 작성자
+					reportReason: boardReportContent
+				},
 				success: function(data) {
 					console.log(data);
-					if (data === true) {
+					if (data === 1) {
 						// 성공적으로 데이터가 저장되었을 때.
 						location.reload();
 					} else {
@@ -359,7 +408,7 @@ let reportObject = {
 		}
 	};
 
-reportObject.init();
+boardReportObject.init();
 
 </script>
 

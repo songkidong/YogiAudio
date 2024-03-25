@@ -5,7 +5,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.project3.yogiaudio.dto.board.BoardFreeReportDTO;
 import com.project3.yogiaudio.repository.entity.board.BoardFree;
+import com.project3.yogiaudio.repository.entity.board.BoardFreeReport;
 
 @Mapper
 public interface FreeRepository {
@@ -39,5 +41,8 @@ public interface FreeRepository {
 
 	// 조회수 증가
 	public void incrementViewCount(int id);
+
+	// 게시판 신고하기
+	public int insertFreeReport(BoardFreeReport boardFreeReport);
 
 }
