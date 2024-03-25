@@ -48,10 +48,10 @@ spring:
     password: 1111
     
 #  datasource:    
-#    url: jdbc:mysql://localhost:3306/yogiaudio?serverTimeZone=Asia/Seoul
+#    url: jdbc:mysql://localhost:3306/yogi_audio?serverTimeZone=Asia/Seoul
 #    driver-class-name: com.mysql.cj.jdbc.Driver
 #    username: root
-#    password: asd1234
+#    password: 1234
     
   #h2:
   #  console:
