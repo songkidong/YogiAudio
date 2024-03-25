@@ -25,5 +25,8 @@ public interface MusicVideoRepository {
 	//뮤비리스트(조건) 카운팅하기
 	public Integer optionMVlistCount(Criteria cri) throws Exception;
 	
+	//뮤비업데이트하기
+	public Integer mvUpdate(MusicVideoDTO dto);
+	
 	
 }

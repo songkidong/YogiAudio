@@ -3,9 +3,11 @@ package com.project3.yogiaudio.controller.product;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ldap.LdapAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.project3.yogiaudio.dto.common.Criteria;
@@ -82,12 +84,26 @@ public class MusicVideoController {
 	}
 	
 	
+	//뮤비업데이트 GET
+	@GetMapping("/mv-update")
+	public String mvUpdateGET() {
+		log.debug("mv업데이트 페이지출력!");
+		return "product/mvupdate";
+	}
 	
 	
 	
-	
-	
-	
+	//뮤비업데이트 POST
+	@PostMapping("/mv-update")
+	public String mvUpdatePOST(MusicVideoDTO dto) {
+		
+		String filePath = filedbService.saveFiles(dto.getFiles());
+		
+		musicVideoService.mvUpdate(dto, filePath);
+		
+		return "redirect:/mv/mvlist";
+		
+	}
 	
 	
 	
