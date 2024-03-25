@@ -227,7 +227,7 @@
 		var month = (date.getMonth() + 1).toString().padStart(2, '0');
 		var day = date.getDate().toString().padStart(2, '0');
 
-		return year + '년 ' + month + '월 ' + day + '일';
+		return year + '년' + month + '월 ' + day + '일';
 	}
 
 	//페이지 로드 시 데이터 로딩 함수 호출
