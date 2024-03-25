@@ -389,12 +389,21 @@
 	}
 </script>
 <script>
-
 let userId = Number("${principal.id}");
 let typeBoard = "board";
 let typeComment = "comment";
 
 $("#reportBtn").on("click", () => {
+	
+	// 모달을 열 때 닫기 버튼 동작 추가
+	$('#myModal').on('show.bs.modal', function (e) {
+	    // 모달이 열릴 때 동작할 코드
+	    // 닫기 버튼을 눌렀을 때 모달 닫기
+	    $(this).find('.close').click(function() {
+	        $('#myModal').modal('hide');
+	    });
+	});
+	
 	if(userId == null || userId == ""){
 		if (confirm("로그인 하시겠습니까?")) {
             window.location.href = '/signIn'; // 메인 페이지 URL로 리다이렉트
