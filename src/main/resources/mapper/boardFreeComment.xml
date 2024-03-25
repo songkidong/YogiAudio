@@ -31,4 +31,8 @@
 		a left join `user` as b on a.writer_id = b.id
 		where board_free_id = #{boardFreeId};
 	</select>
+	
+	<update id="freeCommentUpdate">
+		update board_free_comment set content = #{comment} where id = #{id};
+	</update>
 </mapper>

@@ -1,6 +1,7 @@
 package com.project3.yogiaudio.repository.interfaces.board;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -18,5 +19,7 @@ public interface FreeCommentRepository {
 	public int freeCommentSave(BoardFreeComment boardFreeComment);
 
 	public int freeCommentDelete(int id);
+
+	public int freeCommentUpdate(Map<String, Object> params);
 
 }
