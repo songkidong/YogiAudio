@@ -50,8 +50,13 @@
 					<label for="file">첨부파일</label> 
                     <!-- 링크 클릭하면 바로 다운로드됨 -->
                     <!-- http://localhost/filedb/get-file/f8b843fecaf34737a8aae2e2e3d935da  -->
-                    <!-- 파일 원본이름으로 출력하는 방법은?? -->
-                    <div id="filePaths" data-filePaths="${qna.filePath }"></div>
+                    <!-- 반복문 -->
+                    <c:forEach var="boardFileDTO" items="${BoardFileDTOList }">
+                    	<li>
+                    		<a class="hrefButton" href="${boardFileDTO.filePath }" style="font-size: 20px;">${boardFileDTO.originFileName }</a>
+                    		<a class="deleteFileButton"><i class="fas fa-times" style="margin-left: 10px; font-size: 20px;"></i></a>
+                    	</li>
+                    </c:forEach>
 				</div>
 			</form>
 		</div>
@@ -65,11 +70,14 @@
 				<div class="info">
 					<span class="nick">${reply.writerName }</span> <span class="date">${reply.formatCreatedAt() }</span>
 				</div>
-				<p class="content" >${reply.content }</p>
+				<input class="content" value="${reply.content }" readonly 
+				style="background-color: #f9f9f9; border-style: none; width: 50%;"/>
 				<div class="actions">
 
+						<a href="#" class="updateReply">수정</a>
 						<a href="#" class="deleteReply" data-id="${reply.id}" data-boardQnaId="${qna.id }">삭제</a>
-
+						<a href="#" class="completeUpdate" data-id="${reply.id}" data-boardQnaId="${qna.id}" style="display:none;">수정완료</a>
+						<a href="#" class="cancelUpdate" style="display:none;">취소</a>
 					</div>
 			</div>
 			</c:forEach>

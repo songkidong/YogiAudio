@@ -13,7 +13,49 @@
 		delete from like_music where id = #{id};
 	</delete>
 
-	<select id="findByUseIdAndMusicNo" resultType="com.project3.yogiaudio.repository.entity.product.LikeMusic">
-		select * from like_music where user_id= #{userId} and music_no = #{musicNo};
+	<select id="findByUseIdAndMusicNo"
+		resultType="com.project3.yogiaudio.repository.entity.product.LikeMusic">
+		select * from like_music where user_id= #{userId} and
+		music_no = #{musicNo};
 	</select>
+
+	<select id="findMusicListOrderByLikeCount" parameterType="map"
+		resultType="com.project3.yogiaudio.dto.music.MusicDTO">
+		SELECT a.*
+		FROM music a
+		LEFT JOIN like_music b ON a.music_no =
+		b.music_no
+		<if test="major != null">
+			WHERE a.music_major = #{major}
+		</if>
+		GROUP BY a.music_no
+		ORDER BY COUNT(b.music_no) DESC
+		<if test="limit != null">
+			LIMIT #{limit}
+		</if>
+	</select>
+
+	<!-- 좋아요 화면 페이징 처리 -->
+	<select id="musicListOrderByLikeCountPaging"
+		resultType="com.project3.yogiaudio.dto.music.MusicDTO">
+		SELECT a.*
+		FROM music a
+		LEFT JOIN like_music b ON a.music_no =
+		b.music_no
+		<if test="searchOption != null">
+			WHERE a.music_major = #{searchOption}
+		</if>
+		GROUP BY a.music_no
+		ORDER BY COUNT(b.music_no) DESC
+		limit #{startPage}, #{pageSize}
+	</select>
+
+	<!-- major별 음악 카운팅하기 -->
+	<select id="allCountMusicByMajor" resultType="Integer">
+		select count(*) from music
+		<if test="major != null">
+			WHERE music_major = #{major}
+		</if>
+	</select>
+
 </mapper>

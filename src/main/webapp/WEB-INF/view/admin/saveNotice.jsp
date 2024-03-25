@@ -28,11 +28,16 @@
                       
                       <br>
                       <div class="mb-3">
-                        <label for="formFileMultiple" class="form-label">파일 첨부</label>
-                        <!-- multiple 속성으로 여러개 첨부 가능 -->
-                        <!-- name 속성 빠트리지 말기 -->
-                        <input name="files" class="form-control" type="file" id="formFileMultiple" multiple="">
+                        <label for="" class="form-label">파일 첨부</label>
+                        
+                        <input name="files" class="form-control" type="file" multiple="">
                       </div>
+                      
+                      <!-- name 똑같이 설정해서 DTO의 List<> files에 매핑 가능함 -->
+                      <!-- <div class="mb-3">
+                        <label for="" class="form-label">파일 첨부</label>
+                        <input name="files" class="form-control" type="file">
+                      </div> -->
                       
                       <button id="button" class="btn btn-primary">등록</button>
                       
