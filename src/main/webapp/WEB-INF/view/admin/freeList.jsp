@@ -17,7 +17,7 @@
 	<!-- qnaList가 비어있으면 테이블 자체가 보이지 않도록 함 -->
 	<c:if test="${not empty freeList }">
 	<!-- Hoverable Table rows -->
-              <div class="card">
+              <div class="card" style="margin: 0px 20px;">
                 <h5 class="card-header">자유게시판</h5>
                 <div class="table-responsive text-nowrap">
                   <table class="table table-hover">
@@ -54,7 +54,7 @@
 	</c:if>
               
               <!-- flex 속성으로 가운데정렬하기 -->
-              <ul class="pagination" style="display: flex; justify-content: center; padding-right: 10%;	margin-top: 5%;">
+              <ul class="pagination" style="display: flex; justify-content: center; padding-right: 10%;	margin-top: 10px;">
 				  
 				  <!-- pageVO.prev가 참(시작페이지가 1이 아닐 때)이면 이전버튼 li태그 생성 -->
 				  <c:if test="${pageVO.prev }">

@@ -10,10 +10,10 @@
 	<hr class="my-5" />
 	
 	<!-- Form -->
-	<div class="col-md-6">
+	<div class="col-md-6"  style="margin-left: 25%;">
 	<form id="form" action="" enctype="multipart/form-data">
                   <div class="card mb-4">
-                    <h5 class="card-header">공지사항</h5>
+                    <h5 class="card-header">공지사항 등록</h5>
                     <div class="card-body">
                       <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">제목</label>
@@ -39,7 +39,7 @@
                         <input name="files" class="form-control" type="file">
                       </div> -->
                       
-                      <button id="button" class="btn btn-primary">등록</button>
+                      <button id="button" class="btn btn-primary" style="width: 100%">등록</button>
                       
                     </div>
                   </div>

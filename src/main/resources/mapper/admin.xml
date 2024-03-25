@@ -13,6 +13,10 @@
 	select count(*) from user
 </select>
 
+<select id="countAllUserByUserRole" resultType="int">
+	select count(*) from user where role='USER'
+</select>
+
 <select id="findAllMusic" resultType="com.project3.yogiaudio.repository.entity.Music">
 	<!-- pageSize에 고정값 넣으니까 4페이지 11개 인데 5페이지 1개가 표시됨-->
 	select * from music order by music_no desc limit ${offset}, #{pageSize} 
@@ -33,11 +37,7 @@
 </select>
 
 <select id="countAllHistory" resultType="int">
-	select count(*) from history as a
-	join user as b
-	on a.id = b.id
-	join purchase as c
-	on a.pno = c.pno
+	select count(*) from history
 </select>
 
 <select id="findAllRefund" resultType="com.project3.yogiaudio.repository.entity.Refund">
@@ -55,13 +55,15 @@
 </select>
 
 <select id="countAllRefund" resultType="int">
-	select count(*) from refund as a
-	join user as b
-	on a.user_id = b.id
-	join history as c
-	on a.hno = c.hno
-	join purchase as d
-	on c.pno = d.pno
+	select count(*) from refund
+</select>
+
+<select id="countAllMusicVideo" resultType="int">
+	select count(*) from musicvideo
+</select>
+
+<select id="countAllIncompletedRefund" resultType="int">
+	select count(*) from refund where refund_yn = 'N'
 </select>
 	
 <delete id="deleteMusic">

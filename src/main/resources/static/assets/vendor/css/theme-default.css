@@ -95,29 +95,30 @@
   }
 }
 
+/*수정*/
 .text-primary {
-  color: #696cff !important;
+  color: skyblue;
 }
 
 .text-body[href]:hover {
-  color: #5f61e6 !important;
+  color: skyblue;
 }
 
 .bg-primary {
-  background-color: #696cff !important;
+  background-color: skyblue;
 }
 
 a.bg-primary:hover, a.bg-primary:focus {
-  background-color: #6467f2 !important;
+  background-color: skyblue;
 }
 
 .dropdown-notifications-item:not(.mark-as-read) .dropdown-notifications-read span {
-  background-color: #696cff;
+  background-color: skyblue;
 }
 
 .bg-label-primary {
   background-color: #e7e7ff !important;
-  color: #696cff !important;
+  color: skyblue;
 }
 
 .border-label-primary {
@@ -125,7 +126,7 @@ a.bg-primary:hover, a.bg-primary:focus {
 }
 
 .border-light-primary {
-  border: 3px solid rgba(105, 108, 255, 0.08);
+  border: 3px skyblue;
 }
 
 /*수정*/

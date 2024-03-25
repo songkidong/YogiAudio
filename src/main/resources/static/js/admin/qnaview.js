@@ -209,7 +209,14 @@ window.onload = function() {
 				const id = completeUpdateBtns[i].getAttribute('data-id');
 				const input = $(this).closest(".commentCard").find(".content");
 				// 수정한 내용 ajax 로 보내기 위함
-				const content = input.value;
+				// $(this) jquery 활용했으므로 input은 jquery 객체 => value도 jquery 문법 활용
+				const content = input.val();
+				
+				// 유효성 검사
+				if(content == "") {
+					Swal.fire('내용을 입력하세요');
+					content.focus();
+				}
 				
 				alert('id : ' + id);	
 				console.log('content : ' + content);

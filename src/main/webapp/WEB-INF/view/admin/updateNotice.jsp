@@ -5,12 +5,6 @@
 
 <%@ include file="/WEB-INF/view/admin/layout/header.jsp" %>
 
-<style>
-.btn-primary {
-	margin-left: 50px;
-}
-
-</style>
 
 <!-- cs파트 css 가져오기 -->
 <link href="/css/admin/view.css" rel="stylesheet">
@@ -30,7 +24,7 @@
 
 		<div class="button-container d-flex justify-content-end">
 			<!-- onclick="history.back()" 하면 답변 등록됐을 때 view 페이지는  답변 여부가 업데이트가 되는데, list 페이지는 반영 안됨 -->
-			<a href="/admin/noticeList" class="btn btn-info rounded-pill shadow-sm" style="color: white;">목록</a>
+			<a onclick="history.back()" class="btn btn-info rounded-pill shadow-sm" style="color: white;">취소</a>
 		</div>
 
 		<div>
@@ -72,7 +66,7 @@
 	                 <input name="files" class="form-control" type="file" id="formFileMultiple" multiple="">
 	                 
 	                 <br>
-	                 <button id="updateButton" data-id="${notice.id }" class="btn btn-primary">수정</button>
+	                 <button id="updateButton" data-id="${notice.id }" class="btn btn-primary" style="width: 95%; margin-left: 40px;">수정</button>
           		</div>
 	               
 	            
