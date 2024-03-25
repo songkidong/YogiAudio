@@ -29,6 +29,8 @@ import com.project3.yogiaudio.util.Define;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Slf4j
 @Controller
@@ -146,7 +148,8 @@ public class FreeController {
 	 */
 	@PostMapping("/freeWrite")
 	public String insertfree(FreeDTO freeDTO) {
-
+		System.out.println("컨트롤러 "+ freeDTO);
+		
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 
 		freeDTO.setWriterId(principal.getId());
@@ -272,6 +275,14 @@ public class FreeController {
 
         return sortedPage;
     }
+	
+	@PostMapping("/blameFree")
+	@ResponseBody
+	public int insertBlameFree() {
+		
+		return 0;
+	}
+	
 	
 	
 }
