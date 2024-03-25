@@ -79,6 +79,10 @@ public class ProductController {
 		// 인기순 Top10
 		List<MusicDTO> dlikelist = likeMusicService.readMusicListOrderByLikeCount("국내", 10);
 		model.addAttribute("dlikelist",dlikelist);
+
+		// 전체 순위 Top10
+		List<MusicDTO> alllikelist = likeMusicService.readMusicListOrderByLikeCount(null, 10);
+		model.addAttribute("alllikelist",alllikelist);
 		
 		
 		

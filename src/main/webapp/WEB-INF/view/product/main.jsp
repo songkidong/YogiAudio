@@ -52,18 +52,37 @@
   cursor: pointer;
 }
 
+.product .product-img .product-label {
+	top: 0;
+}
+
 .like-rank {
+ 	border-radius: 5px; /* 순번의 모서리 둥글기 */
 	position: absolute;
-	top: 10px;
-	left: 10px;
-	background-color: #ff9800; /* 배경색 */
+	top: 0px;
+	left: 0px;
+	background-color:  rgba(0, 0, 0, 0.5);  /* 배경색 */
 	color: #fff; /* 텍스트 색상 */
 	font-size: 16px; /* 폰트 크기 */
-	border-radius: 50%; /* 원형 모양으로 만들기 */
 	width: 30px; /* 너비 */
 	height: 30px; /* 높이 */
 	text-align: center; /* 가운데 정렬 */
 	line-height: 30px; /* 수직 가운데 정렬 */
+}
+
+/* 국내, 국외, 종합 순번 */
+.product-widget {
+    position: relative;
+}
+.product-index {
+    position: absolute;
+    top: 0px; /* 순번의 상단 여백 */
+    left: 0px; /* 순번의 좌측 여백 */
+    background-color: rgba(0, 0, 0, 0.5); /* 순번의 배경색 */
+    color: #fff; /* 순번의 글자색 */
+    padding: 5px 10px; /* 순번의 내부 여백 */
+    border-radius: 5px; /* 순번의 모서리 둥글기 */
+    font-size: 12px; /* 순번의 글자 크기 */
 }
 </style>
 
@@ -381,291 +400,228 @@
 </div>
 <!-- /SECTION -->
 
-		<!-- SECTION -->
-		<div class="section">
-			<!-- container -->
-			<div class="container">
-				<!-- row -->
-				<div class="row">
-					<div class="col-md-4 col-xs-6">
-						<div class="section-title">
-							<h4 class="title">국내인기순위</h4>
-							<div class="section-nav">
-								<div id="slick-nav-5" class="products-slick-nav"></div>
-							</div>
-						</div>
-
-						<div class="products-widget-slick" data-nav="#slick-nav-5">
-						
-							<div>
-
-								<!-- product widget -->
-							<c:forEach var="dlikelist" items="${dlikelist}" begin="0" end="2">
-								<div class="product-widget">
-									<div class="product-img">
-										<c:choose>
-											<c:when test="${not empty dlikelist.filepath}">
-												  <img src=" ${dlikelist.filepath}">
-										    </c:when>
-										    <c:otherwise>
-												   <img src="/album/default.png" >
-											</c:otherwise>
-										 </c:choose>
-									</div>
-									<div class="product-body">
-										<p class="product-category">${dlikelist.musicminor}</p>
-										<h3 class="product-name">
-											<a href="/product/domestic-detail?musicno=${dlikelist.musicno}&musicmajor=${dlikelist.musicmajor}&id=${principal.id}">
-												${dlikelist.musictitle}
-											</a>
-										</h3>
-										<h4 class="product-price">${dlikelist.musiccompany}</h4>
-									</div>
-								</div>
-							  </c:forEach>	
-								<!-- product widget -->
-								
-								
-								
-							</div>
-
-
-
-							<div>
-								
-								
-								
-								<!-- product widget -->
-							<c:forEach var="dlikelist" items="${dlikelist}" begin="3" end="5">
-								<div class="product-widget">
-									<div class="product-img">
-										<c:choose>
-											<c:when test="${not empty dlikelist.filepath}">
-												  <img src=" ${dlikelist.filepath}">
-										    </c:when>
-										    <c:otherwise>
-												   <img src="/album/default.png" >
-											</c:otherwise>
-										 </c:choose>
-									</div>
-									<div class="product-body">
-										<p class="product-category">${dlikelist.musicminor}</p>
-										<h3 class="product-name">
-											<a href="/product/domestic-detail?musicno=${dlikelist.musicno}&musicmajor=${dlikelist.musicmajor}&id=${principal.id}">
-											   ${dlikelist.musictitle}
-											</a>
-										</h3>
-										<h4 class="product-price">${dlikelist.musiccompany}</h4>
-									</div>
-								</div>
-							</c:forEach>
-								<!-- product widget -->
-								
-								
-								
-								
-							</div>
-							
-							
-							
-							
-						</div>
+<!-- SECTION -->
+<div class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+			<div class="col-md-4 col-xs-6">
+				<div class="section-title">
+					<h4 class="title">국내인기순위</h4>
+					<div class="section-nav">
+						<div id="slick-nav-5" class="products-slick-nav"></div>
 					</div>
-
-					<div class="col-md-4 col-xs-6">
-						<div class="section-title">
-							<h4 class="title">국외인기순위</h4>
-							<div class="section-nav">
-								<div id="slick-nav-6" class="products-slick-nav"></div>
-							</div>
-						</div>
-
-						<div class="products-widget-slick" data-nav="#slick-nav-6">
-							<div>
-								<!-- product widget -->
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="/main/img/new3.jpg" >
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-									</div>
-								</div>
-								<!-- /product widget -->
-
-								<!-- product widget -->
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="/main/img/new3.jpg" >
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-									</div>
-								</div>
-								<!-- /product widget -->
-
-								<!-- product widget -->
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="/main/img/new3.jpg" >
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-									</div>
-								</div>
-								<!-- product widget -->
-							</div>
-
-							<div>
-								<!-- product widget -->
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="/main/img/new3.jpg" >
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-									</div>
-								</div>
-								<!-- /product widget -->
-
-								<!-- product widget -->
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="/main/img/new3.jpg" >
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-									</div>
-								</div>
-								<!-- /product widget -->
-
-								<!-- product widget -->
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="/main/img/new3.jpg">
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-									</div>
-								</div>
-								<!-- product widget -->
-							</div>
-						</div>
-					</div>
-
-					<div class="clearfix visible-sm visible-xs"></div>
-
-					<div class="col-md-4 col-xs-6">
-						<div class="section-title">
-							<h4 class="title">종합인기순위</h4>
-							<div class="section-nav">
-								<div id="slick-nav-7" class="products-slick-nav"></div>
-							</div>
-						</div>
-
-						<div class="products-widget-slick" data-nav="#slick-nav-7">
-							<div>
-								<!-- product widget -->
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="/main/img/new3.jpg">
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-									</div>
-								</div>
-								<!-- /product widget -->
-
-								<!-- product widget -->
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="/main/img/new3.jpg" alt="">
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-									</div>
-								</div>
-								<!-- /product widget -->
-
-								<!-- product widget -->
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="/main/img/new3.jpg" alt="">
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-									</div>
-								</div>
-								<!-- product widget -->
-							</div>
-
-							<div>
-								<!-- product widget -->
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="/main/img/new3.jpg" alt="">
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-									</div>
-								</div>
-								<!-- /product widget -->
-
-								<!-- product widget -->
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="/main/img/new3.jpg" alt="">
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-									</div>
-								</div>
-								<!-- /product widget -->
-
-								<!-- product widget -->
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="/main/img/new3.jpg" alt="">
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-									</div>
-								</div>
-								<!-- product widget -->
-							</div>
-						</div>
-					</div>
-
 				</div>
-				<!-- /row -->
+
+				<div class="products-widget-slick" data-nav="#slick-nav-5">
+
+					<div>
+
+						<!-- product widget -->
+						<c:forEach var="dlikelist" items="${dlikelist}" begin="0" end="4" varStatus="status">
+							<div class="product-widget">
+								<div class="product-img">
+									<c:choose>
+										<c:when test="${not empty dlikelist.filepath}">
+											<img src=" ${dlikelist.filepath}">
+										</c:when>
+										<c:otherwise>
+											<img src="/album/default.png">
+										</c:otherwise>
+									</c:choose>
+								</div>
+								<div class="product-body">
+									<p class="product-category">${dlikelist.musicminor}</p>
+									<h3 class="product-name">
+										<a
+											href="/product/domestic-detail?musicno=${dlikelist.musicno}&musicmajor=${dlikelist.musicmajor}&id=${principal.id}">
+											${dlikelist.musictitle} </a>
+									</h3>
+									<h4 class="product-price">${dlikelist.musiccompany}</h4>
+									  <p class="product-index">${status.count + 5}</p>
+								</div>
+							</div>
+						</c:forEach>
+						<!-- product widget -->
+					</div>
+					<div>
+						<!-- product widget -->
+						<c:forEach var="dlikelist" items="${dlikelist}" begin="5" end="9" varStatus="status">
+							<div class="product-widget">
+								<div class="product-img">
+									<c:choose>
+										<c:when test="${not empty dlikelist.filepath}">
+											<img src=" ${dlikelist.filepath}">
+										</c:when>
+										<c:otherwise>
+											<img src="/album/default.png">
+										</c:otherwise>
+									</c:choose>
+								</div>
+								<div class="product-body">
+									<p class="product-category">${dlikelist.musicminor}</p>
+									<h3 class="product-name">
+										<a
+											href="/product/domestic-detail?musicno=${dlikelist.musicno}&musicmajor=${dlikelist.musicmajor}&id=${principal.id}">
+											${dlikelist.musictitle} </a>
+									</h3>
+									<h4 class="product-price">${dlikelist.musiccompany}</h4>
+									<p class="product-index">${status.count}</p>
+								</div>
+							</div>
+						</c:forEach>
+						<!-- product widget -->
+					</div>
+				</div>
 			</div>
-			<!-- /container -->
+
+			<div class="col-md-4 col-xs-6">
+				<div class="section-title">
+					<h4 class="title">국외인기순위</h4>
+					<div class="section-nav">
+						<div id="slick-nav-6" class="products-slick-nav"></div>
+					</div>
+				</div>
+
+				<div class="products-widget-slick" data-nav="#slick-nav-6">
+					<div>
+						<!-- product widget -->
+						<c:forEach var="alikelist" items="${alikelist}" begin="0" end="4" varStatus="status">
+							<div class="product-widget">
+								<div class="product-img">
+									<c:choose>
+										<c:when test="${not empty alikelist.filepath}">
+											<img src=" ${alikelist.filepath}">
+										</c:when>
+										<c:otherwise>
+											<img src="/album/default.png">
+										</c:otherwise>
+									</c:choose>
+								</div>
+								<div class="product-body">
+									<p class="product-category">${alikelist.musicminor}</p>
+									<h3 class="product-name">
+										<a
+											href="/product/aboard-detail?musicno=${alikelist.musicno}&musicmajor=${alikelist.musicmajor}&id=${principal.id}">
+											${alikelist.musictitle} </a>
+									</h3>
+									<h4 class="product-price">${alikelist.musiccompany}</h4>
+									<p class="product-index">${status.count}</p>
+								</div>
+							</div>
+						</c:forEach>
+						<!-- product widget -->
+					</div>
+					<div>
+						<!-- product widget -->
+						<c:forEach var="alikelist" items="${alikelist}" begin="5" end="9" varStatus="status">
+							<div class="product-widget">
+								<div class="product-img">
+									<c:choose>
+										<c:when test="${not empty alikelist.filepath}">
+											<img src=" ${alikelist.filepath}">
+										</c:when>
+										<c:otherwise>
+											<img src="/album/default.png">
+										</c:otherwise>
+									</c:choose>
+								</div>
+								<div class="product-body">
+									<p class="product-category">${alikelist.musicminor}</p>
+									<h3 class="product-name">
+										<a
+											href="/product/aboard-detail?musicno=${alikelist.musicno}&musicmajor=${alikelist.musicmajor}&id=${principal.id}">
+											${alikelist.musictitle} </a>
+									</h3>
+									<h4 class="product-price">${alikelist.musiccompany}</h4>
+									<p class="product-index">${status.count}</p>
+								</div>
+							</div>
+						</c:forEach>
+						<!-- product widget -->
+
+
+					</div>
+				</div>
+			</div>
+
+			<div class="clearfix visible-sm visible-xs"></div>
+
+			<div class="col-md-4 col-xs-6">
+				<div class="section-title">
+					<h4 class="title">종합인기순위</h4>
+					<div class="section-nav">
+						<div id="slick-nav-7" class="products-slick-nav"></div>
+					</div>
+				</div>
+
+				<div class="products-widget-slick" data-nav="#slick-nav-7">
+					<div>
+						<!-- product widget -->
+						<c:forEach var="alllikelist" items="${alllikelist}" begin="0" end="4" varStatus="status">
+							<div class="product-widget">
+								<div class="product-img">
+									<c:choose>
+										<c:when test="${not empty alllikelist.filepath}">
+											<img src=" ${alllikelist.filepath}">
+										</c:when>
+										<c:otherwise>
+											<img src="/album/default.png">
+										</c:otherwise>
+									</c:choose>
+								</div>
+								<div class="product-body">
+									<p class="product-category">${alllikelist.musicminor}</p>
+									<h3 class="product-name">
+										<a href="/product/domestic-detail?musicno=${alllikelist.musicno}&musicmajor=${alllikelist.musicmajor}&id=${principal.id}">
+											${alllikelist.musictitle} </a>
+									</h3>
+									<h4 class="product-price">${alllikelist.musiccompany}</h4>
+									<p class="product-index">${status.count}</p>
+								</div>
+							</div>
+						</c:forEach>
+						<!-- product widget -->
+					</div>
+					<div>
+						<!-- product widget -->
+						<c:forEach var="alllikelist" items="${alllikelist}" begin="5" end="9" varStatus="status">
+							<div class="product-widget">
+								<div class="product-img">
+									<c:choose>
+										<c:when test="${not empty alllikelist.filepath}">
+											<img src=" ${alllikelist.filepath}">
+										</c:when>
+										<c:otherwise>
+											<img src="/album/default.png">
+										</c:otherwise>
+									</c:choose>
+								</div>
+								<div class="product-body">
+									<p class="product-category">${alllikelist.musicminor}</p>
+									<h3 class="product-name">
+										<a
+											href="/product/aboard-detail?musicno=${alllikelist.musicno}&musicmajor=${alllikelist.musicmajor}&id=${principal.id}">
+											${alllikelist.musictitle} </a>
+									</h3>
+									<h4 class="product-price">${alllikelist.musiccompany}</h4>
+									<p class="product-index">${status.count}</p>
+								</div>
+							</div>
+						</c:forEach>
+						<!-- product widget -->
+
+					</div>
+				</div>
+			</div>
+
 		</div>
-		<!-- /SECTION -->
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /SECTION -->
 
 		
 	
