@@ -15,7 +15,9 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
 	rel="stylesheet" />
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"
+	rel="stylesheet">
 
 <link rel="stylesheet" href="/assets/vendor/fonts/boxicons.css" />
 
@@ -49,8 +51,10 @@
 					<!-- Content -->
 
 					<div class="container-xxl flex-grow-1 container-p-y">
+
 						<h4 class="py-3 mb-4">
-							<span class="text-muted fw-light">마이페이지 /</span> 플리
+							<a class="nav-link" href="/product/main"><i
+								class="bx bx-home me-1"></i> Home</a>
 						</h4>
 
 						<div class="row">
@@ -59,43 +63,53 @@
 									<li class="nav-item"><a class="nav-link"
 										href="/account/${principal.id}"><i class="bx bx-user me-1"></i>
 											계정</a></li>
-									<li class="nav-item"><a class="nav-link"
-										href="/payment/${principal.id}"><i
-											class="bx bx-table me-1"></i> 결제 내역</a></li>
+									<li class="nav-item"><a class="nav-link" href="/payment"><i
+											class="bx bx-credit-card me-1"></i> 결제 내역</a></li>
 									<li class="nav-item"><a class="nav-link active"
 										href="/myPlaylist"><i class="bx bx-music me-1"></i> 플리</a></li>
+									<li class="nav-item"><a class="nav-link" href="/likemusic"><i
+											class="bx bxs-heart me-1"></i> 좋아요</a></li>
 								</ul>
-
-								<div class="table-responsive text-nowrap">
-									<table class="table card-table">
-										<thead>
-											<tr>
-												<th>번호</th>
-												<th>앨범</th>
-												<th>제목</th>
-												<th>가수</th>
-												<th>뮤비</th>
-											</tr>
-										</thead>
-										<tbody class="table-border-bottom-0">
-											<c:forEach items="${playlist}" var="play" varStatus="loop">
+								<div class="card">
+									<h5 class="card-header">플레이리스트</h5>
+									<div class="table-responsive text-nowrap">
+										<table class="table">
+											<thead>
 												<tr>
-													<td>${loop.index + 1}</td>
-													<td><img src="${play.filePath}" width="75" height="75">
-													<td>${play.musicTitle}</td>
-													<td>${play.musicSinger}</td>
-													<td><a href="${play.mvFile}"> <span
-															class="bi bi-youtube "></span>
-													</a></td>
+													<th>번호</th>
+													<th>앨범</th>
+													<th>제목</th>
+													<th>가수</th>
+													<th>뮤비</th>
+													<th>듣기</th>
 												</tr>
-											</c:forEach>
+											</thead>
+											<tbody class="table-border-bottom-0">
+												<c:forEach items="${playlist}" var="play" varStatus="loop">
+													<tr data-music-no="${play.musicNo}">
+														<td>${loop.index + 1}</td>
+														<td><img src="${play.filePath}" width="75"
+															height="75">
+														<td>${play.musicTitle}</td>
+														<td>${play.musicSinger}</td>
+														<td><a href="${play.mvFile}"> <span
+																class="bi bi-youtube "></span>
+														</a></td>
+														<td><button id="playBtn" type="button"
+																class="playBtn">
+																<i class="bi bi-play"></i>
+															</button></td>
+													</tr>
+												</c:forEach>
 
 
-										</tbody>
-									</table>
+											</tbody>
+										</table>
+									</div>
 								</div>
-								<button id="addBtn" type="button"><i class="bi bi-plus-circle"></i></button>
-								<button id="playBtn" type="button"><i class="bi bi-play"></i></button>
+								<button id="addBtn" type="button" class="addPlayerBtn">
+									<i class="bi bi-plus-circle"></i>
+								</button>
 								<button id="musicBtn" type="button">Music Player</button>
 							</div>
 						</div>
@@ -117,12 +131,6 @@
 
 	<!-- Core JS -->
 	<!-- build:js assets/vendor/js/core.js -->
-	<!--  playlist 스크립트 시작 -->
-	<script>
-		var userId = '${principal.id}';
-	</script>
-	<!-- 	<script src="/js/playlist/playlist.js"></script> -->
-	<!--  playlist 스크립트 종료 -->
 
 	<script src="/assets/vendor/libs/jquery/jquery.js"></script>
 	<script src="/assets/vendor/libs/popper/popper.js"></script>
@@ -143,5 +151,20 @@
 
 	<!-- Place this tag in your head or just before your close body tag. -->
 	<script async defer src="https://buttons.github.io/buttons.js"></script>
+	<!--  playlist 스크립트 시작 -->
+	<script>
+		var userId = '${principal.id}';
+		var musicNo;
+		const tableRows = document.querySelectorAll('.table tbody tr');
+		tableRows.forEach(row => {
+		    row.addEventListener('click', function(event) {
+		        event.stopPropagation(); // 부모 요소의 이벤트 전파 방지
+		        musicNo = row.getAttribute('data-music-no');
+		        console.log(musicNo);
+		    });
+		});
+	</script>
+	<script src="/js/playlist/playlist.js"></script>
+	<!--  playlist 스크립트 종료 -->
 </body>
 </html>

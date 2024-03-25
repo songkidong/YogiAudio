@@ -18,17 +18,32 @@
 		<form>
 			<div class="mb-3" style="padding-bottom: 30px;">
 				<label for="title">제목:</label> <input type="text"
-					class="form-control" id="updated-title" name="title">
+					class="form-control" id="updated-title" name="title" value="${noticeDTO.title}">
 			</div>
 			<div class="mb-3" style="padding-bottom: 30px;">
 				<label for="content">내용:</label>
-				<textarea id="updated-content" name="content"></textarea>
+				<textarea id="updated-content" name="content"><p>${noticeDTO.content}</p></textarea>
 			</div>
+			
 			<div class="file_list">
+				<!-- 기존 업로드된 파일 출력  -->
 				<div class="mb-3" style="padding-bottom: 30px;">
-					<div class="file_input" style="display: inline-block;">
+				<label for="insertFile">첨부된 파일: </label>
+					<ul id="fileListContainer">
+						<c:forEach var="fileList" items="${noticeDTO.boardFileDTOList}">
+							<li>
+							<a class="uploadedFilePath" href="${fileList.filePath}">${fileList.originFileName}</a>
+							<button button type="button" class="btn btn-secondary" id="btnDeleteFile">X</button>
+							</li>
+						</c:forEach>
+					</ul>
+				</div>
+			
+			<!-- 새로 업로드 할 파일 추가 -->
+				<div class="mb-3" style="padding-bottom: 30px;">
+					<div class="file_input" style="display: inline-block;" id="pathpath">
 						<label for="formFileMultiple" class="form-label">파일첨부: </label> <input
-							class="form-control" type="file" id="updated-file" multiple
+							class="form-control files" type="file" id="updated-file" multiple
 							name="filepath" onchange="selectFile(this);"
 							style="background-color: white;" />
 					</div>
@@ -91,7 +106,7 @@ function addFile() {
         fileDiv.innerHTML = `
         	<div class="file_input" style="display: inline-block; ">
 			<label for="formFileMultiple" class="form-label">파일첨부: </label> <input
-			class="form-control" type="file" id="updated-file" multiple
+			class="form-control files" type="file" id="updated-file" multiple
 			name="filepath" onchange="selectFile(this);" style="background-color: white;" />
 		</div>
         <button type="button" onclick="removeFile(this);" class="btn btn-danger"><span>삭제</span></button>

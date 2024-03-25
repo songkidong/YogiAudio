@@ -1,8 +1,9 @@
+
 #board {
 	display: flex;
 	flex-direction: column;
-	padding-top: 5%;
-	padding-bottom: 5%;
+	padding-top: 10%;
+	padding-bottom: 10%;
 	padding-left: 10%;
 	padding-right: 10%;
 }
@@ -226,4 +227,9 @@ nav {
 /* 선택 상자 호버 상태 스타일링 */
 .form-select:hover {
 	cursor: pointer;
+}
+
+#board > div > div:nth-child(2) > form > div{
+	display: flex;
+	float: right;
 }

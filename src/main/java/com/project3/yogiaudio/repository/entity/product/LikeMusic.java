@@ -26,4 +26,5 @@ public class LikeMusic {
 	private long id;
 	private long userId;
 	private long musicNo;
+	private Timestamp createdAt;
 }

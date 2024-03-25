@@ -42,7 +42,7 @@
 					</tr>
 					<tr>
 						<td>첨부파일</td>
-						<td id="file-display" style="text-align: left;"></td>
+						<td style="text-align: left;"><a id="file-display"></a></td>
 					</tr>
 				</tbody>
 			</table>
@@ -50,69 +50,87 @@
 
 		<div class="commentList" style="margin-top: 30px;">
 			<h3>답변</h3>
+
 			<div class="commentCard">
 				<div class="info">
-					<span class="nick">admin</span> <span class="date">2024-03-13</span>
+					<span class="nick">nick</span> <span class="date">2024-03-23</span>
 				</div>
-				<p class="content">답변입니다.</p>
-				<div class="actions">
-
-					<!-- 관리자만 수정삭제  -->
-					<a href="#" class="remove" data-no="${comment.no}">삭제</a> <input
-						type="hidden" name="commentParent" value="${comment.parent}" /> <a
-						href="#" class="modify">수정</a>
-
-				</div>
+				<textarea class="form-control" id="reply-display" rows="3" readonly>sdf</textarea>
 			</div>
-		</div>
-
-		<div class="commentForm" style="margin-top: 30px;">
-			<h3>답변쓰기</h3>
-			<form id="formComment" action="#" method="post">
-				<input type="hidden" name="parent" value="${no}" /> <input
-					type="hidden" name="writer" value="${sessUser.uid}" />
-				<textarea name="content"></textarea>
-				<div style="float: right;">
-					<a href="#" class="btn btnCancel">취소</a> <input type="submit"
-						id="btnComment" value="작성" class="btn btnComplete" />
-				</div>
-			</form>
 		</div>
 
 	</div>
 </section>
 
+<script src="/js/board/qna.js"></script>
 <script>
 	function loadViewId() {
 
 		console.log(typeof addressNum);
 
-		$.ajax({
-			type : "post",
-			url : "/board/qna/qnaView/" + addressNum,
-			data : {},
-			success : function(data) {
+		$
+				.ajax({
+					type : "post",
+					url : "/board/qna/qnaView/" + addressNum,
+					data : {},
+					success : function(data) {
 
-				// id-display 엘리먼트에 데이터 출력
-				$("#id-display").html(data.id);
+						// id-display 엘리먼트에 데이터 출력
+						$("#id-display").html(data.id);
 
-				// title-display 엘리먼트에 데이터 출력
-				$("#createdAt-display").html(data.createdAt);
+						// 받은 날짜 문자열을 Date 객체로 파싱
+						var createdAtDate = new Date(data.createdAt);
 
-				// title-display 엘리먼트에 데이터 출력
-				$("#title-display").html(data.title);
+						// 날짜를 원하는 형식으로 포맷팅
+						var formattedDate = formatDate(createdAtDate);
 
-				// content-display 엘리먼트에 데이터 출력
-				$("#content-display").html(data.content);
+						// createdAt-display 엘리먼트에 포맷팅된 날짜 출력
+						$("#createdAt-display").html(formattedDate);
 
-				// file-display 엘리먼트에 데이터 출력
-				$("#file-display").html(data.filePath);
+						// title-display 엘리먼트에 데이터 출력
+						$("#title-display").html(data.title);
 
-			},
-			error : function() {
-				alert("Error!!!");
-			}
-		});
+						// content-display 엘리먼트에 데이터 출력
+						$("#content-display").html(data.content);
+
+						// 파일 경로를 쉼표로 분할하여 배열로 만듭니다
+						var filePaths = data.filePath.split(',');
+
+						// file-display 엘리먼트에 데이터 출력
+						if (filePaths.length > 0) {
+							var fileDisplayHTML = ""; // 파일을 보여줄 HTML
+
+							for (var i = 0; i < filePaths.length; i++) {
+								if (data.originFileName
+										&& data.originFileName[i]) { // originFileName이 정의되어 있을 때만 출력
+									fileDisplayHTML += "<a href='" + filePaths[i] + "' download>"
+											+ data.originFileName[i]
+											+ " <i class='bi bi-file-earmark-arrow-down-fill'></i></a><br>";
+									console.log("originFileName:",
+											data.originFileName[i]);
+								}
+							}
+
+							$("#file-display").html(fileDisplayHTML);
+						} else {
+							$("#file-display").html("첨부 파일이 없습니다.");
+						}
+
+					},
+					error : function() {
+						alert("Error!!!");
+					}
+				});
+
+	}
+
+	// 날짜를 원하는 형식으로 포맷팅하는 함수
+	function formatDate(date) {
+		var year = date.getFullYear();
+		var month = (date.getMonth() + 1).toString().padStart(2, '0');
+		var day = date.getDate().toString().padStart(2, '0');
+
+		return year + '년 ' + month + '월 ' + day + '일';
 	}
 
 	//페이지 로드 시 데이터 로딩 함수 호출
@@ -121,7 +139,7 @@
 	});
 </script>
 
-<script src="/js/board/qna.js"></script>
+
 
 <%@include file="/WEB-INF/view/layout/footer.jsp"%>
 

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.project3.yogiaudio.repository.interfaces.board.FreeRepository">
+
+	<insert id="insertFree">
+		insert into board_free (writer_id, title, content, hit, file_path) <!-- 
+			db -->
+		values (#{writerId}, #{title}, #{content}, COALESCE(#{hit}, 0),
+		#{filePath}) <!--entity = 파라미터값과 같아야 함 -->
+	</insert>
+
+	<select id="findAllByKeywordwithPasing"
+		resultType="com.project3.yogiaudio.repository.entity.board.BoardFree">
+		select a.*, b.name as writerName from board_free as a
+		left join `user`
+		as b
+		on a.writer_id = b.id
+		<if test="searchType == 'titleAndContent'">
+			where
+			(title like CONCAT('%',#{searchInput},'%') or content
+			like
+			CONCAT('%',#{searchInput},'%'))
+		</if>
+		<if test="searchType == 'writerName'">
+			where b.name like CONCAT('%',#{searchInput},'%')
+		</if>
+		<if test="searchType == 'createdAt'">
+			where DATE_FORMAT(a.created_at, '%Y-%m-%d') like
+			CONCAT('%',#{searchInput},'%')
+		</if>
+		<if test="searchType == null">
+			<!-- If no search type is specified, fetch all records -->
+		</if>
+		order by id desc
+		limit #{limit} offset #{offset}
+	</select>
+
+	<select id="getAllPageCount" resultType="int">
+		select count(*) from
+		board_free
+		left join `user`
+		as b
+		on
+		board_free.writer_id = b.id
+		<if test="searchType == 'titleAndContent'">
+			where
+			(title like CONCAT('%',#{searchInput},'%') or content
+			like
+			CONCAT('%',#{searchInput},'%'))
+		</if>
+		<if test="searchType == 'writerName'">
+			where b.name like CONCAT('%',#{searchInput},'%')
+		</if>
+		<if test="searchType == 'createdAt'">
+			where DATE_FORMAT(board_free.created_at, '%Y-%m-%d') like
+			CONCAT('%',#{searchInput},'%')
+		</if>
+		<if test="searchType == null">
+			<!-- If no search type is specified, fetch all records -->
+		</if>
+	</select>
+
+	<select id="findAllById"
+		resultType="com.project3.yogiaudio.repository.entity.board.BoardFree">
+		select a.*, b.name as writerName from board_free as a
+		left join `user`
+		as b
+		on a.writer_id = b.id WHERE a.id = #{id};
+	</select>
+
+	<update id="freeUpdate">
+		update board_free set title = #{title}, content =
+		#{content}, hit = 0, file_path = #{filePath} WHERE id = #{id};
+	</update>
+
+	<delete id="freeDelete">
+		delete from board_free WHERE id = #{id};
+	</delete>
+
+	<select id="findAllByOrderByHitDescWithPaging"
+		resultType="com.project3.yogiaudio.repository.entity.board.BoardFree">
+		SELECT a.*, b.name as writerName
+		FROM board_free as a
+		LEFT
+		JOIN `user` as b ON a.writer_id = b.id
+		ORDER BY hit DESC
+		LIMIT #{size}
+		OFFSET #{offset}
+	</select>
+
+	<select id="findAllByOrderByCreatedAtASCWithPaging"
+		resultType="com.project3.yogiaudio.repository.entity.board.BoardFree">
+		SELECT a.*, b.name as writerName
+		FROM board_free as a
+		LEFT
+		JOIN `user` as b ON a.writer_id = b.id
+		ORDER BY created_at ASC
+		LIMIT
+		#{size} OFFSET #{offset}
+	</select>
+
+	<select id="countAllByOrderByHitDesc" resultType="long">
+		SELECT COUNT(*)
+		FROM board_free
+		LEFT JOIN `user` ON board_free.writer_id = `user`.id
+	</select>
+
+	<select id="countAllByOrderByCreatedAtASC" resultType="long">
+		SELECT COUNT(*)
+		FROM board_free
+		LEFT JOIN `user` ON board_free.writer_id = `user`.id
+	</select>
+
+	<update id="incrementViewCount" parameterType="int">
+		UPDATE board_free
+		SET hit = hit + 1
+		WHERE id = #{id}
+	</update>
+
+</mapper>

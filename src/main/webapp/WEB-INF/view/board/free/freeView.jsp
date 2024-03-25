@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/view/layout/header.jsp"%>
 <link href="/css/board/view.css" rel="stylesheet">
+<link href="/css/board/freeView.css" rel="stylesheet">
 
 <section id="board">
 	<div class="board-container">
@@ -9,7 +10,7 @@
 
 		<div class="button-container d-flex justify-content-end">
 			<button class="btn btn-info rounded-pill shadow-sm"
-				onclick="history.back()">
+				onclick="goBack()">
 				<i class="bi bi-arrow-return-left" style="padding-right: 5px;"></i>목록
 			</button>
 			<button class="btn btn-success rounded-pill shadow-sm"
@@ -22,61 +23,235 @@
 		</div>
 
 		<div>
-			<form class="card">
-				<div class="card-header d-flex justify-content-between">
-					<label for="id">번호 : 1</label> <input type="hidden" id="id"
-						value="${posts.id}"> <label for="createdDate"
-						style="float: right;">2024-03-13</label>
-				</div>
-				<div class="card-header d-flex justify-content-between">
-					<label for="writer">작성자 : user</label> <label for="view"
-						style="float: right;"><i class="bi bi-hand-index-thumb">&nbsp55</i></label>
-					<!-- 조회수 -->
-				</div>
-				<div class="card-body">
-					<label for="title">제목</label> <input type="text"
-						class="form-control" id="title" value="" readonly> <br />
-					<label for="content">내용</label>
-					<textarea rows="7" class="form-control" id="content" readonly></textarea>
-					<br /> <label for="file">첨부파일</label> <input type="text"
-						class="form-control" id="file" value="" readonly>
-				</div>
-			</form>
+			<table class="table table-bordered table-hover">
+				<tbody>
+					<tr>
+						<td>번호</td>
+						<td id="id-display" style="text-align: left;"></td>
+					</tr>
+					<tr>
+						<td>작성자</td>
+						<td id="writerName-display" style="text-align: left;"></td>
+					</tr>
+					<tr>
+						<td>작성일</td>
+						<td id="createdAt-display" style="text-align: left;"></td>
+					</tr>
+					<!-- 작성자?????????????? -->
+					<tr>
+						<td>제목</td>
+						<td id="title-display" style="text-align: left;"></td>
+					</tr>
+					<tr>
+						<td>내용</td>
+						<td id="content-display" style="text-align: left;"></td>
+					</tr>
+					<tr>
+						<td>첨부파일</td>
+						<td style="text-align: left;"><a id="file-display"></a></td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 
-		<div class="commentList" style="margin-top: 30px;">
-			<h3>댓글목록</h3>
-			<div class="commentCard">
-				<div class="info">
-					<span class="nick">user</span> <span class="date">2024-03-13</span>
-				</div>
-				<p class="content" >댓글입니다.</p>
-				<div class="actions">
-
-					<!--내가쓴댓글만 수정삭제  -->
-					<a href="#" class="remove" data-no="${comment.no}">삭제</a> <input
-						type="hidden" name="commentParent" value="${comment.parent}" /> <a
-						href="#" class="modify">수정</a>
-
-				</div>
+		<!-- 댓글 작성 -->
+		<div class="commentWrite" style="margin-top: 30px;">
+			<div style="display: flex; align-items: center;">
+				<h3 style="margin-right: 10px;">댓글 등록</h3>
+				<!-- Adjust margin-right for spacing -->
+				<button class="btn btn-primary rounded-pill shadow-sm"
+					id="btn-save-reply" style="margin-bottom: 11px;">+</button>
+			</div>
+			<div class="form-group" style="margin-bottom: 20px;">
+				<textarea class="form-control" id="reply-content" rows="3"></textarea>
 			</div>
 		</div>
 
-		<div class="commentForm" style="margin-top: 30px;">
-			<h3>댓글쓰기</h3>
-			<form id="formComment" action="#" method="post">
-				<input type="hidden" name="parent" value="${no}" /> <input
-					type="hidden" name="writer" value="${sessUser.uid}" />
-				<textarea name="content"></textarea>
-				<div style="float:  right;">
-					<a href="#" class="btn btnCancel">취소</a> 
-					<input type="submit" id="btnComment" value="작성" class="btn btnComplete" />
-				</div>
-			</form>
-		</div>
-
-	</div>
+		<!-- 댓글 출력 -->
+        <div class="commentList" style="margin-top: 30px;">
+            <h3>댓글 목록</h3>
+            <!-- 수정 가능한 댓글 -->
+            <div class="commentCard">
+                <div class="info">
+                    <span id="reply-writerName-display">작성자</span>
+                    <span id="reply-createdAt-display" style="float: right;">작성일</span>
+                </div>
+                <div class="comment-content" style="display: block;">댓글 내용</div>
+                <!-- 삭제 버튼 -->
+                <button class="btn btn-danger btn-sm" style="margin-top: 5px;" onclick="deleteComment(commentId)">삭제</button>
+            </div>
+        </div>
+    </div>
 </section>
+
+
+<script>
+	function loadViewId() {
+
+		console.log(typeof addressNum);
+
+		$
+				.ajax({
+					type : "post",
+					url : "/board/free/freeView/" + addressNum,
+					data : {},
+					success : function(data) {
+						
+						// id-display 엘리먼트에 데이터 출력
+						$("#id-display").html(data.id);
+						
+						// writerName-display 엘리먼트에 데이터 출력
+						$("#writerName-display").html(data.writerName);
+
+						// 받은 날짜 문자열을 Date 객체로 파싱
+						var createdAtDate = new Date(data.createdAt);
+
+						// 날짜를 원하는 형식으로 포맷팅
+						var formattedDate = formatDate(createdAtDate);
+
+						// createdAt-display 엘리먼트에 포맷팅된 날짜 출력
+						$("#createdAt-display").html(formattedDate);
+
+						// title-display 엘리먼트에 데이터 출력
+						$("#title-display").html(data.title);
+
+						// content-display 엘리먼트에 데이터 출력
+						$("#content-display").html(data.content);
+
+						// 파일 경로를 쉼표로 분할하여 배열로 만듭니다
+						var filePaths = data.filePath.split(',');
+
+						// file-display 엘리먼트에 데이터 출력
+						if (filePaths.length > 0) {
+							var fileDisplayHTML = ""; // 파일을 보여줄 HTML
+
+							for (var i = 0; i < filePaths.length; i++) {
+								if (data.originFileName
+										&& data.originFileName[i]) { // originFileName이 정의되어 있을 때만 출력
+									fileDisplayHTML += "<a href='" + filePaths[i] + "' download>"
+											+ data.originFileName[i]
+											+ " <i class='bi bi-file-earmark-arrow-down-fill'></i></a><br>";
+									console.log("originFileName:",
+											data.originFileName[i]);
+								}
+							}
+
+							$("#file-display").html(fileDisplayHTML);
+						} else {
+							$("#file-display").html("첨부 파일이 없습니다.");
+						}
+
+					},
+					error : function() {
+						alert("Error!!!");
+					}
+				});
+
+	}
+
+	// 날짜를 원하는 형식으로 포맷팅하는 함수
+	function formatDate(date) {
+		var year = date.getFullYear();
+		var month = (date.getMonth() + 1).toString().padStart(2, '0');
+		var day = date.getDate().toString().padStart(2, '0');
+
+		return year + '년 ' + month + '월 ' + day + '일';
+	}
+
+	//페이지 로드 시 데이터 로딩 함수 호출
+	$(document).ready(function() {
+		loadViewId();
+	});
+</script>
+<script>
+	// 댓글 목록 불러오기
+	function loadCommentList() {
+		let addressNum = window.location.pathname.split("/")[4]; // 게시글 번호 가져오기
+
+		$.ajax({
+			type : "GET",
+			url : "/board/free/freeCommentList/" + addressNum, // 댓글 목록을 가져오는 API 엔드포인트 URL
+			success : function(response) {
+				// 댓글 목록을 받아서 화면에 출력
+				displayCommentList(response);
+			},
+			error : function(xhr, status, error) {
+				console.error("Error fetching comment list:", error);
+			}
+		});
+	}
+
+	// 댓글 목록을 화면에 출력하는 함수
+	function displayCommentList(comments) {
+	    var commentListHTML = ""; // 댓글 목록을 담을 HTML 문자열
+
+	    // 각 댓글에 대해 HTML 생성
+	    for (var i = 0; i < comments.length; i++) {
+	        var comment = comments[i];
+
+	        // 받은 날짜 문자열을 Date 객체로 파싱
+	        var createdAtDate = new Date(comment.createdAt);
+
+	        // 날짜를 원하는 형식으로 포맷팅
+	        var formattedDate = formatDate(createdAtDate);
+
+	        commentListHTML += "<div class='commentCard' style='overflow: auto;'>"; // 스타일 추가
+	        commentListHTML += "<div class='info'>";
+	        commentListHTML += "<span>" + comment.writerName + "</span>"; // 작성자 이름
+	        commentListHTML += "<span style='float: right;'>" + formattedDate + "</span>"; // 작성일
+	        commentListHTML += "</div>";
+	        commentListHTML += "<div>"; // 댓글 내용과 수정 버튼을 담을 컨테이너
+	        commentListHTML += "<textarea class='form-control' id='comment-content-" + comment.id + "' rows='3' readonly>" + comment.content + "</textarea>"; // 댓글 내용
+	        commentListHTML += "<button style='float: right;' class='btn btn-danger' onclick='deleteComment(" + comment.id + ")'>삭제</button>"; // 삭제 버튼
+	        commentListHTML += "</div>";
+	        commentListHTML += "</div>";
+	    }
+
+	    // 댓글 목록을 출력할 엘리먼트에 HTML 삽입
+	    $(".commentList").html(commentListHTML);
+	}
+
+	// 페이지 로드 시 댓글 목록을 가져오는 함수 호출
+	$(document).ready(function() {
+		loadCommentList();
+	});
+
+	// 댓글 삭제 함수
+	function deleteComment(id) {
+	    // 사용자에게 확인 메시지 표시
+	    if (confirm("정말로 삭제하시겠습니까?")) {
+	        // 확인을 누르면 AJAX 요청으로 댓글 삭제 처리
+	        $.ajax({
+	            type: "DELETE",
+	            url: "/board/free/freeComment/" + id, // 댓글 삭제 엔드포인트 URL
+	            success: function(response) {
+	                // 성공적으로 삭제되면 페이지 새로고침 또는 댓글 목록 갱신
+	                // 여기서는 페이지 새로고침을 예시로 했습니다.
+	                location.reload();
+	            },
+	            error: function(xhr, status, error) {
+	                console.error("Error deleting comment:", error);
+	            }
+	        });
+	    } else {
+	        // 취소를 누르면 아무 동작도 하지 않음
+	        return false;
+	    }
+	}
+</script>
+
+<script>
+	// 뒤로가기 버튼 조회수 반영 새로고침
+	function goBack() {
+		// 이전 페이지의 URL 가져오기
+		var previousPageUrl = "/board/free/freeList";
+
+		// 이전 페이지로 이동
+		window.location.href = previousPageUrl;
+	}
+</script>
+
+<script src="/js/board/free.js"></script>
 
 <%@include file="/WEB-INF/view/layout/footer.jsp"%>
 

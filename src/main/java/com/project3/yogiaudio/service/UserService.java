@@ -1,11 +1,8 @@
 package com.project3.yogiaudio.service;
 
-import org.apache.ibatis.annotations.Param;
+import java.util.List;
 
-import com.project3.yogiaudio.dto.user.UserDTO;
-import com.project3.yogiaudio.repository.entity.User;
-import com.project3.yogiaudio.repository.interfaces.UserRepository;
-import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,8 +10,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.project3.yogiaudio.dto.admin.AdminCriteria;
+import com.project3.yogiaudio.dto.common.Criteria;
+import com.project3.yogiaudio.dto.user.HistoryListDTO;
+import com.project3.yogiaudio.dto.user.LikeMusicListDTO;
 import com.project3.yogiaudio.dto.user.UserDTO;
+import com.project3.yogiaudio.repository.entity.History;
 import com.project3.yogiaudio.repository.entity.User;
+import com.project3.yogiaudio.repository.entity.product.LikeMusic;
 import com.project3.yogiaudio.repository.interfaces.UserRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -115,4 +118,24 @@ public class UserService {
 		return userRepository.deleteById(user);
 	}
 
+	// 결제 내역 조회
+	public List<HistoryListDTO> findAllHistory(AdminCriteria cri, Long userId) {
+		return userRepository.findAllHistory(cri, userId);
+	}
+	public int countAllHistory(Long userId) {
+		return userRepository.countAllHistory(userId);
+	}
+	
+	// 환불 요청
+	public int refund(int hno, int id) {
+		return userRepository.refund(hno, id);
+	}
+	
+	// 좋아요 내역 조회
+	public List<LikeMusicListDTO> findAllLikeMusic(AdminCriteria cri, Long userId) {
+		return userRepository.findAllLikeMusic(cri, userId);
+	}
+	public int countAllLikeMusic(Long userId) {
+		return userRepository.countAllLikeMusic(userId);
+	}
 }

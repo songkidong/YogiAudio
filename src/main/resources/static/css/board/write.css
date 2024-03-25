@@ -1,8 +1,9 @@
+
 #board {
 	display: flex;
 	flex-direction: column;
-	padding-top: 5%;
-	padding-bottom: 5%;
+	padding-top: 10%;
+	padding-bottom: 10%;
 	padding-left: 10%;
 	padding-right: 10%;
 }
@@ -14,6 +15,8 @@
 
 h2 {
 	padding-bottom: 55px;
+	font-size: 25px;
+	font-weight: bold;
 }
 
 #title{

@@ -14,7 +14,7 @@ window.onload = function() {
 
 	// 추가할 파라미터
 	let searchType = url.searchParams.get('searchType');
-	let search = url.searchParams.get('searchInput');
+	let searchInput = url.searchParams.get('searchInput');
 
 	// pagination 클래스를 가진 요소 찾기
 	let paginationLinks = document.querySelectorAll('#noticePage a');
@@ -24,9 +24,9 @@ window.onload = function() {
 		let linkUrl = new URL(link.href);
 
 		// 파라미터 추가
-		if (searchType && search) {
+		if (searchType && searchInput) {
 			linkUrl.searchParams.append('searchType', searchType);
-			linkUrl.searchParams.append('search', search);
+			linkUrl.searchParams.append('searchInput', searchInput);
 		}
 
 		// 변경된 URL을 href 속성에 설정
@@ -55,107 +55,131 @@ function loadView() {
 }
 loadView();
 
-// notice view 출력
-function loadViewId() {
+//////////////////////////////////////////////////////////
 
-	console.log(typeof addressNum);
+// deletedHref와 href 값을 담아둘 변수 선언
+var deletedHrefVList = [];
+var hrefValueList = [];
 
-	$.ajax({
-		type: "post",
-		url: "/board/notice/noticeView/" + addressNum,
-		data: {},
-		success: function(data) {
+// 첨부된 파일 삭제하기
+document.addEventListener('click', function(event) {
+	// 이벤트가 발생한 요소가 버튼인지 확인합니다.
+	if (event.target.matches('#fileListContainer #btnDeleteFile')) {
+		// 이벤트가 발생한 버튼의 부모 요소인 <li>를 찾습니다.
+		var listItem = event.target.closest('li');
 
-			// id-display 엘리먼트에 데이터 출력
-			$("#id-display").html(data.id);
+		// 삭제될 <a> 태그의 href 속성 값을 가져옵니다.
+		var deletedHref = listItem.querySelector('a.uploadedFilePath').getAttribute('href');
+		console.log(deletedHref)
 
-			// title-display 엘리먼트에 데이터 출력
-			$("#createdAt-display").html(data.createdAt);
+		deletedHrefVList.push(deletedHref);
 
-			// title-display 엘리먼트에 데이터 출력
-			$("#title-display").html(data.title);
+		// 부모 요소인 <ul>을 찾습니다.
+		var fileListContainer = listItem.parentElement;
 
-			// content-display 엘리먼트에 데이터 출력
-			$("#content-display").html(data.content);
+		// <li>를 <ul>에서 제거합니다.
+		fileListContainer.removeChild(listItem);
+	}
+});
+// 수정하기
+$("#btn-update-complete").on("click", function() {
+	alert("수정");
+	// 수정된 데이터 가져오기
+	const updatedTitle = $("#updated-title").val(); // 수정된 제목
+	const updatedContent = $("#updated-content").val(); // 수정된 내용
+	const fileInputs = document.querySelectorAll('.files');
 
-			// file-display 엘리먼트에 데이터 출력
-			$("#file-display").html(data.filePath);
+	// 부모 요소를 찾습니다.
+	var fileListContainer = document.getElementById('fileListContainer');
 
-		},
-		error: function() {
-			alert("Error!!!");
+	// 부모 요소 하위의 모든 a 태그를 선택합니다.
+	var anchorTags = fileListContainer.querySelectorAll('a.uploadedFilePath');
+
+	// 각 a 태그의 href 속성을 가져와서 출력합니다.
+	anchorTags.forEach(function(anchorTag) {
+		href = anchorTag.getAttribute('href');
+		console.log('콘솔href:', href);
+
+		hrefValueList.push(href);
+	});
+
+	// FormData 객체 생성
+	const formData = new FormData();
+	formData.append("title", updatedTitle);
+	console.log(updatedTitle);
+	formData.append("content", updatedContent);
+	console.log(updatedContent);
+	// file 추가
+	// 파일 입력 요소에서 파일 목록을 가져와 FormData에 추가
+	fileInputs.forEach(function(input) {
+		const selectedFiles = input.files;
+		for (let i = 0; i < selectedFiles.length; i++) {
+			const file = selectedFiles[i];
+			formData.append("files", file); // 각 파일을 FormData에 추가
 		}
 	});
 
-	// 수정하기
-	$("#btn-update-complete").on("click", function() {
-		alert("수정");
-		// 수정된 데이터 가져오기
-		const updatedTitle = $("#updated-title").val(); // 수정된 제목
-		const updatedContent = $("#updated-content").val(); // 수정된 내용
-		const updatedFilePath = $("#updated-file")[0].files[0];// 수정된 파일
-		const updatedFilePath2 = $("#updated-file")[0].files[0];// 수정된 파일
+	if (deletedHrefVList && deletedHrefVList.length > 0) { //1개라도 있으면
+		formData.append("deletedHref", deletedHrefVList);
+	}
 
-		// FormData 객체 생성
-		const formData = new FormData();
-		formData.append("title", updatedTitle);
-		formData.append("content", updatedContent);
-		formData.append("files", updatedFilePath);
-		formData.append("files", updatedFilePath2);
+	if (hrefValueList && hrefValueList.length > 0) {
+		formData.append("href", hrefValueList);
+	}
+	console.log(deletedHrefVList);
+	console.log(hrefValueList);
+	console.log(formData);
 
-		// AJAX를 사용하여 서버로 수정된 데이터 전송
-		$.ajax({
-			type: "post",
-			url: "/board/notice/noticeUpdate/" + addressNum,
-			data: formData,
-			contentType: false,
-			processData: false,
-			success: function(data) {
-				if (data === true) {
-					// 수정이 성공했을 때, 목록 페이지로 이동
-					window.location.href = "/board/notice/noticeList";
-				} else {
-					// 수정이 실패했을 때의 처리
-					alert("데이터 수정에 실패했습니다.");
-				}
-			},
-			error: function() {
-				// 통신 에러 시의 처리
-				alert("서버와의 통신 중 에러가 발생했습니다.");
+	// AJAX를 사용하여 서버로 수정된 데이터 전송
+	$.ajax({
+		type: "post",
+		url: "/board/notice/noticeUpdate/" + addressNum,
+		data: formData,
+		contentType: false,
+		processData: false,
+		success: function(data) {
+			if (data === true) {
+				// 수정이 성공했을 때, 목록 페이지로 이동
+				window.location.href = "/board/notice/noticeList";
+			} else {
+				// 수정이 실패했을 때의 처리
+				alert("데이터 수정에 실패했습니다.");
 			}
-		});
+		},
+		error: function() {
+			// 통신 에러 시의 처리
+			alert("서버와의 통신 중 에러가 발생했습니다.");
+		}
 	});
+});
 
 
 
-	// 삭제하기
-	deleteBtn.on("click", function() {
-		console.log("타나여?");
-		console.log(addressNum);
+// 삭제하기
+deleteBtn.on("click", function() {
+	console.log("타나여?");
+	console.log(addressNum);
 
-		$.ajax({
-			type: "post",
-			url: "/board/notice/noticeDelete/" + addressNum,
-			success: function(data) {
-				if (data == true) {
-					window.location.href = "/board/notice/noticeList";
-				} else {
-					alert("데이터 삭제에 실패했습니다.");
-				}
-			},
-			error: function() {
-				alert("서버와의 통신 중 에러가 발생했습니다.");
+	$.ajax({
+		type: "post",
+		url: "/board/notice/noticeDelete/" + addressNum,
+		success: function(data) {
+			if (data == true) {
+				window.location.href = "/board/notice/noticeList";
+			} else {
+				alert("데이터 삭제에 실패했습니다.");
 			}
-		});
+		},
+		error: function() {
+			alert("서버와의 통신 중 에러가 발생했습니다.");
+		}
 	});
+});
 
-}
+
 
 // loadViewId() 실행함수 --> noticeView.jsp 
-//페이지 로드 시 데이터 로딩 함수 호출
-$(document).ready(function() {
-	loadViewId();
-});
+
 
 // notice view에서 update를 위한 클릭 이벤트 
 updateBtn.on("click", function() {

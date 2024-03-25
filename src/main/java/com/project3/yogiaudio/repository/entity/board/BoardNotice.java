@@ -29,6 +29,7 @@ public class BoardNotice {
 	
 	// 조인 추가 필드
 	private String writerName;
+	private List<String> originFileName;
 	
 	// 날짜 포멧 설정
 	public String formatCreatedAt() {

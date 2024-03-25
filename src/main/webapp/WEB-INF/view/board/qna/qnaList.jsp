@@ -6,7 +6,7 @@
 <section id="board">
 	<div class="board-container">
 		<div class="title-container">
-			<h2><a href="/board/qna/qnaList">나의 문의하기</a></h2>
+			<h2><a href="/board/qna/qnaList" style="font-weight: bold;">나의 문의하기</a></h2>
 			<!-- 리스트 : 쿼리 where 유저id  -->
 			<button type="button" class="btn btn-warning" id="btnInsert">
 				<i class="bi bi-pencil-square"></i>
@@ -76,7 +76,7 @@
 		</table>
 
 		<!-- 페이징 처리 -->
-		<div class="notice pagination" id="noticePage">
+		<div class="qna pagination" id="qnaPage">
 			<c:if test="${page > 1}">
 				<li class="page-item"><a href="?page=1&size=${size}"
 					class="page-link">&laquo; 첫 페이지</a></li>

@@ -1,8 +1,12 @@
+*{
+	font-size: 17px;
+}
+
 #board {
 	display: flex;
 	flex-direction: column;
-	padding-top: 5%;
-	padding-bottom: 5%;
+	padding-top: 10%;
+	padding-bottom: 10%;
 	padding-left: 10%;
 	padding-right: 10%;
 }
@@ -21,37 +25,37 @@ h2 {
 }
 
 .card {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	padding: 20px;
 }
 
 .card-header {
-  margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 
 .card-body {
-  margin-top: 20px;
+	margin-top: 20px;
 }
 
 label {
-  font-weight: bold;
+	font-weight: bold;
 }
 
 input[type="text"] {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  margin-top: 5px;
+	width: 100%;
+	padding: 8px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	margin-top: 5px;
 }
 
 p#content-display {
-  margin-top: 10px;
-  line-height: 1.6;
+	margin-top: 10px;
+	line-height: 1.6;
 }
 
 #formComment>div>a {
@@ -87,53 +91,101 @@ p#content-display {
 	border-radius: 5px 5px 0 0;
 }
 
-
-
-
-
 /* Style for the table */
 .table {
-  width: 100%;
-  border-collapse: collapse;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	width: 100%;
+	border-collapse: collapse;
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Style for table cells */
 .table td {
-  padding: 12px;
-  border-bottom: 1px solid #dee2e6;
+	padding: 12px;
+	border-bottom: 1px solid #dee2e6;
 }
 
 /* Style for table header */
 .table thead {
-  background-color: #f8f9fa;
-  border-bottom: 2px solid #dee2e6;
+	background-color: #f8f9fa;
+	border-bottom: 2px solid #dee2e6;
 }
 
 /* Style for table header cells */
 .table th {
-  padding: 12px;
-  font-weight: bold;
-  text-align: left;
+	padding: 12px;
+	font-weight: bold;
+	text-align: left;
 }
 
 /* Style for odd rows */
 .table tbody td:nth-child(1) {
-  text-align: center;	
-  width: 10%;
-  background-color: #f2f2f2;
+	text-align: center;
+	width: 10%;
+	background-color: #f2f2f2;
 }
 
 /* Style for cells with content */
 .table td[id$="-display"] {
-  padding-left: 16px; /* Adjust as needed */
-  font-style: italic;
+	padding-left: 16px; /* Adjust as needed */
+	font-style: italic;
 }
 
 /* Additional style for first column */
 .table td:first-child {
-  font-weight: bold;
-  color: #333333;
+	font-weight: bold;
+	color: #333333;
+}
+
+#file-display {
+	font-style: italic;
+}
+
+.commentList {
+    margin-top: 30px;
+}
+
+.commentList h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.commentCard {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.info {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.info .nick {
+    font-weight: bold;
+    float: left;
+}
+
+.info .date {
+    float: right;
+    margin-left: 10px;
+}
+
+.content {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.6;
+    margin-top: 10px;
+}
+
+#formComment {
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
 }

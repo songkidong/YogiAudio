@@ -12,41 +12,36 @@
 	<div class="board-container">
 		<h2>자유게시판 작성하기</h2>
 
-		<form method="post" action="/notice/insert"
-			enctype="multipart/form-data">
-			<div class="mb-3" style="padding-bottom: 30px;">
-				<label for="title">제목:</label> <input type="text"
-					class="form-control" id="title" name="title"
-					placeholder="Enter Title">
+		<form method="post" action="/board/free/freeWrite" enctype="multipart/form-data">
+			<div class="mb-3">
+				<label for="title">Title:</label> 
+				<input type="text"class="form-control" id="title" name="title" placeholder="Enter Title">
 			</div>
-			<div class="mb-3" style="padding-bottom: 30px;">
-				<label for="content">내용:</label>
+			<div class="mb-3">
+				<label for="content">Content:</label>
 				<textarea id="content" name="content"></textarea>
 			</div>
 			<div class="file_list">
-				<div class="mb-3" style="padding-bottom: 30px;">
+				<div class="mb-3">
 					<div class="file_input" style="display: inline-block;">
-						<label for="formFileMultiple" class="form-label">파일첨부: </label> <input
-							class="form-control" type="file" id="formFileMultiple" multiple
-							name="filepath" onchange="selectFile(this);"
+						<label for="formFileMultiple" class="form-label">File: </label> <!-- multiple타입 일 경우 빈값이 들어갈 수 있음  -->
+						<input class="form-control" type="file" id="formFileMultiple" multiple name="files" onchange="selectFile(this);"
 							style="background-color: white;" />
 					</div>
-					<button type="button" onclick="removeFile(this);"
-						class="btn btn-danger">
+					<button type="button" onclick="removeFile(this);" class="btn btn-danger">
 						<span>삭제</span>
 					</button>
-					<button type="button" onclick="addFile();"
-						class="btn btn-primary">
+					<button type="button" onclick="addFile();" class="btn btn-primary">
 						<span>파일 추가</span>
 					</button>
 				</div>
 			</div>
-			<button type="submit" class="btn btn-success" id="btn-submit"
-				style="float: right; margin-top: 20px;">작성하기</button>
+			<button type="submit" class="btn btn-success" id="btn-submit" style="float: right;">작성하기</button>
 		</form>
 
 	</div>
 </section>
+
 <script type="text/javascript">
 // 파일 선택
 function selectFile(element) {
@@ -85,9 +80,9 @@ function addFile() {
         	<div class="file_input" style="display: inline-block; ">
 			<label for="formFileMultiple" class="form-label">File: </label> <input
 			class="form-control" type="file" id="formFileMultiple" multiple
-			name="filepath" onchange="selectFile(this);" style="background-color: white;" />
+			name="files" onchange="selectFile(this);" style="background-color: white;" />
 		</div>
-        <button type="button" onclick="removeFile(this);" class="btn btn-danger"><span>삭제</span></button>
+        <button type="button" onclick="removeFile(this);" class="btn btn-outline-danger"><span>삭제</span></button>
         `;
 
         document.querySelector('.file_list').appendChild(fileDiv);
@@ -128,5 +123,3 @@ function removeFile(element) {
 </script>
 
 <%@include file="/WEB-INF/view/layout/footer.jsp"%>
-
-

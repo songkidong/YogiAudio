@@ -65,7 +65,7 @@
 		<div>
 			<button class="btn btn-info" onclick="history.back()"
 				style="margin-right: 10px;">
-				<i class="bi bi-arrow-return-left" style="padding-right: 5px;"></i>목록
+				<i class="bi bi-arrow-return-left" style="padding-right: 5px;"></i>뒤로
 			</button>
 			<button class="btn btn-success" id="btn-update-complete">
 				<i class="bi bi-pencil-square" style="padding-right: 5px;"></i>수정완료

@@ -1,0 +1,89 @@
+/* Styling for comment cards */
+.commentCard {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.commentCard .info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.commentCard textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+    background-color: #f9f9f9;
+    font-size: 0.9em;
+}
+
+.commentCard button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f44336;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.commentCard button:hover {
+    background-color: #d32f2f;
+}
+
+
+/* Styling for the commentWrite section */
+.commentWrite {
+    margin-top: 30px;
+}
+
+.commentWrite h3 {
+    font-size: 1.2em;
+    margin-right: 10px;
+    color: #333; /* Dark text color */
+}
+
+.commentWrite button#btn-save-reply {
+    margin-bottom: 11px;
+    background-color: #007bff; /* Blue background color */
+    color: #fff; /* White text color */
+    border: none;
+    border-radius: 20px; /* Rounded corners */
+    padding: 8px 20px; /* Padding */
+    font-size: 1em; /* Font size */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.commentWrite button#btn-save-reply:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.commentWrite .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+}
+
+.commentWrite .form-group textarea:focus {
+    outline: none;
+    border-color: #007bff; /* Blue border color on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Light blue shadow on focus */
+}
+
+.commentWrite .form-group textarea::placeholder {
+    color: #999; /* Placeholder color */
+}
