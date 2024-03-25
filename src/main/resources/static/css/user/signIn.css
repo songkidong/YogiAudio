@@ -3,14 +3,15 @@ body {
   background: white;
 }
 
-.sign--in--container {
+.sign--in--container-custom {
   display: block;
   max-width: 680px;
   width: 80%;
-  margin: 120px auto;
+  margin-bottom: 150px;
 }
-h1 {
-  color: #e91e63;
+
+h1.custom-heading {
+  color: skyblue;
   font-size: 48px;
   letter-spacing: -3px;
   text-align: center;
@@ -18,28 +19,28 @@ h1 {
   transition: 0.2s linear;
 }
 
-.links {
+.links-custom {
   list-style-type: none;
 }
-.links li {
+.links-custom li {
   display: inline-block;
   margin: 0 20px 0 0;
   transition: 0.2s linear;
 }
-.links li:nth-child(2) {
+.links-custom li:nth-child(2) {
   opacity: 0.6;
 }
-.links li:nth-child(2):hover {
+.links-custom li:nth-child(2):hover {
   opacity: 1;
 }
-.links li:nth-child(3) {
+.links-custom li:nth-child(3) {
   opacity: 0.6;
   float: right;
 }
-.links li:nth-child(3):hover {
+.links-custom li:nth-child(3):hover {
   opacity: 1;
 }
-.links li a {
+.links-custom li a {
   text-decoration: none;
   color: #0f132a;
   font-weight: bolder;
@@ -47,17 +48,17 @@ h1 {
   cursor: pointer;
 }
 
-form {
+form.custom-form {
   width: 100%;
   max-width: 680px;
   margin: 40px auto 10px;
 }
-form .input__block {
+form.custom-form .input__block {
   margin: 20px auto;
   display: block;
   position: relative;
 }
-form .input__block.first-input__block::before {
+form.custom-form .input__block.first-input__block::before {
   content: "";
   position: absolute;
   top: -15px;
@@ -71,7 +72,7 @@ form .input__block.first-input__block::before {
   border-bottom: 15px solid rgba(15, 19, 42, 0.1);
   transition: 0.2s linear;
 }
-form .input__block.signup-input__block::before {
+form.custom-form .input__block.signup-input__block::before {
   content: "";
   position: absolute;
   top: -15px;
@@ -85,7 +86,7 @@ form .input__block.signup-input__block::before {
   border-bottom: 15px solid rgba(15, 19, 42, 0.1);
   transition: 0.2s linear;
 }
-form .input__block input {
+form.custom-form .input__block input {
   display: block;
   width: 90%;
   max-width: 680px;
@@ -99,17 +100,17 @@ form .input__block input {
   font-size: 14px;
   font-family: "Montserrat", sans-serif;
 }
-form .input__block input:focus, form .input__block input:active {
+form.custom-form .input__block input:focus, form.custom-form .input__block input:active {
   outline: none;
   border: none;
   color: #0f132a;
 }
-form .input__block input.repeat__password {
+form.custom-form .input__block input.repeat__password {
   opacity: 0;
   display: none;
   transition: 0.2s linear;
 }
-form .signin__btn {
+form.custom-form .signin__btn {
   background: #e91e63;
   color: white;
   display: block;
@@ -125,11 +126,11 @@ form .signin__btn {
   box-shadow: 0 15px 30px rgba(233, 30, 99, 0.36);
   transition: 0.2s linear;
 }
-form .signin__btn:hover {
+form.custom-form .signin__btn:hover {
   box-shadow: 0 0 0 rgba(233, 30, 99, 0);
 }
 
-.separator {
+.separator-custom {
   display: block;
   margin: 30px auto 10px;
   text-align: center;
@@ -141,7 +142,7 @@ form .signin__btn:hover {
   width: 90%;
   max-width: 680px;
 }
-.separator::before {
+.separator-custom::before {
   content: "";
   position: absolute;
   top: 8px;
@@ -150,7 +151,7 @@ form .signin__btn:hover {
   height: 1px;
   width: 45%;
 }
-.separator::after {
+.separator-custom::after {
   content: "";
   position: absolute;
   top: 8px;
@@ -160,27 +161,26 @@ form .signin__btn:hover {
   width: 45%;
 }
 
-#loginBtn {
-	width: 70px;
-	heigth: 70px;
+#loginBtn-custom {
+  width: 70px;
+  height: 70px;
 }
-.naverLogin {
-  margin: 0px 60px 0px 60px; /* 네이버 로그인 버튼 아래 여백 추가 */
-}
-
-.certification__button {
-  text-align: right; /* 버튼을 오른쪽으로 정렬합니다. */
-  margin-top: 10px; /* 버튼과 입력 폼 사이의 간격을 조정합니다. */
+.naverLogin-custom {
+  margin: 0px 60px 0px 60px;
 }
 
-.certification__button a {
-  font-size: 12px; /* 버튼의 폰트 크기를 조정합니다. */
-  color: #06BBCC; /* 버튼의 색상을 설정합니다. */
-  text-decoration: none; /* 밑줄을 제거합니다. */
+.certification__button-custom {
+  text-align: right;
+  margin-top: 10px;
 }
 
-.certification__button a:hover {
-  color: #005f6b; /* 마우스를 올렸을 때의 버튼 색상을 변경합니다. */
+.certification__button-custom a {
+  font-size: 12px;
+  color: #06BBCC;
+  text-decoration: none;
 }
 
+.certification__button-custom a:hover {
+  color: #005f6b;
+}
 

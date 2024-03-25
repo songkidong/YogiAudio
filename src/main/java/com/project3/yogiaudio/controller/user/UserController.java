@@ -37,6 +37,7 @@ import com.project3.yogiaudio.dto.user.OAuthToken;
 import com.project3.yogiaudio.dto.user.UpdateUserDTO;
 import com.project3.yogiaudio.dto.user.UserDTO;
 import com.project3.yogiaudio.filedb.service.FiledbService;
+import com.project3.yogiaudio.handler.exception.UserRestfulException;
 import com.project3.yogiaudio.repository.entity.History;
 import com.project3.yogiaudio.repository.entity.User;
 import com.project3.yogiaudio.repository.entity.playlist.Playlist;
@@ -124,11 +125,16 @@ public class UserController {
 	 * @Method 설명 : 로그인 기능
 	 */
 	@PostMapping("/signIn")
-	public String signIn(UserDTO dto) {
-		User userEntity = userService.signIn(dto);
-		httpsession.setAttribute(Define.PRINCIPAL, userEntity);
+	public ResponseEntity<String> signIn(UserDTO dto) {
 
-		return "redirect:/product/main";
+		try {
+			User userEntity = userService.signIn(dto);
+			httpsession.setAttribute(Define.PRINCIPAL, userEntity);
+			
+			return ResponseEntity.ok().build();
+		} catch (UserRestfulException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
 	}
 
 	/**
@@ -184,21 +190,21 @@ public class UserController {
 	@PostMapping("/refund")
 	@ResponseBody
 	public ResponseEntity<String> handleRefundRequest(@RequestBody Map<String, Integer> requestData) {
-	    int hno = requestData.get("hno");
-	    int id = requestData.get("id");
+		int hno = requestData.get("hno");
+		int id = requestData.get("id");
 
-	    try {
-	        // 환불 요청을 처리하는 비즈니스 로직을 작성합니다.
-	        userService.refund(hno, id);
+		try {
+			// 환불 요청을 처리하는 비즈니스 로직을 작성합니다.
+			userService.refund(hno, id);
 
-	        // 성공적으로 처리되었을 때의 응답을 반환합니다.
-	        return ResponseEntity.ok("success");
-	    } catch (Exception e) {
-	        // 처리 중 예외가 발생하였을 때의 응답을 반환합니다.
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("환불 요청 처리 중 오류가 발생하였습니다.");
-	    }
+			// 성공적으로 처리되었을 때의 응답을 반환합니다.
+			return ResponseEntity.ok("success");
+		} catch (Exception e) {
+			// 처리 중 예외가 발생하였을 때의 응답을 반환합니다.
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("환불 요청 처리 중 오류가 발생하였습니다.");
+		}
 	}
-	
+
 	/**
 	 * @Method Name : myPlaylistPage
 	 * @작성일 : 2024. 3. 24.
@@ -276,7 +282,7 @@ public class UserController {
 			httpsession.setAttribute(Define.PRINCIPAL, existingUser);
 		} else {
 			UserDTO userDTO = UserDTO.builder().name(naverProfile.getResponse().getName())
-					.nickname("네이버유저" + naverProfile.getResponse().getNickname())
+					.nickname("네이버" + naverProfile.getResponse().getNickname())
 					.email(naverProfile.getResponse().getEmail()).password("naverpassword").build();
 
 			User naverUser = userService.createUser(userDTO);
@@ -387,7 +393,7 @@ public class UserController {
 			httpsession.setAttribute(Define.PRINCIPAL, existingUser);
 		} else {
 			// 사용자가 존재하지 않으면 새로 생성
-			UserDTO dto = UserDTO.builder().name(googleProfile.getName()).nickname(googleProfile.getGiven_name())
+			UserDTO dto = UserDTO.builder().name(googleProfile.getName()).nickname("구글" + googleProfile.getGiven_name())
 					.email(googleProfile.getEmail()).password("googlepassword").build();
 
 			User googleUser = userService.createUser(dto);
@@ -409,18 +415,16 @@ public class UserController {
 
 		String filePath;
 
-		User userUpload = userService.findById(id);
+		User userEntity = userService.findById(id);
 
-		String originPath = userUpload.getFilePath();
+		String originPath = userEntity.getFilePath();
 		String[] parts = originPath.split("/");
 		String uuid = parts[parts.length - 1];
 		filedbService.deleteByUuid(uuid);
 
 		if (dto.getProfileFile() == null || dto.getProfileFile().isEmpty()) {
-			// 기존 이미지의 경로를 가져와서 사용
-			filePath = userUpload.getFilePath();
+			filePath = userEntity.getFilePath();
 		} else {
-			// dto의 프로필 파일이 null이 아닌 경우 새로운 파일 업로드
 			filePath = filedbService.saveFiles(dto.getProfileFile());
 		}
 
