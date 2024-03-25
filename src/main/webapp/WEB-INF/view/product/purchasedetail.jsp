@@ -16,9 +16,22 @@
 				<div class="row">
 					<!-- Product main img -->
 					<div class="col-md-5 col-md-push-2">
-						<div id="product-main-img">
+						<div id="product-main-img" style="margin-top: 100px;">
 							<div class="product-preview">
-							   <img src="/banner/p1.png" >
+							<c:choose>
+							    <c:when test="${detail.pno == 1}">
+							        <img src="/banner/p1.png" style="width:360px; height: 350px;">
+							    </c:when>
+							    <c:when test="${detail.pno == 2}">
+							        <img src="/banner/3month.png" style="width:360px; height: 350px;">
+							    </c:when>
+							    <c:when test="${detail.pno == 3}">
+							        <img src="/banner/6month.png" style="width:360px; height: 350px;">
+							    </c:when>
+							    <c:otherwise>
+							        <img src="/banner/1year.png" style="width:360px; height: 350px;">
+							    </c:otherwise>
+							</c:choose>
 							</div>
 						</div>
 					</div>
@@ -37,11 +50,11 @@
 					<!-- Product details -->
 					<div class="col-md-5">
 						<div class="product-details">
-						<div class="naming" style="margin-left: 30px;">
+						<div class="naming" style="margin-left: 30px; margin-top: 50px;">
 							<h2 class="product-name">${detail.purchasename}</h2>
 							
 						  <div>
-						    <h3 class="product-price">${detail.price}<del class="product-old-price"></del></h3>
+						    <h3 class="product-price">${detail.price}  ￦<del class="product-old-price"></del></h3>
 						  </div>
 						</div>
 							
@@ -76,89 +89,12 @@
 
 					<!-- Product tab -->
 					<div class="col-md-12">
-						<div id="product-tab">
-							<!-- product tab nav -->
-							<ul class="tab-nav">
-								<li class="active"><a data-toggle="tab" href="#tab1">곡 소개</a></li>
-								<li><a data-toggle="tab" href="#tab2">가사</a></li>
-								<li><a data-toggle="tab" href="#tab3">뮤직비디오</a></li>
-							</ul>
-							<!-- /product tab nav -->
-
-							<!-- product tab content -->
-							<div class="tab-content">
-								<!-- tab1  -->
-								<div id="tab1" class="tab-pane fade in active">
-									<div class="row">
-										<div class="col-md-12">
-											<p>
-											 1234566
-											</p>
-										</div>
-									</div>
-								</div>
-								<!-- /tab1  -->
-
-								<!-- tab2  -->
-								<div id="tab2" class="tab-pane fade in">
-									<div class="row">
-										<div class="col-md-12">
-										    <p id ="lyrics">
-										      2134567
-										    </p>
-										</div>
-									</div>
-								</div>
-								<!-- /tab2  -->
-
-								<!-- tab3  -->
-								<div id="tab3" class="tab-pane fade in">
-									<div class="row">
-																				
-											<div class="col-md-4 col-xs-6">
-											  <div class="shop">
-											    <a href="javascript:void(0)" onclick="openModal('https://www.youtube.com/embed/kHW-UVXOcLU')">
-											      <div class="shop-img">
-											      </div>
-											    </a>  
-											    <div class="shop-body">
-											      <h3>123<br>13</h3>
-											    </div>
-											  </div>
-											</div>
-										
-										<div class="col-md-4 col-xs-6">
-											  <div class="shop">
-											    <a href="javascript:void(0)" onclick="openModal('https://www.youtube.com/embed/kHW-UVXOcLU')">
-											      <div class="shop-img">
-											      </div>
-											    </a>  
-											    <div class="shop-body">
-											      <h3>1321<br>12313</h3>
-											    </div>
-											  </div>
-											</div>
-										
-										<div class="col-md-4 col-xs-6">
-											  <div class="shop">
-											    <a href="javascript:void(0)" onclick="openModal('https://www.youtube.com/embed/kHW-UVXOcLU')">
-											      <div class="shop-img">
-											      </div>
-											    </a>  
-											    <div class="shop-body">
-											      <h3>23132<br>123213</h3>
-											    </div>
-											  </div>
-											</div>
-											
-											
-																
-										
-									</div>
-								</div>
-								<!-- /tab3  -->
-							</div>
-							<!-- /product tab content  -->
+						<div id="product-tab" style="margin-left: 150px; margin-bottom: 50px;">
+						   <h3 class="title" style="margin-left: 30px; margin-bottom: 30px;">🔶문의</h3>
+						   	<div class="sub" style="margin-left: 30px;">
+								<h4>문의사항은 051-123-1234로 문의주세요</h4><br>
+	         					<h4>게시판에 문의사항을 남겨주시면 담당자 24시간안에 답변드립니다.</h4>
+         				  	</div>
 						</div>
 					</div>
 					<!-- /product tab -->
