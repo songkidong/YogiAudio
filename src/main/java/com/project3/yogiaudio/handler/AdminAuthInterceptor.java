@@ -31,10 +31,10 @@ public class AdminAuthInterceptor implements HandlerInterceptor{
 		// 인증검사
 		HttpSession session = request.getSession();
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+		
+		//response.sendRedirect("/user/sign-in"); // 예외처리
 		if(principal == null || principal.getRole().equals("USER")) { // equals로 비교
-			//response.sendRedirect("/user/sign-in");
-			// 예외처리
-			throw new AdminPageException("접근 권한이 없습니다", HttpStatus.UNAUTHORIZED);
+			throw new AdminPageException("접근 권한이 없습니다", HttpStatus.UNAUTHORIZED); 
 		}
 		return true;
 	}

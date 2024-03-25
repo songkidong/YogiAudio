@@ -21,7 +21,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>YogiAudio</title>
 
     <meta name="description" content="" />
 
@@ -67,13 +67,28 @@
 	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 	
+	<style>
+	img {
+		width: 40%;
+	}
+	div {
+		margin-top: 150px;
+		text-align: center; /*이미지, 텍스트 가운데 정렬*/
+	}
+	div a {
+		width : 15%;
+		text-align: center; /*이미지, 텍스트 가운데 정렬*/
+	}
+	</style>
   </head>
 
   <body>
-  	<h1>에러페이지</h1>
-  	<p> ${statusCode} </p>
-	<p> ${message} </p>
-	<a href="/product/main" class="btn btn-primary">YogiAudio</a>
+  	<div>
+  		<img alt="" src="/assets/img/illustrations/page-misc-error-light.png">
+  		<%-- <h2> ${statusCode} </h2> --%>
+		<h3 style="margin-top: 10px"> ${message} </h3>
+		<a href="/product/main" class="btn btn-primary">YogiAudio</a>
+	</div>
   </body>
 </html>    
             

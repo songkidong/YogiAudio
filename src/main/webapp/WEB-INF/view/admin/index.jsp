@@ -46,7 +46,7 @@
                       <div class="card">
                         <div class="card-body">
                           <i class="fas fa-music" style="font-size: 30px; color: skyblue;"></i>
-                          <span class="fw-semibold d-block mb-1" style="margin-top: 20px">음악</span>
+                          <span class="fw-semibold d-block mb-1" style="margin-top: 20px">음원</span>
                           <h3 class="card-title text-nowrap mb-1">${musicCount }</h3>
                         </div>
                       </div>

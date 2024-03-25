@@ -147,7 +147,7 @@ public class AdminController {
 	@GetMapping("/musicvideoList")
 	public String mvListPage(AdminCriteria cri, Model model) {
 		
-		cri.setPageSize(12);
+		cri.setPageSize(8);
 		List<MusicVideoDTO> musicvideoList = adminService.findAllMusicVideo(cri);
 		
 		if(musicvideoList.isEmpty()) {

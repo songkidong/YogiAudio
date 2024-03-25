@@ -57,21 +57,21 @@
 	</c:if>
 	
 	<div class="row g-4">
+	<h2 style="margin-left: 100px">뮤비 리스트</h2>
 	<!-- 반복문 -->
 	
  <c:forEach var="musicvideo" items= "${musicvideoList}">
 	
-	<div class="col-md-6 col-lg-4 col-xl-3" style="text-align: center;">
+	<div class="col-md-3 col-lg-3 col-xl-3" style="text-align: center; padding-left: 120px">
 	<div class="card" style="width:20rem; margin:20px 0 24px 0">
 	  <!-- img 경로 가져오기 -->	
 	<a href="javascript:void(0)"  onclick="openModal('${musicvideo.mvfile}/')" class="cta-btn">
 	  <img class="card-img-top" src="${musicvideo.filepath}" alt="image" style="width:100%">
 	</a>
 	  <div class="card-body">
-	    <h4 class="card-title">제목 ${musicvideo.videotitle}</h4>
-	    <h5 class="card-title">가수 ${musicvideo.videosinger}</h5>
+	    <h4 class="card-title">${musicvideo.videotitle}</h4>
+	    <h5 class="card-title">${musicvideo.videosinger}</h5>
 	    <p class="card-text">음원번호 ${musicvideo.musicno}</p>
-	    <a href="#" class="btn btn-primary">수정</a>
 	    <a data-id="${musicvideo.videono}" name="deleteButton" href="#" class="btn btn-primary">삭제</a>
 	  </div>
 	</div>

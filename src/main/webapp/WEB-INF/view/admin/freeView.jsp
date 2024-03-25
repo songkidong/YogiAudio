@@ -51,7 +51,6 @@
                     <c:forEach var="boardFileDTO" items="${BoardFileDTOList }">
                     	<li>
                     		<a class="hrefButton" href="${boardFileDTO.filePath }" style="font-size: 20px;">${boardFileDTO.originFileName }</a>
-                    		<a class="deleteFileButton"><i class="fas fa-times" style="margin-left: 10px; font-size: 20px;"></i></a>
                     	</li>
                     </c:forEach>
 				</div>

@@ -16,7 +16,7 @@ window.onload = function() {
 		const boardQnaId = replyBtn.getAttribute('data-id');
 		const replyForm = document.getElementById('replyForm');
 		
-		alert('boardQnaId : ' + boardQnaId);
+		//alert('boardQnaId : ' + boardQnaId);
 		
 		if(replyTxt.value != "") {
 			Swal.fire({
@@ -78,7 +78,7 @@ window.onload = function() {
 				const id = deleteReplyBtns[i].getAttribute('data-id');
 				const boardQnaId = deleteReplyBtns[i].getAttribute('data-boardQnaId');
 				
-				alert('id, boardQnaId : ' + id +','+ boardQnaId);
+				//alert('id, boardQnaId : ' + id +','+ boardQnaId);
 				
 				Swal.fire({
 					title : '삭제하시겠습니까?',
@@ -120,7 +120,7 @@ window.onload = function() {
 		
 		deleteBtn.addEventListener('click', function() {
 			const id = deleteBtn.getAttribute('data-id');
-			alert('id : ' + id);
+			//alert('id : ' + id);
 			
 			Swal.fire({
 				title : '삭제하시겠습니까?',
@@ -162,7 +162,7 @@ window.onload = function() {
 		for(let i=0 ; i<updateReplyBtns.length ; i++ ) {
 			
 			updateReplyBtns[i].addEventListener('click', function() {
-				alert('클릭');
+				//alert('클릭');
 			
 			// this는 작동안함	
 			$(this).hide(); // 수정 버튼 숨기기
@@ -184,7 +184,7 @@ window.onload = function() {
 		for(let i=0 ; i<cancelUpdateBtns.length ; i++ ) {
 			
 			cancelUpdateBtns[i].addEventListener('click', function() {
-				alert('클릭');
+				//alert('클릭');
 			
 			// this는 작동안함	
 			$(this).hide(); // 취소 버튼 숨기기
@@ -194,7 +194,7 @@ window.onload = function() {
             $(this).siblings(".deleteReply").show(); // 삭제 버튼 보이기
             
             // .content는 다른 형제이므로 closest 이용. closest는 부모 태그 선택
-            //readonly 속성 추가
+            //readonly 속성 추가("readonly" 하나만 적으면 적용 X)
             $(this).closest(".commentCard").find(".content").attr("readonly", "readonly");
 			}) 
 		}
@@ -218,7 +218,7 @@ window.onload = function() {
 					content.focus();
 				}
 				
-				alert('id : ' + id);	
+				//alert('id : ' + id);	
 				console.log('content : ' + content);
 				
 				

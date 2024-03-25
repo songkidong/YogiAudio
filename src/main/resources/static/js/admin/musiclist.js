@@ -8,11 +8,10 @@ window.onload = function() {
 		deleteBtns[i].addEventListener('click', function() {
 			// 사용자정의속성 불러오기
 			const musicNo = deleteBtns[i].getAttribute('data-id');
-			alert('musicNo : ' + musicNo);
+			//alert('musicNo : ' + musicNo);
 			
 			Swal.fire({
 				title : '삭제하시겠습니까?',
-				//text : '되돌릴 수 없습니다',
 				icon : 'warning',
 				showCancelButton : true,
 				confirmButtonText : '확인',
@@ -21,7 +20,6 @@ window.onload = function() {
 				if(result.isConfirmed) {
 					// 확인버튼 클릭시
 					$.ajax({
-						// url로 데이터 보낼땐 data key 필요없다!
 						// 쿼리파라미터 방식 '/admin/music?musicNo=' + musicNo
 						url : '/admin/music/' + musicNo,
 						type : 'delete',

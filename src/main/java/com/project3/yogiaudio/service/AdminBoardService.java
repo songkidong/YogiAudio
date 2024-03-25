@@ -327,7 +327,7 @@ public class AdminBoardService {
 		
 		// 답변 등록
 		BoardQnaReply boardQnaReply = BoardQnaReply.builder()
-									.writerId(principal.getId()) 
+									.writerId(principal.getId()) // principal.getId() 
 									.boardQnaId(boardQnaId) // boardQnaId 매개변수로 받기
 									.content(dto.getContent())
 									.build();

@@ -10,7 +10,7 @@ window.onload = function() {
 		const userId = refundBtns[i].getAttribute('data-userId');
 		const pNo = refundBtns[i].getAttribute('data-pNo');
 		const amount = refundBtns[i].getAttribute('data-amount');
-		alert('id : ' + id);
+		//alert('id : ' + id);
 		
 		Swal.fire({
 				title : '승인하시겠습니까?',
