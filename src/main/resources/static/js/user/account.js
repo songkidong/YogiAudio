@@ -40,6 +40,7 @@
     // 사용자에게 수정 여부를 묻는 확인 대화상자 표시
     var isConfirmed = confirm("수정하시겠습니까?");
     if (isConfirmed) {
+alert("수정이 완료되었습니다.");
       return true; // 확인을 선택한 경우 폼 제출
     } else {
       return false; // 취소를 선택한 경우 폼 제출 중지

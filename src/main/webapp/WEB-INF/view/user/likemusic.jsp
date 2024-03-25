@@ -65,9 +65,9 @@
 									<li class="nav-item"><a class="nav-link active"
 										href="/likemusic"><i class="bx bxs-heart me-1"></i> 좋아요</a></li>
 								</ul>
-
 							</div>
 						</div>
+						
 						<c:if test="${empty likemusicList}">
 							<h1 style="display: flex; justify-content: center;">좋아요가 없어요</h1>
 						</c:if>
@@ -98,7 +98,7 @@
 													<td>${list.musicSinger}</td>
 													<td>${list.createdAt}</td>
 													<td><button type="button"
-															class="btn btn-primarylikeCancelBtn">
+															class="btn btn-primary likeCancelBtn">
 															<i class="bx bxs-heart"></i>
 														</button></td>
 												</tr>

@@ -138,3 +138,19 @@ $("#signupForm").submit(function(event) {
         event.preventDefault();
     }
 });
+
+/* reset 버튼 */
+$(document).ready(function() {
+    // Reset 버튼 클릭 이벤트 처리
+    $('#reset').click(function(e) {
+        e.preventDefault(); // 버튼 클릭 시 기본 동작 방지
+
+        // 폼 안의 내용들을 모두 초기화
+        $('#email').val('');
+        $('#verificationCode').val('');
+        $('#password').val('');
+        $('#checkpassword').val('');
+        $('#name').val('');
+        $('#nickname').val('');
+    });
+});
