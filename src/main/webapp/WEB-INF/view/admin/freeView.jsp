@@ -47,7 +47,13 @@
 					<label for="file">첨부파일</label> 
                     <!-- 링크 클릭하면 바로 다운로드됨 -->
                     <!-- http://localhost/filedb/get-file/f8b843fecaf34737a8aae2e2e3d935da  -->
-                    <div id="filePaths" data-filePaths="${free.filePath }"></div>
+                    <!-- 반복문 -->
+                    <c:forEach var="boardFileDTO" items="${BoardFileDTOList }">
+                    	<li>
+                    		<a class="hrefButton" href="${boardFileDTO.filePath }" style="font-size: 20px;">${boardFileDTO.originFileName }</a>
+                    		<a class="deleteFileButton"><i class="fas fa-times" style="margin-left: 10px; font-size: 20px;"></i></a>
+                    	</li>
+                    </c:forEach>
 				</div>
 			</form>
 		</div>

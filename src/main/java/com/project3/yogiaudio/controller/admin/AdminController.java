@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.project3.yogiaudio.dto.admin.AdminCriteria;
 import com.project3.yogiaudio.dto.admin.AdminPageVO;
+import com.project3.yogiaudio.dto.board.BoardFileDTO;
 import com.project3.yogiaudio.repository.entity.History;
 import com.project3.yogiaudio.repository.entity.Music;
 import com.project3.yogiaudio.repository.entity.Refund;
@@ -122,6 +123,11 @@ public class AdminController {
 		BoardNotice notice = adminBoardService.findNoticeById(id);
 		model.addAttribute("notice", notice);
 		
+		// 파일 목록
+		List<BoardFileDTO> BoardFileDTOList = adminBoardService.findNoticeFiles(id);
+		log.info("BoardFileDTOList " + BoardFileDTOList );
+		model.addAttribute("BoardFileDTOList", BoardFileDTOList);
+		
 		return "admin/noticeView";
 	}
 	
@@ -131,6 +137,11 @@ public class AdminController {
 		
 		BoardNotice notice = adminBoardService.findNoticeById(id);
 		model.addAttribute("notice", notice);
+		
+		// 파일 목록
+		List<BoardFileDTO> BoardFileDTOList = adminBoardService.findNoticeFiles(id);
+		log.info("BoardFileDTOList " + BoardFileDTOList );
+		model.addAttribute("BoardFileDTOList", BoardFileDTOList);
 		
 		return "admin/updateNotice";
 	}
@@ -161,6 +172,11 @@ public class AdminController {
 		List<BoardQnaReply> replyList = adminBoardService.findAllReplyByBoardQnaId(id);
 		model.addAttribute("replyList", replyList);
 		
+		// 파일 목록
+		List<BoardFileDTO> BoardFileDTOList = adminBoardService.findQnaFiles(id);
+		log.info("BoardFileDTOList " + BoardFileDTOList );
+		model.addAttribute("BoardFileDTOList", BoardFileDTOList);
+		
 		return "admin/qnaView";
 	}
 	
@@ -190,6 +206,11 @@ public class AdminController {
 		List<BoardFreeComment> commentList = adminBoardService.findAllCommentByBoardFreeId(id);
 		log.info("로그!!!!!! commentList : " + commentList);
 		model.addAttribute("commentList", commentList);
+		
+		// 파일 목록
+		List<BoardFileDTO> BoardFileDTOList = adminBoardService.findFreeFiles(id);
+		log.info("BoardFileDTOList " + BoardFileDTOList );
+		model.addAttribute("BoardFileDTOList", BoardFileDTOList);
 		
 		return "admin/freeView";
 	}

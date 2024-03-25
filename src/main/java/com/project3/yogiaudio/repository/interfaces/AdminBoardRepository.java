@@ -27,8 +27,10 @@ public interface AdminBoardRepository {
 	public boolean deleteNotice(Integer id);
 	// 공지사항 글보기
 	public BoardNotice findNoticeById(Integer id);
+	// 공지사항 등록
+	public boolean insertNotice(BoardNotice notice);
 	// 공지사항 수정
-	public boolean updateNotice(Integer id, BoardNotice boardNotice);
+	public boolean updateNotice(BoardNotice boardNotice);
 
 	// qna 목록
 	public List<BoardQna> findAllQna(AdminCriteria cri);
@@ -50,6 +52,10 @@ public interface AdminBoardRepository {
 	public void updateAnwerYnByDeleteReply(Integer id);
 	// qna 삭제시 모든 답변 삭제
 	public void deleteReplysByBoardQnaId(Integer boardQnaId);
+	// qna 답변 수정
+	public boolean updateReply(BoardQnaReply boardQnaReply);
+	// 수정할 답변 선택
+	public BoardQnaReply findReplyById(Integer id);
 	
 	// 자유게시판 목록
 	public List<BoardFree> findAllFree(AdminCriteria cri);
@@ -66,8 +72,7 @@ public interface AdminBoardRepository {
 	// 자유게시판 글 삭제시 모든 댓글 삭제
 	public void deleteCommentsByBoardFreeId(Integer boardFreeId);
 	
-	// 공지사항 등록
-	public boolean insertNotice(BoardNotice notice);
+	
 	
 	
 	
