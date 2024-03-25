@@ -9,6 +9,74 @@
 		<h2>자유게시판 상세보기</h2>
 
 		<div class="button-container d-flex justify-content-end">
+			<!-- Button to Open the Modal -->
+			<!-- 게시글 신고 버튼 start -->
+			<button type="button"
+				class="btn btn-secondary rounded-pill shadow-sm" data-toggle="modal"
+				data-target="#myModal">
+				<i class="bi bi-emoji-angry" style="padding-right: 5px;"></i>신고
+			</button>
+			<!-- 게시글 신고 버튼 end -->
+
+			<!-- The Modal -->
+			<div class="modal" id="myModal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+
+						<!-- Modal Header -->
+						<div class="modal-header">
+							<h4 class="modal-title">게시글 신고하기</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+
+						<!-- Modal body -->
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="comment">신고내용:</label>
+								<textarea class="form-control" rows="5" id="reportFreeContent"></textarea>
+							</div>
+						</div>
+
+						<!-- Modal footer -->
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary"
+								data-dismiss="modal" id="reportFreeBtn">신고 완료</button>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!-- modal end -->
+			<!-- The Modal -->
+			<div class="modal" id="commentModal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+
+						<!-- Modal Header -->
+						<div class="modal-header">
+							<h4 class="modal-title">댓글 신고하기</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+
+						<!-- Modal body -->
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="comment">신고내용:</label>
+								<textarea class="form-control" rows="5" id="comment"></textarea>
+							</div>
+						</div>
+
+						<!-- Modal footer -->
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary"
+								data-dismiss="modal" id="reportCommentBtn">신고 완료</button>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!-- modal end -->
+
 			<button class="btn btn-info rounded-pill shadow-sm"
 				onclick="goBack()">
 				<i class="bi bi-arrow-return-left" style="padding-right: 5px;"></i>목록
@@ -37,7 +105,6 @@
 						<td>작성일</td>
 						<td id="createdAt-display" style="text-align: left;"></td>
 					</tr>
-					<!-- 작성자?????????????? -->
 					<tr>
 						<td>제목</td>
 						<td id="title-display" style="text-align: left;"></td>
@@ -68,20 +135,21 @@
 		</div>
 
 		<!-- 댓글 출력 -->
-        <div class="commentList" style="margin-top: 30px;">
-            <h3>댓글 목록</h3>
-            <!-- 수정 가능한 댓글 -->
-            <div class="commentCard">
-                <div class="info">
-                    <span id="reply-writerName-display">작성자</span>
-                    <span id="reply-createdAt-display" style="float: right;">작성일</span>
-                </div>
-                <div class="comment-content" style="display: block;">댓글 내용</div>
-                <!-- 삭제 버튼 -->
-                <button class="btn btn-danger btn-sm" style="margin-top: 5px;" onclick="deleteComment(commentId)">삭제</button>
-            </div>
-        </div>
-    </div>
+		<div class="commentList" style="margin-top: 30px;">
+			<h3>댓글 목록</h3>
+			<!-- 수정 가능한 댓글 -->
+			<div class="commentCard">
+				<div class="info">
+					<span id="reply-writerName-display">작성자</span> <span
+						id="reply-createdAt-display" style="float: right;">작성일</span>
+				</div>
+				<div class="comment-content" style="display: block;">댓글 내용</div>
+				<!-- 삭제 버튼 -->
+				<button class="btn btn-danger btn-sm" style="margin-top: 5px;"
+					onclick="deleteComment(commentId)">삭제</button>
+			</div>
+		</div>
+	</div>
 </section>
 
 
@@ -96,10 +164,10 @@
 					url : "/board/free/freeView/" + addressNum,
 					data : {},
 					success : function(data) {
-						
+
 						// id-display 엘리먼트에 데이터 출력
 						$("#id-display").html(data.id);
-						
+
 						// writerName-display 엘리먼트에 데이터 출력
 						$("#writerName-display").html(data.writerName);
 
@@ -183,32 +251,38 @@
 
 	// 댓글 목록을 화면에 출력하는 함수
 	function displayCommentList(comments) {
-	    var commentListHTML = ""; // 댓글 목록을 담을 HTML 문자열
+		var commentListHTML = ""; // 댓글 목록을 담을 HTML 문자열
 
-	    // 각 댓글에 대해 HTML 생성
-	    for (var i = 0; i < comments.length; i++) {
-	        var comment = comments[i];
+		// 각 댓글에 대해 HTML 생성
+		for (var i = 0; i < comments.length; i++) {
+			var comment = comments[i];
 
-	        // 받은 날짜 문자열을 Date 객체로 파싱
-	        var createdAtDate = new Date(comment.createdAt);
+			// 받은 날짜 문자열을 Date 객체로 파싱
+			var createdAtDate = new Date(comment.createdAt);
 
-	        // 날짜를 원하는 형식으로 포맷팅
-	        var formattedDate = formatDate(createdAtDate);
+			// 날짜를 원하는 형식으로 포맷팅
+			var formattedDate = formatDate(createdAtDate);
 
-	        commentListHTML += "<div class='commentCard' style='overflow: auto;'>"; // 스타일 추가
-	        commentListHTML += "<div class='info'>";
-	        commentListHTML += "<span>" + comment.writerName + "</span>"; // 작성자 이름
-	        commentListHTML += "<span style='float: right;'>" + formattedDate + "</span>"; // 작성일
-	        commentListHTML += "</div>";
-	        commentListHTML += "<div>"; // 댓글 내용과 수정 버튼을 담을 컨테이너
-	        commentListHTML += "<textarea class='form-control' id='comment-content-" + comment.id + "' rows='3' readonly>" + comment.content + "</textarea>"; // 댓글 내용
-	        commentListHTML += "<button style='float: right;' class='btn btn-danger' onclick='deleteComment(" + comment.id + ")'>삭제</button>"; // 삭제 버튼
-	        commentListHTML += "</div>";
-	        commentListHTML += "</div>";
-	    }
+			commentListHTML += "<div class='commentCard' style='overflow: auto;'>"; // 스타일 추가
+			commentListHTML += "<div class='info'>";
+			commentListHTML += "<span>" + comment.writerName + "</span>"; // 작성자 이름
+			commentListHTML += "<span style='float: right;'>" + formattedDate
+					+ "</span>"; // 작성일
+			commentListHTML += "</div>";
+			commentListHTML += "<div style='display: flex;'>"; // 댓글 내용과 수정 버튼을 담을 컨테이너
+			commentListHTML += "<textarea class='form-control' id='comment-content-" + comment.id + "' rows='3' readonly>"
+					+ comment.content + "</textarea>"; // 댓글 내용
+			commentListHTML += "<button style='float: right;' class='btn btn-danger' onclick='deleteComment("
+					+ comment.id + ")'>삭제</button>"; // 삭제 버튼
+			commentListHTML += "<button type='button' class='btn btn-secondary rounded-pill shadow-sm report-button' data-toggle='modal' data-target='#commentModal' data-comment-id='" + comment.id + "'>";
+			commentListHTML += "<i class='bi bi-emoji-angry' style='padding-right: 5px;'></i>신고";
+			commentListHTML += "</button>";
+			commentListHTML += "</div>";
+			commentListHTML += "</div>";
+		}
 
-	    // 댓글 목록을 출력할 엘리먼트에 HTML 삽입
-	    $(".commentList").html(commentListHTML);
+		// 댓글 목록을 출력할 엘리먼트에 HTML 삽입
+		$(".commentList").html(commentListHTML);
 	}
 
 	// 페이지 로드 시 댓글 목록을 가져오는 함수 호출
@@ -218,26 +292,75 @@
 
 	// 댓글 삭제 함수
 	function deleteComment(id) {
-	    // 사용자에게 확인 메시지 표시
-	    if (confirm("정말로 삭제하시겠습니까?")) {
-	        // 확인을 누르면 AJAX 요청으로 댓글 삭제 처리
-	        $.ajax({
-	            type: "DELETE",
-	            url: "/board/free/freeComment/" + id, // 댓글 삭제 엔드포인트 URL
-	            success: function(response) {
-	                // 성공적으로 삭제되면 페이지 새로고침 또는 댓글 목록 갱신
-	                // 여기서는 페이지 새로고침을 예시로 했습니다.
-	                location.reload();
-	            },
-	            error: function(xhr, status, error) {
-	                console.error("Error deleting comment:", error);
-	            }
-	        });
-	    } else {
-	        // 취소를 누르면 아무 동작도 하지 않음
-	        return false;
-	    }
+		// 사용자에게 확인 메시지 표시
+		if (confirm("정말로 삭제하시겠습니까?")) {
+			// 확인을 누르면 AJAX 요청으로 댓글 삭제 처리
+			$.ajax({
+				type : "DELETE",
+				url : "/board/free/freeComment/" + id, // 댓글 삭제 엔드포인트 URL
+				success : function(response) {
+					// 성공적으로 삭제되면 페이지 새로고침 또는 댓글 목록 갱신
+					// 여기서는 페이지 새로고침을 예시로 했습니다.
+					location.reload();
+				},
+				error : function(xhr, status, error) {
+					console.error("Error deleting comment:", error);
+				}
+			});
+		} else {
+			// 취소를 누르면 아무 동작도 하지 않음
+			return false;
+		}
 	}
+</script>
+<script>
+let reportObject = {
+		init: function() {
+			$("#reportFreeBtn").on("click", () => {
+				this.reportFree();
+			});
+		},
+
+		reportFree: function() {
+
+			alert("게시글 신고 요청");
+
+			const reportFreeContent = $("#reportFreeContent").val();
+
+			if (reportFreeContent === "") {
+	            // If empty, show an alert and return early to prevent further execution
+	            alert("신고 이유를 적어주세요.");
+	            return;
+	        }
+			// AJAX 요청을 보냅니다.
+			$.ajax({
+				type: "POST",
+				url: "/board/free/freeComment/" + addressNum,
+				contentType: "application/json",  // Content-Type을 JSON으로 설정
+				data: JSON.stringify({
+					boardFreeId: addressNum,
+					content: commentContent
+				}),
+				success: function(data) {
+					console.log(data);
+					if (data === true) {
+						// 성공적으로 데이터가 저장되었을 때.
+						location.reload();
+					} else {
+						// 실패했을 때 처리할 내용을 작성하세요.
+						alert("데이터 저장에 실패했습니다.");
+					}
+				},
+				error: function() {
+					// 에러가 발생했을 때 처리할 내용을 작성하세요.
+					alert("서버와의 통신 중 에러가 발생했습니다.");
+				}
+			});
+		}
+	};
+
+reportObject.init();
+
 </script>
 
 <script>
