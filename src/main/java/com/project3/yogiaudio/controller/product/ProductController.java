@@ -413,6 +413,8 @@ public class ProductController {
 		
 		String fileMusic = filedbService.saveFiles(dto.getFiles());
 		String musicSample = filedbService.saveFiles(dto.getFiles());
+		
+		//서비스
 		musicService.musicUpdate(dto, fileMusic, musicSample);
 		
 		return "redirect:/product/domestic-music";
@@ -428,6 +430,7 @@ public class ProductController {
 			
 		//서비스
 		musicService.musicUpdate(dto, fileMusic, musicSample);
+		
 		return "redirect:/product/aboard-music";
 			
 	}

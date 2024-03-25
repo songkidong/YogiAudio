@@ -132,12 +132,14 @@
 			<!-- Product thumb imgs -->
 			<div class="col-md-2 col-md-pull-5">
 				<div id="product-imgs">
+				<c:if test="${principal.role eq 'ADMIN'}">
 					<a href="/product/dalbum-update" data-toggle="modal" data-target="#photoModal">
 						<p>사진변경</p>
 					</a> 
 					<a href="/product/dmusic-update" data-toggle="modal" data-target="#musicModal">
 						<p>음원등록</p>
 					</a>
+				</c:if>
 				</div>
 			</div>
 			<!-- /Product thumb imgs -->
