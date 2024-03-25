@@ -269,10 +269,10 @@ public class AdminController {
 	// 음악등록(POST)
 	@PostMapping("/music-insert")
 	public String musicInsertPOST(MusicDTO dto) {
-
-		String filePath = filedbService.saveFiles(dto.getFiles());
+		
 		String fileMusic = filedbService.saveFiles(dto.getFiles());
 		String musicSample = filedbService.saveFiles(dto.getFiles());
+		String filePath = filedbService.saveFiles(dto.getFiles2());
 		
 		adminService.insertMusic(dto, filePath, fileMusic, musicSample);
 		
