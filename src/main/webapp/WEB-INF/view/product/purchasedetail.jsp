@@ -38,7 +38,7 @@
 					<div class="col-md-5">
 						<div class="product-details">
 						<div class="naming" style="margin-left: 30px;">
-							<h2 class="product-name">${detail.purchasename},${principal.cancel}</h2>
+							<h2 class="product-name">${detail.purchasename}</h2>
 							
 						  <div>
 						    <h3 class="product-price">${detail.price}<del class="product-old-price"></del></h3>

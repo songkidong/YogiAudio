@@ -56,6 +56,7 @@
 <!-- j쿼리 -->
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 
+
 </head>
 <body>
 	<!-- HEADER -->
@@ -65,8 +66,8 @@
 			<div class="container">
 				<ul class="header-links pull-left">
 					<li>
-						<a href="/purchase/main">
-						  <i class="fa fa-envelope-o"></i>
+						<a href="/purchase/main?id=${principal.id}" onclick="checkSession()">
+						<i class="fa fa-envelope-o"></i>
 						  이용권구매
 						</a>
 				   </li>
@@ -163,5 +164,24 @@
 		<!-- /MAIN HEADER -->
 	</header>
 	<!-- /HEADER -->
+	
+<script>
+    // 세션에서 principal.id가 있는지 확인하는 함수
+    function checkSession() {
+        // 세션에서 principal.id를 가져옴
+        var principalId = sessionStorage.getItem('principal.id');
+        
+        // principal.id가 없으면 알림 표시 및 리다이렉트
+        if (!principalId) {
+            alert("로그인이 필요합니다!");
+        }
+    }
+
+    // 세션에 principal.id 설정
+    var principalId = "${principal.id}";
+    sessionStorage.setItem('principal.id', principalId);
+</script>	
+
+	
 </body>
 </html>

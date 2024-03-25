@@ -48,17 +48,17 @@
                         <h5 class="card-title" style="margin-top: 5px;">${purchaselist.purchasename}</h5>
                         <p class="card-text">${purchaselist.price}</p>
                       
-                      <c:if test="${principal.status eq 'N' && principal.cancel eq 'N'}">
+                      <c:if test="${udetail.status eq 'N' && udetail.cancel eq 'N'}">
 		                 <a href="/purchase/detail?pno=${purchaselist.pno}" class="btn btn-primary">
 		                    구매하기
 		                 </a>
 		              </c:if>  
-		              <c:if test="${principal.status eq 'N' && principal.cancel eq 'Y'}">
+		              <c:if test="${udetail.status eq 'N' && udetail.cancel eq 'Y'}">
 		                 <a href="/purchase/detail?pno=${purchaselist.pno}" class="btn btn-primary">
 		                    구매하기
 		                 </a>
 		              </c:if> 
- 		              <c:if test="${principal.status eq 'Y' && principal.cancel eq 'N'}">
+ 		              <c:if test="${udetail.status eq 'Y' && udetail.cancel eq 'N'}">
 	                	   <p>
 		                  	  이미이용권구매를완료했습니다!
  		                   </p> 
