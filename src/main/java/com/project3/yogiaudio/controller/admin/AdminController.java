@@ -316,7 +316,7 @@ public class AdminController {
 		
 		log.debug("뮤비등록완료!");
 		
-		return "redirect:/admin/musicList";
+		return "redirect:/admin/musicvideoList";
 	}
 	
 	
