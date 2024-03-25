@@ -116,7 +116,13 @@ public class UserService {
 
 	// 이메일을 기준으로 사용자를 찾는 메서드 추가
 	public User findUserByEmail(String email) {
-		return userRepository.findByEmail(email);
+		User user = userRepository.findByEmail(email);
+		
+		if (user != null) {
+			throw new UserRestfulException(Define.EMAIL_ALREADY_REGISTERED, HttpStatus.BAD_REQUEST);
+		} else {
+			return user;
+		}
 	}
 
 	public User findUserById(Long id) {

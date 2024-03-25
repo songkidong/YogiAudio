@@ -459,15 +459,4 @@ public class UserController {
 		return "redirect:/product/main";
 	}
 
-	@GetMapping("/duplication/{email}")
-	public ResponseEntity<?> duplicationEmail(@PathVariable("email") String email) {
-		User result = userService.findUserByEmail(email);
-
-		if (result != null) {
-			return ResponseEntity.ok().body("이메일 중복");
-
-		}
-		return ResponseEntity.ok().body("이메일 사용가능");
-	}
-
 }

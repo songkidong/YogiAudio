@@ -10,18 +10,17 @@
 <link rel="stylesheet" href="css/user/signUp.css" />
 </head>
 <%@include file="/WEB-INF/view/layout/header.jsp"%>
-<div class="container sign--up--container">
-	<h1>SIGN UP</h1>
-	<ul class="links">
+<div class="container sign--up--container-custom">
+	<h1 class="custom-heading">SIGN UP</h1>
+	<ul class="links-custom">
 		<li><a href="/signUp" id="signup">SIGN UP</a></li>
 		<li><a href="/signIn" id="signin">SIGN IN</a></li>
 		<li><a href="#" id="reset">RESET</a></li>
 	</ul>
-	<form id="signupForm" action="/signUp" method="post" id="email">
-		<div class="input__block">
+	<form id="signupForm" action="/signUp" method="post" id="email" class="custom-form">
+		<div class="input__block first-input__block">
 			<input type="email" placeholder="Email" class="input email"
 				id="email" />
-			<button type="button" id="emailDuplicateCheckButton">중복검사</button>
 			<button type="button" id="sendVerificationButton">인증번호전송</button>
 		</div>
 		<div class="input__block" id="verificationForm">
