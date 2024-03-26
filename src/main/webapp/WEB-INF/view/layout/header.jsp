@@ -140,11 +140,21 @@
 										type="button" data-bs-toggle="dropdown" aria-expanded="false">
 										게시판</button>
 									<ul class="dropdown-menu">
+										<c:choose>
+										<c:when test="${empty principal}">
+										<li><a class="dropdown-item"
+											href="/board/notice/noticeList">공지사항</a></li>
+											<li><a class="dropdown-item" href="/board/free/freeList">자유게시판</a></li>
+										</c:when>
+										<c:otherwise>
 										<li><a class="dropdown-item"
 											href="/board/notice/noticeList">공지사항</a></li>
 										<li><a class="dropdown-item" href="/board/qna/qnaList">나의
 												문의하기</a></li>
 										<li><a class="dropdown-item" href="/board/free/freeList">자유게시판</a></li>
+										</c:otherwise>
+										
+										</c:choose>
 									</ul>
 								</div>
 							</div>

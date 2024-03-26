@@ -21,6 +21,10 @@
 		<h2>자유게시판 상세보기</h2>
 
 		<div class="button-container d-flex justify-content-end">
+			<button class="btn btn-info rounded-pill shadow-sm"
+				onclick="goBack()">
+				<i class="bi bi-arrow-return-left" style="padding-right: 5px;"></i>목록
+			</button>
 			<!-- Button to Open the Modal -->
 			<!-- 게시글 신고 버튼 start -->
 			<button type="button"
@@ -90,10 +94,7 @@
 			</div>
 			<!-- modal end -->
 
-			<button class="btn btn-info rounded-pill shadow-sm"
-				onclick="goBack()">
-				<i class="bi bi-arrow-return-left" style="padding-right: 5px;"></i>목록
-			</button>
+
 			<button class="btn btn-success rounded-pill shadow-sm"
 				id="btn-update">
 				<i class="bi bi-pencil-square" style="padding-right: 5px;"></i>수정
@@ -186,6 +187,21 @@
 						
 						// hidden - 게시글 신고하기 기능 넣어주려고
 						$("#writerId-display").val(data.writerId);
+						
+						// 현재 사용자의 아이디를 가져옵니다.
+                        var currentUserId = Number("${principal.id}");
+
+                        // 게시글 작성자의 아이디를 가져옵니다.
+                        var writerId = Number($("#writerId-display").val());
+
+                        // 만약 현재 사용자의 아이디와 게시글 작성자의 아이디가 같으면 수정 및 삭제 버튼을 표시합니다.
+                        if (currentUserId === writerId) {
+                            $("#btn-update").show(); // 수정 버튼 표시
+                            $("#btn-delete").show(); // 삭제 버튼 표시
+                        } else {
+                            $("#btn-update").hide(); // 수정 버튼 숨김
+                            $("#btn-delete").hide(); // 삭제 버튼 숨김
+                        }
 
 						// 받은 날짜 문자열을 Date 객체로 파싱
 						var createdAtDate = new Date(data.createdAt);
@@ -239,7 +255,7 @@
 		var month = (date.getMonth() + 1).toString().padStart(2, '0');
 		var day = date.getDate().toString().padStart(2, '0');
 
-		return year + '년 ' + month + '월 ' + day + '일';
+		return year + '-' + month + '-' + day ;
 	}
 
 	//페이지 로드 시 데이터 로딩 함수 호출

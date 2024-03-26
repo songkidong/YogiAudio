@@ -9,10 +9,12 @@
 			<h2>
 				<a href="/board/notice/noticeList" style="font-weight: bold;">공지사항</a>
 			</h2>
-			<!-- 검색 후 페이지 고침 -->
+			<!-- 관리자로 로그인 시 등록버튼 생성 -->
+			<c:if test="${principal.role == 'ADMIN'}">
 			<button type="button" class="btn btn-warning" id="btnInsert">
 				<i class="bi bi-pencil-square"></i>
 			</button>
+			</c:if>
 		</div>
 
 		<form action="/board/notice/noticeList" method="get">

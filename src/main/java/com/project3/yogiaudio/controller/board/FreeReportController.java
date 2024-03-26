@@ -52,6 +52,13 @@ public class FreeReportController {
 	}
 	
 	
+	/**
+	  * @Method Name : checkReport
+	  * @작성일 : 2024. 3. 25.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 게시판 신고 중복 확인
+	  */
 	@PostMapping("/checkReport")
 	@ResponseBody
 	public String checkReport(BoardFreeReportDTO boardFreeReportDTO) {

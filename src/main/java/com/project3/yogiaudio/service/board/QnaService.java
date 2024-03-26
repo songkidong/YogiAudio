@@ -130,7 +130,7 @@ public class QnaService {
 		for (String uuid : uuids) {
 			// uuid로 첨부된 파일 원래 이름 찾기
 			filedb = filedbService.findByUuid(uuid);
-			System.out.println("원래이름나오는리스트야??????? " + filedb);
+			
 			originalFileNames.add(filedb.getOriginalFileName()); // 파일 이름을 리스트에 추가
 		}
 

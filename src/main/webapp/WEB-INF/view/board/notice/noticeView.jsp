@@ -12,6 +12,8 @@
 				onclick="history.back()">
 				<i class="bi bi-arrow-return-left" style="padding-right: 5px;"></i>목록
 			</button>
+			<!-- 관리자로 로그인 시 버튼 생성 -->
+			<c:if test="${principal.role == 'ADMIN'}">
 			<button class="btn btn-success rounded-pill shadow-sm"
 				id="btn-update">
 				<i class="bi bi-pencil-square" style="padding-right: 5px;"></i>수정
@@ -19,6 +21,7 @@
 			<button class="btn btn-danger rounded-pill shadow-sm" id="btn-delete">
 				<i class="bi bi-trash" style="padding-right: 5px;"></i>삭제
 			</button>
+			</c:if>
 		</div>
 
 		<div>
