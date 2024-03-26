@@ -26,7 +26,7 @@ public class AdminAuthInterceptor implements HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		System.out.println("인터셉터 동작확인 - 111111111");
+		//System.out.println("인터셉터 동작확인 - 111111111");
 		
 		// 인증검사
 		HttpSession session = request.getSession();
