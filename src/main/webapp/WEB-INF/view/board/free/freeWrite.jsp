@@ -5,17 +5,22 @@
 
 <!-- 서머노트 -->
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
 <section id="board">
 	<div class="board-container">
 		<h2>자유게시판 작성하기</h2>
 
-		<form method="post" action="/board/free/freeWrite" enctype="multipart/form-data">
+		<form method="post" action="/board/free/freeWrite"
+			enctype="multipart/form-data">
 			<div class="mb-3">
-				<label for="title">Title:</label> 
-				<input type="text"class="form-control" id="title" name="title" placeholder="Enter Title">
+				<label for="title">Title:</label> <input type="text"
+					class="form-control" id="title" name="title"
+					placeholder="Enter Title">
 			</div>
 			<div class="mb-3">
 				<label for="content">Content:</label>
@@ -24,11 +29,14 @@
 			<div class="file_list">
 				<div class="mb-3">
 					<div class="file_input" style="display: inline-block;">
-						<label for="formFileMultiple" class="form-label">File: </label> <!-- multiple타입 일 경우 빈값이 들어갈 수 있음  -->
-						<input class="form-control" type="file" id="formFileMultiple" multiple name="files" onchange="selectFile(this);"
+						<label for="formFileMultiple" class="form-label">File: </label>
+						<!-- multiple타입 일 경우 빈값이 들어갈 수 있음  -->
+						<input class="form-control" type="file" id="formFileMultiple"
+							multiple name="files" onchange="selectFile(this);"
 							style="background-color: white;" />
 					</div>
-					<button type="button" onclick="removeFile(this);" class="btn btn-danger">
+					<button type="button" onclick="removeFile(this);"
+						class="btn btn-danger">
 						<span>삭제</span>
 					</button>
 					<button type="button" onclick="addFile();" class="btn btn-primary">
@@ -36,7 +44,8 @@
 					</button>
 				</div>
 			</div>
-			<button type="submit" class="btn btn-success" id="btn-submit" style="float: right;">작성하기</button>
+			<button type="submit" class="btn btn-success" id="btn-submit"
+				style="float: right;">작성하기</button>
 		</form>
 
 	</div>
@@ -118,6 +127,8 @@ function removeFile(element) {
 						[ 'table', [ 'table' ] ],
 						[ 'insert', [ 'link', 'picture', 'video' ] ],
 						[ 'view', [ 'fullscreen', 'codeview', 'help' ] ] ],
+				codeviewFilter: true,
+	  		    codeviewIframeFilter: true
 				
 			});
 </script>
