@@ -1,5 +1,5 @@
 *{
-	font-size: 17px;
+	font-size: 15px;
 }
 
 #board {
@@ -188,4 +188,19 @@ p#content-display {
     margin-top: 20px;
     border-top: 1px solid #ccc;
     padding-top: 20px;
+}
+#reportBtn {
+    background-color: #6c757d; /* 배경색 */
+    color: #fff; /* 텍스트 색상 */
+    border-color: #6c757d; /* 테두리 색상 */
+    padding: 5px 10px; /* 내부 여백 */
+    font-size: 14px; /* 폰트 크기 */
+    font-weight: bold; /* 폰트 두께 */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+}
+
+#reportBtn:hover {
+    background-color: #495057; /* 마우스 오버시 배경색 */
+    border-color: #495057; /* 마우스 오버시 테두리 색상 */
+    color: #fff; /* 마우스 오버시 텍스트 색상 */
 }
