@@ -122,6 +122,7 @@ public class UserController {
 	@PostMapping("/signUp")
 	public String signUp(UserDTO dto) {
 		userService.createUser(dto);
+		System.out.println("컨트롤러~~~~~~~~~~~~~~~~~~~~~~" + dto);
 		return "redirect:/signIn";
 	}
 
