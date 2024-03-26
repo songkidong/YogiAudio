@@ -55,11 +55,6 @@ spring:
 #    username: develop
 #    password: 1111
 
-#    url: jdbc:mysql://localhost:3306/yogi_audio?serverTimeZone=Asia/Seoul
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    username: root
-#    password: 1234
-
     
   #h2:
   #  console:

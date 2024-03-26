@@ -42,7 +42,7 @@
 					<label for="title">제목</label> <input type="text"
 						class="form-control" id="title" value="${free.title }" readonly> <br />
 					<label for="content">내용</label>
-					<div style="white-space: pre-wrap; min-height: 500px;" class="form-control">${free.content}</div>
+					<div style="white-space: pre-wrap; min-height: 300px;" class="form-control">${free.content}</div>
 					<br /> 
 					<label for="file">첨부파일</label> 
                     <!-- 링크 클릭하면 바로 다운로드됨 -->
@@ -64,7 +64,7 @@
 			<c:forEach var="comment" items="${commentList }">
 			<div class="commentCard">
 				<div class="info">
-					<span class="nick">${comment.writerName }</span> <span class="date"></span>
+					<span class="nick">${comment.writerName }</span> <span class="date">${comment.formatCreatedAt() }</span>
 				</div>
 				<p class="content" >댓글입니다.</p>
 				<div class="actions">
