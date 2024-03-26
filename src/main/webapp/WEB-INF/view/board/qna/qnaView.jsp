@@ -2,6 +2,34 @@
 	pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/view/layout/header.jsp"%>
 <link href="/css/board/view.css" rel="stylesheet">
+<style>
+.qnaReply {
+	margin-top: 30px;
+	border: 1px solid #ccc; /* 예시로 테두리 추가 */
+	padding: 20px; /* 예시로 내부 여백 추가 */
+	background-color: #f9f9f9; /* 예시로 배경색 추가 */
+}
+
+.qnaReply h3 {
+	font-size: 20px; /* 예시로 제목 폰트 크기 변경 */
+	color: #333; /* 예시로 제목 색상 변경 */
+}
+
+.qnaCard {
+	border: 1px solid #ddd; /* 예시로 카드 테두리 추가 */
+	padding: 10px; /* 예시로 카드 내부 여백 추가 */
+	background-color: #fff; /* 예시로 카드 배경색 추가 */
+}
+
+.info {
+	margin-bottom: 10px; /* 예시로 정보 부분과 내용 사이 간격 추가 */
+}
+
+.reply-content {
+	font-size: 16px; /* 예시로 내용 폰트 크기 변경 */
+	color: #555; /* 예시로 내용 색상 변경 */
+}
+</style>
 
 <section id="board">
 	<div class="board-container">
@@ -48,21 +76,13 @@
 			</table>
 		</div>
 
-		<div class="commentList" style="margin-top: 30px;">
-			<h3>답변</h3>
-
-			<div class="commentCard">
-				<div class="info">
-					<span class="nick">nick</span> <span class="date">2024-03-23</span>
-				</div>
-				<textarea class="form-control" id="reply-display" rows="3" readonly>sdf</textarea>
-			</div>
-		</div>
+		<!-- 답변 출력 -->
+		<div class="qnaReply" style="margin-top: 30px;"></div>
 
 	</div>
 </section>
-
 <script src="/js/board/qna.js"></script>
+
 <script>
 	function loadViewId() {
 
@@ -138,8 +158,74 @@
 		loadViewId();
 	});
 </script>
+<script>
+	//답변 불러오기
+	function loadQnaReply() {
+		let boardQnaId = window.location.pathname.split("/")[4]; // 게시글 번호 가져오기
+		console.log(boardQnaId);
 
+		$.ajax({
+			type : "POST",
+			url : "/board/qna/qnaReply/" + boardQnaId, // 댓글 목록을 가져오는 API 엔드포인트 URL
+			success : function(response) {
+				console.log("되냐?")
+				// 댓글 목록을 받아서 화면에 출력
+				if (response) {
+					displayQnaReply(response); // 답변이 있는 경우 답변을 출력
+				} else {
+					displayNoReplyMessage(); // 답변이 없는 경우 메시지 출력
+				}
+			},
+			error : function(xhr, status, error) {
+				console.error("Error fetching qna reply:", error);
+			}
+		});
+	}
 
+	// 댓글을 화면에 출력하는 함수
+	function displayQnaReply(reply) {
+		// 댓글을 출력할 영역의 ID를 가져옴
+		let replyContainer = $(".qnaReply");
+
+		// createdAt을 포맷팅
+		let formattedDate = formatDate(reply.createdAt);
+
+		// 댓글을 보여줄 HTML 생성
+
+		let replyHTML =
+        "<span id='reply-createdAt-display' style='float: right;'>" + formattedDate + "</span>" +
+        "<h3>답변</h3>" +
+        "<div class='qnaCard'>" +
+        "<div class='info'>" +
+        "</div>" +
+        "<div class='reply-content' style='display: block;'>" + reply.content + "</div>" +
+        "</div>";
+
+		// 댓글을 출력할 영역에 HTML 추가
+		replyContainer.append(replyHTML);
+	}
+	
+	// 답변이 없는 경우 메시지를 출력하는 함수
+	function displayNoReplyMessage() {
+	    let replyContainer = $(".qnaReply");
+	    replyContainer.append("<p>답변 중입니다.</p>");
+	}
+
+	// 날짜 포맷팅 함수 (년-월-일)
+	function formatDate(dateString) {
+		let date = new Date(dateString);
+		let year = date.getFullYear();
+		let month = (1 + date.getMonth()).toString().padStart(2, '0');
+		let day = date.getDate().toString().padStart(2, '0');
+
+		return year + '-' + month + '-' + day;
+	}
+
+	// 페이지 로드 시 댓글 목록을 가져오는 함수 호출
+	$(document).ready(function() {
+		loadQnaReply();
+	});
+</script>
 
 <%@include file="/WEB-INF/view/layout/footer.jsp"%>
 

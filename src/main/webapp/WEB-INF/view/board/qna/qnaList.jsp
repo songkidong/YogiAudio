@@ -12,7 +12,7 @@
 				<i class="bi bi-pencil-square"></i>
 			</button>
 		</div>
-
+		
 		<form action="/board/qna/qnaList" method="get">
 			<div>
 				<div class="input-group">
@@ -33,8 +33,7 @@
 			</div>
 		</form>
 
-
-
+		
 		<table class="table table-hover">
 			<thead class="thead-light text-center">
 				<tr>
@@ -56,6 +55,8 @@
 			</thead>
 			<tbody class="text-center">
 				<c:forEach var="list" items="${qnaList}">
+				<c:if test="${principal.id == list.writerId}">
+				<input type="hidden" value="${list.writerId}"/>
 					<tr class="page-click" id="${list.id}">
 						<td>${list.id}</td>
 						<td class="text-left">
@@ -72,7 +73,9 @@
 							<td>미답변</td>
 						</c:if>
 					</tr>
+					</c:if>
 				</c:forEach>
+				</tbody>
 		</table>
 
 		<!-- 페이징 처리 -->

@@ -9,9 +9,12 @@
 			<h2>
 				<a href="/board/free/freeList" style="font-weight: bold;">자유게시판</a>
 			</h2>
+			<!-- 관리자로 로그인 시 등록버튼 생성 -->
+			<c:if test="${principal.role == 'USER'}">
 			<button type="button" class="btn btn-warning" id="btnInsert">
 				<i class="bi bi-pencil-square"></i>
 			</button>
+			</c:if>
 		</div>
 
 
