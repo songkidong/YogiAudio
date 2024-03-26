@@ -85,8 +85,8 @@
 					<div class="col-md-3">
 						<div class="header-logo">
 							<a href="/product/main" class="logo"> <img
-								src="/logo/logo.png"
-								style="width: 236px; height: auto; margin-top: 10px;">
+								src="/logo/logo1.png"
+								style="width: 236px; height: 80px; margin-top: 10px;">
 							</a>
 						</div>
 					</div>

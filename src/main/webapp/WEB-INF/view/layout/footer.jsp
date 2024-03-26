@@ -10,12 +10,12 @@
 			<div class="row" style="display: flex; justify-content: center;">
 				<div class="col-md-3 col-xs-6">
 					<div class="footer">
-						<h3 class="footer-title">오시는길/연락처</h3>
+						<h3 class="footer-title">Contact Information</h3>
 						<ul class="footer-links">
-							<li><a href="#"><i class="fa fa-map-marker"></i>부산 부산진구
-									중앙대로749,범향빌딩</a></li>
-							<li><a href="#"><i class="fa fa-phone"></i>051-912-1000</a></li>
-							<li><a href="#"><i class="fa fa-envelope-o"></i>yogiaudio@naver.com</a></li>
+							<li><i class="fa fa-map-marker"></i>부산 부산진구
+									중앙대로749 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;범향빌딩</a></li>
+							<li><i class="fa fa-phone"></i>051-912-1000</a></li>
+							<li><i class="fa fa-envelope-o"></i>yogiaudio@audio.com</li>
 						</ul>
 					</div>
 				</div>
@@ -25,12 +25,12 @@
 
 				<div class="col-md-3 col-xs-6">
 					<div class="footer" style="margin-left: 30px;">
-						<h3 class="footer-title">카테고리</h3>
+						<h3 class="footer-title">CATEGORY</h3>
 						<ul class="footer-links">
 							<li><a href="/product/domestic-music">국내음악</a></li>
 							<li><a href="/product/aboard-music">국외음악</a></li>
 							<li><a href="/product/new-music">최신음악</a></li>
-							<li><a href="#">인기음악</a></li>
+							<li><a href="/product/like-music">인기음악</a></li>
 							<li><a href="/mv/mvlist">뮤직비디오</a></li>
 						</ul>
 					</div>
@@ -40,11 +40,25 @@
 
 				<div class="col-md-3 col-xs-6">
 					<div class="footer">
-						<h3 class="footer-title">문의/게시판</h3>
+						<h3 class="footer-title">BOARD</h3>
 						<ul class="footer-links">
-							<li><a href="#">공지사항</a></li>
-							<li><a href="#">문의하기</a></li>
-							<li><a href="#">자유게시판</a></li>
+							<li><a href="/board/notice/noticeList">공지사항</a></li>
+							<li><a href="/board/qna/qnaList">나의 문의하기</a></li>
+							<li><a href="/board/free/freeList">자유게시판</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="col-md-3 col-xs-6">
+					<div class="footer">
+						<h3 class="footer-title">Yogi Audio</h3>
+						<ul class="footer-links">
+							<li>YogiAudio에 오신 것을 환영합니다.<br>
+								우리의 미션은 간단합니다.<br>
+								음악을 통해 사람들을 연결하고,<br>
+								창의성과 협력을 유도하는 것입니다.<br>
+							
+							</li>
 						</ul>
 					</div>
 				</div>
@@ -55,19 +69,7 @@
 	</div>
 	<!-- /top footer -->
 
-	<!-- bottom footer -->
-	<div id="bottom-footer" class="section">
-		<div class="container">
-			<!-- row -->
-			<div class="row">
-				<div class="col-md-12 text-center"></div>
-			</div>
-			<!-- /row -->
-		</div>
-		<!-- /container -->
-	</div>
-	<!-- /bottom footer -->
-</footer>
+	</footer>
 <!-- /FOOTER -->
 
 <!-- jQuery Plugins -->
