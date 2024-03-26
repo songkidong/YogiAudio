@@ -36,7 +36,7 @@
 				</div>
 				<div class="card-header d-flex justify-content-between">
 					<label for="writer">작성자 : ${free.writerName}</label> 
-					<label for="view" style="float: right;"><i class="bi bi-hand-index-thumb">&nbsp ${free.hit }</i></label>
+					<label for="view" style="float: right;"><i class="bi bi-hand-index-thumb">조회수 : ${free.hit }</i></label>
 				</div>
 				<div class="card-body">
 					<label for="title">제목</label> <input type="text"
