@@ -65,13 +65,13 @@
 			            
 			             <div class="section-nav">
 						    <ul class="section-tab-nav tab-nav">
-						        <li id="allOption"><a href="/mv/mvoptionlist">전체</a></li>
-						        <li id="balladOption"><a href="/mv/mvoptionlist-option?searchOption=발라드">발라드</a></li>
-						        <li id="trotOption"><a href="/mv/mvoptionlist-option?searchOption=트로트">트로트</a></li>
-						        <li id="hiphopOption"><a href="/mv/mvoptionlist-option?searchOption=힙합">힙합</a></li>
-						        <li id="hiphopOption"><a href="/mv/mvoptionlist-option?searchOption=클래식">클래식</a></li>
+						        <li id="allOption"><a href="/mv/mvlist">전체</a></li>
+						        <li id="balladOption"><a href="/mv/mvlist-option?searchOption=발라드">발라드</a></li>
+						        <li id="trotOption"><a href="/mv/mvlist-option?searchOption=트로트">트로트</a></li>
+						        <li id="hiphopOption"><a href="/mv/mvlist-option?searchOption=힙합">힙합</a></li>
+						        <li id="hiphopOption"><a href="/mv/mvlist-option?searchOption=클래식">클래식</a></li>
 						    </ul>
-						 </div>  
+						</div>  
 			          
 			            
 			         </div>
@@ -129,8 +129,16 @@
 							    </c:otherwise>
 							</c:choose>
 							<div class="shop-body" id="mvInfo">
-								<h3>${mvoptionlist.videosinger}<br>${mvoptionlist.videotitle}</h3>
-								<a href="javascript:void(0)"  onclick="openModal('${mvoptionlist.mvfile}/')" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
+						    <c:choose>
+							 <c:when test="${principal.role eq 'ADMIN'}">
+								<h3>${mvlist.videosinger}<br>${mvlist.videotitle}(${mvlist.videono})</h3>
+								<a href="javascript:void(0)"  onclick="openModal('${mvlist.mvfile}/')" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
+							 </c:when>
+							 <c:otherwise>
+							 	<h3>${mvlist.videosinger}<br>${mvlist.videotitle}</h3>
+								<a href="javascript:void(0)"  onclick="openModal('${mvlist.mvfile}/')" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
+							 </c:otherwise>
+						   </c:choose>
 							</div>
 						</div>
 					</div>
