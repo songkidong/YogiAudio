@@ -31,6 +31,13 @@
       alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
       return false;
     }
+    
+    // 비밀번호 길이 확인: 8자리 이상
+    if (passwordInput.length < 8) {
+      alert("비밀번호는 8자리 이상이어야 합니다.");
+      return false;
+    }
+
 
     // 모든 조건 충족 시 폼 제출
     return true;

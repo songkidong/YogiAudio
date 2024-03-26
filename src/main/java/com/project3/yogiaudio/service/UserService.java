@@ -1,24 +1,29 @@
 package com.project3.yogiaudio.service;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.util.StreamUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.project3.yogiaudio.dto.admin.AdminCriteria;
-import com.project3.yogiaudio.dto.common.Criteria;
 import com.project3.yogiaudio.dto.user.HistoryListDTO;
 import com.project3.yogiaudio.dto.user.LikeMusicListDTO;
 import com.project3.yogiaudio.dto.user.UserDTO;
+import com.project3.yogiaudio.filedb.service.FiledbService;
 import com.project3.yogiaudio.handler.exception.UserRestfulException;
-import com.project3.yogiaudio.repository.entity.History;
 import com.project3.yogiaudio.repository.entity.User;
-import com.project3.yogiaudio.repository.entity.product.LikeMusic;
 import com.project3.yogiaudio.repository.interfaces.UserRepository;
 import com.project3.yogiaudio.util.Define;
 
@@ -49,8 +54,8 @@ public class UserService {
 		validateSignUpForm(dto);
 		checkExistingUser(dto.getEmail());
 		User newUser = buildUserEntity(dto);
+
 		userRepository.insert(newUser);
-		log.info("새로운 사용자 생성: {}", newUser);
 		return newUser;
 	}
 
@@ -87,7 +92,9 @@ public class UserService {
 		return User.builder().name(dto.getName()).nickname(dto.getNickname()).email(dto.getEmail())
 				.password(passwordEncoder.encode(dto.getPassword())).build();
 	}
+	
 
+	@Transactional
 	public User signIn(UserDTO dto) {
 		if (dto.getEmail() == null || dto.getEmail().isEmpty()) {
 			throw new UserRestfulException(Define.EMAIL_REQUIRED, HttpStatus.BAD_REQUEST);
@@ -117,7 +124,7 @@ public class UserService {
 	// 이메일을 기준으로 사용자를 찾는 메서드 추가
 	public User findUserByEmail(String email) {
 		User user = userRepository.findByEmail(email);
-		
+
 		if (user != null) {
 			throw new UserRestfulException(Define.EMAIL_ALREADY_REGISTERED, HttpStatus.BAD_REQUEST);
 		} else {
@@ -125,13 +132,20 @@ public class UserService {
 		}
 	}
 
+	public User findByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
+
 	public User findUserById(Long id) {
 		return userRepository.findById(id);
+	}
+	
+	public List<User> findByName(String name) {
+		return userRepository.findByName(name);
 	}
 
 	// 회원 수정
 	public int updateUser(User user) {
-
 		return userRepository.updateById(user);
 	}
 

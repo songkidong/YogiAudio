@@ -27,6 +27,20 @@ public class MailService {
 		message.setReplyTo("ehdzl5464@naver.com");
 		javaMailSender.send(message);
 	}
+	
+	// 임시 비밀번호
+    public String passwordSend(String email) {
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(email);
+        message.setSubject("YogiAudio");
+        message.setText("YogiAudio 임시 비밀번호 : " + generatedCode);
+        message.setFrom("ehdzl5464@naver.com");
+        message.setReplyTo("ehdzl5464@naver.com");
+        javaMailSender.send(message);
+
+        return generatedCode;
+    }
 
 	// 랜덤함수로 인증번호 만들기
 	public String tempPassword() {

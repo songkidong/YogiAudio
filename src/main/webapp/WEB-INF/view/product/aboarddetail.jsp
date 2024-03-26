@@ -27,7 +27,6 @@
 
 }
 
-
 #mvmodal{
   background-color: #fefefe;
   margin: 0 auto; /* 가운데 정렬 */

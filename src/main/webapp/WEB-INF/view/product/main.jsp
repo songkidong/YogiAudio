@@ -40,6 +40,7 @@
   top: 30%; /* 화면의 상단에서 절반의 위치에 배치 */
   left: 50%; /* 화면의 왼쪽에서 절반의 위치에 배치 */
   transform: translate(-50%, -50%); /* 수직 및 수평 가운데 정렬 */
+  z-index: 1000;
 }
 
 .close {
@@ -507,7 +508,7 @@
 									<p class="product-category">${alikelist.musicminor}</p>
 									<h3 class="product-name">
 										<a
-											href="/product/aboard-detail?musicno=${alikelist.musicno}&musicmajor=${alikelist.musicmajor}&id=${principal.id}">
+											href="/product/domestic-detail?musicno=${alikelist.musicno}&musicmajor=${alikelist.musicmajor}&id=${principal.id}">
 											${alikelist.musictitle} </a>
 									</h3>
 									<h4 class="product-price">${alikelist.musiccompany}</h4>
@@ -535,11 +536,11 @@
 									<p class="product-category">${alikelist.musicminor}</p>
 									<h3 class="product-name">
 										<a
-											href="/product/aboard-detail?musicno=${alikelist.musicno}&musicmajor=${alikelist.musicmajor}&id=${principal.id}">
+											href="/product/domestic-detail?musicno=${alikelist.musicno}&musicmajor=${alikelist.musicmajor}&id=${principal.id}">
 											${alikelist.musictitle} </a>
 									</h3>
 									<h4 class="product-price">${alikelist.musiccompany}</h4>
-									<p class="product-index">${status.count}</p>
+									<p class="product-index">${status.count + 5}</p>
 								</div>
 							</div>
 						</c:forEach>
@@ -610,7 +611,7 @@
 											${alllikelist.musictitle} </a>
 									</h3>
 									<h4 class="product-price">${alllikelist.musiccompany}</h4>
-									<p class="product-index">${status.count}</p>
+									<p class="product-index">${status.count + 5}</p>
 								</div>
 							</div>
 						</c:forEach>

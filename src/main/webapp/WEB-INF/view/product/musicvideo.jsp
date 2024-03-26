@@ -24,8 +24,6 @@
 
 }
 
-
-
 #mvmodal{
   background-color: #fefefe;
   margin: 0 auto; /* 가운데 정렬 */
@@ -165,8 +163,16 @@
 							    </c:otherwise>
 							</c:choose>
 							<div class="shop-body" id="mvInfo">
-								<h3>${mvlist.videosinger}<br>${mvlist.videotitle}</h3>
+							<c:choose>
+							 <c:when test="${principal.role eq 'ADMIN'}">
+								<h3>${mvlist.videosinger}<br>${mvlist.videotitle}(${mvlist.videono})</h3>
 								<a href="javascript:void(0)"  onclick="openModal('${mvlist.mvfile}/')" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
+							 </c:when>
+							 <c:otherwise>
+							 	<h3>${mvlist.videosinger}<br>${mvlist.videotitle}</h3>
+								<a href="javascript:void(0)"  onclick="openModal('${mvlist.mvfile}/')" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
+							 </c:otherwise>
+						   </c:choose>
 							</div>
 						</div>
 					</div>

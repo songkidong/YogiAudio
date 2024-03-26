@@ -32,12 +32,9 @@
 	background-color: rgba(0, 0, 0, 0.4);
 }
 
-
 .shop .shop-body{
     z-index: 1;
-
 }
-
 
 #mvmodal {
 	background-color: #fefefe;
@@ -169,8 +166,6 @@
 			<!-- Product details -->
 			<div class="col-md-5">
 				<div class="product-details">
-					<h2 class="product-price">${detail.musictitle}&nbsp;&nbsp;&nbsp;
-					</h2>
 					<!-- 하트 버튼 추가 -->
 					<i class="bi bi-suit-heart" style="font-size: 25px;" id="heart"></i>
                     <i class="bi bi-suit-heart-fill"
@@ -186,8 +181,7 @@
                     </div>
                     <!-- 음악 플레이어 추가 종료 -->
 					<div>
-						<h3 class="product-name">${detail.musiccompany}<del class="product-old-price"></del>
-						</h3>
+						<h3 class="product-name">${detail.musiccompany}<del class="product-old-price"></del></h3>
 					</div>
 					<br>
 					<p>아티스트 : ${detail.musicsinger}</p>
