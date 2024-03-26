@@ -148,7 +148,6 @@
 										</a>
 									</c:when>
 								</c:choose>
-								<button id="musicBtn" type="button">뮤직 플레이어</button>
 								<div class="dropdown">
 									<button class="btn btn-warning btn-sm dropdown-toggle"
 										type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -189,7 +188,6 @@
 	</header>
 	<!-- /HEADER -->
 	
-	<script src="/js/playlist/playlist.js"></script>
 	<script>
 		// 세션에서 principal.id가 있는지 확인하는 함수
 		function checkSession() {
