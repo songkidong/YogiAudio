@@ -684,7 +684,14 @@
 		
 		// 모달 창 닫기
 		document.getElementsByClassName("close")[0].addEventListener("click", function() {
-		  document.getElementById("myModal").style.display = "none";
+			var modal = document.getElementById("myModal");
+			var videoFrame = document.getElementById("videoFrame");
+			
+			// 모달 창 닫기
+			modal.style.display = "none";
+			
+			// 동영상 정지
+			videoFrame.src = "";
 		});
 		
 		// 모달 외부 클릭 시 닫기
