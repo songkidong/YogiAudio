@@ -12,6 +12,7 @@
 <style>
 	#replyButton:hover {
 		background-color: skyblue;
+		color: white;
 	}
 </style>
 

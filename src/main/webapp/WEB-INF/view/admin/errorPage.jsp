@@ -72,7 +72,7 @@
 		width: 40%;
 	}
 	div {
-		margin-top: 150px;
+		margin-top: 50px;
 		text-align: center; /*이미지, 텍스트 가운데 정렬*/
 	}
 	div a {
