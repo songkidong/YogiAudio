@@ -33,12 +33,23 @@
 }
 
 
+<<<<<<< HEAD
 .shop .shop-body{
     z-index: 1;
+=======
+
+.shop .shop-body{
+	z-index: 1;
+>>>>>>> mainjs2
 
 }
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> mainjs2
 #mvmodal {
 	background-color: #fefefe;
 	margin: 0 auto; /* 가운데 정렬 */
@@ -169,8 +180,25 @@
 			<!-- Product details -->
 			<div class="col-md-5">
 				<div class="product-details">
-					<h2 class="product-price">${detail.musictitle}&nbsp;&nbsp;&nbsp;
+					<h2 class="product-price">${detail.musictitle}&nbsp;&nbsp;&nbsp;</h2>
+				<c:choose>
+				 <c:when test="${principal.role eq 'ADMIN'}">
+					<h2 class="product-price">${detail.musictitle}(${detail.musicno})&nbsp;&nbsp;&nbsp;
+						<a href="/product/domestic-detail?musicno=${detail.musicno}&musicmajor=${detail.musicmajor}&id=${principal.id}">
+							<span style="color: black; font-size: medium;" id="likeButton"
+							onclick="likeMusic()">💗like</span>
 					</h2>
+					</a>
+				  </c:when>
+				  <c:otherwise>
+				  	<h2 class="product-price">${detail.musictitle}&nbsp;&nbsp;&nbsp;
+						<a href="/product/domestic-detail?musicno=${detail.musicno}&musicmajor=${detail.musicmajor}&id=${principal.id}">
+							<span style="color: black; font-size: medium;" id="likeButton"
+							onclick="likeMusic()">💗like</span>
+					</h2>
+					</a>
+				  </c:otherwise>
+				</c:choose>
 					<!-- 하트 버튼 추가 -->
 					<i class="bi bi-suit-heart" style="font-size: 25px;" id="heart"></i>
                     <i class="bi bi-suit-heart-fill"
@@ -186,8 +214,7 @@
                     </div>
                     <!-- 음악 플레이어 추가 종료 -->
 					<div>
-						<h3 class="product-name">${detail.musiccompany}<del class="product-old-price"></del>
-						</h3>
+						<h3 class="product-name">${detail.musiccompany}<del class="product-old-price"></del></h3>
 					</div>
 					<br>
 					<p>아티스트 : ${detail.musicsinger}</p>
