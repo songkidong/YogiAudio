@@ -86,7 +86,7 @@
 						<div class="header-logo">
 							<a href="/product/main" class="logo"> <img
 								src="/logo/logo1.png"
-								style="width: 236px; height: 80px; margin-top: 10px;">
+								style="width: auto; height: 80px; margin-top: 10px;">
 							</a>
 						</div>
 					</div>

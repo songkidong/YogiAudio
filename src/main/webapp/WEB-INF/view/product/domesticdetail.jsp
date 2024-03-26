@@ -170,6 +170,10 @@
 					<i class="bi bi-suit-heart" style="font-size: 25px;" id="heart"></i>
                     <i class="bi bi-suit-heart-fill"
                         style="font-size: 25px; color: red;" id="fillHeart"></i>
+                    </div>
+					<div>
+						<h3 class="product-name">${detail.musictitle}<del class="product-old-price"></del></h3>
+					</div>
                     <!-- 음악 플레이어 추가 -->
                         <button id="addBtn" type="button" class="addPlayerBtn">
                             <i class="bi bi-plus-circle" style="font-size: 20px;"></i>
@@ -178,15 +182,11 @@
                             <i class="bi bi-play-circle" style="font-size: 20px; margin-left: -10px;"></i>
                         </button>
                         <!-- <button id="musicBtn" type="button"><i class="bi bi-music-note-list" style="font-size: 30px;"></i></button> -->
-                    </div>
                     <!-- 음악 플레이어 추가 종료 -->
-					<div>
-						<h3 class="product-name">${detail.musiccompany}<del class="product-old-price"></del></h3>
-					</div>
 					<br>
 					<p>아티스트 : ${detail.musicsinger}</p>
 					<br>
-					<p>장르 / 스타일 : ${detail.musicminor}</p>
+					<p>장르 / 스타일 : ${detail.musicmajor} / ${detail.musicminor}</p>
 					<br>
 					<p>발매사 / 기획사 : ${detail.musiccompany}</p>
 					<br>
