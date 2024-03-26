@@ -22,6 +22,11 @@
   background-color: rgba(0,0,0,0.4);
 }
 
+.shop .shop-body{
+    z-index: 1;
+
+}
+
 
 #mvmodal{
   background-color: #fefefe;
