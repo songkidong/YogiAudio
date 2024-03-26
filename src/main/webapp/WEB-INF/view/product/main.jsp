@@ -29,13 +29,6 @@
 
 }
 
-
-.shop .shop-body{
-	z-index: 1;
-
-}
-
-
 #mvmodal{
   background-color: #fefefe;
   margin: 0 auto; /* 가운데 정렬 */
