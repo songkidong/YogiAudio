@@ -16,9 +16,10 @@
 
 
 <style>
-.product-details .product-price{
+.product-details .product-price {
 	color: black;
 }
+
 .modalmv {
 	display: none;
 	position: fixed;
@@ -32,8 +33,8 @@
 	background-color: rgba(0, 0, 0, 0.4);
 }
 
-.shop .shop-body{
-    z-index: 1;
+.shop .shop-body {
+	z-index: 1;
 }
 
 #mvmodal {
@@ -61,21 +62,22 @@
 	text-decoration: none;
 	cursor: pointer;
 }
-#heart{
+
+#heart {
 	height: 40px;
 	width: 40px;
 }
 
 .addPlayerBtn, .playBtn {
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    color: #8b8b8b;
-    padding: none;
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+	color: #8b8b8b;
+	padding: none;
 }
 
 .addPlayerBtn:hover i, .playBtn:hover i {
-    color: #3c7cdb; 
+	color: #3c7cdb;
 }
 </style>
 
@@ -151,14 +153,16 @@
 			<!-- Product thumb imgs -->
 			<div class="col-md-2 col-md-pull-5">
 				<div id="product-imgs">
-				<c:if test="${principal.role eq 'ADMIN'}">
-					<a href="/product/dalbum-update" data-toggle="modal" data-target="#photoModal">
-						<p>사진변경</p>
-					</a> 
-					<a href="/product/dmusic-update" data-toggle="modal" data-target="#musicModal">
-						<p>음원등록</p>
-					</a>
-				</c:if>
+					<c:if test="${principal.role eq 'ADMIN'}">
+						<a href="/product/dalbum-update" data-toggle="modal"
+							data-target="#photoModal">
+							<p>사진변경</p>
+						</a>
+						<a href="/product/dmusic-update" data-toggle="modal"
+							data-target="#musicModal">
+							<p>음원등록</p>
+						</a>
+					</c:if>
 				</div>
 			</div>
 			<!-- /Product thumb imgs -->
@@ -168,115 +172,132 @@
 				<div class="product-details">
 					<!-- 하트 버튼 추가 -->
 					<i class="bi bi-suit-heart" style="font-size: 25px;" id="heart"></i>
-                    <i class="bi bi-suit-heart-fill"
-                        style="font-size: 25px; color: red;" id="fillHeart"></i>
-                    <!-- 음악 플레이어 추가 -->
-                        <button id="addBtn" type="button" class="addPlayerBtn">
-                            <i class="bi bi-plus-circle" style="font-size: 20px;"></i>
-                        </button>
-                        <button id="playBtn" type="button" class="playBtn">
-                            <i class="bi bi-play-circle" style="font-size: 20px; margin-left: -10px;"></i>
-                        </button>
-                        <!-- <button id="musicBtn" type="button"><i class="bi bi-music-note-list" style="font-size: 30px;"></i></button> -->
-                    </div>
-                    <!-- 음악 플레이어 추가 종료 -->
-					<div>
-						<h3 class="product-name">${detail.musiccompany}<del class="product-old-price"></del></h3>
-					</div>
-					<br>
-					<p>아티스트 : ${detail.musicsinger}</p>
-					<br>
-					<p>장르 / 스타일 : ${detail.musicminor}</p>
-					<br>
-					<p>발매사 / 기획사 : ${detail.musiccompany}</p>
-					<br>
-					<p>발매일 : ${detail.startdate}</p>
-					<br>
-					<p>샘플듣기</p>
-					<audio id="audioPlayer" controls>
-						<source src=" ${detail.musicsample}" type="audio/wav">
-					</audio>
-					<br>
+					<i class="bi bi-suit-heart-fill"
+						style="font-size: 25px; color: red;" id="fillHeart"></i>
 				</div>
+				<div>
+					<h3 class="product-name">${detail.musictitle}<del
+							class="product-old-price"></del>
+					</h3>
+				</div>
+				<!-- 음악 플레이어 추가 -->
+				<button id="addBtn" type="button" class="addPlayerBtn">
+					<i class="bi bi-plus-circle" style="font-size: 20px;"></i>
+				</button>
+				<button id="playBtn" type="button" class="playBtn">
+					<i class="bi bi-play-circle"
+						style="font-size: 20px; margin-left: -10px;"></i>
+				</button>
+				<!-- <button id="musicBtn" type="button"><i class="bi bi-music-note-list" style="font-size: 30px;"></i></button> -->
+				<!-- 음악 플레이어 추가 종료 -->
+				<br>
+				<p>아티스트 : ${detail.musicsinger}</p>
+				<br>
+				<p>장르 / 스타일 : ${detail.musicmajor} / ${detail.musicminor}</p>
+				<br>
+				<p>발매사 / 기획사 : ${detail.musiccompany}</p>
+				<br>
+				<p>발매일 : ${detail.startdate}</p>
+				<br>
+				<p>샘플듣기</p>
+				<audio id="audioPlayer" controls>
+					<source src=" ${detail.musicsample}" type="audio/wav">
+				</audio>
+				<br>
+
+				<p>
+					<c:choose>
+						<c:when test="${udetail.status eq 'Y'}">
+							<button id="downloadButton" type="button" class="btn btn-primary">파일
+								다운로드</button>
+						</c:when>
+						<c:otherwise>
+							<button id="paymentcheck" type="button" class="btn btn-danger">다운로드불가능</button>
+						</c:otherwise>
+					</c:choose>
+				</p>
+
+
 			</div>
-			<!-- /Product details -->
+		</div>
+		<!-- /Product details -->
 
-			<!-- Product tab -->
-			<div class="col-md-12">
-				<div id="product-tab">
-					<!-- product tab nav -->
-					<ul class="tab-nav">
-						<li class="active"><a data-toggle="tab" href="#tab1">곡 소개</a></li>
-						<li><a data-toggle="tab" href="#tab2">가사</a></li>
-						<li><a data-toggle="tab" href="#tab3">뮤직비디오</a></li>
-					</ul>
-					<!-- /product tab nav -->
+		<!-- Product tab -->
+		<div class="col-md-12">
+			<div id="product-tab">
+				<!-- product tab nav -->
+				<ul class="tab-nav">
+					<li class="active"><a data-toggle="tab" href="#tab1">곡 소개</a></li>
+					<li><a data-toggle="tab" href="#tab2">가사</a></li>
+					<li><a data-toggle="tab" href="#tab3">뮤직비디오</a></li>
+				</ul>
+				<!-- /product tab nav -->
 
-					<!-- product tab content -->
-					<div class="tab-content">
-						<!-- tab1  -->
-						<div id="tab1" class="tab-pane fade in active">
-							<div class="row">
-								<div class="col-md-12">
-									<p>${detail.musiccontent}</p>
-								</div>
+				<!-- product tab content -->
+				<div class="tab-content">
+					<!-- tab1  -->
+					<div id="tab1" class="tab-pane fade in active">
+						<div class="row">
+							<div class="col-md-12">
+								<p>${detail.musiccontent}</p>
 							</div>
 						</div>
-						<!-- /tab1  -->
+					</div>
+					<!-- /tab1  -->
 
-						<!-- tab2  -->
-						<div id="tab2" class="tab-pane fade in">
-							<div class="row">
-								<div class="col-md-12">
-									<p id="lyrics">${detail.lyrics}</p>
-								</div>
+					<!-- tab2  -->
+					<div id="tab2" class="tab-pane fade in">
+						<div class="row">
+							<div class="col-md-12">
+								<p id="lyrics">${detail.lyrics}</p>
 							</div>
 						</div>
-						<!-- /tab2  -->
+					</div>
+					<!-- /tab2  -->
 
-						<!-- tab3  -->
-						<div id="tab3" class="tab-pane fade in">
-							<div class="row">
+					<!-- tab3  -->
+					<div id="tab3" class="tab-pane fade in">
+						<div class="row">
 
-								<div class="col-md-4 col-xs-6">
-									<div class="shop">
-										<a href="javascript:void(0)"
-											onclick="openModal('${detail.mvfile}/')">
-											<div class="shop-img">
-												<img src="${detail.filepath}"
-													style="width: 360px; height: 240px;">
-											</div>
-										</a>
-										<div class="shop-body">
-											<h3>${detail.musicsinger}<br>${detail.musictitle}</h3>
-											<a href="javascript:void(0)"
-												onclick="openModal('${detail.mvfile}/')" class="cta-btn">MV보기<i
-												class="fa fa-arrow-circle-right"></i></a>
+							<div class="col-md-4 col-xs-6">
+								<div class="shop">
+									<a href="javascript:void(0)"
+										onclick="openModal('${detail.mvfile}/')">
+										<div class="shop-img">
+											<img src="${detail.filepath}"
+												style="width: 360px; height: 240px;">
 										</div>
+									</a>
+									<div class="shop-body">
+										<h3>${detail.musicsinger}<br>${detail.musictitle}</h3>
+										<a href="javascript:void(0)"
+											onclick="openModal('${detail.mvfile}/')" class="cta-btn">MV보기<i
+											class="fa fa-arrow-circle-right"></i></a>
 									</div>
 								</div>
-
-								<div class="col-md-4 col-xs-6">
-									<p>${detail.videocontent}</p>
-								</div>
-
-
-
-
-
-
 							</div>
+
+							<div class="col-md-4 col-xs-6">
+								<p>${detail.videocontent}</p>
+							</div>
+
+
+
+
+
+
 						</div>
-						<!-- /tab3  -->
 					</div>
-					<!-- /product tab content  -->
+					<!-- /tab3  -->
 				</div>
+				<!-- /product tab content  -->
 			</div>
-			<!-- /product tab -->
 		</div>
-		<!-- /row -->
+		<!-- /product tab -->
 	</div>
-	<!-- /container -->
+	<!-- /row -->
+</div>
+<!-- /container -->
 </div>
 <!-- /SECTION -->
 
@@ -380,14 +401,14 @@
 	// 모달 창 닫기
 	document.getElementsByClassName("close")[0].addEventListener("click",
 			function() {
-		var modal = document.getElementById("myModal");
-		var videoFrame = document.getElementById("videoFrame");
-		
-		// 모달 창 닫기
-		modal.style.display = "none";
-		
-		// 동영상 정지
-		videoFrame.src = "";
+				var modal = document.getElementById("myModal");
+				var videoFrame = document.getElementById("videoFrame");
+
+				// 모달 창 닫기
+				modal.style.display = "none";
+
+				// 동영상 정지
+				videoFrame.src = "";
 			});
 
 	// 모달 외부 클릭 시 닫기
@@ -403,7 +424,7 @@
 
 
 <script>
-    var musicNo = '${detail.musicno}';
+	var musicNo = '${detail.musicno}';
 	var userId = '${principal.id}';
 </script>
 <script src="/js/product/likeBtn.js"></script>

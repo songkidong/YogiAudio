@@ -65,7 +65,9 @@
 	select count(*) from refund
 </select>
 
-
+<select id="countAllMusicVideo" resultType="int">
+	select count(*) from musicvideo
+</select>
 
 <select id="countAllIncompletedRefund" resultType="int">
 	select count(*) from refund where refund_yn = 'N'

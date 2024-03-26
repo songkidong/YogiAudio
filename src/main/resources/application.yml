@@ -43,17 +43,19 @@ spring:
 
 
   datasource:    
-    url: jdbc:mysql://192.168.0.101:3306/yogi_audio?serverTimeZone=Asia/Seoul
+    url: jdbc:mysql://192.168.0.101:3306/yogi_audio_main?serverTimeZone=Asia/Seoul
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: develop 
     password: 1111
     
     
 #  datasource:    
-#    url: jdbc:mysql://192.168.0.101:3306/yogi_audio_main?serverTimeZone=Asia/Seoul
+#    url: jdbc:mysql://192.168.0.101:3306/yogi_audio?serverTimeZone=Asia/Seoul
 #    driver-class-name: com.mysql.cj.jdbc.Driver
-#    username: develop
+#    username: develop 
 #    password: 1111
+
+    
 
     
   #h2:

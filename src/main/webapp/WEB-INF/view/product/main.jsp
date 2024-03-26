@@ -444,7 +444,7 @@
 											${dlikelist.musictitle} </a>
 									</h3>
 									<h4 class="product-price">${dlikelist.musiccompany}</h4>
-									  <p class="product-index">${status.count + 5}</p>
+									  <p class="product-index">${status.count}</p>
 								</div>
 							</div>
 						</c:forEach>
@@ -472,7 +472,7 @@
 											${dlikelist.musictitle} </a>
 									</h3>
 									<h4 class="product-price">${dlikelist.musiccompany}</h4>
-									<p class="product-index">${status.count}</p>
+									<p class="product-index">${status.count + 5}</p>
 								</div>
 							</div>
 						</c:forEach>
