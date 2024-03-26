@@ -19,6 +19,20 @@
   background-color: rgba(0,0,0,0.4);
 }
 
+.shop .shop-body{
+    z-index: 1;
+
+}
+
+
+
+
+.shop .shop-body{
+	z-index: 1;
+
+}
+
+
 
 #mvmodal{
   background-color: #fefefe;
@@ -159,8 +173,16 @@
 							    </c:otherwise>
 							</c:choose>
 							<div class="shop-body" id="mvInfo">
-								<h3>${mvlist.videosinger}<br>${mvlist.videotitle}</h3>
+							<c:choose>
+							 <c:when test="${principal.role eq 'ADMIN'}">
+								<h3>${mvlist.videosinger}<br>${mvlist.videotitle}(${mvlist.videono})</h3>
 								<a href="javascript:void(0)"  onclick="openModal('${mvlist.mvfile}/')" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
+							 </c:when>
+							 <c:otherwise>
+							 	<h3>${mvlist.videosinger}<br>${mvlist.videotitle}</h3>
+								<a href="javascript:void(0)"  onclick="openModal('${mvlist.mvfile}/')" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
+							 </c:otherwise>
+						   </c:choose>
 							</div>
 						</div>
 					</div>
@@ -258,7 +280,14 @@
 		
 		// 모달 창 닫기
 		document.getElementsByClassName("close")[0].addEventListener("click", function() {
-		  document.getElementById("myModal").style.display = "none";
+			var modal = document.getElementById("myModal");
+			var videoFrame = document.getElementById("videoFrame");
+			
+			// 모달 창 닫기
+			modal.style.display = "none";
+			
+			// 동영상 정지
+			videoFrame.src = "";
 		});
 		
 		// 모달 외부 클릭 시 닫기

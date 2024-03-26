@@ -22,6 +22,20 @@
   background-color: rgba(0,0,0,0.4);
 }
 
+.shop .shop-body{
+    z-index: 1;
+
+}
+
+
+
+.shop .shop-body{
+	z-index: 1;
+
+}
+
+
+
 
 #mvmodal{
   background-color: #fefefe;
@@ -127,10 +141,24 @@
 					<!-- Product details -->
 					<div class="col-md-5">
 						<div class="product-details">
-							<h2 class="product-price">${detail.musictitle}&nbsp;&nbsp;&nbsp;
-								<a href="/product/domestic-detail?musicno=${detail.musicno}&musicmajor=${detail.musicmajor}&id=${principal.id}">
-								   <span style="color: black; font-size: medium;" id="likeButton" onclick="likeMusic()">💗like</span></h2>
+							<c:choose>
+							 <c:when test="${principal.role eq 'ADMIN'}">
+								<h2 class="product-price">${detail.musictitle}(${detail.musicno})&nbsp;&nbsp;&nbsp;
+									<a href="/product/domestic-detail?musicno=${detail.musicno}&musicmajor=${detail.musicmajor}&id=${principal.id}">
+										<span style="color: black; font-size: medium;" id="likeButton"
+										onclick="likeMusic()">💗like</span>
+								</h2>
 								</a>
+							  </c:when>
+							  <c:otherwise>
+							  	<h2 class="product-price">${detail.musictitle}&nbsp;&nbsp;&nbsp;
+									<a href="/product/domestic-detail?musicno=${detail.musicno}&musicmajor=${detail.musicmajor}&id=${principal.id}">
+										<span style="color: black; font-size: medium;" id="likeButton"
+										onclick="likeMusic()">💗like</span>
+								</h2>
+								</a>
+							  </c:otherwise>
+							</c:choose>
 							<div>
 								<h3 class="product-name">${detail.musiccompany}<del class="product-old-price"></del></h3>						
 							</div><br>
@@ -345,7 +373,14 @@
 		
 		// 모달 창 닫기
 		document.getElementsByClassName("close")[0].addEventListener("click", function() {
-		  document.getElementById("myModal").style.display = "none";
+			var modal = document.getElementById("myModal");
+			var videoFrame = document.getElementById("videoFrame");
+			
+			// 모달 창 닫기
+			modal.style.display = "none";
+			
+			// 동영상 정지
+			videoFrame.src = "";
 		});
 		
 		// 모달 외부 클릭 시 닫기

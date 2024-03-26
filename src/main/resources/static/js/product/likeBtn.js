@@ -1,14 +1,22 @@
 document.addEventListener('DOMContentLoaded', function() {
-	const heartBtnImg = document.getElementById('heart');
+	const heartBtn = document.getElementById('heart');
+	const fillHeartBtn = document.getElementById('fillHeart');
+
 	// 좋아요 체크
-	likeCheck(musicNo, heartBtnImg);
-	// 좋아요 버튼 클릭 이벤트 리스너 추가
-	heartBtnImg.addEventListener('click', function() {
-		// 좋아요 버튼 클릭 이벤트 처리 함수 호출
-		likeBtnHandler(musicNo, heartBtnImg);
+	likeCheck(musicNo, heartBtn, fillHeartBtn);
+
+	// Heart 버튼 클릭 이벤트 리스너 추가
+	heartBtn.addEventListener('click', function() {
+		likeBtnHandler(musicNo, userId, heartBtn, fillHeartBtn);
 	});
-	//좋아요 체크
-	function likeCheck(musicNo, heartBtnImg) {
+
+	// Fill Heart 버튼 클릭 이벤트 리스너 추가
+	fillHeartBtn.addEventListener('click', function() {
+		likeBtnHandler(musicNo, userId, heartBtn, fillHeartBtn);
+	});
+
+	// 좋아요 체크 함수
+	function likeCheck(musicNo, heartBtn, fillHeartBtn) {
 		// ajax로 좋아요 확인하기
 		$.ajax({
 			type: 'GET',
@@ -18,33 +26,32 @@ document.addEventListener('DOMContentLoaded', function() {
 				musicNo: musicNo
 			},
 			success: function(response) {
-				// 좋아요 되어있으면 like로 세팅
+				// 좋아요 되어있으면 fillHeart 아이콘으로 변경
 				if (response !== null && response !== "") {
-					console.log("이거 있네요?");
-					heartBtnImg.src = "/img/music_like/like.png";
+					heartBtn.style.display = 'none'; // 숨기기
+					fillHeartBtn.style.display = 'inline'; // 보이기
 				} else {
-					heartBtnImg.src = "/img/music_like/unlike.png";
+					heartBtn.style.display = 'inline'; // 보이기
+					fillHeartBtn.style.display = 'none'; // 숨기기
 				}
 			},
 			error: function(error) {
-				console.error('Error saving markers:', error);
+				console.error('Error checking like:', error);
 			}
 		});
 	}
-	// 좋아요 클릭 이벤트 핸들러
-	function likeBtnHandler(musicNo, heartBtnImg) {
+
+	// 좋아요 버튼 클릭 이벤트 핸들러
+	function likeBtnHandler(musicNo, userId, heartBtn, fillHeartBtn) {
 		if (userId == null || userId == '') {
-			console.log("최장호 : " + userId);
 			if (confirm("로그인 하시겠습니까?")) {
-				window.location.href = '/signIn'; // 메인 페이지 URL로 리다이렉트
+				window.location.href = '/signIn'; // 로그인 페이지로 이동
 				return;
 			}
 		} else {
 			// 클릭 이벤트 처리 코드 작성
-			console.log('Like 이미지를 클릭했습니다.');
-	
-			// 예시: 이미지를 클릭할 때마다 이미지 소스 변경
-			if (heartBtnImg.src.includes('/img/music_like/like.png')) {
+			if (heartBtn.style.display === 'none') {
+				// 이미 좋아요 상태일 때, 좋아요 취소
 				$.ajax({
 					type: 'GET',
 					url: '/deleteLikeMusic',
@@ -54,14 +61,15 @@ document.addEventListener('DOMContentLoaded', function() {
 					},
 					success: function(response) {
 						console.log(response);
+						heartBtn.style.display = 'inline'; // Heart 아이콘 보이기
+						fillHeartBtn.style.display = 'none'; // Fill Heart 아이콘 숨기기
 					},
 					error: function(error) {
-						console.error('Error saving markers:', error);
+						console.error('Error deleting like:', error);
 					}
 				});
-				heartBtnImg.src = '/img/music_like/unlike.png';
-				console.log("여기선 삭제");
 			} else {
+				// 좋아요 추가
 				$.ajax({
 					type: 'GET',
 					url: '/saveLikeMusic',
@@ -71,13 +79,13 @@ document.addEventListener('DOMContentLoaded', function() {
 					},
 					success: function(response) {
 						console.log(response);
+						heartBtn.style.display = 'none'; // Heart 아이콘 숨기기
+						fillHeartBtn.style.display = 'inline'; // Fill Heart 아이콘 보이기
 					},
 					error: function(error) {
-						console.error('Error saving markers:', error);
+						console.error('Error saving like:', error);
 					}
 				});
-				heartBtnImg.src = '/img/music_like/like.png';
-				console.log("여기선 추가");
 			}
 		}
 	}

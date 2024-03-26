@@ -65,7 +65,7 @@ public class QnaController {
 	 */
 	@GetMapping("/qnaList")
 	public String qnaList(PageReq pageReq, Model model) {
-
+		
 		// 페이징
 		if (pageReq.getPage() <= 0) {
 			pageReq.setPage(1); // 페이지가 0 이하일 경우 첫 페이지로 설정한다
