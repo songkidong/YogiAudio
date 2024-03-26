@@ -27,16 +27,6 @@
 
 }
 
-
-
-.shop .shop-body{
-	z-index: 1;
-
-}
-
-
-
-
 #mvmodal{
   background-color: #fefefe;
   margin: 0 auto; /* 가운데 정렬 */
@@ -141,24 +131,10 @@
 					<!-- Product details -->
 					<div class="col-md-5">
 						<div class="product-details">
-							<c:choose>
-							 <c:when test="${principal.role eq 'ADMIN'}">
-								<h2 class="product-price">${detail.musictitle}(${detail.musicno})&nbsp;&nbsp;&nbsp;
-									<a href="/product/domestic-detail?musicno=${detail.musicno}&musicmajor=${detail.musicmajor}&id=${principal.id}">
-										<span style="color: black; font-size: medium;" id="likeButton"
-										onclick="likeMusic()">💗like</span>
-								</h2>
+							<h2 class="product-price">${detail.musictitle}&nbsp;&nbsp;&nbsp;
+								<a href="/product/domestic-detail?musicno=${detail.musicno}&musicmajor=${detail.musicmajor}&id=${principal.id}">
+								   <span style="color: black; font-size: medium;" id="likeButton" onclick="likeMusic()">💗like</span></h2>
 								</a>
-							  </c:when>
-							  <c:otherwise>
-							  	<h2 class="product-price">${detail.musictitle}&nbsp;&nbsp;&nbsp;
-									<a href="/product/domestic-detail?musicno=${detail.musicno}&musicmajor=${detail.musicmajor}&id=${principal.id}">
-										<span style="color: black; font-size: medium;" id="likeButton"
-										onclick="likeMusic()">💗like</span>
-								</h2>
-								</a>
-							  </c:otherwise>
-							</c:choose>
 							<div>
 								<h3 class="product-name">${detail.musiccompany}<del class="product-old-price"></del></h3>						
 							</div><br>
