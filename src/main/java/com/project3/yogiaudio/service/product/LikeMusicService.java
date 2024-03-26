@@ -106,6 +106,9 @@ public class LikeMusicService {
 	  * @return
 	  */
 	public Integer allCountMusicByMajor(String major) {
+		if(major != null && major.isBlank()) {
+			major = null;
+		}
 		 return likeMusicRepository.allCountMusicByMajor(major);
 	}
 	

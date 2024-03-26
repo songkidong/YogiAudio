@@ -26,6 +26,13 @@
 	select count(*) from music
 </select>
 
+
+<select id="findAllMusicVideo" resultType="com.project3.yogiaudio.dto.music.MusicVideoDTO">
+	select * from musicvideo order by videono desc limit ${offset}, #{pageSize} 
+</select>
+
+
+
 <select id="findAllHistory" resultType="com.project3.yogiaudio.repository.entity.History">
 	select a.hno, a.amount, a.date, b.name, b.nickname, c.purchasename from history as a
 	join user as b
@@ -77,6 +84,39 @@
 <update id="updateRefund">
 	update refund set refund_yn = 'Y' where id = #{id}
 </update>
+
+	<!-- 진수작성 -->
+
 	
+	<!-- 음원등록하기 -->
+	<insert id="insertMusic">
+		insert into music
+		(music_title,music_singer,music_content,music_company,lyrics,startdate,file_path,file_music,music_sample,
+		music_major,music_minor,music_price)
+		values(#{musictitle},#{musicsinger},#{musiccontent},#{musiccompany},#{lyrics},#{startdate},#{filepath},#{filemusic},#{musicsample}
+		,#{musicmajor},#{musicminor},#{musicprice})
+	</insert>
+		
+	
+	
+	<!--  뮤비등록하기 -->
+	<insert id="insertMusicVideo">
+		insert into musicvideo(musicno,videotitle,videosinger,file_path,mv_file,videocontent,music_minor,music_major)
+		values(#{musicno},#{videotitle},#{videosinger},#{filepath},#{mvfile},#{videocontent},#{musicminor},#{musicmajor})
+	</insert>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </mapper>

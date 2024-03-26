@@ -27,7 +27,7 @@ window.onload = function() {
 	
 	button.addEventListener('click', function(e) {
 		e.preventDefault();
-		alert('id : ' + id);
+		//alert('id : ' + id);
 		
 		// 유효성 검사
 		if(title.value == "") {

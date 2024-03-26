@@ -49,12 +49,11 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
-
+<link rel="icon" type="image/png" href="/favicon/android-icon-72x72.png" sizes="72x72">
 
 <!-- j쿼리 -->
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+
 
 </head>
 <body>
@@ -64,15 +63,13 @@
 		<div id="top-header">
 			<div class="container">
 				<ul class="header-links pull-left">
-					<li><a href="#"><i class="fa fa-phone"></i> +021-95-51-84</a></li>
-					<li><a href="#"><i class="fa fa-envelope-o"></i>
-							email@email.com</a></li>
-					<li><a href="#"><i class="fa fa-map-marker"></i> 1734
-							Stonecoal Road</a></li>
-				</ul>
-				<ul class="header-links pull-right">
-					<li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
-					<li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+					<li>
+						<a href="/purchase/main?id=${principal.id}" onclick="checkSession()">
+						<i class="fa fa-envelope-o"></i>
+						  이용권구매
+						</a>
+				   </li>
+					
 				</ul>
 			</div>
 		</div>
@@ -111,33 +108,30 @@
 						</div>
 						<!-- 로그인 -->
 						<div class="col-md-6">
-							<div class="login-container"
-								style="display: flex; align-items: center; margin-top: 10px;">
+							<div class="login-container" style="display: flex; align-items: center; margin-top: 10px;">
 								<c:choose>
 									<c:when test="${empty principal}">
-										<a href="/signIn">
+										<a href="/signIn" style="margin-left: 10px; width: 50px;">
 											<p>로그인</p>
 										</a>
-										<a href="/consent">
-											<p style="margin-left: 10px;">회원가입</p>
+										<a href="/consent" style="margin-left: 15px; width: 60px;">
+											<p>회원가입</p>
 										</a>
 									</c:when>
 									<c:otherwise>
-										<a href="/logout">
+										<a href="/logout" style="margin-left: 15px; width: 60px;">
 											<p>로그아웃</p>
 										</a>
 
-										<a href="/account/${principal.id}">
-
-											<p style="margin-left: 10px;">마이페이지</p>
+										<a href="/account/${principal.id}" style="margin-left: 15px; width: 70px;">
+											<p>마이페이지</p>
 										</a>
 									</c:otherwise>
 								</c:choose>
 								<c:choose>
 									<c:when test="${principal.role == 'ADMIN'}">
-										<a href="/admin/index">
-
-											<p style="margin-left: 10px;">관리자</p>
+										<a href="/admin/index" style="margin-left: 15px; width: 70px;">
+											<p>관리자</p>
 										</a>
 									</c:when>
 								</c:choose>
@@ -168,5 +162,24 @@
 		<!-- /MAIN HEADER -->
 	</header>
 	<!-- /HEADER -->
+	
+<script>
+    // 세션에서 principal.id가 있는지 확인하는 함수
+    function checkSession() {
+        // 세션에서 principal.id를 가져옴
+        var principalId = sessionStorage.getItem('principal.id');
+        
+        // principal.id가 없으면 알림 표시 및 리다이렉트
+        if (!principalId) {
+            alert("로그인이 필요합니다!");
+        }
+    }
+
+    // 세션에 principal.id 설정
+    var principalId = "${principal.id}";
+    sessionStorage.setItem('principal.id', principalId);
+</script>	
+
+	
 </body>
 </html>

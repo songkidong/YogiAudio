@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.project3.yogiaudio.dto.common.Criteria;
 import com.project3.yogiaudio.dto.music.MusicVideoDTO;
@@ -47,8 +48,19 @@ public class MusicVideoService {
 		return musicVideoRepository.optionMVlistCount(cri);
 	}
 	
-	
-	
+	//뮤비업데이트하기
+	@Transactional
+	public void mvUpdate(MusicVideoDTO dto,String filePath) {
+		
+		MusicVideoDTO mv = MusicVideoDTO.builder()
+				.videono(dto.getVideono())
+				.filepath(filePath)
+				.mvfile(dto.getMvfile())
+				.build();
+		
+		Integer result = musicVideoRepository.mvUpdate(mv);
+	}
+
 	
 	
 	

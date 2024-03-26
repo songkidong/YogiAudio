@@ -9,19 +9,6 @@
 	width: 150px; /* 원하는 너비로 설정하세요 */
 }
 
-.like-rank {
-	position: absolute;
-	top: 10px;
-	left: 10px;
-	background-color: #ff9800; /* 배경색 */
-	color: #fff; /* 텍스트 색상 */
-	font-size: 16px; /* 폰트 크기 */
-	border-radius: 50%; /* 원형 모양으로 만들기 */
-	width: 30px; /* 너비 */
-	height: 30px; /* 높이 */
-	text-align: center; /* 가운데 정렬 */
-	line-height: 30px; /* 수직 가운데 정렬 */
-}
 </style>
 
 <!-- SECTION -->
@@ -69,7 +56,6 @@
 											<img src="/album/default.png">
 										</c:otherwise>
 									</c:choose>
-									<div class="product-label like-rank">${rank.index + 1}</div>
 									<!-- 순위 표시 -->
 								</div>
 

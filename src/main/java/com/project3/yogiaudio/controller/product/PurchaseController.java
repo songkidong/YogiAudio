@@ -2,6 +2,7 @@ package com.project3.yogiaudio.controller.product;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +28,9 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/purchase")
 public class PurchaseController {
-
+	
+	@Autowired
+	private UserService userService;
 	@Autowired
 	private PurchaseService purchaseService;
 	@Autowired
@@ -38,13 +41,23 @@ public class PurchaseController {
 	private CancelService cancelService;
 	@Autowired
 	HttpSession session;
-	@Autowired
-	private UserService userService;
 	
 	// http://localhost:80/purchase/main
 	
 	@GetMapping("/main")
-	public String purchaseMainPageGET(Model model,Criteria cri) throws Exception {
+	public String purchaseMainPageGET(@RequestParam(value = "id", required = false) Long id,Model model,Criteria cri,HttpSession session) throws Exception {
+		
+		User userEntity = (User) session.getAttribute(Define.PRINCIPAL);
+		
+		 if (userEntity == null || userEntity.getId() == 0) {
+		        return "redirect:/signIn"; // 로그인 페이지로 리다이렉트
+		 }
+		 
+		 
+		 if (id != null) {
+		    User udetail = userService.findById(id);
+		    model.addAttribute("udetail", udetail);
+		 }
 		
 		
 		PageVO pageVO = new PageVO();

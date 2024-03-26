@@ -8,7 +8,7 @@ window.onload = function() {
 		
 		deleteBtns[i].addEventListener('click', function() {
 			const id = deleteBtns[i].getAttribute('data-id');
-			alert('id : ' + id);
+			//alert('id : ' + id);
 			
 			Swal.fire({
 				title : '삭제하시겠습니까?',
