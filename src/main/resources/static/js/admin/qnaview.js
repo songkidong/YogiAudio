@@ -16,7 +16,7 @@ window.onload = function() {
 		const boardQnaId = replyBtn.getAttribute('data-id');
 		const replyForm = document.getElementById('replyForm');
 		
-		alert('boardQnaId : ' + boardQnaId);
+		//alert('boardQnaId : ' + boardQnaId);
 		
 		if(replyTxt.value != "") {
 			Swal.fire({
@@ -78,7 +78,7 @@ window.onload = function() {
 				const id = deleteReplyBtns[i].getAttribute('data-id');
 				const boardQnaId = deleteReplyBtns[i].getAttribute('data-boardQnaId');
 				
-				alert('id, boardQnaId : ' + id +','+ boardQnaId);
+				//alert('id, boardQnaId : ' + id +','+ boardQnaId);
 				
 				Swal.fire({
 					title : '삭제하시겠습니까?',
@@ -120,7 +120,7 @@ window.onload = function() {
 		
 		deleteBtn.addEventListener('click', function() {
 			const id = deleteBtn.getAttribute('data-id');
-			alert('id : ' + id);
+			//alert('id : ' + id);
 			
 			Swal.fire({
 				title : '삭제하시겠습니까?',
@@ -162,7 +162,7 @@ window.onload = function() {
 		for(let i=0 ; i<updateReplyBtns.length ; i++ ) {
 			
 			updateReplyBtns[i].addEventListener('click', function() {
-				alert('클릭');
+				//alert('클릭');
 			
 			// this는 작동안함	
 			$(this).hide(); // 수정 버튼 숨기기
@@ -184,7 +184,7 @@ window.onload = function() {
 		for(let i=0 ; i<cancelUpdateBtns.length ; i++ ) {
 			
 			cancelUpdateBtns[i].addEventListener('click', function() {
-				alert('클릭');
+				//alert('클릭');
 			
 			// this는 작동안함	
 			$(this).hide(); // 취소 버튼 숨기기
@@ -194,7 +194,7 @@ window.onload = function() {
             $(this).siblings(".deleteReply").show(); // 삭제 버튼 보이기
             
             // .content는 다른 형제이므로 closest 이용. closest는 부모 태그 선택
-            //readonly 속성 추가
+            //readonly 속성 추가("readonly" 하나만 적으면 적용 X)
             $(this).closest(".commentCard").find(".content").attr("readonly", "readonly");
 			}) 
 		}
@@ -209,9 +209,16 @@ window.onload = function() {
 				const id = completeUpdateBtns[i].getAttribute('data-id');
 				const input = $(this).closest(".commentCard").find(".content");
 				// 수정한 내용 ajax 로 보내기 위함
-				const content = input.value;
+				// $(this) jquery 활용했으므로 input은 jquery 객체 => value도 jquery 문법 활용
+				const content = input.val();
 				
-				alert('id : ' + id);	
+				// 유효성 검사
+				if(content == "") {
+					Swal.fire('내용을 입력하세요');
+					content.focus();
+				}
+				
+				//alert('id : ' + id);	
 				console.log('content : ' + content);
 				
 				

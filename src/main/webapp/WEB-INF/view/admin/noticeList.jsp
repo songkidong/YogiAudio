@@ -16,7 +16,7 @@
 	<!-- noticeList가 비어있으면 테이블 자체가 보이지 않도록 함 -->
 	<c:if test="${not empty noticeList }">
 	<!-- Hoverable Table rows -->
-              <div class="card">
+              <div class="card" style="margin: 0px 20px;">
                 <h5 class="card-header">공지사항</h5>
                 <div class="table-responsive text-nowrap">
                   <table class="table table-hover">

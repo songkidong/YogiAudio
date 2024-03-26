@@ -127,11 +127,12 @@ public class MusicService {
 	
 	//음원등록하기
 	@Transactional
-	public void musicUpdate(MusicDTO dto,String fileMusic) {
+	public void musicUpdate(MusicDTO dto,String fileMusic,String musicSample) {
 		
 		MusicDTO music = MusicDTO.builder()
 				.musicno(dto.getMusicno())
 				.filemusic(fileMusic)
+				.musicsample(musicSample)
 				.build();
 		
 		Integer result = musicRepository.musicUpdate(music);

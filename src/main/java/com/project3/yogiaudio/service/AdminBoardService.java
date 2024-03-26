@@ -16,13 +16,16 @@ import com.project3.yogiaudio.dto.board.BoardFileDTO;
 import com.project3.yogiaudio.filedb.entity.Filedb;
 import com.project3.yogiaudio.filedb.repository.FiledbRepository;
 import com.project3.yogiaudio.filedb.service.FiledbService;
+import com.project3.yogiaudio.repository.entity.User;
 import com.project3.yogiaudio.repository.entity.board.BoardFree;
 import com.project3.yogiaudio.repository.entity.board.BoardFreeComment;
 import com.project3.yogiaudio.repository.entity.board.BoardNotice;
 import com.project3.yogiaudio.repository.entity.board.BoardQna;
 import com.project3.yogiaudio.repository.entity.board.BoardQnaReply;
 import com.project3.yogiaudio.repository.interfaces.AdminBoardRepository;
+import com.project3.yogiaudio.util.Define;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -37,6 +40,9 @@ public class AdminBoardService {
 	
 	@Autowired
 	private FiledbRepository fileDbRepository;
+	
+	@Autowired
+	private HttpSession session;
 	
 	/**
 	  * @Method Name : findAllNotice
@@ -93,8 +99,12 @@ public class AdminBoardService {
 	  * @변경이력 : 
 	  * @Method 설명 : ★★★★★공지사항 등록 
 	  */
+	
 	@Transactional  
 	public boolean insertNotice(NoticeSaveFormDTO dto) {
+		
+		// 사용자 정보 가져오기
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 		
 		String filePath = null;
 		
@@ -119,7 +129,7 @@ public class AdminBoardService {
 		}
 		
 		BoardNotice notice = BoardNotice.builder()
-						.writerId(100) // 작성자 아이디 임시번호
+						.writerId(principal.getId()) 
 						.title(dto.getTitle())
 						.content(dto.getContent())
 						.filePath(filePath)
@@ -312,9 +322,12 @@ public class AdminBoardService {
 	@Transactional 
 	public boolean insertQnaReply(Integer boardQnaId, QnaReplySaveFormDTO dto) {
 		
+		// 사용자 정보 가져오기
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+		
 		// 답변 등록
 		BoardQnaReply boardQnaReply = BoardQnaReply.builder()
-									.writerId(15) // 현재 사용자 정보로 수정하기
+									.writerId(principal.getId()) // principal.getId() 
 									.boardQnaId(boardQnaId) // boardQnaId 매개변수로 받기
 									.content(dto.getContent())
 									.build();

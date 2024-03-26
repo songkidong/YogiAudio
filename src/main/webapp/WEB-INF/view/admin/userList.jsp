@@ -15,7 +15,7 @@
 	
 	<c:if test="${not empty userList }">
 	<!-- Hoverable Table rows -->
-              <div class="card">
+              <div class="card" style="margin: 0px 20px;">
                 <h5 class="card-header">유저</h5>
                 <div class="table-responsive text-nowrap">
                   <table class="table table-hover">

@@ -17,7 +17,7 @@
 	<!-- qnaList가 비어있으면 테이블 자체가 보이지 않도록 함 -->
 	<c:if test="${not empty qnaList }">
 	<!-- Hoverable Table rows -->
-              <div class="card">
+              <div class="card" style="margin: 0px 20px;">
                 <h5 class="card-header">QnA</h5>
                 <div class="table-responsive text-nowrap">
                   <table class="table table-hover">
@@ -38,7 +38,7 @@
 		            		  <td>${qna.id}</td>
 		            		  <td>${qna.writerName}</td>
 		            		  <td><a href="/admin/qnaView/${qna.id}">${qna.title}</a></td>
-		            		  <td>${qna.answerYn}</td>
+		            		  <td style="padding-left: 40px;">${qna.answerYn}</td>
 		            		  <td>${qna.formatCreatedAt()}</td>
 		            		  <td>
 		            		  	<a data-id="${qna.id }" name="deleteButton" class="btn btn-primary" style="color: white">삭제</a>

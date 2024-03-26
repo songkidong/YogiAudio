@@ -8,7 +8,7 @@ window.onload = function() {
 		
 		withdrawBtns[i].addEventListener('click', function() {
 			const id = withdrawBtns[i].getAttribute('data-id');
-			alert('id : ' + id);
+			//alert('id : ' + id);
 			
 			Swal.fire({
 				title : '탈퇴하시겠습니까?',

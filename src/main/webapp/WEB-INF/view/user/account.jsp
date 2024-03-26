@@ -84,8 +84,6 @@
 														<input type="file" id="upload" class="account-file-input"
 														name="profileFile" hidden accept="image/png, image/jpeg" />
 													</label>
-
-
 													<p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max
 														size of 20MB</p>
 												</div>

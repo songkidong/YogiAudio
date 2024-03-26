@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.project3.yogiaudio.dto.admin.AdminCriteria;
+import com.project3.yogiaudio.dto.music.MusicDTO;
+import com.project3.yogiaudio.dto.music.MusicVideoDTO;
 import com.project3.yogiaudio.repository.entity.History;
 import com.project3.yogiaudio.repository.entity.Music;
 import com.project3.yogiaudio.repository.entity.Refund;
@@ -25,11 +27,20 @@ public interface AdminRepository {
 	public int countAllUser();
 	// 유저 탈퇴
 	public boolean withdrawUser(Integer id);
+	// 회원수
+	public int countAllUserByUserRole();
 	
 	// 음악 목록
 	public List<Music> findAllMusic(AdminCriteria cri);
 	// 음악 카운팅
 	public int countAllMusic();
+	
+	//뮤비목록
+	public List<MusicVideoDTO> findAllMusicVideo(AdminCriteria cri);
+	
+	//뮤비카운팅
+	public int countAllMusicVideo();
+	
 	// 음악 삭제
 	public boolean deleteMusic(Integer musicNo);
 	
@@ -44,4 +55,14 @@ public interface AdminRepository {
 	public int countAllRefund();
 	// 환불 승인
 	public boolean updateRefund(Integer id);
+	// 환불 내역 미승인건 카운팅
+	public int countAllIncompletedRefund();
+	
+
+	//음원등록
+	public Integer insertMusic(MusicDTO dto);
+	//뮤비등록
+	public Integer insertMusicVideo(MusicVideoDTO dto);
+	
+	
 }

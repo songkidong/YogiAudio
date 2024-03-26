@@ -69,8 +69,11 @@
 	    </where>
 	</select>	
 	
-	
-	
+	<!-- 뮤비업데이트하기 -->
+	<update id ="mvUpdate">
+		update musicvideo set file_path=#{filepath},mv_file=#{mvfile}
+		where videono=#{videono}
+	</update>
 	
 
 

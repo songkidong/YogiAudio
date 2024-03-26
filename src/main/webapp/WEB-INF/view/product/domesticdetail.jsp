@@ -17,7 +17,7 @@
 
 <style>
 .product-details .product-price{
-color: black;
+	color: black;
 }
 .modalmv {
 	display: none;
@@ -31,6 +31,13 @@ color: black;
 	background-color: rgb(0, 0, 0);
 	background-color: rgba(0, 0, 0, 0.4);
 }
+
+
+.shop .shop-body{
+    z-index: 1;
+
+}
+
 
 #mvmodal {
 	background-color: #fefefe;
@@ -57,22 +64,21 @@ color: black;
 	text-decoration: none;
 	cursor: pointer;
 }
-
-#heart {
+#heart{
 	height: 40px;
 	width: 40px;
 }
 
 .addPlayerBtn, .playBtn {
-	border: none;
-	background-color: transparent;
-	cursor: pointer;
-	color: #8b8b8b;
-	padding: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: #8b8b8b;
+    padding: none;
 }
 
 .addPlayerBtn:hover i, .playBtn:hover i {
-	color: #3c7cdb; 
+    color: #3c7cdb; 
 }
 </style>
 
@@ -148,13 +154,14 @@ color: black;
 			<!-- Product thumb imgs -->
 			<div class="col-md-2 col-md-pull-5">
 				<div id="product-imgs">
-					<a href="/product/dalbum-update" data-toggle="modal"
-						data-target="#photoModal">
+				<c:if test="${principal.role eq 'ADMIN'}">
+					<a href="/product/dalbum-update" data-toggle="modal" data-target="#photoModal">
 						<p>사진변경</p>
-					</a> <a href="/product/dmusic-update" data-toggle="modal"
-						data-target="#musicModal">
+					</a> 
+					<a href="/product/dmusic-update" data-toggle="modal" data-target="#musicModal">
 						<p>음원등록</p>
 					</a>
+				</c:if>
 				</div>
 			</div>
 			<!-- /Product thumb imgs -->
@@ -162,27 +169,24 @@ color: black;
 			<!-- Product details -->
 			<div class="col-md-5">
 				<div class="product-details">
-					<div>
-					<h2 class="product-price">${detail.musictitle}&nbsp;</h2>
-
+					<h2 class="product-price">${detail.musictitle}&nbsp;&nbsp;&nbsp;
+					</h2>
 					<!-- 하트 버튼 추가 -->
 					<i class="bi bi-suit-heart" style="font-size: 25px;" id="heart"></i>
-					<i class="bi bi-suit-heart-fill"
-						style="font-size: 25px; color: red;" id="fillHeart"></i>
-					<!-- 음악 플레이어 추가 -->
-						<button id="addBtn" type="button" class="addPlayerBtn">
-							<i class="bi bi-plus-circle" style="font-size: 20px;"></i>
-						</button>
-						<button id="playBtn" type="button" class="playBtn">
-							<i class="bi bi-play-circle" style="font-size: 20px; margin-left: -10px;"></i>
-						</button>
-						<!-- <button id="musicBtn" type="button"><i class="bi bi-music-note-list" style="font-size: 30px;"></i></button> -->
-					</div>
-					<!-- 음악 플레이어 추가 종료 -->	
-						
+                    <i class="bi bi-suit-heart-fill"
+                        style="font-size: 25px; color: red;" id="fillHeart"></i>
+                    <!-- 음악 플레이어 추가 -->
+                        <button id="addBtn" type="button" class="addPlayerBtn">
+                            <i class="bi bi-plus-circle" style="font-size: 20px;"></i>
+                        </button>
+                        <button id="playBtn" type="button" class="playBtn">
+                            <i class="bi bi-play-circle" style="font-size: 20px; margin-left: -10px;"></i>
+                        </button>
+                        <!-- <button id="musicBtn" type="button"><i class="bi bi-music-note-list" style="font-size: 30px;"></i></button> -->
+                    </div>
+                    <!-- 음악 플레이어 추가 종료 -->
 					<div>
-						<h3 class="product-name">${detail.musiccompany}<del
-								class="product-old-price"></del>
+						<h3 class="product-name">${detail.musiccompany}<del class="product-old-price"></del>
 						</h3>
 					</div>
 					<br>
@@ -195,30 +199,10 @@ color: black;
 					<p>발매일 : ${detail.startdate}</p>
 					<br>
 					<p>샘플듣기</p>
-
 					<audio id="audioPlayer" controls>
-						<source src="${detail.musicsample}" type="audio/wav">
+						<source src=" ${detail.musicsample}" type="audio/wav">
 					</audio>
-
-		
 					<br>
-
-					<%-- 					<p>
-						<c:choose>
-							<c:when test="${udetail.status eq 'Y'}">
-								<button id="downloadButton" type="button"
-									class="btn btn-primary">파일 다운로드</button>
-							</c:when>
-							<c:otherwise>
-								<button id="paymentcheck" type="button" class="btn btn-danger">다운로드불가능</button>
-							</c:otherwise>
-						</c:choose>
-					</p> --%>
-
-
-
-
-
 				</div>
 			</div>
 			<!-- /Product details -->
@@ -402,7 +386,14 @@ color: black;
 	// 모달 창 닫기
 	document.getElementsByClassName("close")[0].addEventListener("click",
 			function() {
-				document.getElementById("myModal").style.display = "none";
+		var modal = document.getElementById("myModal");
+		var videoFrame = document.getElementById("videoFrame");
+		
+		// 모달 창 닫기
+		modal.style.display = "none";
+		
+		// 동영상 정지
+		videoFrame.src = "";
 			});
 
 	// 모달 외부 클릭 시 닫기
@@ -418,7 +409,7 @@ color: black;
 
 
 <script>
-	var musicNo = '${detail.musicno}';
+    var musicNo = '${detail.musicno}';
 	var userId = '${principal.id}';
 </script>
 <script src="/js/product/likeBtn.js"></script>
