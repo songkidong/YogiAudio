@@ -174,12 +174,6 @@
 					<i class="bi bi-suit-heart" style="font-size: 25px;" id="heart"></i>
 					<i class="bi bi-suit-heart-fill"
 						style="font-size: 25px; color: red;" id="fillHeart"></i>
-				</div>
-				<div>
-					<h3 class="product-name">${detail.musictitle}<del
-							class="product-old-price"></del>
-					</h3>
-				</div>
 				<!-- 음악 플레이어 추가 -->
 				<button id="addBtn" type="button" class="addPlayerBtn">
 					<i class="bi bi-plus-circle" style="font-size: 20px;"></i>
@@ -188,8 +182,14 @@
 					<i class="bi bi-play-circle"
 						style="font-size: 20px; margin-left: -10px;"></i>
 				</button>
-				<!-- <button id="musicBtn" type="button"><i class="bi bi-music-note-list" style="font-size: 30px;"></i></button> -->
+				<button id="musicBtn" type="button"><i class="bi bi-music-note-list" style="font-size: 30px;"></i></button>
 				<!-- 음악 플레이어 추가 종료 -->
+				</div>
+				<div>
+					<h3 class="product-name">${detail.musictitle}<del
+							class="product-old-price"></del>
+					</h3>
+				</div>
 				<br>
 				<p>아티스트 : ${detail.musicsinger}</p>
 				<br>
@@ -204,20 +204,6 @@
 					<source src=" ${detail.musicsample}" type="audio/wav">
 				</audio>
 				<br>
-
-				<p>
-					<c:choose>
-						<c:when test="${udetail.status eq 'Y'}">
-							<button id="downloadButton" type="button" class="btn btn-primary">파일
-								다운로드</button>
-						</c:when>
-						<c:otherwise>
-							<button id="paymentcheck" type="button" class="btn btn-danger">다운로드불가능</button>
-						</c:otherwise>
-					</c:choose>
-				</p>
-
-
 			</div>
 		</div>
 		<!-- /Product details -->
@@ -329,33 +315,6 @@
 	</div>
 </div>
 
-
-
-<!-- 가사줄바꿈 JS -->
-<script>
-	function splitTextIntoLines(text, maxLength) {
-		var lines = [];
-		var currentLine = '';
-
-		for (var i = 0; i < text.length; i++) {
-			currentLine += text[i];
-			if ((i + 1) % maxLength === 0 || i === text.length - 1) {
-				lines.push(currentLine);
-				currentLine = '';
-			}
-		}
-
-		return lines.join('<br>');
-	}
-
-	var lyrics = "${detail.lyrics}";
-	var maxLength = 20;
-	var formattedLyrics = splitTextIntoLines(lyrics, maxLength);
-	document.getElementById('lyrics').innerHTML = formattedLyrics;
-</script>
-
-
-
 <!-- 음원재생 JS -->
 <script>
 	function playAudio() {
@@ -363,26 +322,6 @@
 		audio.play();
 	}
 </script>
-
-<!-- 음원다운로드 JS -->
-<script>
-	document.getElementById("downloadButton").addEventListener("click",
-			function(event) {
-				event.preventDefault(); // 기본 동작(버튼 이벤트)을 막음
-
-				var url = "${detail.filemusic}"; // 다운로드할 파일의 URL
-				var filename = "file.wav"; // 다운로드할 파일의 이름
-
-				var anchor = document.createElement("a");
-				anchor.href = url;
-				anchor.download = filename;
-				document.body.appendChild(anchor);
-				anchor.click();
-				document.body.removeChild(anchor);
-			});
-</script>
-
-
 
 <!-- 뮤비열기 JS -->
 <script>
