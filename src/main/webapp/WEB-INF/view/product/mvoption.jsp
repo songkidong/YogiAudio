@@ -20,6 +20,11 @@
   background-color: rgba(0,0,0,0.4);
 }
 
+.shop .shop-body{
+    z-index: 1;
+
+}
+
 
 #mvmodal{
   background-color: #fefefe;
@@ -63,15 +68,15 @@
 			            <h3 class="title" style="margin-right: 20px;">📺뮤직비디오(${param.searchOption})</h3> 
 			            
 			            
-			             <div class="section-nav">
+			         <div class="section-nav">
 						    <ul class="section-tab-nav tab-nav">
-						        <li id="allOption"><a href="/mv/mvoptionlist">전체</a></li>
-						        <li id="balladOption"><a href="/mv/mvoptionlist-option?searchOption=발라드">발라드</a></li>
-						        <li id="trotOption"><a href="/mv/mvoptionlist-option?searchOption=트로트">트로트</a></li>
-						        <li id="hiphopOption"><a href="/mv/mvoptionlist-option?searchOption=힙합">힙합</a></li>
-						        <li id="hiphopOption"><a href="/mv/mvoptionlist-option?searchOption=클래식">클래식</a></li>
+						        <li id="allOption"><a href="/mv/mvlist">전체</a></li>
+						        <li id="balladOption"><a href="/mv/mvlist-option?searchOption=발라드">발라드</a></li>
+						        <li id="trotOption"><a href="/mv/mvlist-option?searchOption=트로트">트로트</a></li>
+						        <li id="hiphopOption"><a href="/mv/mvlist-option?searchOption=힙합">힙합</a></li>
+						        <li id="hiphopOption"><a href="/mv/mvlist-option?searchOption=클래식">클래식</a></li>
 						    </ul>
-						 </div>  
+						</div>  
 			          
 			            
 			         </div>
