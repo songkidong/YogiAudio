@@ -15,6 +15,7 @@
 	width: 120px;
 	height: auto;
 	cursor: pointer;
+	margin-top: 5px;
 }
 </style>
 <link rel="stylesheet"
@@ -25,7 +26,7 @@
 		<div class="ui">
 			<div class="ui-toolbar">
 				<div>
-					<img alt="" src="/logo/logo-removebg-preview.png" id="logo">
+					<img alt="" src="/logo/logo1.png" id="logo">
 				</div>
 			</div>
 

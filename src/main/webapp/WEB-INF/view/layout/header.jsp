@@ -28,6 +28,18 @@
 	crossorigin="anonymous"></script>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+<style>
+/* CSS 스타일링 */
+#musicBtn {
+	width: 100px;
+	font-size: 12px; /* 글자 크기 조절 */
+	border: 1px solid white; /* 테두리를 하얀색으로 설정 */
+	margin-bottom: 9px;	
+	padding: 6px 0;
+	border-radius: 5px; /* 테두리를 둥글게 만듦 */
+	cursor: pointer; /* 커서를 포인터로 변경하여 클릭 가능한 것으로 보이게 함 */
+}
+</style>
 
 <!-- Slick -->
 <link type="text/css" rel="stylesheet" href="/main/css/slick.css" />
@@ -49,7 +61,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-<link rel="icon" type="image/png" href="/favicon/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicon/android-icon-72x72.png"
+	sizes="72x72">
 
 <!-- j쿼리 -->
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
@@ -63,13 +76,11 @@
 		<div id="top-header">
 			<div class="container">
 				<ul class="header-links pull-left">
-					<li>
-						<a href="/purchase/main?id=${principal.id}" onclick="checkSession()">
-						<i class="fa fa-envelope-o"></i>
-						  이용권구매
-						</a>
-				   </li>
-					
+					<li><a href="/purchase/main?id=${principal.id}"
+						onclick="checkSession()"> <i class="fa fa-envelope-o"></i>
+							이용권구매
+					</a></li>
+
 				</ul>
 			</div>
 		</div>
@@ -86,7 +97,7 @@
 						<div class="header-logo">
 							<a href="/product/main" class="logo"> <img
 								src="/logo/logo1.png"
-								style="width: 236px; height: 80px; margin-top: 10px;">
+								style="width: auto; height: 80px; margin-top: 10px;">
 							</a>
 						</div>
 					</div>
@@ -97,18 +108,19 @@
 						<div class="col-md-12">
 							<div class="header-search">
 								<form action="/product/main-search" method="get">
-									<select class="input-select" id="searchOption" name="searchOption" >
+									<select class="input-select" id="searchOption"
+										name="searchOption">
 										<option value="국내">국내</option>
 										<option value="국외">국외</option>
-									</select> 
-									<input class="input" placeholder="여기에 검색" name="searchKeyword">
+									</select> <input class="input" placeholder="여기에 검색" name="searchKeyword">
 									<button class="search-btn">검색</button>
 								</form>
 							</div>
 						</div>
 						<!-- 로그인 -->
 						<div class="col-md-6">
-							<div class="login-container" style="display: flex; align-items: center; margin-top: 10px;">
+							<div class="login-container"
+								style="display: flex; align-items: center; margin-top: 10px;">
 								<c:choose>
 									<c:when test="${empty principal}">
 										<a href="/signIn" style="margin-left: 10px; width: 50px;">
@@ -123,7 +135,8 @@
 											<p>로그아웃</p>
 										</a>
 
-										<a href="/account/${principal.id}" style="margin-left: 15px; width: 70px;">
+										<a href="/account/${principal.id}"
+											style="margin-left: 15px; width: 70px;">
 											<p>마이페이지</p>
 										</a>
 									</c:otherwise>
@@ -135,25 +148,28 @@
 										</a>
 									</c:when>
 								</c:choose>
-								<div class="dropdown" style="margin-left: 90px;">
+								<button id="musicBtn" type="button">뮤직 플레이어</button>
+								<div class="dropdown">
 									<button class="btn btn-warning btn-sm dropdown-toggle"
 										type="button" data-bs-toggle="dropdown" aria-expanded="false">
 										게시판</button>
 									<ul class="dropdown-menu">
 										<c:choose>
-										<c:when test="${empty principal}">
-										<li><a class="dropdown-item"
-											href="/board/notice/noticeList">공지사항</a></li>
-											<li><a class="dropdown-item" href="/board/free/freeList">자유게시판</a></li>
-										</c:when>
-										<c:otherwise>
-										<li><a class="dropdown-item"
-											href="/board/notice/noticeList">공지사항</a></li>
-										<li><a class="dropdown-item" href="/board/qna/qnaList">나의
-												문의하기</a></li>
-										<li><a class="dropdown-item" href="/board/free/freeList">자유게시판</a></li>
-										</c:otherwise>
-										
+											<c:when test="${empty principal}">
+												<li><a class="dropdown-item"
+													href="/board/notice/noticeList">공지사항</a></li>
+												<li><a class="dropdown-item"
+													href="/board/free/freeList">자유게시판</a></li>
+											</c:when>
+											<c:otherwise>
+												<li><a class="dropdown-item"
+													href="/board/notice/noticeList">공지사항</a></li>
+												<li><a class="dropdown-item" href="/board/qna/qnaList">나의
+														문의하기</a></li>
+												<li><a class="dropdown-item"
+													href="/board/free/freeList">자유게시판</a></li>
+											</c:otherwise>
+
 										</c:choose>
 									</ul>
 								</div>
@@ -173,23 +189,24 @@
 	</header>
 	<!-- /HEADER -->
 	
-<script>
-    // 세션에서 principal.id가 있는지 확인하는 함수
-    function checkSession() {
-        // 세션에서 principal.id를 가져옴
-        var principalId = sessionStorage.getItem('principal.id');
-        
-        // principal.id가 없으면 알림 표시 및 리다이렉트
-        if (!principalId) {
-            alert("로그인이 필요합니다!");
-        }
-    }
+	<script src="/js/playlist/playlist.js"></script>
+	<script>
+		// 세션에서 principal.id가 있는지 확인하는 함수
+		function checkSession() {
+			// 세션에서 principal.id를 가져옴
+			var principalId = sessionStorage.getItem('principal.id');
 
-    // 세션에 principal.id 설정
-    var principalId = "${principal.id}";
-    sessionStorage.setItem('principal.id', principalId);
-</script>	
+			// principal.id가 없으면 알림 표시 및 리다이렉트
+			if (!principalId) {
+				alert("로그인이 필요합니다!");
+			}
+		}
 
-	
+		// 세션에 principal.id 설정
+		var principalId = "${principal.id}";
+		sessionStorage.setItem('principal.id', principalId);
+	</script>
+
+
 </body>
 </html>

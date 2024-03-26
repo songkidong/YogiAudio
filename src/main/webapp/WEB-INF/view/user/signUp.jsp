@@ -21,7 +21,7 @@
 		class="custom-form">
 		<div class="input__block first-input__block">
 			<input type="email" placeholder="Email" class="input email"
-				id="email" />
+				id="email" name="email"/>
 			<button type="button" id="sendVerificationButton">인증번호전송</button>
 		</div>
 		<div class="input__block" id="verificationForm">

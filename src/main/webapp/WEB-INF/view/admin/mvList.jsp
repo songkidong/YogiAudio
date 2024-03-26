@@ -56,7 +56,7 @@
 		<h1 style="display: flex; justify-content: center;"> 노래가 존재하지 않습니다</h1>
 	</c:if>
 	
-	<div class="row g-4">
+	<div class="row g-4" style="padding: 0px 450px;">
 	<h2 style="margin-left: 100px">뮤비 리스트</h2>
 	<!-- 반복문 -->
 	
@@ -81,43 +81,13 @@
 	<!-- 반복문 끝--> 
 	</div>
 	
-    <!-- 반복문 시작 -->
-    <%-- <div class="row g-4">
-                                   <c:forEach var="music" items= "${musicvideoList}">
-                                   <!-- 한줄에 4개씩 차지해서 col-xl-3을 수정 -->
-                       			   <div class="col-md-6 col-lg-4 col-xl-3">
-                                           <div class="rounded position-relative fruite-item">
-                                               <div class="fruite-img">
-                                               		<!-- 첨부 파일에 따라 이미지 크기가 달라져서 height 값 고정함 -->
-                                               		<!-- img src는 WebMvcConfig 활용하기 -->
-                                                   <img src="${music.filePath }" class="img-fluid w-100 rounded-top" style="height: 380px;" alt="">
-                                               </div>
-                                               <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                               	   <!-- clubName 길이에 따라 카드 크기 달라져서 height 고정값 줌 --> 	
-                                                   <h4 style="height: 50px;">제목 ${music.musicTitle}</h4>
-                                                   <h6>가수</h6>
-                                                   <!-- descript 길이에 따라 카드 크기 달라져서 height 고정값 줌 -->
-                                                   <p style="height: 60px;">가수 ${music.musicSinger}</p>
-                                                   <p style="height: 60px;">발매일 ${music.startdate}</p>
-                                                   <p style="height: 60px;">등록일 ${music.formatRegDate()}</p>
-                                                   <div class="d-flex justify-content-between flex-lg-wrap">
-					                                    <a class="btn border" href="">수정</a>
-					                                    <a class="btn border" href="">삭제</a>
-					                                    
-                                                   </div>
-                                               </div>
-                                           </div>
-                           		   </div>
-                                   </c:forEach>
-                                   
-    </div> --%>
-	<!-- 반복문 끝 -->
+    
 
 	
 	
               
 	<!-- flex 속성으로 가운데정렬하기 -->
-	<ul class="pagination" style="display: flex; justify-content: center; padding-right: 10%;">
+	<ul class="pagination" style="display: flex; justify-content: center; padding-left: 180px;">
 	
 	<!-- pageVO.prev가 참(시작페이지가 1이 아닐 때)이면 이전버튼 li태그 생성 -->
 	<c:if test="${pageVO.prev }">
