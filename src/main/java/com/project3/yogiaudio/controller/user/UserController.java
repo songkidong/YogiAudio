@@ -1,5 +1,6 @@
 package com.project3.yogiaudio.controller.user;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
@@ -37,10 +39,12 @@ import com.project3.yogiaudio.dto.user.OAuthToken;
 import com.project3.yogiaudio.dto.user.UpdateUserDTO;
 import com.project3.yogiaudio.dto.user.UserDTO;
 import com.project3.yogiaudio.filedb.service.FiledbService;
+import com.project3.yogiaudio.handler.exception.UserRestfulException;
 import com.project3.yogiaudio.repository.entity.History;
 import com.project3.yogiaudio.repository.entity.User;
 import com.project3.yogiaudio.repository.entity.playlist.Playlist;
 import com.project3.yogiaudio.repository.entity.product.LikeMusic;
+import com.project3.yogiaudio.service.MailService;
 import com.project3.yogiaudio.service.UserService;
 import com.project3.yogiaudio.service.playlist.PlaylistService;
 import com.project3.yogiaudio.util.Define;
@@ -49,7 +53,6 @@ import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@Slf4j
 public class UserController {
 
 	@Autowired
@@ -66,6 +69,12 @@ public class UserController {
 
 	@Autowired
 	private RestTemplate restTemplate;
+
+	@Autowired
+	private MailService mailService;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	/**
 	 * @Method Name : signUpPage
@@ -124,11 +133,16 @@ public class UserController {
 	 * @Method 설명 : 로그인 기능
 	 */
 	@PostMapping("/signIn")
-	public String signIn(UserDTO dto) {
-		User userEntity = userService.signIn(dto);
-		httpsession.setAttribute(Define.PRINCIPAL, userEntity);
+	public ResponseEntity<String> signIn(UserDTO dto) {
 
-		return "redirect:/product/main";
+		try {
+			User userEntity = userService.signIn(dto);
+			httpsession.setAttribute(Define.PRINCIPAL, userEntity);
+
+			return ResponseEntity.ok().build();
+		} catch (UserRestfulException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
 	}
 
 	/**
@@ -181,24 +195,31 @@ public class UserController {
 		return "/user/payment";
 	}
 
+	/**
+	 * @Method Name : handleRefundRequest
+	 * @작성일 : 2024. 3. 25.
+	 * @작성자 : 송기동
+	 * @변경이력 :
+	 * @Method 설명 : 환불 요청
+	 */
 	@PostMapping("/refund")
 	@ResponseBody
 	public ResponseEntity<String> handleRefundRequest(@RequestBody Map<String, Integer> requestData) {
-	    int hno = requestData.get("hno");
-	    int id = requestData.get("id");
+		int hno = requestData.get("hno");
+		int id = requestData.get("id");
 
-	    try {
-	        // 환불 요청을 처리하는 비즈니스 로직을 작성합니다.
-	        userService.refund(hno, id);
+		try {
+			// 환불 요청을 처리하는 비즈니스 로직을 작성합니다.
+			userService.refund(hno, id);
 
-	        // 성공적으로 처리되었을 때의 응답을 반환합니다.
-	        return ResponseEntity.ok("success");
-	    } catch (Exception e) {
-	        // 처리 중 예외가 발생하였을 때의 응답을 반환합니다.
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("환불 요청 처리 중 오류가 발생하였습니다.");
-	    }
+			// 성공적으로 처리되었을 때의 응답을 반환합니다.
+			return ResponseEntity.ok("success");
+		} catch (Exception e) {
+			// 처리 중 예외가 발생하였을 때의 응답을 반환합니다.
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("환불 요청 처리 중 오류가 발생하였습니다.");
+		}
 	}
-	
+
 	/**
 	 * @Method Name : myPlaylistPage
 	 * @작성일 : 2024. 3. 24.
@@ -269,14 +290,14 @@ public class UserController {
 				userRequestEntity, NaverProfile.class);
 		NaverProfile naverProfile = userResponseEntity.getBody();
 
-		User existingUser = userService.findUserByEmail(naverProfile.getResponse().getEmail());
+		User existingUser = userService.findByEmail(naverProfile.getResponse().getEmail());
 
 		if (existingUser != null) {
 			// 사용자가 이미 존재하면 바로 로그인
 			httpsession.setAttribute(Define.PRINCIPAL, existingUser);
 		} else {
 			UserDTO userDTO = UserDTO.builder().name(naverProfile.getResponse().getName())
-					.nickname("네이버유저" + naverProfile.getResponse().getNickname())
+					.nickname("네이버" + naverProfile.getResponse().getNickname())
 					.email(naverProfile.getResponse().getEmail()).password("naverpassword").build();
 
 			User naverUser = userService.createUser(userDTO);
@@ -321,7 +342,7 @@ public class UserController {
 				userRequestEntity, KakaoProfile.class);
 		KakaoProfile kakaoProfile = userResponseEntity.getBody();
 
-		User existingUser = userService.findUserByEmail(kakaoProfile.getKakaoAccount().getEmail());
+		User existingUser = userService.findByEmail(kakaoProfile.getKakaoAccount().getEmail());
 		if (existingUser != null) {
 			// 사용자가 이미 존재하면 바로 로그인
 			httpsession.setAttribute(Define.PRINCIPAL, existingUser);
@@ -381,13 +402,13 @@ public class UserController {
 		GoogleProfile googleProfile = responseEntity2.getBody();
 
 		// 사용자가 이미 존재하는지 확인
-		User existingUser = userService.findUserByEmail(googleProfile.getEmail());
+		User existingUser = userService.findByEmail(googleProfile.getEmail());
 		if (existingUser != null) {
 			// 사용자가 이미 존재하면 바로 로그인
 			httpsession.setAttribute(Define.PRINCIPAL, existingUser);
 		} else {
 			// 사용자가 존재하지 않으면 새로 생성
-			UserDTO dto = UserDTO.builder().name(googleProfile.getName()).nickname(googleProfile.getGiven_name())
+			UserDTO dto = UserDTO.builder().name(googleProfile.getName()).nickname("구글" + googleProfile.getGiven_name())
 					.email(googleProfile.getEmail()).password("googlepassword").build();
 
 			User googleUser = userService.createUser(dto);
@@ -409,31 +430,42 @@ public class UserController {
 
 		String filePath;
 
-		User userUpload = userService.findById(id);
+		User userOld = userService.findById(id);
 
-		String originPath = userUpload.getFilePath();
-		String[] parts = originPath.split("/");
-		String uuid = parts[parts.length - 1];
-		filedbService.deleteByUuid(uuid);
-
-		if (dto.getProfileFile() == null || dto.getProfileFile().isEmpty()) {
-			// 기존 이미지의 경로를 가져와서 사용
-			filePath = userUpload.getFilePath();
-		} else {
-			// dto의 프로필 파일이 null이 아닌 경우 새로운 파일 업로드
+		if (userOld.getFilePath() == null || userOld.getFilePath().isEmpty()) {
 			filePath = filedbService.saveFiles(dto.getProfileFile());
+
+		} else {
+			filePath = userOld.getFilePath();
 		}
 
+		// 비밀번호가 변경되지 않은 경우 이전 비밀번호 사용
+		String encodedPassword;
+		if (passwordEncoder.matches(dto.getPassword(), userOld.getPassword())) {
+			encodedPassword = userOld.getPassword();
+		} else {
+			encodedPassword = passwordEncoder.encode(dto.getPassword());
+		}
+
+		// 유저정보 업데이트
 		User user = new User();
 		user.setId(id);
 		user.setName(dto.getName());
 		user.setNickname(dto.getNickname());
-		user.setPassword(dto.getPassword());
+		user.setPassword(encodedPassword);
 		user.setFilePath(filePath);
 
 		userService.updateUser(user);
-		User userSession = userService.findById(id);
-		httpsession.setAttribute(Define.PRINCIPAL, userSession);
+		
+		User userNew = userService.findById(id);
+
+		// 기존 이미지 삭제
+		String originPath = userNew.getFilePath();
+		String[] parts = originPath.split("/");
+		String uuid = parts[parts.length - 1];
+		filedbService.deleteByUuid(uuid);
+
+		httpsession.setAttribute(Define.PRINCIPAL, userNew);
 
 		return "redirect:/product/main";
 	}
@@ -455,15 +487,74 @@ public class UserController {
 		return "redirect:/product/main";
 	}
 
-	@GetMapping("/duplication/{email}")
-	public ResponseEntity<?> duplicationEmail(@PathVariable("email") String email) {
-		User result = userService.findUserByEmail(email);
-
-		if (result != null) {
-			return ResponseEntity.ok().body("이메일 중복");
-
-		}
-		return ResponseEntity.ok().body("이메일 사용가능");
+	/**
+	 * @Method Name : forgotpasswordPage
+	 * @작성일 : 2024. 3. 26.
+	 * @작성자 : 송기동
+	 * @변경이력 :
+	 * @Method 설명 : 비밀번호 찾기 페이지
+	 */
+	@GetMapping("/forgotpassword")
+	public String forgotpasswordPage() {
+		return "user/forgotpassword";
 	}
 
+	/**
+	 * @Method Name : forgotpassword
+	 * @작성일 : 2024. 3. 26.
+	 * @작성자 : 송기동
+	 * @변경이력 :
+	 * @Method 설명 : 임시비밀번호 이메일 전송, 비밀번호 수정
+	 */
+	@PostMapping("/forgotpassword")
+	public String forgotpassword(@RequestParam("email") String email, @RequestParam("name") String name) {
+		User userEntity = userService.findByEmail(email);
+		if (userEntity != null && userEntity.getName().equals(name)) {
+			String newPassword = mailService.passwordSend(email);
+			User user = new User();
+			user.setId(userEntity.getId());
+			user.setName(name);
+			user.setNickname(userEntity.getNickname());
+			user.setPassword(passwordEncoder.encode(newPassword));
+
+			userService.updateUser(user);
+		} else {
+			return "error";
+		}
+		return "redirect:/product/main";
+	}
+
+	/**
+	 * @Method Name : forgotemailPage
+	 * @작성일 : 2024. 3. 26.
+	 * @작성자 : 송기동
+	 * @변경이력 :
+	 * @Method 설명 : 이메일 찾기 페이지
+	 */
+	@GetMapping("/forgotemail")
+	public String forgotemailPage() {
+		return "user/forgotemail";
+	}
+
+	/**
+	 * @Method Name : forgotemail
+	 * @작성일 : 2024. 3. 26.
+	 * @작성자 : 송기동
+	 * @변경이력 :
+	 * @Method 설명 : 이름으로 이메일 조회
+	 */
+	@PostMapping("/forgotemail")
+	public ResponseEntity<List<String>> forgotemail(@RequestParam("name") String name) {
+		List<User> users = userService.findByName(name);
+		List<String> emails = new ArrayList<>();
+		for (User user : users) {
+			emails.add(user.getEmail());
+		}
+
+		if (!emails.isEmpty()) {
+			return ResponseEntity.ok(emails); // 이메일 목록이 있는 경우 200 OK 응답 반환
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // 이메일 목록이 없는 경우 404 Not Found 응답 반환
+		}
+	}
 }

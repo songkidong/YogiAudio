@@ -19,6 +19,10 @@
   background-color: rgba(0,0,0,0.4);
 }
 
+.shop .shop-body{
+    z-index: 1;
+
+}
 
 #mvmodal{
   background-color: #fefefe;
@@ -128,14 +132,47 @@
 					<!-- shop -->
 					<div class="col-md-4 col-xs-6">
 						<div class="shop">
-							  <a href="javascript:void(0)"  onclick="openModal('${mvlist.mvfile}/')" class="cta-btn">
-								<div class="shop-img">
-									<img src="/main/img/IU1.jpg" style="width:360px; height: 240px;">
-								</div>
-							   </a>	
+							 <c:choose>
+							    <c:when test="${principal.role eq 'ADMIN'}">
+							        <a href="/mv/mv-update" data-toggle="modal" data-target="#mvModal" class="cta-btn">
+							            <div class="shop-img">
+							                <c:choose>
+							                    <c:when test="${not empty mvlist.filepath}">
+							                        <img src="${mvlist.filepath}" style="width:360px; height: 240px;">
+							                    </c:when>
+							                    <c:otherwise>
+							                        <img src="/album/default.png" style="width:360px; height: 240px;">
+							                    </c:otherwise>
+							                </c:choose>
+							            </div>
+							        </a>
+							    </c:when>
+							    <c:otherwise>
+							        <a href="javascript:void(0)" onclick="openModal('${mvlist.mvfile}/')" class="cta-btn">
+							            <div class="shop-img">
+							                <c:choose>
+							                    <c:when test="${not empty mvlist.filepath}">
+							                        <img src="${mvlist.filepath}" style="width:360px; height: 240px;">
+							                    </c:when>
+							                    <c:otherwise>
+							                        <img src="/album/default.png" style="width:360px; height: 240px;">
+							                    </c:otherwise>
+							                </c:choose>
+							            </div>
+							        </a>
+							    </c:otherwise>
+							</c:choose>
 							<div class="shop-body" id="mvInfo">
-								<h3>${mvlist.videosinger}<br>${mvlist.videotitle}</h3>
+							<c:choose>
+							 <c:when test="${principal.role eq 'ADMIN'}">
+								<h3>${mvlist.videosinger}<br>${mvlist.videotitle}(${mvlist.videono})</h3>
 								<a href="javascript:void(0)"  onclick="openModal('${mvlist.mvfile}/')" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
+							 </c:when>
+							 <c:otherwise>
+							 	<h3>${mvlist.videosinger}<br>${mvlist.videotitle}</h3>
+								<a href="javascript:void(0)"  onclick="openModal('${mvlist.mvfile}/')" class="cta-btn">MV보기<i class="fa fa-arrow-circle-right"></i></a>
+							 </c:otherwise>
+						   </c:choose>
 							</div>
 						</div>
 					</div>
@@ -206,7 +243,16 @@
 	    <iframe id="videoFrame" width="800" height="400" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	  </div>
 	</div>
-
+	
+	
+	<!-- Modal 뮤비업뎃 -->
+	<div class="modal fade" id="mvModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content"></div>
+		</div>
+	</div>
+	
 		
 	<!-- 뮤비열기 JS -->
 	<script>
@@ -224,7 +270,14 @@
 		
 		// 모달 창 닫기
 		document.getElementsByClassName("close")[0].addEventListener("click", function() {
-		  document.getElementById("myModal").style.display = "none";
+			var modal = document.getElementById("myModal");
+			var videoFrame = document.getElementById("videoFrame");
+			
+			// 모달 창 닫기
+			modal.style.display = "none";
+			
+			// 동영상 정지
+			videoFrame.src = "";
 		});
 		
 		// 모달 외부 클릭 시 닫기

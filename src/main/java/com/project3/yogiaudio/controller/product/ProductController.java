@@ -79,6 +79,10 @@ public class ProductController {
 		// 인기순 Top10
 		List<MusicDTO> dlikelist = likeMusicService.readMusicListOrderByLikeCount("국내", 10);
 		model.addAttribute("dlikelist",dlikelist);
+
+		// 전체 순위 Top10
+		List<MusicDTO> alllikelist = likeMusicService.readMusicListOrderByLikeCount(null, 10);
+		model.addAttribute("alllikelist",alllikelist);
 		
 		
 		
@@ -102,6 +106,9 @@ public class ProductController {
 		if (searchKeyword != null && !searchKeyword.isEmpty()) {
 			cri.setSearchKeyword(searchKeyword);
 		}
+			
+		
+		
 		
 		PageVO pageVO = new PageVO();
 		pageVO.setCri(cri);
@@ -396,6 +403,14 @@ public class ProductController {
 	}
 	
 	
+	//국외앨범자켓바꾸기GET
+	@GetMapping("/aalbum-update")
+	public String albumUpdateGET2() {
+		log.debug("앨범수정페이지modal 실행2");
+		return "product/aalbumupdate";
+	}
+	
+	
 	//국내앨범자켓바꾸기 POST
 	@PostMapping("/dalbum-update")
 	public String albumUpdatePOST(MusicDTO dto) {
@@ -409,8 +424,20 @@ public class ProductController {
 	}
 	
 	
+	  //국외앨범자켓바꾸기 POST
+	  @PostMapping("/aalbum-update")
+	  public String albumUpdatePOST2(MusicDTO dto) {
+			
+		String filePath = filedbService.saveFiles(dto.getFiles());
+			
+		log.debug("앨범수정완료!");
+		//서비스
+		musicService.albumUpdate(dto, filePath);
+		return "redirect:/product/aboard-music";
+	 }
 	
-	//음원등록하기 GET
+	
+	//국내  음원등록하기 GET
 	@GetMapping("/dmusic-update")
 	public String musicUpdateGET() {
 		log.debug("음원등록페이지modal 실행");
@@ -418,16 +445,44 @@ public class ProductController {
 	}
 	
 	
-	//음원등록하기 POST
+	//국외  음원등록하기 GET
+	@GetMapping("/amusic-update")
+	public String musicUpdateGET2() {
+		log.debug("음원등록페이지modal 실행");
+		return "product/amusicupdate";
+	}
+		
+	
+
+	//국내 음원등록하기 POST
 	@PostMapping("/dmusic-update")
 	public String musicUpdatePOST(MusicDTO dto) {
 		
 		String fileMusic = filedbService.saveFiles(dto.getFiles());
-		musicService.musicUpdate(dto, fileMusic);
+		String musicSample = filedbService.saveFiles(dto.getFiles());
+		
+		//서비스
+		musicService.musicUpdate(dto, fileMusic, musicSample);
 		
 		return "redirect:/product/domestic-music";
 		
 	}
+	
+	 //국외 음원등록하기 POST
+	@PostMapping("/amusic-update")
+	public String musicUpdatePOST2(MusicDTO dto) {
+			
+		String fileMusic = filedbService.saveFiles(dto.getFiles());
+		String musicSample = filedbService.saveFiles(dto.getFiles());
+			
+		//서비스
+		musicService.musicUpdate(dto, fileMusic, musicSample);
+		
+		return "redirect:/product/aboard-music";
+			
+	}
+
+	
 	
 	//좋아요 get
 	@GetMapping("/likeit")

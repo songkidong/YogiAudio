@@ -77,6 +77,8 @@ public class NoticeController {
 		PageRes<BoardNotice> pageRes = noticeService.findAllByKeywordwithPasing(pageReq); // 페이징 처리함
 		List<BoardNotice> noticeList = pageRes.getContent(); // 내용을 보여줄거다
 
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+		
 		// 페이징 정보를 모델에 추가
 		model.addAttribute("noticeList", noticeList); // 프로젝트 마다 다른 코드
 		System.out.println("리스트 나와라!!!!!!!!!!!" + noticeList.toString());
@@ -87,6 +89,7 @@ public class NoticeController {
 		model.addAttribute("startPage", pageRes.getStartPage());
 		model.addAttribute("endPage", pageRes.getEndPage());
 
+		
 		return "board/notice/noticeList";
 	}
 

@@ -5,12 +5,6 @@
 
 <%@ include file="/WEB-INF/view/admin/layout/header.jsp" %>
 
-<style>
-.btn-primary {
-	margin-left: 50px;
-}
-
-</style>
 
 <!-- cs파트 css 가져오기 -->
 <link href="/css/admin/view.css" rel="stylesheet">
@@ -30,12 +24,12 @@
 
 		<div class="button-container d-flex justify-content-end">
 			<!-- onclick="history.back()" 하면 답변 등록됐을 때 view 페이지는  답변 여부가 업데이트가 되는데, list 페이지는 반영 안됨 -->
-			<a href="/admin/noticeList" class="btn btn-info rounded-pill shadow-sm" style="color: white;">목록</a>
-			<button class="btn btn-danger rounded-pill shadow-sm" id="" data-id="${notice.id }">수정</button>
+			<a onclick="history.back()" class="btn btn-info rounded-pill shadow-sm" style="color: white;">취소</a>
 		</div>
 
 		<div>
-			<form id="form" class="card">
+			<!-- enctype="multipart/form-data" 빠트리지 않기 -->
+			<form id="form" class="card" enctype="multipart/form-data">
 				<div class="card-header d-flex justify-content-between">
 					<label for="id">번호 : ${notice.id}</label> 
 					<label for="createdDate" style="float: right;">${notice.formatCreatedAt()}</label>
@@ -55,10 +49,13 @@
                     <!-- 링크 클릭하면 바로 다운로드됨 -->
                     <!-- http://localhost/filedb/get-file/f8b843fecaf34737a8aae2e2e3d935da  -->
                     <!-- 파일 원본이름으로 출력하는 방법은?? -->
-                    <div id="filePaths" data-filePaths="${notice.filePath }"></div>
-                    
-                    <br>
-                    <div><a>테스트</a><button></button></div>
+                   	<!-- 반복문 -->
+                    <c:forEach var="boardFileDTO" items="${BoardFileDTOList }">
+                    	<li>
+                    		<a class="hrefButton" href="${boardFileDTO.filePath }" style="font-size: 20px;">${boardFileDTO.originFileName }</a>
+                    		<a class="deleteFileButton"><i class="fas fa-times" style="margin-left: 10px; font-size: 20px;"></i></a>
+                    	</li>
+                    </c:forEach>
 				</div>
 				
 				<br>
@@ -69,7 +66,7 @@
 	                 <input name="files" class="form-control" type="file" id="formFileMultiple" multiple="">
 	                 
 	                 <br>
-	                 <button id="updateButton" data-id="${notice.id }" class="btn btn-primary">수정</button>
+	                 <button id="updateButton" data-id="${notice.id }" class="btn btn-primary" style="width: 95%; margin-left: 40px;">수정</button>
           		</div>
 	               
 	            
@@ -112,9 +109,6 @@
 				
 			});
 </script>
-
-
-
 
 <script src="/js/admin/updatenotice.js"></script>
 <%@ include file="/WEB-INF/view/admin/layout/footer.jsp" %>            

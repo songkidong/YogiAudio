@@ -11,9 +11,21 @@ function setEmailVerification(status) {
     isEmailVerified = status;
 }
 
+// 이메일 유효성 검사 함수
+function isValidEmail(email) {
+ var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email); // 정규식을 사용하여 이메일 유효성을 확인하고 결과 반환
+}
+
 // 이메일 인증번호 전송 버튼 클릭 시
 $("#sendVerificationButton").click(function() {
     var email = $("#email").val();
+
+    // 이메일 유효성 검사
+    if (!isValidEmail(email)) {
+        alert("유효한 이메일 주소를 입력하세요.");
+        return; // 이메일이 유효하지 않으면 함수 종료
+    }
 
     // Ajax 요청
     $.ajax({
@@ -22,13 +34,15 @@ $("#sendVerificationButton").click(function() {
         success: function(response) {
             console.log(response);
             alert("이메일이 전송되었습니다.");
-            // 이메일 전송 성공 시 이메일 인증 성공 변수를 true로 변경
             setEmailVerification(true);
         },
         error: function(xhr, status, error) {
-            alert("이메일 전송에 실패하였습니다.");
-            // 이메일 전송 실패 시 이메일 인증 성공 변수를 false로 유지
-            setEmailVerification(false);
+            if (xhr.status === 400) {
+            var errorMessage = xhr.responseText; // 서버에서 받은 오류 메시지
+            alert(errorMessage); // 오류 메시지를 알림창으로 표시
+        setEmailVerification(false);
+        }
+            
         }
     });
 });
@@ -63,26 +77,6 @@ $("#verifyButton").click(function() {
     });
 });
 
-// 중복검사 버튼 클릭 이벤트
-$("#emailDuplicateCheckButton").click(function() {
-    var email = $("#email").val();
-    
-    $.ajax({
-        type: "GET",
-        url: "duplication/" + email,
-        success: function(response) {
-            if (response === "이메일 중복") {
-                alert("중복된 이메일입니다.");
-            setEmailVerification(false);   
-            } else {
-                alert("사용 가능한 이메일입니다.");
-
-             setEmailVerification(true);
-
-            }
-        }
-    });
-});
 
 // 폼 전송 이벤트 핸들러
 $("#signupForm").submit(function(event) {
@@ -137,4 +131,20 @@ $("#signupForm").submit(function(event) {
     if (!isValid) {
         event.preventDefault();
     }
+});
+
+/* reset 버튼 */
+$(document).ready(function() {
+    // Reset 버튼 클릭 이벤트 처리
+    $('#reset').click(function(e) {
+        e.preventDefault(); // 버튼 클릭 시 기본 동작 방지
+
+        // 폼 안의 내용들을 모두 초기화
+        $('#email').val('');
+        $('#verificationCode').val('');
+        $('#password').val('');
+        $('#checkpassword').val('');
+        $('#name').val('');
+        $('#nickname').val('');
+    });
 });

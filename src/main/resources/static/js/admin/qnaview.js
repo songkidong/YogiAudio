@@ -16,7 +16,7 @@ window.onload = function() {
 		const boardQnaId = replyBtn.getAttribute('data-id');
 		const replyForm = document.getElementById('replyForm');
 		
-		alert('boardQnaId : ' + boardQnaId);
+		//alert('boardQnaId : ' + boardQnaId);
 		
 		if(replyTxt.value != "") {
 			Swal.fire({
@@ -32,7 +32,8 @@ window.onload = function() {
 					console.log('formData : ' + formData);
 					
 					$.ajax({
-						url : '/admin/reply/' + boardQnaId, // pathVariable 방식으로 보내기
+						// reply의 id 값을 전송하는 것이 아니므로 파라미터로 보내는 것이 형식상 더 정석임
+						url : '/admin/reply?boardQnaId=' + boardQnaId, 
 						type : 'post',
 						data : formData,
 						processData: false,  // 필수
@@ -77,7 +78,7 @@ window.onload = function() {
 				const id = deleteReplyBtns[i].getAttribute('data-id');
 				const boardQnaId = deleteReplyBtns[i].getAttribute('data-boardQnaId');
 				
-				alert('id, boardQnaId : ' + id +','+ boardQnaId);
+				//alert('id, boardQnaId : ' + id +','+ boardQnaId);
 				
 				Swal.fire({
 					title : '삭제하시겠습니까?',
@@ -119,7 +120,7 @@ window.onload = function() {
 		
 		deleteBtn.addEventListener('click', function() {
 			const id = deleteBtn.getAttribute('data-id');
-			alert('id : ' + id);
+			//alert('id : ' + id);
 			
 			Swal.fire({
 				title : '삭제하시겠습니까?',
@@ -155,7 +156,117 @@ window.onload = function() {
 			})
 		})
 		
-		// 파일명 표시하기
+		// 수정 버튼 클릭
+		const updateReplyBtns = document.getElementsByClassName('updateReply');
+		
+		for(let i=0 ; i<updateReplyBtns.length ; i++ ) {
+			
+			updateReplyBtns[i].addEventListener('click', function() {
+				//alert('클릭');
+			
+			// this는 작동안함	
+			$(this).hide(); // 수정 버튼 숨기기
+			// siblings 는 형제 태그 선택
+            $(this).siblings(".deleteReply").hide(); // 삭제 버튼 숨기기
+            $(this).siblings(".completeUpdate").show(); // 수정완료 버튼 보이기
+            $(this).siblings(".cancelUpdate").show(); // 수정완료 버튼 보이기
+            // .content는 다른 형제이므로 closest 이용. closest는 부모 태그 선택
+            //readonly 속성 제거
+            const input = $(this).closest(".commentCard").find(".content");
+            input.removeAttr("readonly");
+            input.focus();
+			}) 
+		}
+		
+		// 취소 버튼 클릭
+		const cancelUpdateBtns = document.getElementsByClassName('cancelUpdate');
+		
+		for(let i=0 ; i<cancelUpdateBtns.length ; i++ ) {
+			
+			cancelUpdateBtns[i].addEventListener('click', function() {
+				//alert('클릭');
+			
+			// this는 작동안함	
+			$(this).hide(); // 취소 버튼 숨기기
+			// siblings 는 형제 태그 선택
+			$(this).siblings(".completeUpdate").hide(); // 수정완료 버튼 숨기기
+            $(this).siblings(".updateReply").show(); // 수정 버튼 보이기
+            $(this).siblings(".deleteReply").show(); // 삭제 버튼 보이기
+            
+            // .content는 다른 형제이므로 closest 이용. closest는 부모 태그 선택
+            //readonly 속성 추가("readonly" 하나만 적으면 적용 X)
+            $(this).closest(".commentCard").find(".content").attr("readonly", "readonly");
+			}) 
+		}
+		
+		// 답변 수정완료
+		const completeUpdateBtns = document.getElementsByClassName('completeUpdate'); 
+		
+		for(let i=0 ; i<completeUpdateBtns.length ; i++) {
+			
+			completeUpdateBtns[i].addEventListener('click', function() {
+				
+				const id = completeUpdateBtns[i].getAttribute('data-id');
+				const input = $(this).closest(".commentCard").find(".content");
+				// 수정한 내용 ajax 로 보내기 위함
+				// $(this) jquery 활용했으므로 input은 jquery 객체 => value도 jquery 문법 활용
+				const content = input.val();
+				
+				// 유효성 검사
+				if(content == "") {
+					Swal.fire('내용을 입력하세요');
+					content.focus();
+				}
+				
+				//alert('id : ' + id);	
+				console.log('content : ' + content);
+				
+				
+				Swal.fire({
+				title : '수정하시겠습니까?',
+				icon : 'question',
+				showCancelButton : true,
+				confirmButtonText : '확인',
+				cancelButtonText : '취소'
+				}).then((result) => {
+					if(result.isConfirmed) {
+						$.ajax({
+							url : '/admin/reply/' + id,
+							type : 'post',
+							data : {content : content}, 
+							
+							success : function(data) {
+								if(data == true) {
+									Swal.fire(
+										'수정 완료입니다'
+									).then((result) => {
+										if(result.isConfirmed) {
+											location.reload();
+										}
+									})
+				       				}else {
+									alert('실패');
+								}
+							}, 
+							error : function() {
+								alert('에러');
+							}
+						})
+					}
+				})
+				
+			})
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		/*// 파일명 표시하기
 	    const filePathsContainer = document.getElementById('filePaths');
 	
 		const filePathTxt = filePathsContainer.getAttribute('data-filePaths');
@@ -201,6 +312,6 @@ window.onload = function() {
 					}
 				})
 			}
-		} // end of if
+		} // end of if*/
 		
 }

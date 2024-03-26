@@ -13,7 +13,7 @@
                     document.write(new Date().getFullYear());
                   </script>
                   , made by
-                  <a href="/" target="_blank" class="footer-link fw-bolder">YogiAudio</a> <!-- 홈페이지 링크 -->
+                  <a href="/product/main" target="_blank" class="footer-link fw-bolder">YogiAudio</a> <!-- 홈페이지 링크 -->
                 </div>
                 
             </footer>

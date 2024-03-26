@@ -9,6 +9,12 @@
 <!-- cs파트 css 가져오기 -->
 <link href="/css/admin/view.css" rel="stylesheet">
 
+<style>
+	#replyButton:hover {
+		background-color: skyblue;
+		color: white;
+	}
+</style>
 
 
 <%-- <%NoticeSaveFormDTO dto = new NoticeSaveFormDTO()%> --%>
@@ -45,13 +51,17 @@
 					<!-- style="white-space: pre-wrap;" db에 입력된대로 줄바꿈 -->
 					<!-- data-content = "${qna.content}" 로 지정해서, 자바스크립트로 innerHTML 했는데 안됨 -->
 					<!-- textarea 라서 안된 것!!! textarea는 텍스트만 출력!!! -->
-					<div style="white-space: pre-wrap; min-height: 500px;" class="form-control">${qna.content}</div>
+					<div style="white-space: pre-wrap; min-height: 300px;" class="form-control">${qna.content}</div>
 					<br /> 
 					<label for="file">첨부파일</label> 
                     <!-- 링크 클릭하면 바로 다운로드됨 -->
                     <!-- http://localhost/filedb/get-file/f8b843fecaf34737a8aae2e2e3d935da  -->
-                    <!-- 파일 원본이름으로 출력하는 방법은?? -->
-                    <div id="filePaths" data-filePaths="${qna.filePath }"></div>
+                    <!-- 반복문 -->
+                    <c:forEach var="boardFileDTO" items="${BoardFileDTOList }">
+                    	<li>
+                    		<a class="hrefButton" href="${boardFileDTO.filePath }" style="font-size: 20px;">${boardFileDTO.originFileName }</a>
+                    	</li>
+                    </c:forEach>
 				</div>
 			</form>
 		</div>
@@ -65,11 +75,14 @@
 				<div class="info">
 					<span class="nick">${reply.writerName }</span> <span class="date">${reply.formatCreatedAt() }</span>
 				</div>
-				<p class="content" >${reply.content }</p>
+				<input class="content" value="${reply.content }" readonly 
+				style="background-color: #f9f9f9; border-style: none; width: 50%;"/>
 				<div class="actions">
 
+						<a href="#" class="updateReply">수정</a>
 						<a href="#" class="deleteReply" data-id="${reply.id}" data-boardQnaId="${qna.id }">삭제</a>
-
+						<a href="#" class="completeUpdate" data-id="${reply.id}" data-boardQnaId="${qna.id}" style="display:none;">수정완료</a>
+						<a href="#" class="cancelUpdate" style="display:none;">취소</a>
 					</div>
 			</div>
 			</c:forEach>
@@ -88,7 +101,7 @@
 					<!-- href 속성 빼니까 클릭할 때 스크롤이 위로 안 올라감 -->
 					<a id="cancelButton" class="btn btnCancel">취소</a>
 					<!-- input에 type button 하기 -->
-					<input data-id="${qna.id }" id="replyButton" type="button" value="작성" class="btn btnComplete" />
+					<input data-id="${qna.id }" id="replyButton" type="button" value="확인" class="btn btnComplete" style="border: 2px solid skyblue; color: skyblue;" />
 				</div>
 			</form>
 		</div>

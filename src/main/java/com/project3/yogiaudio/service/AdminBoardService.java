@@ -1,24 +1,34 @@
 package com.project3.yogiaudio.service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.project3.yogiaudio.dto.admin.AdminCriteria;
 import com.project3.yogiaudio.dto.admin.NoticeSaveFormDTO;
-import com.project3.yogiaudio.dto.admin.QnaSaveFormDTO;
+import com.project3.yogiaudio.dto.admin.QnaReplySaveFormDTO;
+import com.project3.yogiaudio.dto.board.BoardFileDTO;
 import com.project3.yogiaudio.filedb.entity.Filedb;
 import com.project3.yogiaudio.filedb.repository.FiledbRepository;
 import com.project3.yogiaudio.filedb.service.FiledbService;
+import com.project3.yogiaudio.repository.entity.User;
 import com.project3.yogiaudio.repository.entity.board.BoardFree;
 import com.project3.yogiaudio.repository.entity.board.BoardFreeComment;
 import com.project3.yogiaudio.repository.entity.board.BoardNotice;
 import com.project3.yogiaudio.repository.entity.board.BoardQna;
 import com.project3.yogiaudio.repository.entity.board.BoardQnaReply;
 import com.project3.yogiaudio.repository.interfaces.AdminBoardRepository;
+import com.project3.yogiaudio.util.Define;
 
+import jakarta.servlet.http.HttpSession;
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 @Service
 public class AdminBoardService {
 
@@ -30,6 +40,9 @@ public class AdminBoardService {
 	
 	@Autowired
 	private FiledbRepository fileDbRepository;
+	
+	@Autowired
+	private HttpSession session;
 	
 	/**
 	  * @Method Name : findAllNotice
@@ -84,21 +97,42 @@ public class AdminBoardService {
 	  * @작성일 : 2024. 3. 14.
 	  * @작성자 : 박한산
 	  * @변경이력 : 
-	  * @Method 설명 : 공지사항 등록 // @Transactional 처리 안해도 됨??
+	  * @Method 설명 : ★★★★★공지사항 등록 
 	  */
+	
 	@Transactional  
 	public boolean insertNotice(NoticeSaveFormDTO dto) {
 		
-		// 단일 파일 업로드
-		//String filePath = fileDbService.saveFiles(dto.getFilePath());
-		// 다중 파일 업로드
-		String filePath = fileDbService.saveFiles(dto.getFiles());
+		// 사용자 정보 가져오기
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+		
+		String filePath = null;
+		
+		// 폼 전송으로 인해 DTO의 files에 데이터 매핑 됨
+		List<MultipartFile> files = dto.getFiles();
+		
+		// Iterator 활용하여 모든 요소 검증 및 제거
+		Iterator<MultipartFile> iterator = files.iterator();
+		
+		// 모든 요소 검증
+		while(iterator.hasNext()) {
+		    MultipartFile file = iterator.next();
+		    // 파일첨부 안한 경우 getOriginalFilename() 비어있음
+		    if(file.getOriginalFilename().isEmpty()) {
+		        iterator.remove(); // 안전하게 요소 제거
+		    }
+		}
+		
+		// files 가 빈 리스트가 아닐때 : 파일 첨부한 경우 
+		if(!files.isEmpty()) {
+			filePath = fileDbService.saveFiles(files);
+		}
 		
 		BoardNotice notice = BoardNotice.builder()
-						.writerId(100) // 작성자 아이디 임시번호
+						.writerId(principal.getId()) 
 						.title(dto.getTitle())
 						.content(dto.getContent())
-						.filePath(filePath) // 타입 String
+						.filePath(filePath)
 						.build();
 		
 		return adminBoardRepository.insertNotice(notice);
@@ -111,18 +145,115 @@ public class AdminBoardService {
 	  * @변경이력 : 
 	  * @Method 설명 : 공지사항 수정
 	  */
+	@Transactional
 	public boolean updateNotice(Integer id, NoticeSaveFormDTO dto) {
 
-		// 다중 파일 업로드
-		String filePath = fileDbService.saveFiles(dto.getFiles());
+		String filePath = null;
 		
-		BoardNotice boardNotice = BoardNotice.builder()
-							.title(dto.getTitle())
-							.content(dto.getContent())
-							.filePath(filePath)
-							.build();
+		// 폼 전송으로 인해 DTO의 files에 데이터 매핑 됨
+		List<MultipartFile> files = dto.getFiles();
 		
-		return adminBoardRepository.updateNotice(id, boardNotice);
+		// Iterator 활용하여 모든 요소 검증 및 제거
+		Iterator<MultipartFile> iterator = files.iterator();
+		
+		// 모든 요소 검증
+		while(iterator.hasNext()) {
+		    MultipartFile file = iterator.next();
+		    // 파일첨부 안한 경우 getOriginalFilename() 비어있음
+		    if(file.getOriginalFilename().isEmpty()) {
+		        iterator.remove(); // 안전하게 요소 제거
+		    }
+		}
+		
+		// 기존 파일 href 목록 
+		List<String> hrefList = dto.getHrefs();
+		
+		// href 목록이 남아있다면
+		if(!hrefList.isEmpty()) {
+			
+			// filePath 가 null 이면, += 연산 오류 발생하므로 빈문자열로 초기화
+			filePath = "";
+			
+			for(String href : hrefList) {
+				filePath += href + ","; 
+			}
+			
+			// 1. files 가 빈 리스트가 아닐때 : 파일 첨부한 경우 
+			if(!files.isEmpty()) {
+				filePath += fileDbService.saveFiles(files);
+			}else {
+			
+				// 2. 파일 첨부 안한경우에 href 목록 추가한 filePath의 마지막 "," 제거
+				// ex) 10개면 substring(0, 9) : 8번 인덱스까지 출력
+				filePath = filePath.substring(0, filePath.length() - 1);
+			}
+			
+		}else {
+			
+			// href 목록 없을 때
+			// 1. files 가 빈 리스트가 아닐때 : 파일 첨부한 경우 
+			if(!files.isEmpty()) {
+				filePath = fileDbService.saveFiles(files);
+			}
+			
+			// 2. 파일 첨부 안한 경우 filePath = null 로 update
+		}
+		
+		// 기존 데이터 가져오기
+		BoardNotice notice = adminBoardRepository.findNoticeById(id);
+
+		// builder는 완전히 새로운 객체를 다시 생성하는 것 => 수정에는 이용 불가
+		notice.setTitle(dto.getTitle());
+		notice.setContent(dto.getContent());
+		notice.setFilePath(filePath);
+		
+		log.info("notice : " + notice);
+		
+		return adminBoardRepository.updateNotice(notice);
+	}
+	
+	/**
+	  * @Method Name : findNoticeFileNames
+	  * @작성일 : 2024. 3. 22.
+	  * @작성자 : 박한산
+	  * @변경이력 : 
+	  * @Method 설명 : 공지사항 파일 목록
+	  */
+	@Transactional
+	public List<BoardFileDTO> findNoticeFiles(Integer id) {
+		
+		// 공지사항 filePath 가져오기
+		BoardNotice notice = adminBoardRepository.findNoticeById(id);
+		String filePath = notice.getFilePath();
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!filePath : " + filePath);
+		
+		
+		List<BoardFileDTO> boardFileDTOList = new ArrayList<>();
+		
+		// 파일 첨부 안했을 때 오류 발생하므로, filePath가 null이면
+		if(filePath == null || filePath.isEmpty()) {
+		
+			return boardFileDTOList; // 바로 메서드 종료
+		}
+		 
+		String[] filePaths = filePath.split(","); // split은 문자열 받아야하므로 ""
+		log.info("filePaths : " + filePaths);
+		
+		for(int i=0 ; i<filePaths.length ; i++) {
+
+			BoardFileDTO boardFileDTO = new BoardFileDTO();
+			
+			boardFileDTO.setFilePath(filePaths[i]);
+			
+			String uuid = filePaths[i].split("/")[5];
+			Filedb file = fileDbRepository.findByUuid(uuid);
+			boardFileDTO.setOriginFileName(file.getOriginalFileName());
+			
+			boardFileDTOList.add(boardFileDTO);
+		}
+		
+		return boardFileDTOList;
+		
 	}
 	
 	/**
@@ -189,11 +320,14 @@ public class AdminBoardService {
 	  * @Method 설명 : qna 답변 등록
 	  */
 	@Transactional 
-	public boolean insertQnaReply(Integer boardQnaId, QnaSaveFormDTO dto) {
+	public boolean insertQnaReply(Integer boardQnaId, QnaReplySaveFormDTO dto) {
+		
+		// 사용자 정보 가져오기
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 		
 		// 답변 등록
 		BoardQnaReply boardQnaReply = BoardQnaReply.builder()
-									.writerId(15) // 현재 사용자 정보로 수정하기
+									.writerId(principal.getId()) // principal.getId() 
 									.boardQnaId(boardQnaId) // boardQnaId 매개변수로 받기
 									.content(dto.getContent())
 									.build();
@@ -240,6 +374,64 @@ public class AdminBoardService {
 		}
 		
 		return result;
+	}
+	
+	/**
+	  * @Method Name : updateReply
+	  * @작성일 : 2024. 3. 25.
+	  * @작성자 : 박한산
+	  * @변경이력 : 
+	  * @Method 설명 : qna 답변 수정
+	  */
+	public boolean updateReply(Integer id, QnaReplySaveFormDTO dto) {
+		
+		BoardQnaReply boardQnaReply = adminBoardRepository.findReplyById(id);
+		boardQnaReply.setContent(dto.getContent());
+		
+		return adminBoardRepository.updateReply(boardQnaReply);
+	}
+	
+	/**
+	  * @Method Name : findQnaFiles
+	  * @작성일 : 2024. 3. 25.
+	  * @작성자 : 박한산
+	  * @변경이력 : 
+	  * @Method 설명 : qna 파일 목록
+	  */
+	@Transactional
+	public List<BoardFileDTO> findQnaFiles(Integer id) {
+			
+			// qna filePath 가져오기
+			BoardQna qna = adminBoardRepository.findQnaById(id);
+			String filePath = qna.getFilePath();
+			System.out.println("!!!!!!!!!!!!!!!!!!!!!filePath : " + filePath);
+			
+			
+			List<BoardFileDTO> boardFileDTOList = new ArrayList<>();
+			
+			// 파일 첨부 안했을 때 오류 발생하므로, filePath가 null이면
+			if(filePath == null || filePath.isEmpty()) {
+			
+				return boardFileDTOList; // 바로 메서드 종료
+			}
+			 
+			String[] filePaths = filePath.split(","); // split은 문자열 받아야하므로 ""
+			log.info("filePaths : " + filePaths);
+			
+			for(int i=0 ; i<filePaths.length ; i++) {
+	
+				BoardFileDTO boardFileDTO = new BoardFileDTO();
+				
+				boardFileDTO.setFilePath(filePaths[i]);
+				
+				String uuid = filePaths[i].split("/")[5];
+				Filedb file = fileDbRepository.findByUuid(uuid);
+				boardFileDTO.setOriginFileName(file.getOriginalFileName());
+				
+				boardFileDTOList.add(boardFileDTO);
+			}
+			
+			return boardFileDTOList;
 	}
 	
 	/**
@@ -323,19 +515,76 @@ public class AdminBoardService {
 	}
 	
 	/**
+	  * @Method Name : findFreeFiles
+	  * @작성일 : 2024. 3. 25.
+	  * @작성자 : 박한산
+	  * @변경이력 : 
+	  * @Method 설명 : 자유게시판 파일 목록
+	  */
+	@Transactional
+	public List<BoardFileDTO> findFreeFiles(Integer id) {
+		
+		// free filePath 가져오기
+		BoardFree Free = adminBoardRepository.findFreeById(id);
+		String filePath = Free.getFilePath();
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!filePath : " + filePath);
+		
+		
+		List<BoardFileDTO> boardFileDTOList = new ArrayList<>();
+		
+		// 파일 첨부 안했을 때 오류 발생하므로, filePath가 null이면
+		if(filePath == null || filePath.isEmpty()) {
+		
+			return boardFileDTOList; // 바로 메서드 종료
+		}
+		 
+		String[] filePaths = filePath.split(","); // split은 문자열 받아야하므로 ""
+		log.info("filePaths : " + filePaths);
+		
+		for(int i=0 ; i<filePaths.length ; i++) {
+
+			BoardFileDTO boardFileDTO = new BoardFileDTO();
+			
+			boardFileDTO.setFilePath(filePaths[i]);
+			
+			String uuid = filePaths[i].split("/")[5];
+			Filedb file = fileDbRepository.findByUuid(uuid);
+			boardFileDTO.setOriginFileName(file.getOriginalFileName());
+			
+			boardFileDTOList.add(boardFileDTO);
+		}
+		
+		return boardFileDTOList;
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
 	  * @Method Name : selectFile
 	  * @작성일 : 2024. 3. 20.
 	  * @작성자 : 박한산
 	  * @변경이력 : 
 	  * @Method 설명 : 파일명 가져오기
 	  */
-	public Filedb findFileByUuid(String uuid) {
-		
-		return fileDbRepository.findByUuid(uuid);
-	}
-	
-	
-	
-	
+	/*
+	 * public Filedb findFileByUuid(String uuid) {
+	 * 
+	 * return fileDbRepository.findByUuid(uuid); }
+	 */
 	
 }

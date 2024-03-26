@@ -4,22 +4,27 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class NoticeSaveFormDTO {
 
 	private String title;
 	private String content;
 
 	// 파일처리 
-	
 	// 단일파일
 	private MultipartFile filePath;
 	// 다중파일
 	private List<MultipartFile> files;
 	
-	// dto 원본이름 담을 메서드
+	// 기존 파일 목록의 href
+	private List<String> hrefs;
 	
+	private List<String> deletedHrefs;
 	
 }

@@ -10,10 +10,10 @@
 	<hr class="my-5" />
 	
 	<!-- Form -->
-	<div class="col-md-6">
+	<div class="col-md-6"  style="margin-left: 25%;">
 	<form id="form" action="" enctype="multipart/form-data">
                   <div class="card mb-4">
-                    <h5 class="card-header">공지사항</h5>
+                    <h5 class="card-header">공지사항 등록</h5>
                     <div class="card-body">
                       <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">제목</label>
@@ -28,13 +28,18 @@
                       
                       <br>
                       <div class="mb-3">
-                        <label for="formFileMultiple" class="form-label">파일 첨부</label>
-                        <!-- multiple 속성으로 여러개 첨부 가능 -->
-                        <!-- name 속성 빠트리지 말기 -->
-                        <input name="files" class="form-control" type="file" id="formFileMultiple" multiple="">
+                        <label for="" class="form-label">파일 첨부</label>
+                        
+                        <input name="files" class="form-control" type="file" multiple="">
                       </div>
                       
-                      <button id="button" class="btn btn-primary">등록</button>
+                      <!-- name 똑같이 설정해서 DTO의 List<> files에 매핑 가능함 -->
+                      <!-- <div class="mb-3">
+                        <label for="" class="form-label">파일 첨부</label>
+                        <input name="files" class="form-control" type="file">
+                      </div> -->
+                      
+                      <button id="button" class="btn btn-primary" style="width: 100%">등록</button>
                       
                     </div>
                   </div>

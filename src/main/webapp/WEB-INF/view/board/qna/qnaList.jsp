@@ -8,11 +8,13 @@
 		<div class="title-container">
 			<h2><a href="/board/qna/qnaList" style="font-weight: bold;">나의 문의하기</a></h2>
 			<!-- 리스트 : 쿼리 where 유저id  -->
+			<c:if test="${principal.role == 'USER'}">
 			<button type="button" class="btn btn-warning" id="btnInsert">
 				<i class="bi bi-pencil-square"></i>
 			</button>
+			</c:if>
 		</div>
-
+		
 		<form action="/board/qna/qnaList" method="get">
 			<div>
 				<div class="input-group">
@@ -33,8 +35,7 @@
 			</div>
 		</form>
 
-
-
+		
 		<table class="table table-hover">
 			<thead class="thead-light text-center">
 				<tr>
@@ -56,6 +57,8 @@
 			</thead>
 			<tbody class="text-center">
 				<c:forEach var="list" items="${qnaList}">
+				<c:if test="${principal.id == list.writerId || principal.role == 'ADMIN'}">
+				<input type="hidden" value="${list.writerId}"/>
 					<tr class="page-click" id="${list.id}">
 						<td>${list.id}</td>
 						<td class="text-left">
@@ -72,7 +75,9 @@
 							<td>미답변</td>
 						</c:if>
 					</tr>
+					</c:if>
 				</c:forEach>
+				</tbody>
 		</table>
 
 		<!-- 페이징 처리 -->

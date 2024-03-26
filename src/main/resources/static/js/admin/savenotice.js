@@ -38,7 +38,7 @@ window.onload = function() {
 					//form.submit();
 					
 					const formData = new FormData(form);
-					
+
 					$.ajax({
 						url : '/admin/notice',
 						type : 'post',

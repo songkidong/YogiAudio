@@ -91,4 +91,11 @@ public class FreeCommentController {
 		return result;
 	}
 
+	// 댓글 수정 컨트롤러 메소드
+	@PostMapping("/freeComment/update")
+	@ResponseBody
+	public String updateComment(@RequestParam("id") int id, @RequestParam("comment") String comment) {
+		boolean result = freeCommentService.freeCommentUpdate(id, comment);
+		return comment;
+	}
 }

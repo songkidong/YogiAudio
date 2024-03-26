@@ -1,9 +1,11 @@
-package com.project3.yogiaudio.repository.entity.board;
+package com.project3.yogiaudio.dto.board;
 
 import java.sql.Timestamp;
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -12,18 +14,14 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class BoardBlame {
+public class BoardFreeReportDTO {
 
 	private long id;
-	private long targetType;
+	private String targetType;
 	private long targetId;
 	private long targetUserId;
 	private long userId;
-	private long blameCount;
-	private String blameReason;
-	private long status;
+	private String reportReason;
+	private String status;
 	private Timestamp createdAt;
-	
-
 }

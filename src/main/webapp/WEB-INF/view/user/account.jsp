@@ -84,10 +84,8 @@
 														<input type="file" id="upload" class="account-file-input"
 														name="profileFile" hidden accept="image/png, image/jpeg" />
 													</label>
-
-
 													<p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max
-														size of 800K</p>
+														size of 20MB</p>
 												</div>
 											</div>
 										</div>
@@ -118,13 +116,13 @@
 												<div class="mb-3 col-md-6">
 													<label for="password" class="form-label">비밀번호</label> <input
 														type="password" class="form-control" id="password"
-														name="password" value="${principal.password}" />
+														name="password" />
 												</div>
 												<div class="mb-3 col-md-6">
 													<label for="checkpassword" class="form-label">비밀번호
 														확인</label> <input type="password" class="form-control"
 														id="checkpassword" name="checkpassword"
-														value="${principal.password}" />
+														/>
 												</div>
 
 											</div>

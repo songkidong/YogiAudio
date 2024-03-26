@@ -5,16 +5,22 @@
 
 <!-- 서머노트 -->
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
 <section id="board">
 	<div class="board-container">
 		<h2>나의 문의하기 작성하기</h2>
 
-		<form method="post" action="/board/qna/qnaWrite" enctype="multipart/form-data">
+		<form method="post" action="/board/qna/qnaWrite"
+			enctype="multipart/form-data">
 			<div class="mb-3">
-				<label for="title">Title:</label> <input type="text" class="form-control" id="title" name="title" placeholder="Enter Title">
+				<label for="title">Title:</label> <input type="text"
+					class="form-control" id="title" name="title"
+					placeholder="Enter Title">
 			</div>
 			<div class="mb-3">
 				<label for="content">Content:</label>
@@ -32,8 +38,7 @@
 						class="btn btn-danger">
 						<span>삭제</span>
 					</button>
-					<button type="button" onclick="addFile();"
-						class="btn btn-primary">
+					<button type="button" onclick="addFile();" class="btn btn-primary">
 						<span>파일 추가</span>
 					</button>
 				</div>
@@ -121,6 +126,8 @@ function removeFile(element) {
 						[ 'table', [ 'table' ] ],
 						[ 'insert', [ 'link', 'picture', 'video' ] ],
 						[ 'view', [ 'fullscreen', 'codeview', 'help' ] ] ],
+				codeviewFilter: true,
+	  		    codeviewIframeFilter: true
 				
 			});
 </script>

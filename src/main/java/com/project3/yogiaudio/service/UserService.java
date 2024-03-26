@@ -1,24 +1,31 @@
 package com.project3.yogiaudio.service;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.util.StreamUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.project3.yogiaudio.dto.admin.AdminCriteria;
-import com.project3.yogiaudio.dto.common.Criteria;
 import com.project3.yogiaudio.dto.user.HistoryListDTO;
 import com.project3.yogiaudio.dto.user.LikeMusicListDTO;
 import com.project3.yogiaudio.dto.user.UserDTO;
-import com.project3.yogiaudio.repository.entity.History;
+import com.project3.yogiaudio.filedb.service.FiledbService;
+import com.project3.yogiaudio.handler.exception.UserRestfulException;
 import com.project3.yogiaudio.repository.entity.User;
-import com.project3.yogiaudio.repository.entity.product.LikeMusic;
 import com.project3.yogiaudio.repository.interfaces.UserRepository;
+import com.project3.yogiaudio.util.Define;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -47,8 +54,8 @@ public class UserService {
 		validateSignUpForm(dto);
 		checkExistingUser(dto.getEmail());
 		User newUser = buildUserEntity(dto);
+
 		userRepository.insert(newUser);
-		log.info("새로운 사용자 생성: {}", newUser);
 		return newUser;
 	}
 
@@ -62,7 +69,7 @@ public class UserService {
 	private void validateSignUpForm(UserDTO dto) {
 		if (isEmpty(dto.getName()) || isEmpty(dto.getNickname()) || isEmpty(dto.getEmail())
 				|| isEmpty(dto.getPassword())) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "모든 필드를 입력하세요");
+			throw new UserRestfulException(Define.INVALID_FIELDS, HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -77,8 +84,7 @@ public class UserService {
 
 	private void checkExistingUser(String email) {
 		if (userRepository.findByEmail(email) != null) {
-			log.warn("이미 등록된 이메일입니다: {}", email);
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 등록된 이메일입니다");
+			throw new UserRestfulException(Define.EMAIL_ALREADY_REGISTERED, HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -86,30 +92,60 @@ public class UserService {
 		return User.builder().name(dto.getName()).nickname(dto.getNickname()).email(dto.getEmail())
 				.password(passwordEncoder.encode(dto.getPassword())).build();
 	}
+	
 
+	@Transactional
 	public User signIn(UserDTO dto) {
-		User userEntity = userRepository.findByEmail(dto.getEmail());
-		
-		if (userEntity == null || userEntity.getDeleteYn().equals("Y")
-				|| !passwordEncoder.matches(dto.getPassword(), userEntity.getPassword())) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "탈퇴한 유저이거나 비밀번호가 일치하지 않습니다");
+		if (dto.getEmail() == null || dto.getEmail().isEmpty()) {
+			throw new UserRestfulException(Define.EMAIL_REQUIRED, HttpStatus.BAD_REQUEST);
 		}
-		
+		if (dto.getPassword() == null || dto.getPassword().isEmpty()) {
+			throw new UserRestfulException(Define.PASSWORD_REQUIRED, HttpStatus.BAD_REQUEST);
+		}
+
+		User userEntity = userRepository.findByEmail(dto.getEmail());
+
+		if (userEntity == null) {
+			throw new UserRestfulException(Define.EMAIL_NOT_FOUND, HttpStatus.BAD_REQUEST);
+
+		}
+
+		if (userEntity.getDeleteYn().equals("Y")) {
+			throw new UserRestfulException(Define.USER_DELETED, HttpStatus.BAD_REQUEST);
+		}
+
+		if (!passwordEncoder.matches(dto.getPassword(), userEntity.getPassword())) {
+			throw new UserRestfulException(Define.PASSWORD_NOT_MATCH, HttpStatus.BAD_REQUEST);
+		}
+
 		return userEntity;
 	}
 
 	// 이메일을 기준으로 사용자를 찾는 메서드 추가
 	public User findUserByEmail(String email) {
+		User user = userRepository.findByEmail(email);
+
+		if (user != null) {
+			throw new UserRestfulException(Define.EMAIL_ALREADY_REGISTERED, HttpStatus.BAD_REQUEST);
+		} else {
+			return user;
+		}
+	}
+
+	public User findByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
 
 	public User findUserById(Long id) {
 		return userRepository.findById(id);
 	}
+	
+	public List<User> findByName(String name) {
+		return userRepository.findByName(name);
+	}
 
 	// 회원 수정
 	public int updateUser(User user) {
-
 		return userRepository.updateById(user);
 	}
 
@@ -122,19 +158,21 @@ public class UserService {
 	public List<HistoryListDTO> findAllHistory(AdminCriteria cri, Long userId) {
 		return userRepository.findAllHistory(cri, userId);
 	}
+
 	public int countAllHistory(Long userId) {
 		return userRepository.countAllHistory(userId);
 	}
-	
+
 	// 환불 요청
 	public int refund(int hno, int id) {
 		return userRepository.refund(hno, id);
 	}
-	
+
 	// 좋아요 내역 조회
 	public List<LikeMusicListDTO> findAllLikeMusic(AdminCriteria cri, Long userId) {
 		return userRepository.findAllLikeMusic(cri, userId);
 	}
+
 	public int countAllLikeMusic(Long userId) {
 		return userRepository.countAllLikeMusic(userId);
 	}

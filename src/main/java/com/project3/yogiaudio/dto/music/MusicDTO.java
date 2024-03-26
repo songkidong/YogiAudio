@@ -39,6 +39,7 @@ public class MusicDTO {
 	private String mvfile;
 	private String videocontent;
 	private List<MultipartFile> files; // 파일 url
+	private List<MultipartFile> files2; // 파일 url
 
 	
 	

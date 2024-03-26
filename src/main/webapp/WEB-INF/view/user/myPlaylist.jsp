@@ -70,63 +70,59 @@
 									<li class="nav-item"><a class="nav-link" href="/likemusic"><i
 											class="bx bxs-heart me-1"></i> 좋아요</a></li>
 								</ul>
-								<div class="card">
-									<h5 class="card-header">플레이리스트</h5>
-									<div class="table-responsive text-nowrap">
-										<table class="table">
-											<thead>
-												<tr>
-													<th>번호</th>
-													<th>앨범</th>
-													<th>제목</th>
-													<th>가수</th>
-													<th>뮤비</th>
-													<th>듣기</th>
-												</tr>
-											</thead>
-											<tbody class="table-border-bottom-0">
-												<c:forEach items="${playlist}" var="play" varStatus="loop">
-													<tr data-music-no="${play.musicNo}">
-														<td>${loop.index + 1}</td>
-														<td><img src="${play.filePath}" width="75"
-															height="75">
-														<td>${play.musicTitle}</td>
-														<td>${play.musicSinger}</td>
-														<td><a href="${play.mvFile}"> <span
-																class="bi bi-youtube "></span>
-														</a></td>
-														<td><button id="playBtn" type="button"
-																class="playBtn">
-																<i class="bi bi-play"></i>
-															</button></td>
-													</tr>
-												</c:forEach>
-
-
-											</tbody>
-										</table>
-									</div>
-								</div>
-								<button id="addBtn" type="button" class="addPlayerBtn">
-									<i class="bi bi-plus-circle"></i>
-								</button>
-								<button id="musicBtn" type="button">Music Player</button>
 							</div>
 						</div>
+						<c:if test="${empty playlist}">
+							<h1 style="display: flex; justify-content: center;">플레이리스트가 없어요</h1>
+						</c:if>
+						
+						<c:if test="${not empty playlist}">
+						<div class="card">
+							<h5 class="card-header">플레이리스트</h5>
+							<div class="table-responsive text-nowrap">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>번호</th>
+											<th>앨범</th>
+											<th>제목</th>
+											<th>가수</th>
+											<th>뮤비</th>
+											<th>듣기</th>
+										</tr>
+									</thead>
+									<tbody class="table-border-bottom-0">
+										<c:forEach items="${playlist}" var="play" varStatus="loop">
+											<tr data-music-no="${play.musicNo}">
+												<td>${loop.index + 1}</td>
+												<td><img src="${play.filePath}" width="75" height="75">
+												<td>${play.musicTitle}</td>
+												<td>${play.musicSinger}</td>
+												<td><a href="${play.mvFile}"> <span
+														class="bx bxl-youtube "></span>
+												</a></td>
+												<td><button id="playBtn" type="button"
+														class="btn playBtn">
+														<i class="bx bx-play-circle"></i>
+													</button></td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						</c:if>
 					</div>
 				</div>
-				<!-- / Content -->
-
-				<div class="content-backdrop fade"></div>
 			</div>
-			<!-- Content wrapper -->
 		</div>
-		<!-- / Layout page -->
+		<!-- / Content -->
+
+		<div class="content-backdrop fade"></div>
 	</div>
 
 	<!-- Overlay -->
 	<div class="layout-overlay layout-menu-toggle"></div>
-	</div>
 	<!-- / Layout wrapper -->
 
 	<!-- Core JS -->

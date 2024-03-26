@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project3.yogiaudio.dto.admin.NoticeSaveFormDTO;
-import com.project3.yogiaudio.dto.admin.QnaSaveFormDTO;
+import com.project3.yogiaudio.dto.admin.QnaReplySaveFormDTO;
 import com.project3.yogiaudio.filedb.entity.Filedb;
 import com.project3.yogiaudio.filedb.service.FiledbService;
 import com.project3.yogiaudio.repository.entity.board.BoardQna;
@@ -65,6 +65,7 @@ public class AdminRestfulController {
 	public ResponseEntity<?> insertNotice(NoticeSaveFormDTO dto) {
 		
 		log.info("dto : " + dto);
+		log.info("files : " + dto.getFiles());
 		boolean result = adminBoardService.insertNotice(dto);
 		
 		return new ResponseEntity<Boolean>(result, HttpStatus.OK);
@@ -73,6 +74,9 @@ public class AdminRestfulController {
 	// 공지사항 수정 // 등록이랑 매핑 주소 같은데 pathvariable 방식으로 구분될 수 있는가요?? O
 	@PostMapping("/notice/{id}")
 	public ResponseEntity<?> updateNotice(@PathVariable("id") Integer id, NoticeSaveFormDTO dto) {
+		
+		log.info("id : " + id);
+		log.info("dto : " + dto);
 		
 		boolean result = adminBoardService.updateNotice(id, dto);
 		
@@ -89,8 +93,8 @@ public class AdminRestfulController {
 	}
 	
 	// qna 답변 등록
-	@PostMapping("/reply/{boardQnaId}")
-	public ResponseEntity<?> insertQnaReply(@PathVariable("boardQnaId") Integer boardQnaId, QnaSaveFormDTO dto) {
+	@PostMapping("/reply")
+	public ResponseEntity<?> insertQnaReply(@RequestParam("boardQnaId") Integer boardQnaId, QnaReplySaveFormDTO dto) {
 		
 		boolean result = adminBoardService.insertQnaReply(boardQnaId, dto);
 		
@@ -106,6 +110,16 @@ public class AdminRestfulController {
 		log.info("boardQnaId : " + boardQnaId);
 		
 		boolean result = adminBoardService.deleteReply(id, boardQnaId); 
+		
+		return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+	}
+	
+	// qna 답변 수정
+	@PostMapping("/reply/{id}")
+	public ResponseEntity<?> updateReply(@PathVariable("id") Integer id, QnaReplySaveFormDTO dto) {
+
+		log.info("dto : " + dto);
+		boolean result = adminBoardService.updateReply(id, dto);
 		
 		return new ResponseEntity<Boolean>(result, HttpStatus.OK);
 	}
@@ -129,18 +143,6 @@ public class AdminRestfulController {
 		return new ResponseEntity<Boolean>(result, HttpStatus.OK);
 	}
 	
-	// 파일명 가져오기
-	@GetMapping("/file")
-	public ResponseEntity<?> findFileByUuid(@RequestParam("uuid") String uuid) {
-		
-		log.info("uuid : " + uuid);
-		
-		Filedb file = adminBoardService.findFileByUuid(uuid);
-		
-		return new ResponseEntity<Filedb>(file, HttpStatus.OK);
-	}
-	
-	
 	// 환불 승인
 	@PostMapping("/refund/{id}")
 	public ResponseEntity<?> updateRefund(@PathVariable("id") Integer id,
@@ -159,4 +161,17 @@ public class AdminRestfulController {
 	}
 	
 	
+	
+	
+	// 파일명 가져오기
+		/*
+		 * @GetMapping("/file") public ResponseEntity<?>
+		 * findFileByUuid(@RequestParam("uuid") String uuid) {
+		 * 
+		 * log.info("uuid : " + uuid);
+		 * 
+		 * Filedb file = adminBoardService.findFileByUuid(uuid);
+		 * 
+		 * return new ResponseEntity<Filedb>(file, HttpStatus.OK); }
+		 */
 }
