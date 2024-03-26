@@ -122,7 +122,6 @@ public class UserController {
 	@PostMapping("/signUp")
 	public String signUp(UserDTO dto) {
 		userService.createUser(dto);
-		System.out.println("컨트롤러~~~~~~~~~~~~~~~~~~~~~~" + dto);
 		return "redirect:/signIn";
 	}
 
@@ -433,12 +432,7 @@ public class UserController {
 
 		User userOld = userService.findById(id);
 
-		if (userOld.getFilePath() == null || userOld.getFilePath().isEmpty()) {
-			filePath = filedbService.saveFiles(dto.getProfileFile());
-
-		} else {
-			filePath = userOld.getFilePath();
-		}
+		filePath = filedbService.saveFiles(dto.getProfileFile());
 
 		// 비밀번호가 변경되지 않은 경우 이전 비밀번호 사용
 		String encodedPassword;
@@ -457,14 +451,14 @@ public class UserController {
 		user.setFilePath(filePath);
 
 		userService.updateUser(user);
-		
+
 		User userNew = userService.findById(id);
 
-		// 기존 이미지 삭제
-		String originPath = userNew.getFilePath();
-		String[] parts = originPath.split("/");
-		String uuid = parts[parts.length - 1];
-		filedbService.deleteByUuid(uuid);
+//		// 기존 이미지 삭제
+//		String originPath = userNew.getFilePath();
+//		String[] parts = originPath.split("/");
+//		String uuid = parts[parts.length - 1];
+//		filedbService.deleteByUuid(uuid);
 
 		httpsession.setAttribute(Define.PRINCIPAL, userNew);
 
