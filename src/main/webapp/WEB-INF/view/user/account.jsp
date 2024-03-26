@@ -116,13 +116,13 @@
 												<div class="mb-3 col-md-6">
 													<label for="password" class="form-label">비밀번호</label> <input
 														type="password" class="form-control" id="password"
-														name="password" value="${principal.password}" />
+														name="password" />
 												</div>
 												<div class="mb-3 col-md-6">
 													<label for="checkpassword" class="form-label">비밀번호
 														확인</label> <input type="password" class="form-control"
 														id="checkpassword" name="checkpassword"
-														value="${principal.password}" />
+														/>
 												</div>
 
 											</div>

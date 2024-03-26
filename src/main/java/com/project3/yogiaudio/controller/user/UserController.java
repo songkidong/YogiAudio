@@ -430,27 +430,22 @@ public class UserController {
 
 		String filePath;
 
-		User userEntity = userService.findById(id);
+		User userOld = userService.findById(id);
 
-		if (userEntity.getFilePath() != null) {
-			filePath = userEntity.getFilePath();
-		} else {
+		if (userOld.getFilePath() == null || userOld.getFilePath().isEmpty()) {
 			filePath = filedbService.saveFiles(dto.getProfileFile());
+
+		} else {
+			filePath = userOld.getFilePath();
 		}
 
 		// 비밀번호가 변경되지 않은 경우 이전 비밀번호 사용
 		String encodedPassword;
-		if (passwordEncoder.matches(dto.getPassword(), userEntity.getPassword())) {
-			encodedPassword = userEntity.getPassword();
+		if (passwordEncoder.matches(dto.getPassword(), userOld.getPassword())) {
+			encodedPassword = userOld.getPassword();
 		} else {
 			encodedPassword = passwordEncoder.encode(dto.getPassword());
 		}
-
-		// 기존 이미지 삭제
-		String originPath = userEntity.getFilePath();
-		String[] parts = originPath.split("/");
-		String uuid = parts[parts.length - 1];
-		filedbService.deleteByUuid(uuid);
 
 		// 유저정보 업데이트
 		User user = new User();
@@ -461,10 +456,16 @@ public class UserController {
 		user.setFilePath(filePath);
 
 		userService.updateUser(user);
+		
+		User userNew = userService.findById(id);
 
-		// 세션 업데이트
-		User userSession = userService.findById(id);
-		httpsession.setAttribute(Define.PRINCIPAL, userSession);
+		// 기존 이미지 삭제
+		String originPath = userNew.getFilePath();
+		String[] parts = originPath.split("/");
+		String uuid = parts[parts.length - 1];
+		filedbService.deleteByUuid(uuid);
+
+		httpsession.setAttribute(Define.PRINCIPAL, userNew);
 
 		return "redirect:/product/main";
 	}
