@@ -79,6 +79,9 @@
 .addPlayerBtn:hover i, .playBtn:hover i {
 	color: #3c7cdb;
 }
+#musicBtn {
+    display: none;
+}
 </style>
 
 
