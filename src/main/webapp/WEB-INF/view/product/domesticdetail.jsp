@@ -81,51 +81,6 @@
 }
 </style>
 
-<script>
-	function likeMusic() {
-		var musicno = $
-		{
-			detail.musicno
-		}
-		;
-		var musicmajor = "${detail.musicmajor}";
-		var id = $
-		{
-			principal.id
-		}
-		;
-
-		$.ajax({
-			type : "POST",
-			url : "/product/likeit?musicno=" + musicno + "&musicmajor="
-					+ musicmajor + "&id=" + id,
-			success : function(response) {
-				console.log("서버 응답: " + response);
-				if (response === "success") {
-					alert("좋아요 클릭 완료!");
-					document.getElementById("likeButton").innerText = "Liked";
-					document.getElementById("likeButton").disabled = true;
-				} else if (response === "already_liked") {
-					alert("이미 좋아요를 클릭하셨습니다.");
-				} else {
-					console.log("좋아요클릭실패!");
-				}
-			},
-			error : function(xhr, status, error) {
-				console.error("좋아요 요청에 실패하였습니다.");
-				alert("좋아요 클릭 실패!");
-			}
-		});
-	}
-</script>
-
-
-
-
-
-
-
-
 
 <!-- SECTION -->
 <div class="section">
@@ -174,21 +129,21 @@
 					<i class="bi bi-suit-heart" style="font-size: 25px;" id="heart"></i>
 					<i class="bi bi-suit-heart-fill"
 						style="font-size: 25px; color: red;" id="fillHeart"></i>
-				<!-- 음악 플레이어 추가 -->
-				<button id="addBtn" type="button" class="addPlayerBtn">
-					<i class="bi bi-plus-circle" style="font-size: 20px;"></i>
-				</button>
-				<button id="playBtn" type="button" class="playBtn">
-					<i class="bi bi-play-circle"
-						style="font-size: 20px; margin-left: -10px;"></i>
-				</button>
-				<button id="musicBtn" type="button"><i class="bi bi-music-note-list" style="font-size: 30px;"></i></button>
-				<!-- 음악 플레이어 추가 종료 -->
+					<!-- 음악 플레이어 추가 -->
+					<button id="addBtn" type="button" class="addPlayerBtn">
+						<i class="bi bi-plus-circle" style="font-size: 20px;"></i>
+					</button>
+					<button id="playBtn" type="button" class="playBtn">
+						<i class="bi bi-play-circle"
+							style="font-size: 20px; margin-left: -10px;"></i>
+					</button>
+					<button id="musicBtn" type="button">
+						<i class="bi bi-music-note-list" style="font-size: 30px;"></i>
+					</button>
+					<!-- 음악 플레이어 추가 종료 -->
 				</div>
 				<div>
-					<h3 class="product-name">${detail.musictitle}<del
-							class="product-old-price"></del>
-					</h3>
+					<h3 class="product-name">${detail.musictitle}</h3>
 				</div>
 				<br>
 				<p>아티스트 : ${detail.musicsinger}</p>
@@ -204,6 +159,18 @@
 					<source src=" ${detail.musicsample}" type="audio/wav">
 				</audio>
 				<br>
+
+				<p>
+					<c:choose>
+						<c:when test="${udetail.status eq 'Y'}">
+							<button id="downloadButton" type="button" class="btn btn-primary">파일
+								다운로드</button>
+						</c:when>
+						<c:otherwise>
+							<button id="paymentcheck" type="button" class="btn btn-danger">다운로드불가능</button>
+						</c:otherwise>
+					</c:choose>
+				</p>
 			</div>
 		</div>
 		<!-- /Product details -->
