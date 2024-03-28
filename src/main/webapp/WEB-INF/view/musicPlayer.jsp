@@ -90,10 +90,8 @@
 				</c:if>
 			</div>
 			<div class="ui-music-btn">
-				<button type="button" class="my-music-close" id="my-music-close">MyMusic
-					닫기</button>
-				<button type="button" class="my-music-open" id="my-music-open">MyMusic
-					열기</button>
+				<button type="button" class="my-music-close" id="my-music-close">재생 목록</button>
+				<button type="button" class="my-music-open" id="my-music-open">플레이리스트</button>
 			</div>
 			<div class="ui-list">
 				<button type="button" id="deleteDuplicate">중복곡 삭제</button>
