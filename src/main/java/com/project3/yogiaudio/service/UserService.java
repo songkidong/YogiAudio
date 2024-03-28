@@ -51,8 +51,6 @@ public class UserService {
 	 */
 	@Transactional
 	public User createUser(UserDTO dto) {
-		System.out.println("서비스~~~~~~~~~~~~~~~~~~~~~~" + dto);
-
 		validateSignUpForm(dto);
 		checkExistingUser(dto.getEmail());
 		User newUser = buildUserEntity(dto);
