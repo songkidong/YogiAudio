@@ -18,10 +18,10 @@ import com.project3.yogiaudio.dto.board.FreeDTO;
 import com.project3.yogiaudio.dto.board.FreeUpdateDTO;
 import com.project3.yogiaudio.dto.common.PageReq;
 import com.project3.yogiaudio.dto.common.PageRes;
-import com.project3.yogiaudio.filedb.entity.Filedb;
-import com.project3.yogiaudio.filedb.service.FiledbService;
+import com.project3.yogiaudio.repository.entity.Filedb;
 import com.project3.yogiaudio.repository.entity.User;
 import com.project3.yogiaudio.repository.entity.board.BoardFree;
+import com.project3.yogiaudio.service.FiledbService;
 import com.project3.yogiaudio.service.board.FreeService;
 import com.project3.yogiaudio.util.Define;
 

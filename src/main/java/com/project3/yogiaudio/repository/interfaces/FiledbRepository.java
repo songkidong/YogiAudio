@@ -1,8 +1,8 @@
-package com.project3.yogiaudio.filedb.repository;
+package com.project3.yogiaudio.repository.interfaces;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.project3.yogiaudio.filedb.entity.Filedb;
+import com.project3.yogiaudio.repository.entity.Filedb;
 
 @Mapper
 public interface FiledbRepository {

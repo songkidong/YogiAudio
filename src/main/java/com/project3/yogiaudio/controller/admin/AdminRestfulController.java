@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project3.yogiaudio.dto.admin.NoticeSaveFormDTO;
 import com.project3.yogiaudio.dto.admin.QnaReplySaveFormDTO;
-import com.project3.yogiaudio.filedb.entity.Filedb;
-import com.project3.yogiaudio.filedb.service.FiledbService;
+import com.project3.yogiaudio.repository.entity.Filedb;
 import com.project3.yogiaudio.repository.entity.board.BoardQna;
 import com.project3.yogiaudio.service.AdminBoardService;
 import com.project3.yogiaudio.service.AdminService;
+import com.project3.yogiaudio.service.FiledbService;
 
 import lombok.extern.log4j.Log4j2;
 

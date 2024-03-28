@@ -13,11 +13,11 @@ import com.project3.yogiaudio.dto.board.FreeDTO;
 import com.project3.yogiaudio.dto.board.FreeUpdateDTO;
 import com.project3.yogiaudio.dto.common.PageReq;
 import com.project3.yogiaudio.dto.common.PageRes;
-import com.project3.yogiaudio.filedb.entity.Filedb;
-import com.project3.yogiaudio.filedb.service.FiledbService;
+import com.project3.yogiaudio.repository.entity.Filedb;
 import com.project3.yogiaudio.repository.entity.board.BoardFree;
 import com.project3.yogiaudio.repository.entity.board.BoardFreeReport;
 import com.project3.yogiaudio.repository.interfaces.board.FreeRepository;
+import com.project3.yogiaudio.service.FiledbService;
 
 @Service
 public class FreeService {

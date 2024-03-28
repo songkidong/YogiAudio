@@ -1,4 +1,4 @@
-package com.project3.yogiaudio.filedb.controller;
+package com.project3.yogiaudio.controller.filedb;
 
 import java.net.URLEncoder;
 
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project3.yogiaudio.filedb.entity.Filedb;
-import com.project3.yogiaudio.filedb.service.FiledbService;
+import com.project3.yogiaudio.repository.entity.Filedb;
+import com.project3.yogiaudio.service.FiledbService;
 
 import lombok.extern.slf4j.Slf4j;
 
