@@ -30,13 +30,17 @@ public interface FreeRepository {
 
 	// 자유게시판 수정하기
 	public int freeUpdate(BoardFree boardfree);
-
+	
+	// 자유게시판 정렬&페이지 selectAll
 	public List<BoardFree> findAllByOrderByCreatedAtASCWithPaging(@Param("offset") int offset, @Param("size") int size);
-
+	
+	// 자유게시판 정렬&페이지 countAll
 	public List<BoardFree> findAllByOrderByHitDescWithPaging(@Param("offset") int offset, @Param("size") int size);
 
+	// 정렬 오래된순
 	public long countAllByOrderByCreatedAtASC();
 
+	// 정렬 조회순
 	public long countAllByOrderByHitDesc();
 
 	// 조회수 증가

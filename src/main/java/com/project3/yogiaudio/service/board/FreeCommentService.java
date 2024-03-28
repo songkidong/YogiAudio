@@ -20,12 +20,26 @@ public class FreeCommentService {
 	@Autowired
 	private FreeCommentRepository freeCommentRepository;
 
-	// 리스트
+	
+	/**
+	  * @Method Name : selectFreeCommentList
+	  * @작성일 : 2024. 3. 25.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 댓글 리스트
+	  */
 	public List<BoardFreeComment> selectFreeCommentList(int boardFreeId) {
 		return freeCommentRepository.selectFreeCommentList(boardFreeId);
 	}
 
-	// 작성하기
+
+	/**
+	  * @Method Name : freeCommentSave
+	  * @작성일 : 2024. 3. 28.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 댓글 작성하기
+	  */
 	@Transactional
 	public boolean freeCommentSave(FreeCommentDTO freeCommentDTO, int boardFreeId) {
 		System.out.println("여기는서비스디티오"+freeCommentDTO);
@@ -45,7 +59,14 @@ public class FreeCommentService {
 		return false;
 	}
 
-	// 상세보기
+
+	/**
+	  * @Method Name : freeCommentView
+	  * @작성일 : 2024. 3. 28.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 댓글 작성하기
+	  */
 	public BoardFreeComment freeCommentView(int boardFreeId) {
 
 		System.out.println(" 서비스 " + boardFreeId);
@@ -53,7 +74,14 @@ public class FreeCommentService {
 		return freeCommentRepository.freeCommentView(boardFreeId);
 	}
 	
-	// 삭제하기
+
+	/**
+	  * @Method Name : freeCommentDelete
+	  * @작성일 : 2024. 3. 28.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 댓글 삭제하기
+	  */
 	public boolean freeCommentDelete(int id) {
 
 		int result = freeCommentRepository.freeCommentDelete(id);
