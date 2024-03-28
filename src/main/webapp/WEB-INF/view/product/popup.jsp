@@ -44,7 +44,9 @@ font-size:16px; font-weight:600; width: 40px; height : 30px;color:black; float: 
         <h4 class="title">YogiAudio 이벤트</h4> 
 		        <div class="cont">
 			          <p>
-						<img src="/main/banner/insta.gif" usemap="#popup" alt="event page" style="width: 500px; height: 500px;">
+			             <a href="https://www.instagram.com/kakao.today/">
+							<img src="/main/banner/insta.gif" usemap="#popup" alt="event page" style="width: 500px; height: 500px;">
+						 </a> 
 			         </p>
 		        </div>
 	          <form name="pop_form">

@@ -30,6 +30,7 @@
 	    <h5 class="card-title">${music.musicSinger}</h5>
 	    <p class="card-text">발매일 ${music.startdate}</p>
 	    <p class="card-text">등록일 ${music.formatRegDate()}</p>
+	    <p class="card-text">음원번호 ${music.musicNo}</p>
 	    <a data-id="${music.musicNo }" name="deleteButton" href="#" class="btn btn-primary">삭제</a>
 	  </div>
 	</div>

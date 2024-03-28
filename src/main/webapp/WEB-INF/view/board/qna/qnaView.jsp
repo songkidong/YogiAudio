@@ -35,19 +35,36 @@
 	<div class="board-container">
 		<h2>나의 문의하기 상세보기</h2>
 
-		<div class="button-container d-flex justify-content-end">
-			<button class="btn btn-info rounded-pill shadow-sm"
-				onclick="history.back()">
-				<i class="bi bi-arrow-return-left" style="padding-right: 5px;"></i>목록
-			</button>
-			<button class="btn btn-success rounded-pill shadow-sm"
-				id="btn-update">
-				<i class="bi bi-pencil-square" style="padding-right: 5px;"></i>수정
-			</button>
-			<button class="btn btn-danger rounded-pill shadow-sm" id="btn-delete">
-				<i class="bi bi-trash" style="padding-right: 5px;"></i>삭제
-			</button>
-		</div>
+		<c:choose>
+			<c:when test="${principal.role == 'USER'}">
+				<div class="button-container d-flex justify-content-end">
+					<button class="btn btn-info rounded-pill shadow-sm"
+						onclick="history.back()">
+						<i class="bi bi-arrow-return-left" style="padding-right: 5px;"></i>목록
+					</button>
+					<button class="btn btn-success rounded-pill shadow-sm"
+						id="btn-update">
+						<i class="bi bi-pencil-square" style="padding-right: 5px;"></i>수정
+					</button>
+					<button class="btn btn-danger rounded-pill shadow-sm"
+						id="btn-delete">
+						<i class="bi bi-trash" style="padding-right: 5px;"></i>삭제
+					</button>
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div class="button-container d-flex justify-content-end">
+					<button class="btn btn-info rounded-pill shadow-sm"
+						onclick="history.back()">
+						<i class="bi bi-arrow-return-left" style="padding-right: 5px;"></i>목록
+					</button>
+					<button class="btn btn-danger rounded-pill shadow-sm"
+						id="btn-delete">
+						<i class="bi bi-trash" style="padding-right: 5px;"></i>삭제
+					</button>
+				</div>
+			</c:otherwise>
+		</c:choose>
 
 		<div>
 			<table class="table table-bordered table-hover">
@@ -78,7 +95,6 @@
 
 		<!-- 답변 출력 -->
 		<div class="qnaReply" style="margin-top: 30px;"></div>
-
 	</div>
 </section>
 <script src="/js/board/qna.js"></script>
@@ -192,23 +208,24 @@
 
 		// 댓글을 보여줄 HTML 생성
 
-		let replyHTML =
-        "<span id='reply-createdAt-display' style='float: right;'>" + formattedDate + "</span>" +
-        "<h3>답변</h3>" +
-        "<div class='qnaCard'>" +
-        "<div class='info'>" +
-        "</div>" +
-        "<div class='reply-content' style='display: block;'>" + reply.content + "</div>" +
-        "</div>";
+		let replyHTML = "<span id='reply-createdAt-display' style='float: right;'>"
+				+ formattedDate
+				+ "</span>"
+				+ "<h3>답변</h3>"
+				+ "<div class='qnaCard'>"
+				+ "<div class='info'>"
+				+ "</div>"
+				+ "<div class='reply-content' style='display: block;'>"
+				+ reply.content + "</div>" + "</div>";
 
 		// 댓글을 출력할 영역에 HTML 추가
 		replyContainer.append(replyHTML);
 	}
-	
+
 	// 답변이 없는 경우 메시지를 출력하는 함수
 	function displayNoReplyMessage() {
-	    let replyContainer = $(".qnaReply");
-	    replyContainer.append("<p>답변 중입니다.</p>");
+		let replyContainer = $(".qnaReply");
+		replyContainer.append("<p>답변 중입니다.</p>");
 	}
 
 	// 날짜 포맷팅 함수 (년-월-일)

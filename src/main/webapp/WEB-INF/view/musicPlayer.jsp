@@ -17,6 +17,9 @@
 	cursor: pointer;
 	margin-top: 5px;
 }
+.disabled {
+	color: #999; /* 회색으로 아이콘 색상 변경 */
+}
 </style>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">

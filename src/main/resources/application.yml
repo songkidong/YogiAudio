@@ -54,7 +54,6 @@ spring:
 #    driver-class-name: com.mysql.cj.jdbc.Driver
 #    username: develop 
 #    password: 1111
-    
 
     
   #h2:
