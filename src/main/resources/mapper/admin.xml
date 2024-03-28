@@ -77,6 +77,12 @@
 	delete from music where music_no = #{musicNo}
 </delete>
 
+<delete id="deleteMusicVideo">
+	delete from musicvideo where videono = #{videono}
+</delete>
+
+
+
 <update id="withdrawUser">
 	update user set delete_yn = 'Y' where id=#{id}
 </update>

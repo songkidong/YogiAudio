@@ -63,6 +63,8 @@ public interface AdminRepository {
 	public Integer insertMusic(MusicDTO dto);
 	//뮤비등록
 	public Integer insertMusicVideo(MusicVideoDTO dto);
+	// 뮤비 삭제
+	public boolean deleteMusicVideo(Integer videono);
 	
 	
 }

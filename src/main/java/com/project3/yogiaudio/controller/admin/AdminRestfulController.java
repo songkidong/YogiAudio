@@ -160,6 +160,14 @@ public class AdminRestfulController {
 		return new ResponseEntity<Boolean>(result, HttpStatus.OK);
 	}
 	
+	// 뮤비 삭제
+	@DeleteMapping("/musicVideo/{videono}")
+	public ResponseEntity<?> deleteMusicVideo(@PathVariable("videono") Integer videono) {
+		
+		boolean result = adminService.deleteMusicVideo(videono);
+		
+		return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+	}
 	
 	
 	
