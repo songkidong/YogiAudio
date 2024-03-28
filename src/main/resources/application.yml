@@ -56,8 +56,6 @@ spring:
 #    password: 1111
 
     
-
-    
   #h2:
   #  console:
   #    enabled: true

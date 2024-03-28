@@ -31,7 +31,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-4 col-md-4 order-1" style="text-align: center; font-size: 30px;">
+                <div class="col-lg-4 col-md-4 order-1" style="text-align: center; font-size: 30px; width: 100%">
                   <div class="row">
                     <div class="col-lg-6 col-md-12 col-6 mb-4">
                       <div class="card">
@@ -75,7 +75,7 @@
                   </div>
                 </div>
                 <!-- Total Revenue -->
-                <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
+                <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4" style="width: 100%">
                   
 					<!-- empty 키워드는 변수가 null이거나 비어있는 경우를 확인 -->
 					<c:if test="${empty qnaList }">
