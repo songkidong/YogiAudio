@@ -147,6 +147,13 @@ implementation 'org.springframework.boot:spring-boot-starter-mail'
 -
 ### 음악
 -
+### 뮤직 플레이어
+- 반복재생/1곡재생
+- 셔플
+- 가사 싱크 및 해당 구간 이동
+- 재생 목록 추가
+- 플레이리스트 추가
+- 좋아요
 ### 게시판
 -
 
