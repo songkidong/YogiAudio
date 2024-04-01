@@ -160,14 +160,37 @@ implementation 'org.springframework.boot:spring-boot-starter-mail'
 <br>
 
 ## 6️⃣ 기능 - 관리자
-### 메인
--
-### 회원 관리
--
-### 음원 관리
--
-### 게시판 관리
--
-### 결제 관리
--
+
+<table>
+    <tr>
+        <td>관리자 메인 / 유저 탈퇴</td>
+        <td>공지사항 등록, 수정, 삭제 / 파일 다운로드</td>
+    </tr>
+    <tr>
+        <td><img src="https://github.com/songkidong/YogiAudio/assets/136421972/30697896-2a44-4828-ab47-267db8bf236b"></td>
+        <td><img src="https://github.com/songkidong/YogiAudio/assets/136421972/f81384fd-75aa-4e1a-b172-54633da9d611"></td>
+    </tr>
+    <tr>
+        <td>QnA 답변 등록, 수정, 삭제 / 글 삭제</td>
+        <td>자유게시판 댓글 삭제 / 글 삭제</td>
+    </tr>
+    <tr>
+        <td><img src="https://github.com/songkidong/YogiAudio/assets/136421972/638ddee3-3666-4452-b03e-52fd41f7dd34"></td>
+        <td><img src="https://github.com/songkidong/YogiAudio/assets/136421972/2b2238d4-aafe-47d6-bba2-8565b8d5c36c"></td>
+    </tr>
+    <tr>
+        <td>음원 등록, 삭제</td>
+        <td>뮤직비디오 등록, 삭제</td>
+    </tr>
+    <tr>
+        <td><img src="https://github.com/songkidong/YogiAudio/assets/136421972/90dac9df-4616-44fe-9cdd-7f6adc820820"></td>
+        <td><img src="https://github.com/songkidong/YogiAudio/assets/136421972/ff99e2bc-74a3-422c-beb8-413ec1c527f9"></td>
+    </tr>
+    <tr>
+        <td>결제 내역 / 환불 승인</td>
+    </tr>
+    <tr>
+        <td><img src="https://github.com/songkidong/YogiAudio/assets/136421972/0472904b-7e09-40b3-b14a-4c0a52570241"></td>
+    </tr>
+</table>
 
