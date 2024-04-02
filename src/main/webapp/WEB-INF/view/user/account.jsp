@@ -74,7 +74,7 @@
 										<div class="card-body">
 											<div
 												class="d-flex align-items-start align-items-sm-center gap-4">
-												<img src="${principal.filePath}" alt="이미지가 없습니다."
+												<img src="${principal.filePath}"
 													class="d-block rounded" height="130" width="130"
 													id="uploadedAvatar" />
 												<div class="button-wrapper">

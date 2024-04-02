@@ -23,7 +23,7 @@
 
 <select id="findAllNotice" resultType="com.project3.yogiaudio.repository.entity.board.BoardNotice">
 	select a.*, b.name as writerName from board_notice as a
-	join user as b 
+	left join user as b 
 	on a.writer_id = b.id
 	order by a.id desc limit ${offset}, #{pageSize}
 </select>
@@ -42,7 +42,7 @@
 
 <select id="findAllQna" resultType="com.project3.yogiaudio.repository.entity.board.BoardQna">
 	select a.*, b.name as writerName from board_qna as a
-	join user as b
+	left join user as b
 	on a.writer_id = b.id
 	order by a.id desc limit #{offset}, #{pageSize}
 </select>
@@ -74,7 +74,7 @@
 
 <select id="findAllFree" resultType="com.project3.yogiaudio.repository.entity.board.BoardFree">
 	select a.*, b.name as writerName from board_free as a
-	join user as b
+	left join user as b
 	on a.writer_id = b.id
 	order by a.id desc limit #{offset}, #{pageSize}
 </select>

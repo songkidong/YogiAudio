@@ -34,7 +34,14 @@ public class FreeCommentController {
 	@Autowired
 	private FreeCommentService freeCommentService;
 
-	// 댓글 작성하기 화면
+	
+	/**
+	  * @Method Name : freeCommentInsertPage
+	  * @작성일 : 2024. 3. 25.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 댓글 작성하기 화면
+	  */
 	@GetMapping("/freeComment/{boardFreeId}")
 	public String freeCommentInsertPage(@PathVariable("boardFreeId") int boardFreeId, Model model) {
 
@@ -43,7 +50,14 @@ public class FreeCommentController {
 		return "board/free/freeView";
 	}
 
-	// 댓글 작성하기
+	
+	/**
+	  * @Method Name : freeCommentInsert
+	  * @작성일 : 2024. 3. 25.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 댓글 작성하기
+	  */
 	@PostMapping("/freeComment/{boardFreeId}")
 	@ResponseBody
 	public boolean freeCommentInsert(@PathVariable("boardFreeId") int boardFreeId,
@@ -61,7 +75,14 @@ public class FreeCommentController {
 		return result;
 	}
 
-	// 댓글 상세보기
+	
+	/**
+	  * @Method Name : freeCommentView
+	  * @작성일 : 2024. 3. 25.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 댓글 상세보기
+	  */
 	@PostMapping("/freeComment")
 	@ResponseBody
 	public BoardFreeComment freeCommentView(@RequestParam("boardFreeId") int boardFreeId) {
@@ -75,14 +96,28 @@ public class FreeCommentController {
 		return boardFreeComment;
 	}
 
-	// 댓글 리스트
+	
+	/**
+	  * @Method Name : getFreeCommentList
+	  * @작성일 : 2024. 3. 25.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 댓글 리스트
+	  */
 	@GetMapping("/freeCommentList/{boardFreeId}")
 	@ResponseBody
 	public List<BoardFreeComment> getFreeCommentList(@PathVariable("boardFreeId") int boardFreeId) {
 		return freeCommentService.selectFreeCommentList(boardFreeId);
 	}
 
-	// 댓글 삭제 컨트롤러 메소드
+
+	/**
+	  * @Method Name : deleteComment
+	  * @작성일 : 2024. 3. 25.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 댓글 삭제
+	  */
 	@DeleteMapping("/freeComment/{id}")
 	@ResponseBody
 	public boolean deleteComment(@PathVariable("id") int id) {
@@ -91,7 +126,14 @@ public class FreeCommentController {
 		return result;
 	}
 
-	// 댓글 수정 컨트롤러 메소드
+	
+	/**
+	  * @Method Name : updateComment
+	  * @작성일 : 2024. 3. 25.
+	  * @작성자 : 노수현
+	  * @변경이력 : 
+	  * @Method 설명 : 댓글 수정
+	  */
 	@PostMapping("/freeComment/update")
 	@ResponseBody
 	public String updateComment(@RequestParam("id") int id, @RequestParam("comment") String comment) {
