@@ -137,16 +137,47 @@ implementation 'org.springframework.boot:spring-boot-starter-mail'
 <br>
 
 ## 5️⃣ 기능 - 회원
-### 로그인
--
-### 회원가입
--
-### 마이페이지
--
-### 결제
--
-### 음악
--
+<table>
+    <tr>
+        <td>로그인, 회원가입</td>
+        <td>소셜 로그인</td>
+    </tr>
+    <tr>
+        <td><img src="https://github.com/songkidong/YogiAudio/assets/141198018/695146ca-b48f-417d-b90b-7974a1f2f3ce"></td>
+        <td><img src="https://github.com/songkidong/YogiAudio/assets/141198018/4d1fdfc3-275e-4ee6-a85b-8de8c415ecb4"></td>
+    </tr>
+    <tr>
+        <td>아이디 찾기</td>
+        <td>비밀번호 찾기</td>
+    </tr>
+    <tr>
+        <td><img src="https://github.com/songkidong/YogiAudio/assets/141198018/4fa8172c-5b82-45d6-b4d4-2d42aaa60304"></td>
+        <td><img src="https://github.com/songkidong/YogiAudio/assets/141198018/bd9fd107-57aa-4265-b771-474ae387ad60"></td>
+    </tr>
+    <tr>
+        <td>회원정보 수정</td>
+        <td>회원 탈퇴</td>
+    </tr>
+    <tr>
+        <td><img src="https://github.com/songkidong/YogiAudio/assets/141198018/39af311b-2eab-450f-af0f-1c43c19b9887"></td>
+        <td><img src="https://github.com/songkidong/YogiAudio/assets/141198018/258ecf33-38db-46c0-b596-0011ab4c5f39"></td>
+    </tr>
+    <tr>
+        <td>환불 내역, 환불 요청</td>
+        <td>플레이리스트 내역</td>
+    </tr>
+    <tr>
+        <td><img src="https://github.com/songkidong/YogiAudio/assets/141198018/1c60e883-5cfc-4a60-aba0-4c87aab85045"></td>
+        <td><img src="https://github.com/songkidong/YogiAudio/assets/141198018/1f6c124b-d3a9-4ecd-a390-3a51294e24f5"></td>
+    </tr>
+    <tr>
+        <td>좋아요 내역, 취소</td>
+    </tr>
+    <tr>
+        <td><img src="https://github.com/songkidong/YogiAudio/assets/141198018/27477160-5223-4cff-8ff8-b7e87cc09c15"></td>
+    </tr>
+</table>
+
 ### 뮤직 플레이어
 - 반복재생/1곡재생
 - 셔플
