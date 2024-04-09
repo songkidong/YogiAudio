@@ -13,9 +13,7 @@ import com.project3.yogiaudio.dto.admin.AdminCriteria;
 import com.project3.yogiaudio.dto.admin.NoticeSaveFormDTO;
 import com.project3.yogiaudio.dto.admin.QnaReplySaveFormDTO;
 import com.project3.yogiaudio.dto.board.BoardFileDTO;
-import com.project3.yogiaudio.filedb.entity.Filedb;
-import com.project3.yogiaudio.filedb.repository.FiledbRepository;
-import com.project3.yogiaudio.filedb.service.FiledbService;
+import com.project3.yogiaudio.repository.entity.Filedb;
 import com.project3.yogiaudio.repository.entity.User;
 import com.project3.yogiaudio.repository.entity.board.BoardFree;
 import com.project3.yogiaudio.repository.entity.board.BoardFreeComment;
@@ -23,6 +21,7 @@ import com.project3.yogiaudio.repository.entity.board.BoardNotice;
 import com.project3.yogiaudio.repository.entity.board.BoardQna;
 import com.project3.yogiaudio.repository.entity.board.BoardQnaReply;
 import com.project3.yogiaudio.repository.interfaces.AdminBoardRepository;
+import com.project3.yogiaudio.repository.interfaces.FiledbRepository;
 import com.project3.yogiaudio.util.Define;
 
 import jakarta.servlet.http.HttpSession;

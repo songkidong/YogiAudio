@@ -21,8 +21,7 @@ window.onload = function() {
 					// 확인버튼 클릭시
 					$.ajax({
 						// 쿼리파라미터 방식 '/admin/music?videono=' + videono
-						// 음원, 뮤비 1대1 이라 뮤비 삭제하면 음원 삭제와 같다 no 값도 같음
-						url : '/admin/music/' + videono, 
+						url : '/admin/musicVideo/' + videono, 
 						type : 'delete',
 						
 						success : function(data) {

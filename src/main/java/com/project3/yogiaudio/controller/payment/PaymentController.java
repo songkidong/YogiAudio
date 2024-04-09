@@ -1,4 +1,4 @@
-package com.project3.yogiaudio.payment;
+package com.project3.yogiaudio.controller.payment;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -14,19 +14,21 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
-
 @Controller
-public class CancelController {
+public class PaymentController {
+
 	
-	@RequestMapping("/cancel")
-	public ResponseEntity<JSONObject> confirmPayment(@RequestBody String jsonBody) throws Exception {
+	  @RequestMapping(value = "/confirm")
+	  public ResponseEntity<JSONObject> confirmPayment(@RequestBody String jsonBody) throws Exception {
 	    
 	    JSONParser parser = new JSONParser();
-	    String cancelReason;
+	    String orderId;
+	    String amount;
 	    String paymentKey;
 	    
 	    
@@ -34,15 +36,17 @@ public class CancelController {
 	      // 클라이언트에서 받은 JSON 요청 바디입니다.
 	      JSONObject requestData = (JSONObject) parser.parse(jsonBody);
 	      paymentKey = (String) requestData.get("paymentKey");
-	      cancelReason = (String) requestData.get("cancelReason");
+	      orderId = (String) requestData.get("orderId");
+	      amount = (String) requestData.get("amount");
 	     
 	      
 	    } catch (ParseException e) {
 	      throw new RuntimeException(e);
 	    };
 	    JSONObject obj = new JSONObject();
+	    obj.put("orderId", orderId);
+	    obj.put("amount", amount);
 	    obj.put("paymentKey", paymentKey);
-	    obj.put("cancelReason", cancelReason);
 	  
 	    
 	    // 토스페이먼츠 API는 시크릿 키를 사용자 ID로 사용하고, 비밀번호는 사용하지 않습니다.
@@ -53,7 +57,7 @@ public class CancelController {
 	    String authorizations = "Basic " + new String(encodedBytes, 0, encodedBytes.length);
 	    
 	    // 결제를 승인하면 결제수단에서 금액이 차감돼요.
-	    URL url = new URL("https://api.tosspayments.com/v1/payments/" + paymentKey + "/cancel");
+	    URL url = new URL("https://api.tosspayments.com/v1/payments/confirm");
 	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 	    connection.setRequestProperty("Authorization", authorizations);
 	    connection.setRequestProperty("Content-Type", "application/json");
@@ -74,6 +78,13 @@ public class CancelController {
 	    responseStream.close();
 	    return ResponseEntity.status(code).body(jsonObject);
 	  }
+	
+	  
+	   
+	  
+	  
+	  
+	 
 	
 	
 }

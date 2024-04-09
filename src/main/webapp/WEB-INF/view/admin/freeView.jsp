@@ -66,7 +66,7 @@
 				<div class="info">
 					<span class="nick">${comment.writerName }</span> <span class="date">${comment.formatCreatedAt() }</span>
 				</div>
-				<p class="content" >댓글입니다.</p>
+				<p class="content" >${comment.content }</p>
 				<div class="actions">
 
 					<a href="#" class="deleteComment" data-id="${comment.id }" >삭제</a> 

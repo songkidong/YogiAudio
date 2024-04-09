@@ -14,7 +14,7 @@ import com.project3.yogiaudio.dto.common.Criteria;
 import com.project3.yogiaudio.dto.common.PageVO;
 import com.project3.yogiaudio.dto.music.MusicDTO;
 import com.project3.yogiaudio.dto.music.MusicVideoDTO;
-import com.project3.yogiaudio.filedb.service.FiledbService;
+import com.project3.yogiaudio.service.FiledbService;
 import com.project3.yogiaudio.service.MusicVideoService;
 
 import jakarta.servlet.http.HttpServletRequest;

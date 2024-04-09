@@ -1,4 +1,4 @@
-package com.project3.yogiaudio.filedb.entity;
+package com.project3.yogiaudio.repository.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

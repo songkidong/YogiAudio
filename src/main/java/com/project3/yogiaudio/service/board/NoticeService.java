@@ -11,11 +11,11 @@ import com.project3.yogiaudio.dto.board.NoticeDTO;
 import com.project3.yogiaudio.dto.board.NoticeUpdateDTO;
 import com.project3.yogiaudio.dto.common.PageReq;
 import com.project3.yogiaudio.dto.common.PageRes;
-import com.project3.yogiaudio.filedb.entity.Filedb;
-import com.project3.yogiaudio.filedb.service.FiledbService;
+import com.project3.yogiaudio.repository.entity.Filedb;
 import com.project3.yogiaudio.repository.entity.board.BoardNotice;
 import com.project3.yogiaudio.repository.entity.board.BoardQna;
 import com.project3.yogiaudio.repository.interfaces.board.NoticeRepository;
+import com.project3.yogiaudio.service.FiledbService;
 
 import lombok.extern.slf4j.Slf4j;
 

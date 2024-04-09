@@ -11,7 +11,6 @@ import com.project3.yogiaudio.dto.admin.NoticeSaveFormDTO;
 import com.project3.yogiaudio.dto.board.NoticeDTO;
 import com.project3.yogiaudio.dto.music.MusicDTO;
 import com.project3.yogiaudio.dto.music.MusicVideoDTO;
-import com.project3.yogiaudio.filedb.service.FiledbService;
 import com.project3.yogiaudio.repository.entity.History;
 import com.project3.yogiaudio.repository.entity.Music;
 import com.project3.yogiaudio.repository.entity.Refund;
@@ -93,14 +92,6 @@ public class AdminService {
 		return adminRepository.findAllMusic(cri);
 	}
 	
-	
-	// 뮤비리스트
-	public List<MusicVideoDTO> findAllMusicVideo(AdminCriteria cri){
-		return adminRepository.findAllMusicVideo(cri);
-	}
-	
-	
-	
 	/**
 	  * @Method Name : countAllMusic
 	  * @작성일 : 2024. 3. 13.
@@ -112,13 +103,6 @@ public class AdminService {
 		
 		return adminRepository.countAllMusic();
 	}
-	
-	
-	//뮤비리스트카운팅
-	public int countAllMusicVideo() {
-		return adminRepository.countAllMusicVideo();
-	}
-	
 	
 	/**
 	  * @Method Name : deleteMusic
@@ -216,11 +200,22 @@ public class AdminService {
 	  * @작성일 : 2024. 3. 25.
 	  * @작성자 : 박한산
 	  * @변경이력 : 
-	  * @Method 설명 : 뮤직비디오 수
+	  * @Method 설명 : 뮤비 카운팅
 	  */
-
+	public int countAllMusicVideo() {
+		return adminRepository.countAllMusicVideo();
+	}
 	
-	
+	/**
+	  * @Method Name : findAllMusicVideo
+	  * @작성일 : 2024. 3. 28.
+	  * @작성자 : 박한산
+	  * @변경이력 : 
+	  * @Method 설명 : 뮤비 목록
+	  */
+	public List<MusicVideoDTO> findAllMusicVideo(AdminCriteria cri){
+		return adminRepository.findAllMusicVideo(cri);
+	}
 	
 	//음원등록
 	@Transactional
@@ -246,8 +241,6 @@ public class AdminService {
 		
 	}
 	
-	
-	
 	//뮤비등록
 	@Transactional
 	public void insertMusicVideo(MusicVideoDTO dto,String filePath) {
@@ -264,8 +257,18 @@ public class AdminService {
 				.build();
 		
 		Integer result = adminRepository.insertMusicVideo(mv);
+	}
+	
+	/**
+	  * @Method Name : deleteMusicVideo
+	  * @작성일 : 2024. 3. 28.
+	  * @작성자 : 박한산
+	  * @변경이력 : 
+	  * @Method 설명 : 뮤비 삭제
+	  */
+	public boolean deleteMusicVideo(Integer videono) {
 		
-		
+		return adminRepository.deleteMusicVideo(videono);
 	}
 	
 	

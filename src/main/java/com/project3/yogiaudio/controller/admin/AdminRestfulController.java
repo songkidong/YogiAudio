@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,9 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project3.yogiaudio.dto.admin.NoticeSaveFormDTO;
 import com.project3.yogiaudio.dto.admin.QnaReplySaveFormDTO;
-import com.project3.yogiaudio.filedb.entity.Filedb;
-import com.project3.yogiaudio.filedb.service.FiledbService;
-import com.project3.yogiaudio.repository.entity.board.BoardQna;
 import com.project3.yogiaudio.service.AdminBoardService;
 import com.project3.yogiaudio.service.AdminService;
 
@@ -160,6 +156,14 @@ public class AdminRestfulController {
 		return new ResponseEntity<Boolean>(result, HttpStatus.OK);
 	}
 	
+	// 뮤비 삭제
+	@DeleteMapping("/musicVideo/{videono}")
+	public ResponseEntity<?> deleteMusicVideo(@PathVariable("videono") Integer videono) {
+		
+		boolean result = adminService.deleteMusicVideo(videono);
+		
+		return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+	}
 	
 	
 	

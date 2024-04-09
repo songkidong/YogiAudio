@@ -1,4 +1,4 @@
-package com.project3.yogiaudio.filedb.service;
+package com.project3.yogiaudio.service;
 
 import java.util.List;
 import java.util.UUID;
@@ -9,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.project3.yogiaudio.filedb.entity.Filedb;
-import com.project3.yogiaudio.filedb.repository.FiledbRepository;
+import com.project3.yogiaudio.repository.entity.Filedb;
+import com.project3.yogiaudio.repository.interfaces.FiledbRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
